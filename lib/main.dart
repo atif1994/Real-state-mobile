@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+
+import 'Services/constants.dart';
+import 'Views/Auth/auth.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Prologic 29',
+      theme: ThemeData(
+        primarySwatch: primaryColor,
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          titleTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        )
+      ),
+      home: const Auth(),
+    );
+  }
+}
