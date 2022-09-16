@@ -19,3 +19,8 @@ Widget myDivider(){
     child: Divider(thickness: 2, color: Colors.grey[200]),
   );
 }
+
+Widget loader = const Center(child: CircularProgressIndicator(),);
+
+//////////////////////////    Tiny Widgets   /////////////////////////////////
+ThemeData themeData = ThemeData.light();

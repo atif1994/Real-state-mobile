@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Views/Home/profile.dart';
+import 'package:prologic_29/Views/Home/Profile/profile.dart';
 import 'package:prologic_29/Views/Home/search.dart';
 
 import '../../Services/constants.dart';
@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search, color: Colors.white),
         onPressed: (){
-          Get.to(const Search());
+          Get.to(() => const Search());
         },
       ),
       bottomNavigationBar: BottomAppBar(

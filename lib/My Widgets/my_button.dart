@@ -22,6 +22,8 @@ class MyButton extends StatelessWidget {
       onPressed: onTap,
       textColor: Colors.white,
       color: color,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15))),
       child: SizedBox(
         width: double.infinity,
         child: Padding(
@@ -41,8 +43,6 @@ class MyButton extends StatelessWidget {
           ),
         ),
       ),
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15))),
     );
   }
 }

@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.prologic_29">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
    <application
         android:label="prologic_29"
         android:name="${applicationName}"
