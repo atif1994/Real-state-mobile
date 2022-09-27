@@ -17,7 +17,7 @@ class Auth extends GetView<AuthController> {
         if(controller.isSignInScreen.value){
           return const SignIn();
         }else{
-          return const SignUp();
+          return  SignUp();
         }
       }
     });

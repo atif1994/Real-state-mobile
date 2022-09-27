@@ -28,6 +28,7 @@ class ProfileSettings extends StatelessWidget {
               const MyTextField2(
                 label: 'Phone Number',
               ),
+              
               MyButton(
                 text: 'Update Profile',
                 onTap: (){
