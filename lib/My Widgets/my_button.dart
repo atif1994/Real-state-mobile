@@ -27,7 +27,9 @@ class MyButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 15,
+          horizontal: 15,
+          ),
           child: Row(
             children: [
               Expanded(

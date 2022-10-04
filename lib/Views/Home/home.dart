@@ -5,6 +5,7 @@ import 'package:prologic_29/Views/Home/search.dart';
 
 import '../../Services/constants.dart';
 import '../Drawer/my_drawer.dart';
+import '../profile/profile_screen.dart';
 import 'home_screen.dart';
 
 class Home extends StatefulWidget {
@@ -33,8 +34,14 @@ class _HomeState extends State<Home> {
         leading: IconButton(onPressed: (){
           scaffoldKey.currentState!.openDrawer();
         }, icon: const Icon(Icons.menu, color: Colors.white,)),
+      //  actions: [
+      //   IconButton(onPressed: (){
+      //     Get.to(MyHomePage());
+      //   }, icon: Icon(Icons.person,size: 30,))
+      //  ],
+      
       ),
-      drawer: const MyDrawer(),
+      drawer:  MyDrawer(),
       body: _selectedWidget.elementAt(_selectedIndex),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(

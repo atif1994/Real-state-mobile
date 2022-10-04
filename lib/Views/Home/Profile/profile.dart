@@ -27,7 +27,7 @@ class _ProfileState extends State<Profile> {
           title: const Text('Profile Settings'),
           trailing: const Icon(Icons.arrow_forward_ios),
           onTap: (){
-            Get.to(const ProfileSettings());
+            Get.to( ProfileSettings());
           },
         ),
         ListTile(

@@ -52,7 +52,7 @@ class _MyTextField2State extends State<MyTextField2> {
       width: s.width,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            vertical: 5),
+            vertical: 10,horizontal: 10),
         child: TextFormField(
           enabled: widget.enabled,
           controller: widget.controller,
