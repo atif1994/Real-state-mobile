@@ -12,20 +12,25 @@ class SignUpController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
-
+  final TextEditingController CountryController = TextEditingController();
+  final TextEditingController SateController = TextEditingController();
+  final TextEditingController CityController = TextEditingController();
   RxBool isLoading = false.obs;
 
   signUp() async {
     isLoading(true);
-
+//https://test.ditllcae.com/backend/public/api/
     dio.Response response = await dio.Dio().post(
-      'https://test.ditllcae.com/backend/public/api/register',
+      'http://realestate.tecrux.net/api/signup',
       data: {
         'email': emailController.text.trim(),
         'password': passwordController.text.trim(),
         'username': emailController.text.trim(),
         'fname': firstNameController.text,
         'lname': lastNameController.text,
+        'country':CountryController.text,
+        'state':SateController.text,
+        'city':CityController.text,
         'role_id': 2,
       },
     );

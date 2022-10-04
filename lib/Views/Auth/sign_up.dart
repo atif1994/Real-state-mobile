@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:ui';
 
 import 'package:csc_picker/csc_picker.dart';
@@ -91,7 +93,7 @@ class SignUp extends GetView<SignUpController> {
                                     controller: controller.passwordController,
                                     isPasswordField: true,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   CSCPicker(
@@ -188,14 +190,13 @@ class SignUp extends GetView<SignUpController> {
 
                                     ///triggers once city selected in dropdown
                                     onCityChanged: (value) {
-                                      cityValue = value.toString();
+                                      
                                       // setState(() {
                                       //   ///store value in city variable
                                       //   cityValue = value.toString();
                                       // });
                                     },
                                   ),
-                                  SizedBox(height: 10,),
                                   MyButton(
                                       onTap: () {
                                         controller.signUp();

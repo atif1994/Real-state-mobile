@@ -3,27 +3,33 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:prologic_29/Services/constants.dart';
+import 'package:prologic_29/Controllers/pick_image_controller.dart';
 
-import '../../../Controllers/pick_image_controller.dart';
-import '../../../My Widgets/my_button.dart';
-import '../../../My Widgets/my_text_field_2.dart';
-import '../../profile/profile_screen.dart';
+import '../../Controllers/profile_controller.dart';
 
-class ProfileSettings extends StatelessWidget {
+
+class ProfileImageEdit extends StatelessWidget {
   File? imageFile;
   ImagePicker imagePicker = ImagePicker();
      ImagePickerController imagePickerController =
-      Get.put(ImagePickerController());
-   ProfileSettings({Key? key}) : super(key: key);
+      Get.put(ImagePickerController());  
+ 
+   ProfileImageEdit({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile Settings')),
-      body: SingleChildScrollView(
+      body: Center(
         child: Column(
+         // mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // const Text(
+            //   "Image Picker Page",
+            //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            // ),
+            // SizedBox(
+            //   height: 50,
+            // ),
             Padding(
               padding: const EdgeInsets.all(28.0),
               child: Stack(
@@ -37,7 +43,7 @@ class ProfileSettings extends StatelessWidget {
                             ? FileImage(
                                     File(imagePickerController.imagePath.value))
                                 as ImageProvider
-                            : NetworkImage(''),
+                            : AssetImage(""),
                       )),
                   Positioned(
                     bottom: 0,
@@ -57,36 +63,7 @@ class ProfileSettings extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: 20,),
-            const MyTextField2(
-              label: 'First Name',
-            ),
-            const MyTextField2(
-              label: 'Last Name',
-            ),
-            const MyTextField2(
-              label: 'Email',
-            ),
-            const MyTextField2(
-              label: 'Phone Number',
-            ),
-             const MyTextField2(
-              label: 'Country',
-            ),
-             const MyTextField2(
-              label: 'State or province',
-            ),
-             const MyTextField2(
-              label: 'City',
-            ),
-            
-            MyButton(
-              text: 'Update Profile',
-              onTap: (){
-
-              },
-            ),
+            )
           ],
         ),
       ),

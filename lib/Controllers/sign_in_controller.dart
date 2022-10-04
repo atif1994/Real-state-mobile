@@ -16,7 +16,7 @@ class SignInController extends GetxController {
     isLoading(true);
 
     dio.Response response = await dio.Dio().post(
-      'https://test.ditllcae.com/backend/public/api/login',
+      'https://realestate.tecrux.net/api/v1/login',
       data: {
         'email': emailController.text.trim(),
         'password': passwordController.text.trim(),
