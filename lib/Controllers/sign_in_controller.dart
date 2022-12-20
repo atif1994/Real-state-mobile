@@ -16,7 +16,7 @@ class SignInController extends GetxController {
     isLoading(true);
 
     dio.Response response = await dio.Dio().post(
-      'https://realestate.tecrux.net/api/v1/login',
+      'http://realestate.tecrux.net/api/v1/login',
       data: {
         'email': emailController.text.trim(),
         'password': passwordController.text.trim(),
@@ -30,8 +30,8 @@ class SignInController extends GetxController {
       MySharedPreferences.storeUserData(
           userModel: UserModel(
         userId: user['id'],
-        firstName: user['fullName'],
-        lastName: user['fullName'],
+        firstname: user['first_name'],
+        lastname: user['last_name'],
         email: user['email'],
       ));
 
@@ -42,6 +42,28 @@ class SignInController extends GetxController {
     } else {
       Fluttertoast.showToast(msg: 'Unauthorised');
       isLoading(false);
+
+    // if (data['error'] == false) {
+    //   final user = data['data'];
+    //   MySharedPreferences.storeUserData(
+    //       userModel: UserModel(
+    //     userId: user['id'],
+    //     email: user['email'],
+    //     firstname: user['firstname'],
+    //     lastname: user['lastname'],
+        
+
+    //   ));
+
+    //   Get.find<AuthController>().isUserSignedIn();
+
+    //   Get.snackbar('Signed In', 'User is signed in');
+    //   Fluttertoast.showToast(msg: 'Authorised');
+
+    //   isLoading(false);
+    // } else {
+    //   Fluttertoast.showToast(msg: 'unAuthorized');
+    //   isLoading(false);
     }
   }
 }

@@ -16,26 +16,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Prologic 29',
-      initialBinding: AppBindings(),
-      theme: ThemeData(
-        primarySwatch: primaryColor,
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          iconTheme: IconThemeData(
-            color: Colors.white
-          ),
-          titleTextStyle: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-          ),
-        )
-      ),
-      home: 
-      //Profile_Page()
-       Auth()
-      //MyHomePage(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Prologic 29',
+        initialBinding: AppBindings(),
+        theme: ThemeData(
+            primarySwatch: primaryColor,
+            appBarTheme: const AppBarTheme(
+              centerTitle: true,
+              iconTheme: IconThemeData(color: Colors.white),
+              titleTextStyle: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            )),
+        home:
+            //Profile_Page()
+            Auth()
+        //MyHomePage(),
+        );
   }
 }
