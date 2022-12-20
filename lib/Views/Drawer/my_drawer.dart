@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prologic_29/Services/my_shared_preferences.dart';
+import 'package:prologic_29/Views/Drawer/contactus.dart';
 
 import '../../Controllers/auth_controller.dart';
 import '../../Controllers/pick_image_controller.dart';
@@ -40,14 +41,11 @@ class MyDrawer extends StatelessWidget {
                                 as ImageProvider
                             : NetworkImage(
                                 imagePickerController.imagePath.value),
-                      )
-                      ),
-                      
+                      )),
                 ],
               ),
             ),
           )),
-         
           ListTile(
             title: const Text('About Us'),
             onTap: () {},
@@ -58,7 +56,14 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Contact Us'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => contactus(),
+                ),
+              );
+            },
           ),
           ListTile(
             title: const Text('Log out'),

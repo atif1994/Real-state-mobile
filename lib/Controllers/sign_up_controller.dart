@@ -7,8 +7,10 @@ import '../Services/my_shared_preferences.dart';
 import 'auth_controller.dart';
 
 class SignUpController extends GetxController {
+  final _formkey = GlobalKey<FormState>();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController UserController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
@@ -21,39 +23,48 @@ class SignUpController extends GetxController {
     isLoading(true);
 //https://test.ditllcae.com/backend/public/api/
     dio.Response response = await dio.Dio().post(
-      'http://realestate.tecrux.net/api/signup',
+      'http://realestate.tecrux.net/api/v1/register',
       data: {
         'email': emailController.text.trim(),
         'password': passwordController.text.trim(),
-        'username': emailController.text.trim(),
-        'fname': firstNameController.text,
-        'lname': lastNameController.text,
-        'country':CountryController.text,
-        'state':SateController.text,
-        'city':CityController.text,
-        'role_id': 2,
+        'username': UserController.text.trim(),
+        'first_name': firstNameController.text,
+        'last_name': lastNameController.text,
+        'country': CountryController.text,
+        'state': SateController.text,
+        'city': CityController.text,
+        'phoneNumber': phoneNumberController.text,
+        'role_id': 4,
       },
     );
 
     final data = response.data;
 
-    if (data['success']) {
+    if (data['error'] == false) {
+      Fluttertoast.showToast(msg: 'Authorised');
+      isLoading(false);
       final user = data['data'];
       MySharedPreferences.storeUserData(
           userModel: UserModel(
-            userId: user['id'],
-            firstName: user['name'],
-            lastName: user['name'],
-            email: user['email'],
-          ));
+        userId: user['id'],
+        firstname: user['first_name'],
+        lastname: user['last_name'],
+        email: user['email'],
+        
 
+
+      ));
       Get.find<AuthController>().isUserSignedIn();
 
-      // Get.snackbar('Signed In', 'User is signed in');
+      Get.snackbar('Signed In', 'User is signed in');
+    }
+
+    // print(data['data']);
+
+    else {
+      Fluttertoast.showToast(msg: ':UnAuthorised');
       isLoading(false);
-    }else{
-      Fluttertoast.showToast(msg: 'Unauthorised');
-      isLoading(false);
+      print("error");
     }
   }
 }

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Controllers/sign_up_controller.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
-
 import '../../Controllers/auth_controller.dart';
 import '../../My Widgets/my_button.dart';
 import '../../My Widgets/my_text_field.dart';
@@ -16,6 +15,7 @@ import '../../Services/constants.dart';
 import '../Home/home.dart';
 
 class SignUp extends GetView<SignUpController> {
+  final _formkey = GlobalKey<FormState>();
   SignUp({Key? key}) : super(key: key);
 
   @override
@@ -71,27 +71,87 @@ class SignUp extends GetView<SignUpController> {
                                             fontWeight: FontWeight.bold),
                                         textScaleFactor: 1.5),
                                   ),
-                                  MyTextField(
-                                    label: 'First Name',
-                                    controller: controller.firstNameController,
-                                  ),
-                                  MyTextField(
-                                    label: 'Last Name',
-                                    controller: controller.lastNameController,
-                                  ),
-                                  MyTextField(
-                                    label: 'Phone Number',
-                                    controller:
-                                        controller.phoneNumberController,
-                                  ),
-                                  MyTextField(
-                                    label: 'Email',
-                                    controller: controller.emailController,
-                                  ),
-                                  MyTextField(
-                                    label: 'Password',
-                                    controller: controller.passwordController,
-                                    isPasswordField: true,
+                                  Form(
+                                    key: _formkey,
+                                    child: Column(children: [
+                                      TextFormField(
+                                        showCursor: true,
+                                        decoration: InputDecoration(
+                                            hintText: 'User Name'),
+                                        controller:
+                                            controller.firstNameController,
+                                        validator: (String? value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter user name';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      TextFormField(
+                                        showCursor: true,
+                                        decoration: InputDecoration(
+                                            hintText: 'First Name'),
+                                        controller:
+                                            controller.firstNameController,
+                                        validator: (String? value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter your name';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      TextFormField(
+                                        showCursor: true,
+                                        decoration: InputDecoration(
+                                            hintText: 'Last Name'),
+                                        controller:
+                                            controller.lastNameController,
+                                        validator: (String? value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter your last name';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      TextFormField(
+                                        showCursor: true,
+                                        decoration: InputDecoration(
+                                            hintText: 'Mobile No'),
+                                        controller:
+                                            controller.phoneNumberController,
+                                        validator: (String? value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter your Mobile No';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      TextFormField(
+                                        showCursor: true,
+                                        decoration:
+                                            InputDecoration(hintText: 'Email'),
+                                        controller: controller.emailController,
+                                        validator: (String? value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter your Email';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      TextFormField(
+                                        showCursor: true,
+                                        decoration: InputDecoration(
+                                            hintText: 'Password'),
+                                        controller:
+                                            controller.passwordController,
+                                        validator: (String? value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter your Password';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ]),
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -172,7 +232,7 @@ class SignUp extends GetView<SignUpController> {
 
                                     ///triggers once country selected in dropdown
                                     onCountryChanged: (value) {
-                                        countryValue=value;
+                                      countryValue = value;
                                       // setState(() {
                                       //   ///store value in country variable
                                       //   countryValue = value;
@@ -190,7 +250,6 @@ class SignUp extends GetView<SignUpController> {
 
                                     ///triggers once city selected in dropdown
                                     onCityChanged: (value) {
-                                      
                                       // setState(() {
                                       //   ///store value in city variable
                                       //   cityValue = value.toString();
@@ -199,7 +258,12 @@ class SignUp extends GetView<SignUpController> {
                                   ),
                                   MyButton(
                                       onTap: () {
-                                        controller.signUp();
+                                        if (_formkey.currentState!.validate()) {
+                                          controller.signUp();
+                                          // print("Successfull");
+                                        } else {
+                                          print("Unsuccessfull");
+                                        }
                                       },
                                       text: 'SIGN UP'),
                                   Padding(

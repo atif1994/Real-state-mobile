@@ -7,6 +7,7 @@ class MyTextField2 extends StatefulWidget {
   final String errorText;
   final TextInputType? textInputType;
   final bool enabled;
+  final bool readonly;
   final bool obscureText;
   final bool isPasswordField;
   final String? Function(String?)? validator;
@@ -25,6 +26,7 @@ class MyTextField2 extends StatefulWidget {
     this.hasError = false,
     this.errorText = '',
     this.textInputType,
+    this.readonly=false,
     this.enabled = true,
     this.obscureText = false,
     this.isPasswordField = false,
@@ -55,6 +57,7 @@ class _MyTextField2State extends State<MyTextField2> {
             vertical: 10,horizontal: 10),
         child: TextFormField(
           enabled: widget.enabled,
+          readOnly: widget.readonly,
           controller: widget.controller,
           keyboardType: widget.textInputType,
           obscureText: widget.isPasswordField

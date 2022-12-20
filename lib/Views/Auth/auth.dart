@@ -11,13 +11,13 @@ class Auth extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if(controller.isSignedIn.value){
+      if (controller.isSignedIn.value) {
         return const Home();
-      }else{
-        if(controller.isSignInScreen.value){
-          return const SignIn();
-        }else{
-          return  SignUp();
+      } else {
+        if (controller.isSignInScreen.value) {
+          return SignIn();
+        } else {
+          return SignUp();
         }
       }
     });
