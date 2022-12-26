@@ -4,7 +4,6 @@ import '../Services/my_shared_preferences.dart';
 class AuthController extends GetxController {
   RxBool isSignedIn = false.obs;
   RxBool isSignInScreen = true.obs;
-  //RxBool isSignUpScreen = true.obs;
 
   @override
   void onInit() {
@@ -14,9 +13,6 @@ class AuthController extends GetxController {
   }
 
   void isUserSignedIn() async {
-    isSignedIn(await MySharedPreferences.getUserData()
-        .then((value) => value.userId != 0 ? true : false));
-    //isSignUpScreen(await MySharedPreferences.getUserData()
-    //.then((value) => value.userId != 0 ? true : false));
+    isSignedIn(await MySharedPreferences.getUserData().then((value) => value.userId != 0 ? true : false));
   }
 }
