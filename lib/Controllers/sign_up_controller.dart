@@ -8,6 +8,7 @@ import 'auth_controller.dart';
 
 class SignUpController extends GetxController {
   final _formkey = GlobalKey<FormState>();
+
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController UserController = TextEditingController();
@@ -20,20 +21,24 @@ class SignUpController extends GetxController {
   RxBool isLoading = false.obs;
 
   signUp() async {
+    print(CountryController.text);
+    print(CityController.text);
+    print(SateController.text);
+    print(UserController.text);
     isLoading(true);
 //https://test.ditllcae.com/backend/public/api/
     dio.Response response = await dio.Dio().post(
-      'http://realestate.tecrux.net/api/v1/register',
+      'https://realestate.tecrux.net/api/v1/register',
       data: {
         'email': emailController.text.trim(),
         'password': passwordController.text.trim(),
         'username': UserController.text.trim(),
-        'first_name': firstNameController.text,
-        'last_name': lastNameController.text,
-        'country': CountryController.text,
-        'state': SateController.text,
-        'city': CityController.text,
-        'phoneNumber': phoneNumberController.text,
+        'first_name': firstNameController.text.trim(),
+        'last_name': lastNameController.text.trim(),
+        'country': CountryController.text.trim(),
+        'state': SateController.text.trim(),
+        'city': CityController.text.trim(),
+        'phone': phoneNumberController.text.trim(),
         'role_id': 4,
       },
     );
@@ -47,9 +52,14 @@ class SignUpController extends GetxController {
       MySharedPreferences.storeUserData(
           userModel: UserModel(
         userId: user['id'],
+        // phone: user['phone'],
+        userName: user['username'],
         firstname: user['first_name'],
         lastname: user['last_name'],
         email: user['email'],
+        // city: user['city'],
+        // country: user['country'],
+        // state: user['state'],
         
 
 
