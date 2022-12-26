@@ -73,6 +73,12 @@ class _AddPropertyState extends State<AddProperty> with SingleTickerProviderStat
   List<String> bathroomList = ['Any', '1', '2', '3', '4', '5', '6+'];
   String selectedBathroom = 'Any';
 
+  String numberFloors = 'Any';
+
+  List<String> FloorsList = ['Any', '1', '2', '3+'];
+  String selectedFloor = 'Any';
+
+
   @override
   void initState() {
     // TODO: implement onInit
@@ -166,6 +172,24 @@ class _AddPropertyState extends State<AddProperty> with SingleTickerProviderStat
                               padding: EdgeInsets.symmetric(
                                   horizontal: horizontalPadding),
                               child: Text('Property Description',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                          )
+                        ],
+                      ),
+                      const MyTextField2(),
+                    ],
+                  ),Column(
+                    children: [
+                      Row(
+                        children: const [
+                          Icon(Icons.sell_outlined),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: horizontalPadding),
+                              child: Text('Content',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold)),
                             ),
@@ -531,7 +555,7 @@ class _AddPropertyState extends State<AddProperty> with SingleTickerProviderStat
                               });
                             },
                             child: Chip(
-                              backgroundColor: selectedBathroom
+                              backgroundColor: selectedFloor
                                    ==
                                   e
                                   ? primaryColor
@@ -541,7 +565,7 @@ class _AddPropertyState extends State<AddProperty> with SingleTickerProviderStat
                                     .symmetric(horizontal: 5),
                                 child: Text(e,
                                     style: TextStyle(
-                                        color: selectedBathroom
+                                        color: selectedFloor
                                              ==
                                             e
                                             ? Colors.white
@@ -554,6 +578,59 @@ class _AddPropertyState extends State<AddProperty> with SingleTickerProviderStat
                       ),
                     ],
                   ),
+                   myDivider(),
+                  Column(
+                    children: [
+                      Row(
+                        children: const [
+                         // Icon(Icons.bathtub_outlined),
+                          Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: horizontalPadding),
+                                child: Text('Number Floors',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold)),
+                              )),
+                        ],
+                      ),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        children: FloorsList
+                            .map((e) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedFloor = e;
+                              });
+                            },
+                            child: Chip(
+                              backgroundColor: selectedFloor
+                                   ==
+                                  e
+                                  ? primaryColor
+                                  : Colors.grey[200],
+                              label: Padding(
+                                padding: const EdgeInsets
+                                    .symmetric(horizontal: 5),
+                                child: Text(e,
+                                    style: TextStyle(
+                                        color: selectedFloor
+                                             ==
+                                            e
+                                            ? Colors.white
+                                            : Colors.black)),
+                              ),
+                            ),
+                          ),
+                        ))
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                  myDivider(),
                   Column(
                     children: [
                       Row(

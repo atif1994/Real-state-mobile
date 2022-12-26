@@ -79,7 +79,7 @@ class SignUp extends GetView<SignUpController> {
                                         decoration: InputDecoration(
                                             hintText: 'User Name'),
                                         controller:
-                                            controller.firstNameController,
+                                            controller.UserController,
                                         validator: (String? value) {
                                           if (value == null || value.isEmpty) {
                                             return 'Please enter user name';
@@ -232,7 +232,8 @@ class SignUp extends GetView<SignUpController> {
 
                                     ///triggers once country selected in dropdown
                                     onCountryChanged: (value) {
-                                      countryValue = value;
+                                      controller.CountryController.text = value;
+                                      
                                       // setState(() {
                                       //   ///store value in country variable
                                       //   countryValue = value;
@@ -241,7 +242,7 @@ class SignUp extends GetView<SignUpController> {
 
                                     ///triggers once state selected in dropdown
                                     onStateChanged: (value) {
-                                      stateValue = value.toString();
+                                      controller.SateController.text= value.toString();
                                       // setState(() {
                                       //   ///store value in state variable
                                       //   stateValue = value.toString();
@@ -250,9 +251,11 @@ class SignUp extends GetView<SignUpController> {
 
                                     ///triggers once city selected in dropdown
                                     onCityChanged: (value) {
+                                      controller.CityController.text=value.toString();
+                                      //controller=controller.CityController,
                                       // setState(() {
                                       //   ///store value in city variable
-                                      //   cityValue = value.toString();
+                                      //  // cityValue = value.toString();
                                       // });
                                     },
                                   ),

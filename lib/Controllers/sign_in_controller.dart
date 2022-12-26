@@ -16,7 +16,7 @@ class SignInController extends GetxController {
     isLoading(true);
 
     dio.Response response = await dio.Dio().post(
-      'http://realestate.tecrux.net/api/v1/login',
+      'https://realestate.tecrux.net/api/v1/login',
       data: {
         'email': emailController.text.trim(),
         'password': passwordController.text.trim(),
@@ -30,9 +30,15 @@ class SignInController extends GetxController {
       MySharedPreferences.storeUserData(
           userModel: UserModel(
         userId: user['id'],
+        // phone: user['phone'],
+        userName: user['username'],
         firstname: user['first_name'],
         lastname: user['last_name'],
         email: user['email'],
+        // city: user['city'],
+        // country: user['country'],
+        // state: user['state'],
+
       ));
 
       Get.find<AuthController>().isUserSignedIn();
