@@ -10,8 +10,8 @@ import '../../Controllers/auth_controller.dart';
 import '../../Services/constants.dart';
 
 class SignIn extends GetView<SignInController> {
+  final _formKey = GlobalKey<FormState>();
   SignIn({Key? key}) : super(key: key);
-  final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +30,9 @@ class SignIn extends GetView<SignInController> {
               Obx(() {
                 if (!controller.isLoading.value) {
                   return Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: ClipRRect(
-                          child: BackdropFilter(
+                    padding: const EdgeInsets.all(15),
+                    child: ClipRRect(
+                      child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                         child: Container(
                           decoration: BoxDecoration(
@@ -43,57 +43,61 @@ class SignIn extends GetView<SignInController> {
                             padding: const EdgeInsets.all(15),
                             child: SingleChildScrollView(
                               child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.only(bottom: 25),
-                                      child: Text('Sign In',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                          textScaleFactor: 1.5),
-                                    ),
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text('Welcome to CG',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                          textScaleFactor: 1.5),
-                                    ),
-                                    Form(
-                                      key: _formkey,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 25),
+                                    child: Text('Sign In',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                        textScaleFactor: 1.5),
+                                  ),
+                                  const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text('Welcome to CG',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                        textScaleFactor: 1.5),
+                                  ),
+                                  Form(
+                                      key: _formKey,
                                       child: Column(
                                         children: [
                                           TextFormField(
-                                            showCursor: true,
                                             decoration: InputDecoration(
                                                 hintText: 'Email'),
+                                            //label: 'Email',
                                             controller:
                                                 controller.emailController,
                                             validator: (String? value) {
                                               if (value == null ||
                                                   value.isEmpty) {
-                                                return 'Please enter your email';
+                                                return 'Enter Email here';
                                               }
+                                              //return value.isEmpty ? 'Enter email':null;
+                                              // print(value);
                                               return null;
                                             },
                                           ),
                                           TextFormField(
-                                            showCursor: true,
                                             decoration: InputDecoration(
-                                                hintText: 'password'),
+                                                hintText: 'Password'),
+                                            //label: 'Password',
                                             controller:
                                                 controller.passwordController,
                                             validator: (String? value) {
                                               if (value == null ||
                                                   value.isEmpty) {
-                                                return 'Please enter your password';
+                                                return 'Enter Password here';
                                               }
+                                              //return value.isEmpty ? 'Enter email':null;
+                                              // print(value);
                                               return null;
                                             },
+                                            // isPasswordField: true,
                                           ),
-
                                           Align(
                                               alignment: Alignment.centerRight,
                                               child: TextButton(
@@ -103,76 +107,72 @@ class SignIn extends GetView<SignInController> {
                                                     style: TextStyle(
                                                         color: Colors.red),
                                                   ))),
-                                          MyButton(
-                                              onTap: () {
-                                                if (_formkey.currentState!
-                                                    .validate()) {
-                                                  controller.signIn();
-                                                  // print("Successfull");
-                                                } else {
-                                                  print("Unsuccessfull");
-                                                }
-                                              },
-                                              text: 'SIGN IN'),
-                                          // const Padding(
-                                          //   padding: EdgeInsets.symmetric(vertical: 10),
-                                          //   child: Text('or Sign in with', style: TextStyle(color: Colors.white)),
-                                          // ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 15),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: 10),
-                                                  child: Text('Or Sign In With',
-                                                      style: TextStyle(
-                                                          color: Colors.white)),
-                                                ),
-                                                const Expanded(
-                                                    child: Divider(
-                                                        color: Colors.grey,
-                                                        thickness: 1.5)),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 10),
-                                                  child: Image.asset(
-                                                      facebookIcon,
-                                                      width: 50,
-                                                      height: 50),
-                                                ),
-                                                Image.asset(googleIcon,
-                                                    width: 50, height: 50),
-                                              ],
-                                            ),
-                                          ),
-                                          const Divider(
-                                              color: Colors.grey,
-                                              thickness: 1.5),
-                                          TextButton(
-                                              onPressed: () {
-                                                Get.find<AuthController>()
-                                                    .isSignInScreen
-                                                    .value = false;
-                                              },
-                                              child: const Text(
-                                                'Don\'t have and account?\nCreate account',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ))
                                         ],
-                                      ),
+                                      )),
+                                  MyButton(
+                                      onTap: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          print("successfully");
+                                        } else {
+                                          print("unsuccessfull");
+                                        }
+
+                                        // controller.signIn();
+                                      },
+                                      text: 'SIGN IN'),
+                                  // const Padding(
+                                  //   padding: EdgeInsets.symmetric(vertical: 10),
+                                  //   child: Text('or Sign in with', style: TextStyle(color: Colors.white)),
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 15),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.only(right: 10),
+                                          child: Text('Or Sign In With',
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                        ),
+                                        const Expanded(
+                                            child: Divider(
+                                                color: Colors.grey,
+                                                thickness: 1.5)),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Image.asset(facebookIcon,
+                                              width: 50, height: 50),
+                                        ),
+                                        Image.asset(googleIcon,
+                                            width: 50, height: 50),
+                                      ],
                                     ),
-                                  ]),
+                                  ),
+                                  const Divider(
+                                      color: Colors.grey, thickness: 1.5),
+                                  TextButton(
+                                      onPressed: () {
+                                        Get.find<AuthController>()
+                                            .isSignInScreen
+                                            .value = false;
+                                      },
+                                      child: const Text(
+                                        'Don\'t have and account?\nCreate account',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.white),
+                                      ))
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      )));
+                      ),
+                    ),
+                  );
                 } else {
                   return loader;
                 }
