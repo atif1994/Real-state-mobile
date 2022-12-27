@@ -16,7 +16,7 @@ class SignInController extends GetxController {
     isLoading(true);
 
     dio.Response response = await dio.Dio().post(
-      'https://realestate.tecrux.net/api/v1/login',
+      'http://realestate.tecrux.net/api/v1/login',
       data: {
         'email': emailController.text.trim(),
         'password': passwordController.text.trim(),
@@ -25,51 +25,24 @@ class SignInController extends GetxController {
 
     final data = response.data;
 
-    if (data['success']) {
+    if (data['error'] == false) {
       final user = data['data'];
       MySharedPreferences.storeUserData(
           userModel: UserModel(
         userId: user['id'],
-        // phone: user['phone'],
-        userName: user['username'],
-        firstname: user['first_name'],
-        lastname: user['last_name'],
+        firstName: user['first_name'],
+        lastName: user['last_Name'],
         email: user['email'],
-        // city: user['city'],
-        // country: user['country'],
-        // state: user['state'],
-
       ));
 
       Get.find<AuthController>().isUserSignedIn();
 
-      // Get.snackbar('Signed In', 'User is signed in');
+      Get.snackbar('Signed In', 'User is signed in');
+      Fluttertoast.showToast(msg: 'Authorised');
       isLoading(false);
     } else {
       Fluttertoast.showToast(msg: 'Unauthorised');
       isLoading(false);
-
-    // if (data['error'] == false) {
-    //   final user = data['data'];
-    //   MySharedPreferences.storeUserData(
-    //       userModel: UserModel(
-    //     userId: user['id'],
-    //     email: user['email'],
-    //     firstname: user['firstname'],
-    //     lastname: user['lastname'],
-        
-
-    //   ));
-
-    //   Get.find<AuthController>().isUserSignedIn();
-
-    //   Get.snackbar('Signed In', 'User is signed in');
-    //   Fluttertoast.showToast(msg: 'Authorised');
-
-    //   isLoading(false);
-    // } else {
-    //   Fluttertoast.showToast(msg: 'unAuthorized');
-    //   isLoading(false);
     }
   }
 }
