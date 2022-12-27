@@ -22,19 +22,18 @@ class ProfileSettings extends StatefulWidget {
 class _ProfileSettingsState extends State<ProfileSettings> {
   File? imageFile;
   int usid = 0;
-  //GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
+  GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
 
-  // String firstName='';
-  // String lastName='' ;
+ 
   final TextEditingController UserController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
-  String country = "";
-  String state = "";
-  String city = "";
+  String country= "--Select Country--" ;
+  String state = "--Select State--";
+  String city = "--Select City--";
   String address = "";
   // final TextEditingController CountryController = TextEditingController();
   // final TextEditingController SateController = TextEditingController();
@@ -61,7 +60,6 @@ class _ProfileSettingsState extends State<ProfileSettings> {
         "username": UserController.text.trim(),
         "last_name": lastNameController.text.trim(),
         "phone": phoneNumberController.text.trim(),
-        
         "city": city.trim(),
         "country": country.trim(),
         "state": state.trim()
@@ -101,8 +99,11 @@ class _ProfileSettingsState extends State<ProfileSettings> {
       emailController.text = user['email'];
       phoneNumberController.text = user['phone'];
       country = user['address']['country'];
-      state= user['address']['state'];
+      state = user['address']['state'];
       city = user['address']['city'];
+      print(country);
+      print(city);
+
     }
   }
 
@@ -228,9 +229,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               citySearchPlaceholder: "City",
 
               ///labels for dropdown
-              countryDropdownLabel: "*Country",
-              stateDropdownLabel: "*State",
-              cityDropdownLabel: "*City",
+              countryDropdownLabel: country,
+              stateDropdownLabel: state,
+              cityDropdownLabel: city,
 
               ///Default Country
               //defaultCountry: DefaultCountry.India,
@@ -270,7 +271,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
                 // setState(() {
                 //   ///store value in country variable
-                //   countryValue = value;
+                //   country = value;
                 // });
               },
 
@@ -279,7 +280,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 state = value.toString();
                 // setState(() {
                 //   ///store value in state variable
-                //   stateValue = value.toString();
+                //   state = value.toString();
                 // });
               },
 
@@ -289,7 +290,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 //controller=controller.CityController,
                 // setState(() {
                 //   ///store value in city variable
-                //  // cityValue = value.toString();
+                //  // city= value.toString();
                 // });
               },
             ),
