@@ -27,26 +27,55 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      extendBody: true,
-      appBar: AppBar(
-        title: const Text('Home'),
-        leading: IconButton(onPressed: (){
-          scaffoldKey.currentState!.openDrawer();
-        }, icon: const Icon(Icons.menu, color: Colors.white,)),
-      //  actions: [
-      //   IconButton(onPressed: (){
-      //     Get.to(MyHomePage());
-      //   }, icon: Icon(Icons.person,size: 30,))
-      //  ],
-      
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            snap: false,
+            pinned: true,
+            floating: false,
+            flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                title: Text("HOME",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                    ) //TextStyle
+                    ), //Text
+                background: Image(
+                  image: NetworkImage(
+                      "https://images.unsplash.com/photo-1608555307638-992062b31329?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"),
+                  //"assets\sincerely-media-p-NQlmGvFC8-unsplash.jpg",
+                  fit: BoxFit.cover,
+                ) //Images.network
+                ),
+            expandedHeight: 230,
+            backgroundColor: Colors.orange[400],
+            leading: IconButton(
+                onPressed: () {
+                  scaffoldKey.currentState!.openDrawer();
+                },
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                )),
+            // key: scaffoldKey,
+            // extendBody: true,
+            // appBar: AppBar(
+            //   title: const Text('Home'),
+
+            //  actions: [
+            //   IconButton(onPressed: (){
+            //     Get.to(MyHomePage());
+            //   }, icon: Icon(Icons.person,size: 30,))
+          ),
+        ],
       ),
-      drawer:  MyDrawer(),
-      body: _selectedWidget.elementAt(_selectedIndex),
+      drawer: MyDrawer(),
+      // body: _selectedWidget.elementAt(_selectedIndex),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search, color: Colors.white),
-        onPressed: (){
+        onPressed: () {
           Get.to(() => const Search());
         },
       ),
@@ -58,7 +87,7 @@ class _HomeState extends State<Home> {
         child: BottomNavigationBar(
           elevation: 0,
           backgroundColor: Colors.grey.withAlpha(0),
-          onTap: (index){
+          onTap: (index) {
             setState(() {
               _selectedIndex = index;
             });
@@ -67,19 +96,26 @@ class _HomeState extends State<Home> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined, color: Colors.white, size: 20,),
-                  label: 'Home',
-                  activeIcon: Icon(Icons.home, color: Colors.white, size: 30),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+                size: 20,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outlined, color: Colors.white, size: 20,),
-                label: 'Profile',
-                activeIcon: Icon(Icons.person, color: Colors.white, size: 30),
+              label: 'Home',
+              activeIcon: Icon(Icons.home, color: Colors.white, size: 30),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person_outlined,
+                color: Colors.white,
+                size: 20,
               ),
-            ],
+              label: 'Profile',
+              activeIcon: Icon(Icons.person, color: Colors.white, size: 30),
+            ),
+          ],
         ),
-
       ),
     );
   }

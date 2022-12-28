@@ -233,6 +233,11 @@ class SignUp extends GetView<SignUpController> {
                                     ///triggers once country selected in dropdown
                                     onCountryChanged: (value) {
                                       controller.CountryController.text = value;
+
+
+
+                                      
+                                      
                                       // setState(() {
                                       //   ///store value in country variable
                                       //   countryValue = value;
