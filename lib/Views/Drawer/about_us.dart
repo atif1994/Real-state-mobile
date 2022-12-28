@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class AboutUs extends StatefulWidget {
   const AboutUs({super.key});
-
   @override
   State<AboutUs> createState() => _AboutUsState();
 }
@@ -260,11 +259,9 @@ class _AboutUsState extends State<AboutUs> {
             //           width: 40,
             //         ),
             //       ),
-
             //       const SizedBox(
             //         width: 0,
             //       ),
-
             //       Padding(
             //         padding: const EdgeInsets.only(top: 8, bottom: 5, left: 17),
             //         child: Column(
@@ -339,7 +336,6 @@ class _AboutUsState extends State<AboutUs> {
             //       const SizedBox(
             //         width: 10,
             //       ),
-
             //       Padding(
             //         padding: const EdgeInsets.only(top: 8, bottom: 5, left: 7),
             //         child: Column(
@@ -348,7 +344,7 @@ class _AboutUsState extends State<AboutUs> {
             //           children: [
             //             const Text(
             //               textAlign: TextAlign.justify,
-            //               'Manage your Social & Business \nAccount Carefully',
+            //'Manage your Social & Business \nAccount Carefully',
             //               style: TextStyle(
             //                   fontSize: 13,
             //                   fontWeight: FontWeight.w500,
@@ -417,7 +413,6 @@ class _AboutUsState extends State<AboutUs> {
             //       const SizedBox(
             //         width: 10,
             //       ),
-
             //       Padding(
             //         padding: const EdgeInsets.only(top: 8, bottom: 5, left: 10),
             //         child: Column(
@@ -536,3 +531,21 @@ class _AboutUsState extends State<AboutUs> {
     );
   }
 }
+
+
+
+// import 'package:flutter/material.dart';
+
+// class AboutUs extends StatefulWidget {
+//   const AboutUs({super.key});
+
+//   @override
+//   State<AboutUs> createState() => _AboutUsState();
+// }
+
+// class _AboutUsState extends State<AboutUs> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }

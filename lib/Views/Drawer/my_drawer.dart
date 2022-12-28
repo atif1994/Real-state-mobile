@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prologic_29/Services/my_shared_preferences.dart';
 import 'package:prologic_29/Views/Drawer/about_us.dart';
+import 'package:prologic_29/Views/Drawer/contactus.dart';
 
 import '../../Controllers/auth_controller.dart';
 import '../../Controllers/pick_image_controller.dart';
@@ -51,7 +52,9 @@ class MyDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AboutUs()),
+                MaterialPageRoute(
+                  builder: (context) => AboutUs(),
+                ),
               );
             },
           ),
@@ -61,7 +64,14 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Contact Us'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => contactus(),
+                ),
+              );
+            },
           ),
           ListTile(
             title: const Text('Log out'),
