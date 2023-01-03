@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Controllers/sign_in_controller.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
-import 'package:prologic_29/My%20Widgets/my_text_field.dart';
-import 'package:prologic_29/Views/Auth/sign_up.dart';
 
 import '../../Controllers/auth_controller.dart';
 import '../../Services/constants.dart';
@@ -67,7 +65,7 @@ class SignIn extends GetView<SignInController> {
                                         children: [
                                           TextFormField(
                                             showCursor: true,
-                                            decoration: InputDecoration(
+                                            decoration: const InputDecoration(
                                                 hintText: 'Email'),
                                             controller:
                                                 controller.emailController,
@@ -81,7 +79,7 @@ class SignIn extends GetView<SignInController> {
                                           ),
                                           TextFormField(
                                             showCursor: true,
-                                            decoration: InputDecoration(
+                                            decoration: const InputDecoration(
                                                 hintText: 'password'),
                                             controller:
                                                 controller.passwordController,
