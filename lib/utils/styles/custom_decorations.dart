@@ -26,4 +26,9 @@ class CustomDecorations {
             color: Colors.grey.withOpacity(0.5),
             offset: const Offset(0, 3))
       ]);
+
+  static BoxDecoration con3 = BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      color: AppColors.colorWhite,
+      border: Border.all(color: AppColors.appthem));
 }
