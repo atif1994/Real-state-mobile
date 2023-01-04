@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
+import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
@@ -17,7 +18,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
-
+  final labels = ["Buy", "Rent", "Invest"];
   final int _selectedIndex = 0;
   final List<Widget> _selectedWidget = [
     const HomeScreen(),
@@ -69,6 +70,30 @@ class _HomeState extends State<Home> {
       //   ),
       // ),
 
+      bottomNavigationBar: Container(
+        height: 6.0.h,
+        color: AppColors.appthem,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: const [
+            Icon(
+              Icons.home,
+              color: AppColors.colorWhite,
+            ),
+            SizedBox(),
+            Icon(
+              Icons.search,
+              color: AppColors.colorWhite,
+            ),
+            SizedBox(),
+            Icon(
+              Icons.person,
+              color: AppColors.colorWhite,
+            ),
+          ],
+        ),
+      ),
+
       ///bottom nav bar end
       body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -93,11 +118,18 @@ class _HomeState extends State<Home> {
                         decoration: CustomDecorations.con1,
                         child: Row(
                           children: [
+                            SizedBox(
+                              width: 3.0.w,
+                            ),
                             const Icon(Icons.search),
+                            SizedBox(
+                              width: 3.0.w,
+                            ),
                             Text(
                               "Search for shops",
                               style: AppTextStyles.labelSmall,
-                            )
+                            ),
+                            const SizedBox()
                           ],
                         ),
                       )
@@ -110,19 +142,52 @@ class _HomeState extends State<Home> {
               ),
             ];
           },
-          body: ListView.builder(
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.only(
-                      top: index == 0 ? 2.0.h : 3.0.h,
-                      left: 2.0.w,
-                      right: 2.0.w),
-                  height: 20.0.h,
-                  width: 100.0.w,
-                  color: Colors.red,
-                );
-              })),
+          body: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 1.0.h),
+                height: 6.0.h,
+                width: 100.0.w,
+                // decoration: CustomDecorations.con2,
+                child: ListView.builder(
+                    itemCount: labels.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            top: 0.5.h,
+                            bottom: 0.5.h,
+                            left: index == 0 ? 2.0.w : 2.8.w),
+                        child: SizedBox(
+                          width: 30.0.w,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.colorWhite),
+                              onPressed: () {},
+                              child: Text(labels[index])),
+                        ),
+                      );
+                    }),
+              ),
+              Expanded(
+                child: ListView.builder(
+                    padding: const EdgeInsets.all(0),
+                    itemCount: 4,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.only(
+                            top: index == 0 ? 2.0.h : 3.0.h,
+                            left: 2.0.w,
+                            right: 2.0.w,
+                            bottom: index == 3 ? 2.0.h : 0.0.h),
+                        height: 25.0.h,
+                        width: 100.0.w,
+                        decoration: CustomDecorations.mainCon,
+                      );
+                    }),
+              ),
+            ],
+          )),
     );
     // return Scaffold(
     //   body: CustomScrollView(
