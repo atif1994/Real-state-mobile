@@ -1,6 +1,9 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
+import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 import 'home_screen.dart';
@@ -25,23 +28,86 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Drawer(),
+
+      ////////////////////bottom nav bar start start
+      // bottomNavigationBar: BottomAppBar(
+      //   shape: const CircularNotchedRectangle(),
+      //   elevation: 0,
+      //   color: primaryColor.withAlpha(255),
+      //   notchMargin: 10,
+      //   child: BottomNavigationBar(
+      //     elevation: 0,
+      //     backgroundColor: Colors.grey.withAlpha(0),
+      //     onTap: (index) {
+      //       setState(() {
+      //         _selectedIndex = index;
+      //       });
+      //     },
+      //     currentIndex: _selectedIndex,
+      //     showSelectedLabels: false,
+      //     showUnselectedLabels: false,
+      //     items: const [
+      //       BottomNavigationBarItem(
+      //         icon: Icon(
+      //           Icons.home_outlined,
+      //           color: Colors.white,
+      //           size: 20,
+      //         ),
+      //         label: 'Home',
+      //         activeIcon: Icon(Icons.home, color: Colors.white, size: 30),
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(
+      //           Icons.person_outlined,
+      //           color: Colors.white,
+      //           size: 20,
+      //         ),
+      //         label: 'Profile',
+      //         activeIcon: Icon(Icons.person, color: Colors.white, size: 30),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+
+      ///bottom nav bar end
       body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                expandedHeight: 240,
+                expandedHeight: 30.0.h,
                 flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
                   title: Text(
                     "ProLogics",
                     style: AppTextStyles.heading1,
                   ),
-                  background: Image.network(
-                      "https://images.unsplash.com/photo-1608555307638-992062b31329?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"),
+                  background: Stack(
+                    children: [
+                      Image.network(
+                          "https://images.unsplash.com/photo-1608555307638-992062b31329?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"),
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: 16.0.h, left: 3.0.w, right: 3.0.w),
+                        height: 6.0.h,
+                        width: 100.0.w,
+                        decoration: CustomDecorations.con1,
+                        child: Row(
+                          children: [
+                            const Icon(Icons.search),
+                            Text(
+                              "Search for shops",
+                              style: AppTextStyles.labelSmall,
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 floating: true,
                 snap: true,
                 pinned: true,
-              )
+              ),
             ];
           },
           body: ListView.builder(
