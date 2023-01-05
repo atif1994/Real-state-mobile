@@ -3,7 +3,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Views/Drawer/about_us.dart';
+import 'package:prologic_29/Views/ContactUs/contact_us.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
@@ -12,6 +12,7 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
+import '../AboutUs/about_us.dart';
 import 'home_screen.dart';
 
 class Home extends StatefulWidget {
@@ -128,6 +129,9 @@ class _HomeState extends State<Home> {
                 child: const Divider(),
               ),
               ListTile(
+                onTap: () {
+                  Get.to(() => const contactus());
+                },
                 leading: Image.asset(
                   AppImageResources.contact,
                   height: 3.0.h,
