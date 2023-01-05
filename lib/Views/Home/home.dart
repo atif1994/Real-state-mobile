@@ -224,6 +224,7 @@ class _HomeState extends State<Home> {
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
+                  backgroundColor: AppColors.appthem,
                   actions: [
                     Row(
                       children: [
@@ -255,8 +256,16 @@ class _HomeState extends State<Home> {
                     ),
                     background: Stack(
                       children: [
-                        Image.network(
-                            "https://images.unsplash.com/photo-1608555307638-992062b31329?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"),
+                        Container(
+                          height: 35.0.h,
+                          width: 100.0.w,
+                          decoration: const BoxDecoration(
+                              color: AppColors.appthem,
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(30))),
+                        ),
+                        // Image.network(
+                        //     "https://images.unsplash.com/photo-1608555307638-992062b31329?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"),
                         Container(
                           margin: EdgeInsets.only(top: 10.0.h),
                           height: 6.0.h,
@@ -370,8 +379,8 @@ class _HomeState extends State<Home> {
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor:
                                                 _browsPropertyIndex == index
-                                                    ? AppColors.colorWhite
-                                                    : AppColors.appthem),
+                                                    ? AppColors.appthem
+                                                    : AppColors.colorWhite),
                                         onPressed: () {
                                           setState(() {
                                             _browsPropertyIndex = index;
@@ -383,8 +392,8 @@ class _HomeState extends State<Home> {
                                                 height: 2.0.h,
                                                 color:
                                                     _browsPropertyIndex == index
-                                                        ? AppColors.colorblack
-                                                        : AppColors.colorWhite),
+                                                        ? AppColors.colorWhite
+                                                        : AppColors.colorblack),
                                             SizedBox(
                                               width: 0.8.w,
                                             ),
@@ -393,8 +402,8 @@ class _HomeState extends State<Home> {
                                               style: TextStyle(
                                                   color: _browsPropertyIndex ==
                                                           index
-                                                      ? AppColors.colorblack
-                                                      : AppColors.colorWhite),
+                                                      ? AppColors.colorWhite
+                                                      : AppColors.colorblack),
                                             )
                                           ],
                                         )),
@@ -553,7 +562,73 @@ class _HomeState extends State<Home> {
                     ),
                   ),
 
-                  ///
+                  ///constructio cost calculater
+
+                  Container(
+                    height: 35.0.h,
+                    width: 100.0.w,
+                    decoration: CustomDecorations.mainCon,
+                    margin:
+                        EdgeInsets.only(top: 2.0.h, left: 3.0.w, right: 3.0.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Construction Cost Calculater",
+                            style: AppTextStyles.heading1.copyWith(
+                                fontFamily: AppFonts.nexaBold,
+                                fontSize: 16.sp,
+                                color: AppColors.appthem),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 80.0.w,
+                            child: Text(
+                                "Get Quick estimate of yur house's construction cost",
+                                style: AppTextStyles.labelSmall),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 2.0.w,
+                            ),
+                            Container(
+                              height: 4.0.h,
+                              width: 25.0.w,
+                              decoration: BoxDecoration(
+                                  color: AppColors.appthem,
+                                  borderRadius: BorderRadius.circular(300)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    "Try it",
+                                    style: AppTextStyles.labelSmall
+                                        .copyWith(color: AppColors.colorWhite),
+                                  ),
+                                  const Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                  )
+                                ],
+                              ),
+                            ),
+                            const Spacer(),
+                            Image.asset(
+                              AppImageResources.house,
+                              height: 20.0.h,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
             )),

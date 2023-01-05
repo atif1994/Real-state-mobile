@@ -9,4 +9,5 @@ class AppImageResources {
   static const String signIn = 'assets/icons/exit.png';
   static const String plots = 'assets/icons/location.png';
   static const String commercial = 'assets/icons/skyline.png';
+  static const String house = 'assets/house.png';
 }
