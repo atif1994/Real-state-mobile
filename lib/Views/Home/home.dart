@@ -2,6 +2,8 @@
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:prologic_29/Views/Drawer/contactus.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
@@ -120,6 +122,9 @@ class _HomeState extends State<Home> {
                 child: const Divider(),
               ),
               ListTile(
+                onTap: () {
+                  Get.to(() => const contactus());
+                },
                 leading: Image.asset(
                   AppImageResources.contact,
                   height: 3.0.h,
