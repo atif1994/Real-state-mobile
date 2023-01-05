@@ -14,4 +14,12 @@ class AppImageResources {
   static const String bath = 'assets/icons/bath.png';
   static const String bed = 'assets/icons/bed.png';
   static const String loc = 'assets/icons/loc.png';
+  static const String islamabad = 'assets/isb.jpg';
+  static const String faisalabad = 'assets/faisalabad.jpeg';
+  static const String karachi = 'assets/karachi.jpg';
+  static const String lahore = 'assets/lahore.jpeg';
+  static const String pindi = 'assets/pindi.jpg';
+  static const String img1 = 'assets/img1.png';
+  static const String img2 = 'assets/img2.png';
+  static const String img3 = 'assets/img3.png';
 }

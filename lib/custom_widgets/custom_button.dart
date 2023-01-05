@@ -13,7 +13,7 @@ class CustomButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.appthem,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(

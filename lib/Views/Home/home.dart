@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/ContactUs/contact_us.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
+import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
@@ -27,10 +28,32 @@ class _HomeState extends State<Home> {
   final labels = ["Buy", "Rent", "Invest"];
   final labels1 = ["Homes", "Plots", "Commercial"];
 
+  final citiesLabel = [
+    "Islamabad",
+    "Lahore",
+    "Karachi",
+    "Faisalabad",
+    "Rawalpindi"
+  ];
+
   final images = [
     AppImageResources.home,
     AppImageResources.plots,
     AppImageResources.commercial
+  ];
+
+  final citieseImages = [
+    AppImageResources.islamabad,
+    AppImageResources.lahore,
+    AppImageResources.karachi,
+    AppImageResources.faisalabad,
+    AppImageResources.pindi,
+  ];
+
+  final testimonialImages = [
+    AppImageResources.img1,
+    AppImageResources.img2,
+    AppImageResources.img3
   ];
   int _selectedIndex = 0;
   int _browsPropertyIndex = 0;
@@ -537,7 +560,7 @@ class _HomeState extends State<Home> {
                   ///constructio cost calculater
 
                   Container(
-                    height: 90.0.h,
+                    height: 82.0.h,
                     width: 100.0.w,
                     decoration: CustomDecorations.mainCon,
                     margin:
@@ -572,6 +595,7 @@ class _HomeState extends State<Home> {
                           width: 100.0.w,
                           //  color: Colors.red,
                           child: GridView.builder(
+                              padding: EdgeInsets.only(bottom: 1.0.h),
                               scrollDirection: Axis.horizontal,
                               gridDelegate:
                                   const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -614,9 +638,10 @@ class _HomeState extends State<Home> {
                                           height: 1.0.h,
                                         ),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
                                           children: [
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
                                             Container(
                                               height: 3.5.h,
                                               width: 22.0.w,
@@ -633,6 +658,9 @@ class _HomeState extends State<Home> {
                                                         color: AppColors
                                                             .colorWhite),
                                               )),
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
                                             ),
                                             Text("PKR 160,00000",
                                                 style: AppTextStyles.heading1
@@ -703,6 +731,9 @@ class _HomeState extends State<Home> {
                                         const Divider(),
                                         Row(
                                           children: [
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
                                             Image.asset(
                                               AppImageResources.loc,
                                               height: 2.0.h,
@@ -719,13 +750,342 @@ class _HomeState extends State<Home> {
                                       ],
                                     ));
                               }),
+                        ),
+                        SizedBox(
+                          height: 2.0.h,
+                        ),
+                        Center(
+                          child: CustomButton(
+                            onPressed: () {},
+                            text: "Brows More Propertiese",
+                          ),
                         )
                       ],
                     ),
                   ),
 
-                  ///
+                  ///post an add
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: 3.0.w, right: 3.0.w, top: 2.0.h, bottom: 2.0.h),
+                    height: 18.0.h,
+                    width: 100.0.w,
+                    decoration: CustomDecorations.mainCon,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(
+                              AppImageResources.house,
+                              height: 12.0.h,
+                            ),
+                            SizedBox(
+                              width: 50.0.w,
+                              child: Text(
+                                "Looking to cell or rent out your property",
+                                style: AppTextStyles.labelSmall,
+                              ),
+                            )
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: 3.0.w, right: 3.0.w, top: 1.0.h),
+                          height: 4.0.h,
+                          width: 100.0.w,
+                          decoration: BoxDecoration(
+                              color: AppColors.appthem,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              "Post an Ad",
+                              style: AppTextStyles.heading1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
 
+                  ///find by locations
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: 3.0.w,
+                      right: 3.0.w,
+                    ),
+                    height: 40.0.h,
+                    width: 100.0.w,
+                    decoration: CustomDecorations.mainCon,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
+                          child: Text(
+                            "Find By Locations",
+                            style: AppTextStyles.heading1.copyWith(
+                                fontFamily: AppFonts.nexaBold,
+                                fontSize: 16.sp,
+                                color: AppColors.appthem),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
+                          child: SizedBox(
+                            width: 80.0.w,
+                            child: Text(
+                                "Find your dream home from your dream location",
+                                style: AppTextStyles.labelSmall
+                                    .copyWith(fontSize: 9.sp)),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: 3.0.w, right: 3.0.w, top: 1.0.h),
+                          height: 24.0.h,
+                          width: 100.0.w,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 5,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(
+                                      top: 1.0.h,
+                                      bottom: 1.0.h,
+                                      left: index == 0 ? 1.0.w : 2.0.w,
+                                      right: index == 4 ? 2.0.w : 0.0.w),
+                                  height: 20.0.h,
+                                  width: 50.0.w,
+                                  decoration: CustomDecorations.mainCon,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10)),
+                                        ),
+                                        height: 16.0.h,
+                                        width: 100.0.w,
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10)),
+                                          child: Image.asset(
+                                            citieseImages[index],
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 3.0.w, top: 1.0.h),
+                                                child: Text(
+                                                  citiesLabel[index],
+                                                  style: AppTextStyles.heading1
+                                                      .copyWith(
+                                                          color: AppColors
+                                                              .colorblack),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                  left: 3.0.w,
+                                                ),
+                                                child: Text("13 Propertise",
+                                                    style: AppTextStyles
+                                                        .labelSmall
+                                                        .copyWith(
+                                                            fontSize: 9.sp)),
+                                              )
+                                            ],
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            margin:
+                                                EdgeInsets.only(right: 2.0.w),
+                                            height: 6.0.w,
+                                            width: 6.0.w,
+                                            decoration: BoxDecoration(
+                                                color: AppColors.appthem,
+                                                borderRadius:
+                                                    BorderRadius.circular(300)),
+                                            child: const Center(
+                                                child: Icon(
+                                              Icons.arrow_forward_ios,
+                                              color: Colors.white,
+                                              size: 16,
+                                            )),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }),
+                        ),
+                        SizedBox(
+                          height: 2.0.h,
+                        ),
+                        Center(
+                          child: CustomButton(
+                            onPressed: () {},
+                            text: "Brows More Locations",
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  ///prologics 29
+
+                  Container(
+                    margin:
+                        EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 2.0.h),
+                    height: 70.0.h,
+                    width: 100.0.w,
+                    decoration: CustomDecorations.mainCon,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
+                          child: Text(
+                            "ProLogic 29",
+                            style: AppTextStyles.heading1.copyWith(
+                                fontFamily: AppFonts.nexaBold,
+                                fontSize: 16.sp,
+                                color: AppColors.appthem),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
+                          child: SizedBox(
+                            width: 80.0.w,
+                            child: Text(
+                                "Let us help you navigate the renting, buying, selling & investing experience",
+                                style: AppTextStyles.labelSmall
+                                    .copyWith(fontSize: 9.sp)),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: 2.0.w, right: 2.0.w, top: 1.0.h),
+                          height: 60.0.h,
+                          width: 100.0.w,
+                          //color: Colors.red,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 3,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(
+                                      left: index == 0 ? 2.0.w : 2.0.w,
+                                      right: index == 2 ? 2.0.w : 0.0.w,
+                                      top: 1.0.h,
+                                      bottom: 1.0.h),
+                                  height: 44.0.h,
+                                  width: 50.0.w,
+                                  decoration: CustomDecorations.mainCon,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 15.0.h,
+                                        width: 100.0.w,
+                                        decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(10),
+                                                topRight: Radius.circular(10))),
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10)),
+                                          child: Image.asset(
+                                            testimonialImages[index],
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 1.0.h,
+                                      ),
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 2.0.w,
+                                          ),
+                                          const Icon(
+                                            Icons.date_range,
+                                            color: AppColors.appthem,
+                                          ),
+                                          SizedBox(
+                                            width: 2.0.w,
+                                          ),
+                                          Text(
+                                            "28 Oct, 2022",
+                                            style: AppTextStyles.labelSmall
+                                                .copyWith(fontSize: 10.sp),
+                                          )
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 2.0.w,
+                                            right: 2.0.w,
+                                            top: 1.0.h),
+                                        child: Text(
+                                          "Common Malpractices In Real Estate",
+                                          style: AppTextStyles.heading1
+                                              .copyWith(
+                                                  color: AppColors.appthem),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 2.0.w,
+                                            right: 2.0.w,
+                                            top: 1.0.h),
+                                        child: Text(
+                                            "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities.",
+                                            style: AppTextStyles.labelSmall
+                                                .copyWith(fontSize: 8.sp)),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            top: 2.0.h, left: 2.0.w),
+                                        height: 4.0.h,
+                                        width: 30.0.w,
+                                        decoration: BoxDecoration(
+                                            color: AppColors.appthem,
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        child: Center(
+                                            child: Text(
+                                          "Continue",
+                                          style: AppTextStyles.labelSmall
+                                              .copyWith(
+                                                  color: AppColors.colorWhite),
+                                        )),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }),
+                        )
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 2.0.h,
                   )
