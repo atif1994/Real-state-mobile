@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final String? hintText;
   final Function? onChanged;
+  TextEditingController editingController;
 
-  const CustomTextField({
-    this.hintText,
-    this.onChanged,
-  });
+  CustomTextField(
+      {this.hintText, this.onChanged, required this.editingController});
 
   @override
   Widget build(BuildContext context) {
