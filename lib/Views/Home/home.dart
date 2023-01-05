@@ -47,9 +47,10 @@ class _HomeState extends State<Home> {
         drawer: Drawer(
           child: Column(
             children: [
-              SizedBox(
+              Container(
                 width: 100.0.w,
                 height: 24.0.h,
+                color: AppColors.appthem,
                 child: Column(
                   children: [
                     SizedBox(
@@ -64,12 +65,14 @@ class _HomeState extends State<Home> {
                           left: 6.0.w, right: 6.0.w, top: 1.0.h),
                       height: 5.0.h,
                       width: 100.0.w,
-                      decoration: CustomDecorations.con3,
+                      decoration: CustomDecorations.con3.copyWith(
+                          color: Colors.transparent,
+                          border: Border.all(color: AppColors.colorWhite)),
                       child: Center(
                         child: Text(
                           "Login or Create Account",
                           style: AppTextStyles.labelSmall.copyWith(
-                              color: AppColors.appthem, fontSize: 10.sp),
+                              color: AppColors.colorWhite, fontSize: 10.sp),
                         ),
                       ),
                     )
