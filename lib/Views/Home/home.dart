@@ -1,11 +1,11 @@
 // ignore_for_file: unused_field
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:prologic_29/Views/ContactUs/contact_us.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
+import 'package:prologic_29/custom_widgets/drawer_widget.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
@@ -13,7 +13,6 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
-import '../AboutUs/about_us.dart';
 import 'home_screen.dart';
 
 class Home extends StatefulWidget {
@@ -55,6 +54,8 @@ class _HomeState extends State<Home> {
     AppImageResources.img2,
     AppImageResources.img3
   ];
+  final bool _isContainerExpand = false;
+  int _navBarIndex = 0;
   int _selectedIndex = 0;
   int _browsPropertyIndex = 0;
   int _browsPropertyIndex1 = 0;
@@ -67,167 +68,39 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: Drawer(
-          backgroundColor: AppColors.appthem,
-          child: Column(
-            children: [
-              Container(
-                width: 100.0.w,
-                height: 24.0.h,
-                color: AppColors.appthem,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 2.0.h,
-                    ),
-                    Image.asset(
-                      AppImageResources.applogo,
-                      height: 14.0.h,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                          left: 6.0.w, right: 6.0.w, top: 1.0.h),
-                      height: 5.0.h,
-                      width: 100.0.w,
-                      decoration: CustomDecorations.con3.copyWith(
-                          color: Colors.transparent,
-                          border: Border.all(color: AppColors.colorWhite)),
-                      child: Center(
-                        child: Text(
-                          "Login or Create Account",
-                          style: AppTextStyles.labelSmall.copyWith(
-                              color: AppColors.colorWhite, fontSize: 10.sp),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const Divider(
-                color: AppColors.colorWhite,
-              ),
-              ListTile(
-                leading: Image.asset(
-                  AppImageResources.home,
-                  color: AppColors.colorWhite,
-                  height: 3.0.h,
-                ),
-                title: Text(
-                  "Home",
-                  style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorWhite),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(
-                  color: AppColors.colorWhite,
-                ),
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => const AboutUs());
-                },
-                leading: Image.asset(
-                  AppImageResources.aboutUs,
-                  color: AppColors.colorWhite,
-                  height: 3.0.h,
-                ),
-                title: Text(
-                  "About Us",
-                  style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorWhite),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(
-                  color: AppColors.colorWhite,
-                ),
-              ),
-              ListTile(
-                leading: Image.asset(
-                  AppImageResources.areaGuide,
-                  color: AppColors.colorWhite,
-                  height: 3.0.h,
-                ),
-                title: Text(
-                  "Area Guide",
-                  style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorWhite),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(
-                  color: AppColors.colorWhite,
-                ),
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => const contactus());
-                },
-                leading: Image.asset(
-                  AppImageResources.contact,
-                  color: AppColors.colorWhite,
-                  height: 3.0.h,
-                ),
-                title: Text(
-                  "Contact",
-                  style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorWhite),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(
-                  color: AppColors.colorWhite,
-                ),
-              ),
-              ListTile(
-                leading: Image.asset(
-                  color: AppColors.colorWhite,
-                  AppImageResources.newFeed,
-                  height: 2.5.h,
-                ),
-                title: Text(
-                  "News Feed",
-                  style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorWhite),
-                ),
-              )
-            ],
-          ),
-        ),
+        drawer: const CustomDrawer(),
 
-        bottomNavigationBar: Container(
-          height: 6.0.h,
-          color: AppColors.appthem,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              const Icon(
-                Icons.home,
-                color: AppColors.colorWhite,
-              ),
-              const SizedBox(),
-              const Icon(
-                Icons.search,
-                color: AppColors.colorWhite,
-              ),
-              const SizedBox(),
-              const Icon(
-                Icons.person,
-                color: AppColors.colorWhite,
-              ),
-              const SizedBox(),
-              Image.asset(
-                AppImageResources.signIn,
-                color: AppColors.colorWhite,
-                height: 2.5.h,
-              )
-            ],
-          ),
+        bottomNavigationBar: BottomNavyBar(
+          backgroundColor: AppColors.appthem,
+          selectedIndex: _navBarIndex,
+          showElevation: true, // use this to remove appBar's elevation
+          onItemSelected: (index) => setState(() {
+            _navBarIndex = index;
+            // _pageController.animateToPage(index,
+            //     duration: Duration(milliseconds: 300), curve: Curves.ease);
+          }),
+          items: [
+            BottomNavyBarItem(
+              icon: const Icon(Icons.home),
+              title: const Text('Home'),
+              activeColor: Colors.white,
+            ),
+            BottomNavyBarItem(
+              icon: const Icon(Icons.search),
+              title: const Text('Serach'),
+              activeColor: Colors.white,
+            ),
+            BottomNavyBarItem(
+              icon: const Icon(Icons.person),
+              title: const Text('Person'),
+              activeColor: Colors.white,
+            ),
+            BottomNavyBarItem(
+              icon: const Icon(Icons.login),
+              title: const Text('SignIn'),
+              activeColor: Colors.white,
+            ),
+          ],
         ),
 
         ///bottom nav bar end
@@ -275,8 +148,6 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(30))),
                         ),
-                        // Image.network(
-                        //     "https://images.unsplash.com/photo-1608555307638-992062b31329?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"),
                         Container(
                           margin: EdgeInsets.only(top: 10.0.h),
                           height: 6.0.h,
@@ -290,19 +161,20 @@ class _HomeState extends State<Home> {
                                   padding: EdgeInsets.only(
                                       top: 0.8.h,
                                       bottom: 0.8.h,
-                                      left: index == 0 ? 7.0.w : 2.8.w),
+                                      left: index == 0 ? 9.0.w : 2.8.w),
                                   child: SizedBox(
                                     width: 25.0.w,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(300)),
-                                            backgroundColor:
-                                                _selectedIndex == index
-                                                    ? AppColors.colorWhite
-                                                    : AppColors.colorWhite
-                                                        .withOpacity(0.8)),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          backgroundColor:
+                                              _selectedIndex == index
+                                                  ? AppColors.colorWhite
+                                                  : const Color.fromARGB(
+                                                      255, 112, 114, 117),
+                                        ),
                                         onPressed: () {
                                           setState(() {
                                             _selectedIndex = index;
@@ -368,9 +240,9 @@ class _HomeState extends State<Home> {
                           child: Text(
                             "Browse Propertise",
                             style: AppTextStyles.heading1.copyWith(
-                                fontFamily: AppFonts.nexaBook,
-                                fontSize: 10.sp,
-                                color: AppColors.colorblack),
+                                fontFamily: AppFonts.nexaBold,
+                                fontSize: 16.sp,
+                                color: AppColors.appthem),
                           ),
                         ),
                         Container(
@@ -448,7 +320,7 @@ class _HomeState extends State<Home> {
                                     child: Text(
                                       "Popular",
                                       style: AppTextStyles.heading1.copyWith(
-                                          fontSize: 9.sp,
+                                          fontSize: 11.sp,
                                           color: _browsPropertyIndex1 == 0
                                               ? AppColors.appthem
                                               : AppColors.colorblack),
@@ -475,7 +347,7 @@ class _HomeState extends State<Home> {
                                     child: Text(
                                       "Type",
                                       style: AppTextStyles.heading1.copyWith(
-                                          fontSize: 9.sp,
+                                          fontSize: 11.sp,
                                           color: _browsPropertyIndex1 == 1
                                               ? AppColors.appthem
                                               : AppColors.colorblack),
@@ -502,7 +374,7 @@ class _HomeState extends State<Home> {
                                     child: Text(
                                       "Location",
                                       style: AppTextStyles.heading1.copyWith(
-                                          fontSize: 9.sp,
+                                          fontSize: 11.sp,
                                           color: _browsPropertyIndex1 == 2
                                               ? AppColors.appthem
                                               : AppColors.colorblack),
@@ -529,7 +401,7 @@ class _HomeState extends State<Home> {
                                     child: Text(
                                       "Area Size",
                                       style: AppTextStyles.heading1.copyWith(
-                                          fontSize: 9.sp,
+                                          fontSize: 11.sp,
                                           color: _browsPropertyIndex1 == 3
                                               ? AppColors.appthem
                                               : AppColors.colorblack),
@@ -548,8 +420,8 @@ class _HomeState extends State<Home> {
                               scrollDirection: Axis.horizontal,
                               gridDelegate:
                                   const SliverGridDelegateWithMaxCrossAxisExtent(
-                                      maxCrossAxisExtent: 80,
-                                      childAspectRatio: 1.3 / 2,
+                                      maxCrossAxisExtent: 100,
+                                      childAspectRatio: 1.5 / 2,
                                       crossAxisSpacing: 2,
                                       mainAxisSpacing: 10),
                               itemCount: 12,
@@ -964,7 +836,8 @@ class _HomeState extends State<Home> {
 
                   ///prologics 29
 
-                  Container(
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
                     margin:
                         EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 2.0.h),
                     height: 70.0.h,
