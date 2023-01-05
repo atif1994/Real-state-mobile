@@ -72,7 +72,7 @@ class _ContactUsState extends State<ContactUs> {
                 hintText: 'Message',
               ),
               SizedBox(
-                height: 2.0.h,
+                height: 5.0.h,
               ),
               Column(children: <Widget>[
                 CustomButton(
@@ -82,7 +82,7 @@ class _ContactUsState extends State<ContactUs> {
                   },
                 ),
                 SizedBox(
-                  height: 4.0.h,
+                  height: 2.0.h,
                 ),
                 CustomButton(
                   text: 'Google Map',

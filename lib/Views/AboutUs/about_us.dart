@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prologic_29/utils/constants/appcolors.dart';
+import 'package:prologic_29/utils/styles/app_textstyles.dart';
 
 class AboutUs extends StatefulWidget {
   const AboutUs({super.key});
@@ -12,7 +14,8 @@ class _AboutUsState extends State<AboutUs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("About Us"),
+        backgroundColor: AppColors.appthem,
+        title: Text("About Us", style: AppTextStyles.heading1),
       ),
       body: SafeArea(
           child: ListView(
