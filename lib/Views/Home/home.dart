@@ -161,46 +161,6 @@ class _HomeState extends State<Home> {
           ),
         ),
 
-        ////////////////////bottom nav bar start start
-        // bottomNavigationBar: BottomAppBar(
-        //   shape: const CircularNotchedRectangle(),
-        //   elevation: 0,
-        //   color: primaryColor.withAlpha(255),
-        //   notchMargin: 10,
-        //   child: BottomNavigationBar(
-        //     elevation: 0,
-        //     backgroundColor: Colors.grey.withAlpha(0),
-        //     onTap: (index) {
-        //       setState(() {
-        //         _selectedIndex = index;
-        //       });
-        //     },
-        //     currentIndex: _selectedIndex,
-        //     showSelectedLabels: false,
-        //     showUnselectedLabels: false,
-        //     items: const [
-        //       BottomNavigationBarItem(
-        //         icon: Icon(
-        //           Icons.home_outlined,
-        //           color: Colors.white,
-        //           size: 20,
-        //         ),
-        //         label: 'Home',
-        //         activeIcon: Icon(Icons.home, color: Colors.white, size: 30),
-        //       ),
-        //       BottomNavigationBarItem(
-        //         icon: Icon(
-        //           Icons.person_outlined,
-        //           color: Colors.white,
-        //           size: 20,
-        //         ),
-        //         label: 'Profile',
-        //         activeIcon: Icon(Icons.person, color: Colors.white, size: 30),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-
         bottomNavigationBar: Container(
           height: 6.0.h,
           color: AppColors.appthem,
@@ -577,7 +537,7 @@ class _HomeState extends State<Home> {
                   ///constructio cost calculater
 
                   Container(
-                    height: 35.0.h,
+                    height: 90.0.h,
                     width: 100.0.w,
                     decoration: CustomDecorations.mainCon,
                     margin:
@@ -588,7 +548,7 @@ class _HomeState extends State<Home> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Construction Cost Calculater",
+                            "Explore Good Places",
                             style: AppTextStyles.heading1.copyWith(
                                 fontFamily: AppFonts.nexaBold,
                                 fontSize: 16.sp,
@@ -596,50 +556,178 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
                           child: SizedBox(
                             width: 80.0.w,
                             child: Text(
-                                "Get Quick estimate of yur house's construction cost",
-                                style: AppTextStyles.labelSmall),
+                                "Find your dream home from our Newly added properties",
+                                style: AppTextStyles.labelSmall
+                                    .copyWith(fontSize: 9.sp)),
                           ),
                         ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 2.0.w,
-                            ),
-                            Container(
-                              height: 4.0.h,
-                              width: 25.0.w,
-                              decoration: BoxDecoration(
-                                  color: AppColors.appthem,
-                                  borderRadius: BorderRadius.circular(300)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    "Try it",
-                                    style: AppTextStyles.labelSmall
-                                        .copyWith(color: AppColors.colorWhite),
-                                  ),
-                                  const Icon(
-                                    Icons.arrow_forward,
-                                    color: Colors.white,
-                                  )
-                                ],
-                              ),
-                            ),
-                            const Spacer(),
-                            Image.asset(
-                              AppImageResources.house,
-                              height: 20.0.h,
-                            ),
-                          ],
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: 1.0.h, left: 3.0.w, right: 3.0.w),
+                          height: 62.0.h,
+                          width: 100.0.w,
+                          //  color: Colors.red,
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              gridDelegate:
+                                  const SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent: 310,
+                                      childAspectRatio: 4 / 4,
+                                      crossAxisSpacing: 10,
+                                      mainAxisSpacing: 10),
+                              itemCount: 10,
+                              itemBuilder: (BuildContext ctx, index) {
+                                return Container(
+                                    alignment: Alignment.center,
+                                    decoration: CustomDecorations.mainCon,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: 14.0.h,
+                                          width: 100.0.w,
+                                          decoration: const BoxDecoration(
+                                              //    color: Colors.red,
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(10),
+                                                  topRight:
+                                                      Radius.circular(10))),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(10),
+                                                    topRight:
+                                                        Radius.circular(10)),
+                                            child: Image.asset(
+                                              AppImageResources.property,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 1.0.h,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Container(
+                                              height: 3.5.h,
+                                              width: 22.0.w,
+                                              decoration: BoxDecoration(
+                                                  color: AppColors.appthem,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          300)),
+                                              child: Center(
+                                                  child: Text(
+                                                "For sale ",
+                                                style: AppTextStyles.labelSmall
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .colorWhite),
+                                              )),
+                                            ),
+                                            Text("PKR 160,00000",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .colorblack,
+                                                        fontSize: 10.sp))
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 2.0.w, top: 1.0.h),
+                                          child: Text("New Property",
+                                              style: AppTextStyles.heading1
+                                                  .copyWith(
+                                                color: AppColors.colorblack,
+                                              )),
+                                        ),
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Image.asset(
+                                              AppImageResources.bed,
+                                              height: 2.0.h,
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Text(
+                                              "3 beds",
+                                              style: AppTextStyles.labelSmall
+                                                  .copyWith(fontSize: 9.sp),
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Image.asset(
+                                              AppImageResources.bath,
+                                              height: 2.0.h,
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Text(
+                                              "Bath",
+                                              style: AppTextStyles.labelSmall
+                                                  .copyWith(fontSize: 9.sp),
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Image.asset(
+                                              AppImageResources.plots,
+                                              height: 2.0.h,
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Text(
+                                              "Area",
+                                              style: AppTextStyles.labelSmall
+                                                  .copyWith(fontSize: 9.sp),
+                                            )
+                                          ],
+                                        ),
+                                        const Divider(),
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              AppImageResources.loc,
+                                              height: 2.0.h,
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Text(
+                                              "Islamabad,Punjab",
+                                              style: AppTextStyles.labelSmall,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ));
+                              }),
                         )
                       ],
                     ),
+                  ),
+
+                  ///
+
+                  SizedBox(
+                    height: 2.0.h,
                   )
                 ],
               ),

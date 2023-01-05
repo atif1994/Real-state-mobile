@@ -10,4 +10,8 @@ class AppImageResources {
   static const String plots = 'assets/icons/location.png';
   static const String commercial = 'assets/icons/skyline.png';
   static const String house = 'assets/house.png';
+  static const String property = 'assets/hhh.jpeg';
+  static const String bath = 'assets/icons/bath.png';
+  static const String bed = 'assets/icons/bed.png';
+  static const String loc = 'assets/icons/loc.png';
 }
