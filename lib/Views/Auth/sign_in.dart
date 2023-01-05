@@ -112,6 +112,7 @@ class SignIn extends GetView<SignInController> {
                                                 }
                                               },
                                               text: 'SIGN IN'),
+
                                           // const Padding(
                                           //   padding: EdgeInsets.symmetric(vertical: 10),
                                           //   child: Text('or Sign in with', style: TextStyle(color: Colors.white)),
