@@ -68,6 +68,7 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         drawer: Drawer(
+          backgroundColor: AppColors.appthem,
           child: Column(
             children: [
               Container(
@@ -102,21 +103,26 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              const Divider(),
+              const Divider(
+                color: AppColors.colorWhite,
+              ),
               ListTile(
                 leading: Image.asset(
                   AppImageResources.home,
+                  color: AppColors.colorWhite,
                   height: 3.0.h,
                 ),
                 title: Text(
                   "Home",
                   style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorblack),
+                      .copyWith(color: AppColors.colorWhite),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(),
+                child: const Divider(
+                  color: AppColors.colorWhite,
+                ),
               ),
               ListTile(
                 onTap: () {
@@ -124,32 +130,38 @@ class _HomeState extends State<Home> {
                 },
                 leading: Image.asset(
                   AppImageResources.aboutUs,
+                  color: AppColors.colorWhite,
                   height: 3.0.h,
                 ),
                 title: Text(
                   "About Us",
                   style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorblack),
+                      .copyWith(color: AppColors.colorWhite),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(),
+                child: const Divider(
+                  color: AppColors.colorWhite,
+                ),
               ),
               ListTile(
                 leading: Image.asset(
                   AppImageResources.areaGuide,
+                  color: AppColors.colorWhite,
                   height: 3.0.h,
                 ),
                 title: Text(
                   "Area Guide",
                   style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorblack),
+                      .copyWith(color: AppColors.colorWhite),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(),
+                child: const Divider(
+                  color: AppColors.colorWhite,
+                ),
               ),
               ListTile(
                 onTap: () {
@@ -157,27 +169,31 @@ class _HomeState extends State<Home> {
                 },
                 leading: Image.asset(
                   AppImageResources.contact,
+                  color: AppColors.colorWhite,
                   height: 3.0.h,
                 ),
                 title: Text(
                   "Contact",
                   style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorblack),
+                      .copyWith(color: AppColors.colorWhite),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(),
+                child: const Divider(
+                  color: AppColors.colorWhite,
+                ),
               ),
               ListTile(
                 leading: Image.asset(
+                  color: AppColors.colorWhite,
                   AppImageResources.newFeed,
                   height: 2.5.h,
                 ),
                 title: Text(
                   "News Feed",
                   style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorblack),
+                      .copyWith(color: AppColors.colorWhite),
                 ),
               )
             ],
