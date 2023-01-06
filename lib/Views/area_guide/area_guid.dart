@@ -7,7 +7,7 @@ import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utils/constants/image_resources.dart';
-import '../AboutUs/about_us.dart';
+import 'properties_areaguide.dart';
 // import 'package:prologic_29/utils/styles/app_textstyles.dart';
 
 class AreaGuide extends StatelessWidget {
@@ -38,8 +38,8 @@ class AreaGuide extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(
-                    height: 4,
+                  SizedBox(
+                    height: 1.0.h,
                   ),
                   Text(
                     'Find your dream home from your dream location',
@@ -69,8 +69,8 @@ class AreaGuide extends StatelessWidget {
                     Column(
                       children: [
                         SizedBox(
-                          height: 200,
-                          width: 100.w,
+                          height: 20.0.h,
+                          width: 100.0.w,
                           child: ClipRRect(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(10),
@@ -81,63 +81,61 @@ class AreaGuide extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 28,
+                        SizedBox(
+                          height: 2.0.h,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Rawalpindi',
-                                      style: AppTextStyles.heading1.copyWith(
-                                          fontSize: 18, color: Colors.black),
-                                    ),
-                                    Text(
-                                      '   13 Properties',
-                                      style: AppTextStyles.labelSmall.copyWith(
-                                          fontSize: 18, color: Colors.black54),
-                                    ),
-                                  ],
-                                ),
+                        Row(
+                          // mainAxisAlignment: MainAxisAlignment.,
+                          children: [
+                            Container(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Rawalpindi',
+                                    style: AppTextStyles.heading1.copyWith(
+                                        fontSize: 18, color: Colors.black),
+                                  ),
+                                  Text(
+                                    '   13 Properties',
+                                    style: AppTextStyles.labelSmall.copyWith(
+                                        fontSize: 18, color: Colors.black54),
+                                  ),
+                                ],
                               ),
-                              Container(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AboutUs()),
-                                    );
-                                    //Navigator.of(context).pop();
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: const BoxDecoration(
-                                        // border: Border.all(color: Colors.blue, width: 4),
-                                        color: Color.fromRGBO(0, 0, 0, 1),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(10.0),
-                                        child: Icon(
-                                          Icons.arrow_right,
-                                          size: 30.0,
-                                          color: Colors.white,
-                                        ),
+                            ),
+                            const Spacer(),
+                            Container(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Properties()),
+                                  );
+                                  //Navigator.of(context).pop();
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      // border: Border.all(color: Colors.blue, width: 4),
+                                      color: Color.fromRGBO(0, 0, 0, 1),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child: Icon(
+                                        Icons.arrow_right,
+                                        size: 30.0,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     )
@@ -146,30 +144,22 @@ class AreaGuide extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(
-            height: 40,
+          SizedBox(
+            height: 3.0.h,
           ),
-          // const CustomButton(
-          //   text: 'Browse More Locations',
-          //   onPressed: null,
-          // ),
-          // SizedBox(
-          //   height: 5.0.h,
-          // ),
           Center(
             child: Padding(
               padding: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
               child: CustomButton(
                 onPressed: () {},
-                text: "Brows More Propertiese",
+                text: "Browse More Properties",
               ),
             ),
           ),
           SizedBox(
-            height: 2.0.h,
+            height: 4.0.h,
           ),
           Container(
-            // width: 96.0.w,
             margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
             decoration: BoxDecoration(
                 color: AppColors.colorblue,
@@ -226,7 +216,7 @@ class AreaGuide extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                height: 200,
+                                height: 24.0.h,
                                 width: 100.w,
 
                                 // ignore: prefer_const_constructors
