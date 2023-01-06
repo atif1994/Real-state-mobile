@@ -3,6 +3,10 @@ import 'package:sizer/sizer.dart';
 
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 
+import '../../utils/constants/appcolors.dart';
+import '../../utils/constants/image_resources.dart';
+import '../../utils/styles/custom_decorations.dart';
+
 class NewsFeed extends StatelessWidget {
   const NewsFeed({super.key});
 
@@ -24,56 +28,206 @@ class NewsFeed extends StatelessWidget {
           ListView.builder(
             primary: false,
             shrinkWrap: true,
-            itemCount: 100,
+            itemCount: 10,
             itemBuilder: (context, index) {
-              return Card(
-                clipBehavior: Clip.antiAlias,
-                elevation: 6,
-                shadowColor: Colors.black,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.0),
-                ),
+              return Container(
+                margin: EdgeInsets.only(
+                    left: 5.0.w, right: 5.0.w, top: index == 0 ? 1.0.h : 2.0.h),
+                height: 45.0.h,
+                width: 100.0.w,
+                decoration: CustomDecorations.mainCon,
+
                 child: Stack(
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 25.0.h,
-                          // width: 148,
-                          color: Colors.red,
+                        SizedBox(
+                          height: 200,
+                          width: 100.w,
+
                           // ignore: prefer_const_constructors
-                          child: Image(
-                            // ignore: prefer_const_constructors
-                            image: NetworkImage(
-                                'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
-                            fit: BoxFit.fill,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10)),
+                            child: Image.asset(
+                              AppImageResources.property,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         SizedBox(
                           width: 2.0.h,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '   New Properties',
-                                    style: AppTextStyles.heading1.copyWith(
-                                        fontSize: 18, color: Colors.black),
-                                  ),
-                                  Text(
-                                    'PKR 16000',
-                                    style: AppTextStyles.labelSmall.copyWith(
-                                        fontSize: 18, color: Colors.black54),
-                                  ),
-                                ],
+                        Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 3.5.h,
+                                width: 22.0.w,
+                                decoration: BoxDecoration(
+                                    color: AppColors.appthem,
+                                    borderRadius: BorderRadius.circular(300)),
+                                child: Center(
+                                    child: Text(
+                                  "For sale ",
+                                  style: AppTextStyles.labelSmall
+                                      .copyWith(color: AppColors.colorWhite),
+                                )),
                               ),
+                              Text("PKR 160,00000",
+                                  style: AppTextStyles.heading1.copyWith(
+                                      color: AppColors.colorblack,
+                                      fontSize: 10.sp))
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 2.0.w,
+                          ),
+                          child: Text(
+                            'New Property',
+                            style: AppTextStyles.heading1.copyWith(
+                              color: AppColors.colorblack,
                             ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 1.0.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(right: 2.0.w),
+                          child: Row(
+                            // crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                width: 2.0.w,
+                              ),
+                              Image.asset(
+                                AppImageResources.bed,
+                                height: 2.0.h,
+                              ),
+                              SizedBox(
+                                width: 2.0.w,
+                              ),
+                              Text(
+                                "3 beds",
+                                style: AppTextStyles.labelSmall
+                                    .copyWith(fontSize: 9.sp),
+                              ),
+                              SizedBox(
+                                width: 2.0.w,
+                              ),
+                              Image.asset(
+                                AppImageResources.bath,
+                                height: 2.0.h,
+                              ),
+                              SizedBox(
+                                width: 2.0.w,
+                              ),
+                              Text(
+                                "Bath",
+                                style: AppTextStyles.labelSmall
+                                    .copyWith(fontSize: 9.sp),
+                              ),
+                              SizedBox(
+                                width: 2.0.w,
+                              ),
+                              Image.asset(
+                                AppImageResources.plots,
+                                height: 2.0.h,
+                              ),
+                              SizedBox(
+                                width: 2.0.w,
+                              ),
+                              Text(
+                                "Area",
+                                style: AppTextStyles.labelSmall
+                                    .copyWith(fontSize: 9.sp),
+                              )
+                            ],
+                          ),
+                        ),
+                        const Divider(),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Image.asset(
+                                AppImageResources.loc,
+                                height: 2.0.h,
+                              ),
+                              SizedBox(
+                                width: 2.0.w,
+                              ),
+                              Text(
+                                "Islamabad,Punjab",
+                                style: AppTextStyles.labelSmall,
+                              ),
+                              SizedBox(
+                                width: 24.0.w,
+                              ),
+                              Container(
+                                height: 3.5.h,
+                                width: 22.0.w,
+                                decoration: BoxDecoration(
+                                    color: AppColors.appthem,
+                                    borderRadius: BorderRadius.circular(300)),
+                                child: Center(
+                                    child: Text(
+                                  "View ",
+                                  style: AppTextStyles.labelSmall
+                                      .copyWith(color: AppColors.colorWhite),
+                                )),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                //
+              );
+            },
+          )
+        ],
+      )),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+ // child: Row(
+                              //   mainAxisAlignment:
+                              //       MainAxisAlignment.spaceBetween,
+                              //   children: [
+                              //     // Text(
+                                  //   '   New Properties',
+                                  //   style: AppTextStyles.heading1.copyWith(
+                                  //       fontSize: 18, color: Colors.black),
+                                  // ),
+                                  // Text(
+                                  //   'PKR 16000',
+                                  //   style: AppTextStyles.labelSmall.copyWith(
+                                  //       fontSize: 18, color: Colors.black54),
+                                  // ),
+                                // ],
+                              // ),
+                            // ),
                             // Container(
                             //   child: GestureDetector(
                             //     onTap: () {
@@ -104,7 +258,7 @@ class NewsFeed extends StatelessWidget {
                             //     ),
                             //   ),
                             // ),
-                          ],
+                          // ],
                           // children: [
                           //   Column(
                           //     crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,17 +277,3 @@ class NewsFeed extends StatelessWidget {
                           //     ],
                           //   ),
                           // ],
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                //
-              );
-            },
-          )
-        ],
-      )),
-    );
-  }
-}
