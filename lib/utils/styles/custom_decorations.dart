@@ -30,5 +30,5 @@ class CustomDecorations {
   static BoxDecoration con3 = BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       color: AppColors.colorWhite,
-      border: Border.all(color: AppColors.appthem));
+      border: Border.all(color: AppColors.colorWhite));
 }
