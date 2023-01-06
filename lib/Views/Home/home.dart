@@ -8,6 +8,7 @@ import 'package:prologic_29/Views/Home/Profile/profile.dart';
 import 'package:prologic_29/Views/area_guide/area_guid.dart';
 import 'package:prologic_29/Views/newsFeeed/newsfeed.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
+import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
@@ -27,6 +28,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var featuredPropertiseController = Get.put(FeaturedPropertyController());
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final labels = ["Buy", "Rent", "Invest"];
   final labels1 = ["Homes", "Plots", "Commercial"];
@@ -569,168 +571,224 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(
-                              top: 1.0.h, left: 3.0.w, right: 3.0.w),
-                          height: 32.0.h,
+                            margin: EdgeInsets.only(
+                                top: 1.0.h, left: 3.0.w, right: 3.0.w),
+                            height: 32.0.h,
 
-                          // color: Colors.red,
+                            // color: Colors.red,
 
-                          child: ListView.builder(
-                              padding: EdgeInsets.only(bottom: 1.0.h),
-                              itemCount: 5,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    height: 20.0.h,
-                                    width: 60.0.w,
-                                    margin: EdgeInsets.only(
-                                        left: index == 0 ? 1.0.w : 3.0.w,
-                                        right: index == 4 ? 1.0.w : 0.0.w),
-                                    alignment: Alignment.center,
-                                    decoration: CustomDecorations.mainCon,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 14.0.h,
-                                          width: 100.0.w,
-                                          decoration: const BoxDecoration(
-                                              //    color: Colors.red,
-                                              borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(10),
-                                                  topRight:
-                                                      Radius.circular(10))),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(10),
-                                                    topRight:
-                                                        Radius.circular(10)),
-                                            child: Image.asset(
-                                              AppImageResources.property,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 1.0.h,
-                                        ),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Container(
-                                              height: 3.5.h,
-                                              width: 22.0.w,
-                                              decoration: BoxDecoration(
-                                                  color: AppColors.appthem,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          300)),
-                                              child: Center(
-                                                  child: Text(
-                                                "For sale ",
-                                                style: AppTextStyles.labelSmall
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .colorWhite),
-                                              )),
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text("PKR 160,00000",
-                                                style: AppTextStyles.heading1
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .colorblack,
-                                                        fontSize: 10.sp))
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 2.0.w, top: 1.0.h),
-                                          child: Text("New Property",
-                                              style: AppTextStyles.heading1
-                                                  .copyWith(
-                                                color: AppColors.colorblack,
-                                              )),
-                                        ),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.bed,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text(
-                                              "3 beds",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp),
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.bath,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text(
-                                              "Bath",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp),
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.plots,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text(
-                                              "Area",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp),
-                                            )
-                                          ],
-                                        ),
-                                        const Divider(),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.loc,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text(
-                                              "Islamabad,Punjab",
-                                              style: AppTextStyles.labelSmall,
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ));
-                              }),
-                        ),
+                            child: Obx(() {
+                              return featuredPropertiseController
+                                      .loadingFeaturedPropertise.value
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
+                                  : featuredPropertiseController
+                                              .errorLoadingFeaturedPropertise
+                                              .value !=
+                                          ''
+                                      ? Center(
+                                          child: Text(
+                                              featuredPropertiseController
+                                                  .errorLoadingFeaturedPropertise
+                                                  .value))
+                                      : ListView.builder(
+                                          padding:
+                                              EdgeInsets.only(bottom: 1.0.h),
+                                          itemCount:
+                                              featuredPropertiseController
+                                                  .data!.length,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                                height: 20.0.h,
+                                                width: 60.0.w,
+                                                margin: EdgeInsets.only(
+                                                    left: index == 0
+                                                        ? 1.0.w
+                                                        : 3.0.w,
+                                                    right: index == 4
+                                                        ? 1.0.w
+                                                        : 0.0.w),
+                                                alignment: Alignment.center,
+                                                decoration:
+                                                    CustomDecorations.mainCon,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      height: 14.0.h,
+                                                      width: 100.0.w,
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                              //    color: Colors.red,
+                                                              borderRadius: BorderRadius.only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          10),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          10))),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        10),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        10)),
+                                                        child: Image.asset(
+                                                          AppImageResources
+                                                              .property,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 1.0.h,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Container(
+                                                          height: 3.5.h,
+                                                          width: 22.0.w,
+                                                          decoration: BoxDecoration(
+                                                              color: AppColors
+                                                                  .appthem,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          300)),
+                                                          child: Center(
+                                                              child: Text(
+                                                            "For sale ",
+                                                            style: AppTextStyles
+                                                                .labelSmall
+                                                                .copyWith(
+                                                                    color: AppColors
+                                                                        .colorWhite),
+                                                          )),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Text(
+                                                            featuredPropertiseController
+                                                                    .data![
+                                                                        index]
+                                                                    .name ??
+                                                                "",
+                                                            style: AppTextStyles
+                                                                .heading1
+                                                                .copyWith(
+                                                                    color: AppColors
+                                                                        .colorblack,
+                                                                    fontSize:
+                                                                        10.sp))
+                                                      ],
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 2.0.w,
+                                                          top: 1.0.h),
+                                                      child: Text(
+                                                          "New Property",
+                                                          style: AppTextStyles
+                                                              .heading1
+                                                              .copyWith(
+                                                            color: AppColors
+                                                                .colorblack,
+                                                          )),
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Image.asset(
+                                                          AppImageResources.bed,
+                                                          height: 2.0.h,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Text(
+                                                          "3 beds",
+                                                          style: AppTextStyles
+                                                              .labelSmall
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      9.sp),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Image.asset(
+                                                          AppImageResources
+                                                              .bath,
+                                                          height: 2.0.h,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Text(
+                                                          "Bath",
+                                                          style: AppTextStyles
+                                                              .labelSmall
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      9.sp),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Image.asset(
+                                                          AppImageResources
+                                                              .plots,
+                                                          height: 2.0.h,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Text(
+                                                          "Area",
+                                                          style: AppTextStyles
+                                                              .labelSmall
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      9.sp),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    const Divider(),
+                                                    Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Image.asset(
+                                                          AppImageResources.loc,
+                                                          height: 2.0.h,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Text(
+                                                          "Islamabad,Punjab",
+                                                          style: AppTextStyles
+                                                              .labelSmall,
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ));
+                                          });
+                            })),
                         SizedBox(
                           height: 2.0.h,
                         ),
