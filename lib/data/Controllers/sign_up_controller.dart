@@ -60,9 +60,6 @@ class SignUpController extends GetxController {
         // city: user['city'],
         // country: user['country'],
         // state: user['state'],
-        
-
-
       ));
       Get.find<AuthController>().isUserSignedIn();
 

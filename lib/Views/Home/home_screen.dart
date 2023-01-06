@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prologic_29/Services/constants.dart';
+import 'package:prologic_29/data/Services/constants.dart';
 import 'package:prologic_29/Views/Home/Post/post_tile.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,10 +11,12 @@ class HomeScreen extends StatelessWidget {
       primary: false,
       shrinkWrap: true,
       itemCount: 10,
-      itemBuilder: (context, index){
+      itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
-          child: PostTile(index: index,),
+          child: PostTile(
+            index: index,
+          ),
         );
       },
     );

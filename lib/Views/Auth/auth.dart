@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/Views/Auth/sign_up.dart';
-import '../../Controllers/auth_controller.dart';
+import '../../data/Controllers/auth_controller.dart';
 import '../Home/home.dart';
 
 class Auth extends GetView<AuthController> {

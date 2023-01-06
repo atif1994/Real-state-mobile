@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field_2.dart';
-import '../../../../Services/constants.dart';
+import '../../../../data/Services/constants.dart';
 
 class features {
   Future<List<card>> getPhotos() async {
@@ -754,9 +754,9 @@ class _AddPropertyState extends State<AddProperty>
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
-                        children: [
+                        children: const [
                           Text('Distance Key Between Facilities',
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ],
@@ -768,10 +768,11 @@ class _AddPropertyState extends State<AddProperty>
                     children: [
                       DecoratedBox(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Color.fromARGB(255, 241, 239, 239),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            color: const Color.fromARGB(255, 241, 239, 239),
                             border: Border.all(
-                                color: Color.fromARGB(255, 168, 166, 166),
+                                color: const Color.fromARGB(255, 168, 166, 166),
                                 width: 1)),
                         child: Padding(
                           padding: const EdgeInsets.all(10),
@@ -790,7 +791,7 @@ class _AddPropertyState extends State<AddProperty>
                               }),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       TextField(
@@ -809,11 +810,11 @@ class _AddPropertyState extends State<AddProperty>
                     padding: const EdgeInsets.only(top: 15),
                     child: MyButton(onTap: () {}, text: 'Add New'),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
-                    children: [
+                    children: const [
                       Text('Type',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       SizedBox(
@@ -840,10 +841,10 @@ class _AddPropertyState extends State<AddProperty>
                       const MyTextField2(),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Row(children: [
+                  Row(children: const [
                     Text('Features',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                   ]),
@@ -858,8 +859,8 @@ class _AddPropertyState extends State<AddProperty>
                               checkBoxValue1 = value!;
                             });
                           }),
-                      Text('Assistance'),
-                      SizedBox(
+                      const Text('Assistance'),
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(children: [
@@ -871,9 +872,9 @@ class _AddPropertyState extends State<AddProperty>
                                 checkBoxValue2 = value!;
                               });
                             }),
-                        Text('Balcony')
+                        const Text('Balcony')
                       ]),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(children: [
@@ -885,9 +886,9 @@ class _AddPropertyState extends State<AddProperty>
                                 checkBoxValue3 = value!;
                               });
                             }),
-                        Text('Specialist  Assistance')
+                        const Text('Specialist  Assistance')
                       ]),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(children: [
@@ -899,9 +900,9 @@ class _AddPropertyState extends State<AddProperty>
                                 checkBoxValue4 = value!;
                               });
                             }),
-                        Text('Parking Area')
+                        const Text('Parking Area')
                       ]),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(children: [
@@ -913,7 +914,7 @@ class _AddPropertyState extends State<AddProperty>
                                 checkBoxValue5 = value!;
                               });
                             }),
-                        Text('Mosque Nearby')
+                        const Text('Mosque Nearby')
                       ]),
                       myDivider(),
                       Column(
@@ -936,17 +937,17 @@ class _AddPropertyState extends State<AddProperty>
                               onPressed: () {},
                               child: const Text('Add Photos')),
                           myDivider(),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Text('Category',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 12,
                           ),
                           Column(
@@ -954,12 +955,13 @@ class _AddPropertyState extends State<AddProperty>
                               DecoratedBox(
                                 decoration: BoxDecoration(
                                     //borderRadius: BorderRadius.circular(5),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    color: Color.fromARGB(255, 241, 239, 239),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    color: const Color.fromARGB(
+                                        255, 241, 239, 239),
                                     border: Border.all(
-                                        color:
-                                            Color.fromARGB(255, 168, 166, 166),
+                                        color: const Color.fromARGB(
+                                            255, 168, 166, 166),
                                         width: 1)),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
