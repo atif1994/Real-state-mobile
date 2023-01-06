@@ -179,7 +179,7 @@ class _HomeState extends State<Home> {
               ),
               ListTile(
                 onTap: () {
-                  Get.to(() => const NewsFeed());
+                  Get.to(() => NewsFeed());
                 },
                 leading: Image.asset(
                   AppImageResources.newFeed,
