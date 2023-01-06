@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 // import 'package:prologic_29/Views/Drawer/about_us.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
 import 'package:prologic_29/Views/area_guide/area_guid.dart';
+import 'package:prologic_29/Views/newsFeeed/newsfeed.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
@@ -177,6 +178,9 @@ class _HomeState extends State<Home> {
                 child: const Divider(),
               ),
               ListTile(
+                onTap: () {
+                  Get.to(() => const NewsFeed());
+                },
                 leading: Image.asset(
                   AppImageResources.newFeed,
                   height: 2.5.h,
