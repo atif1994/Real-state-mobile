@@ -22,4 +22,9 @@ class AppImageResources {
   static const String img1 = 'assets/img1.png';
   static const String img2 = 'assets/img2.png';
   static const String img3 = 'assets/img3.png';
+  static const String lock = 'assets/lock.png';
+  static const String twitter = 'assets/twitter.png';
+  static const String square = 'assets/square.png';
+  static const String team = 'assets/team.png';
+  static const String abt = 'assets/abt.png';
 }
