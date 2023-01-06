@@ -2,10 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Home/Post/post_details.dart';
-import '../../../Services/constants.dart';
+import '../../../data/Services/constants.dart';
 
 class PostTile extends StatelessWidget {
-
   final int index;
 
   const PostTile({super.key, required this.index});
@@ -16,7 +15,9 @@ class PostTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: GestureDetector(
         onTap: () {
-          Get.to(() => PostDetails(index: index,));
+          Get.to(() => PostDetails(
+                index: index,
+              ));
         },
         child: Container(
           decoration: BoxDecoration(
@@ -33,9 +34,9 @@ class PostTile extends StatelessWidget {
                   child: Hero(
                     tag: 'Post Image Hero Tag $index',
                     child: CachedNetworkImage(
-                          imageUrl:
-                              'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
-                    fit: BoxFit.cover,
+                      imageUrl:
+                          'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+                      fit: BoxFit.cover,
                       width: double.infinity,
                     ),
                   ),

@@ -448,7 +448,7 @@ class _HomeState extends State<Home> {
                   ///constructio cost calculater
 
                   Container(
-                    height: 82.0.h,
+                    height: 52.0.h,
                     width: 100.0.w,
                     decoration: CustomDecorations.mainCon,
                     margin:
@@ -479,21 +479,21 @@ class _HomeState extends State<Home> {
                         Container(
                           margin: EdgeInsets.only(
                               top: 1.0.h, left: 3.0.w, right: 3.0.w),
-                          height: 62.0.h,
-                          width: 100.0.w,
-                          //  color: Colors.red,
-                          child: GridView.builder(
+                          height: 32.0.h,
+
+                          // color: Colors.red,
+
+                          child: ListView.builder(
                               padding: EdgeInsets.only(bottom: 1.0.h),
+                              itemCount: 5,
                               scrollDirection: Axis.horizontal,
-                              gridDelegate:
-                                  const SliverGridDelegateWithMaxCrossAxisExtent(
-                                      maxCrossAxisExtent: 310,
-                                      childAspectRatio: 4 / 4,
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 10),
-                              itemCount: 10,
-                              itemBuilder: (BuildContext ctx, index) {
+                              itemBuilder: (context, index) {
                                 return Container(
+                                    height: 20.0.h,
+                                    width: 60.0.w,
+                                    margin: EdgeInsets.only(
+                                        left: index == 0 ? 1.0.w : 3.0.w,
+                                        right: index == 4 ? 1.0.w : 0.0.w),
                                     alignment: Alignment.center,
                                     decoration: CustomDecorations.mainCon,
                                     child: Column(
@@ -643,9 +643,12 @@ class _HomeState extends State<Home> {
                           height: 2.0.h,
                         ),
                         Center(
-                          child: CustomButton(
-                            onPressed: () {},
-                            text: "Brows More Propertiese",
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
+                            child: CustomButton(
+                              onPressed: () {},
+                              text: "Brows More Propertiese",
+                            ),
                           ),
                         )
                       ],

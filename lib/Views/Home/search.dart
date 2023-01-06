@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:prologic_29/Controllers/search_controller.dart';
+import 'package:prologic_29/data/Controllers/search_controller.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import 'package:prologic_29/Views/Home/Post/post_tile.dart';
 import '../../My Widgets/my_text_field_2.dart';
-import '../../Services/constants.dart';
+import '../../data/Services/constants.dart';
 
 class Search extends GetView<SearchController> {
   const Search({Key? key}) : super(key: key);
@@ -568,7 +568,9 @@ class Search extends GetView<SearchController> {
                   shrinkWrap: true,
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return PostTile(index: index,);
+                    return PostTile(
+                      index: index,
+                    );
                   },
                 ),
               ],

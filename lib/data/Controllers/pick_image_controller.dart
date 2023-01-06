@@ -1,18 +1,13 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
-import 'package:prologic_29/Models/profile_model.dart';
-import 'package:http/http.dart' as http;
+import 'package:prologic_29/data/Models/profile_model.dart';
 
 class ImagePickerController extends GetxController {
   var imagePath = "".obs;
   var isImagePathSet = false.obs;
   Profile_Model? user_model;
   var isDataLoading = false.obs;
-  
 
   void setImagePath(String path) {
-    
     imagePath.value = path;
     isImagePathSet.value = true;
   }
@@ -41,4 +36,3 @@ class ImagePickerController extends GetxController {
 //   }
 // }
 }
-

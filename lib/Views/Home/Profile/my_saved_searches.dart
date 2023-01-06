@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../Services/constants.dart';
+import '../../../data/Services/constants.dart';
 import '../Post/post_tile.dart';
 
 class MySavedSearches extends StatelessWidget {
@@ -16,10 +16,12 @@ class MySavedSearches extends StatelessWidget {
         primary: false,
         shrinkWrap: true,
         itemCount: 10,
-        itemBuilder: (context, index){
+        itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
-            child: PostTile(index: index,),
+            child: PostTile(
+              index: index,
+            ),
           );
         },
       ),

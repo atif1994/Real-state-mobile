@@ -6,12 +6,12 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Controllers/sign_up_controller.dart';
+import 'package:prologic_29/data/Controllers/sign_up_controller.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
-import '../../Controllers/auth_controller.dart';
+import '../../data/Controllers/auth_controller.dart';
 import '../../My Widgets/my_button.dart';
 import '../../My Widgets/my_text_field.dart';
-import '../../Services/constants.dart';
+import '../../data/Services/constants.dart';
 import '../Home/home.dart';
 
 class SignUp extends GetView<SignUpController> {
@@ -23,8 +23,9 @@ class SignUp extends GetView<SignUpController> {
   String stateValue = "";
   String cityValue = "";
   String address = "";
+  @override
   Widget build(BuildContext context) {
-    GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
+    GlobalKey<CSCPickerState> cscPickerKey = GlobalKey();
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -78,8 +79,7 @@ class SignUp extends GetView<SignUpController> {
                                         showCursor: true,
                                         decoration: InputDecoration(
                                             hintText: 'User Name'),
-                                        controller:
-                                            controller.UserController,
+                                        controller: controller.UserController,
                                         validator: (String? value) {
                                           if (value == null || value.isEmpty) {
                                             return 'Please enter user name';
@@ -234,10 +234,6 @@ class SignUp extends GetView<SignUpController> {
                                     onCountryChanged: (value) {
                                       controller.CountryController.text = value;
 
-
-
-                                      
-                                      
                                       // setState(() {
                                       //   ///store value in country variable
                                       //   countryValue = value;
@@ -246,7 +242,8 @@ class SignUp extends GetView<SignUpController> {
 
                                     ///triggers once state selected in dropdown
                                     onStateChanged: (value) {
-                                      controller.SateController.text= value.toString();
+                                      controller.SateController.text =
+                                          value.toString();
                                       // setState(() {
                                       //   ///store value in state variable
                                       //   stateValue = value.toString();
@@ -255,7 +252,8 @@ class SignUp extends GetView<SignUpController> {
 
                                     ///triggers once city selected in dropdown
                                     onCityChanged: (value) {
-                                      controller.CityController.text=value.toString();
+                                      controller.CityController.text =
+                                          value.toString();
                                       //controller=controller.CityController,
                                       // setState(() {
                                       //   ///store value in city variable

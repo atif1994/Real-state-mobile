@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Controllers/sign_in_controller.dart';
+import 'package:prologic_29/data/Controllers/sign_in_controller.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 
-import '../../Controllers/auth_controller.dart';
-import '../../Services/constants.dart';
+import '../../data/Controllers/auth_controller.dart';
+import '../../data/Services/constants.dart';
 
 class SignIn extends GetView<SignInController> {
   SignIn({Key? key}) : super(key: key);
