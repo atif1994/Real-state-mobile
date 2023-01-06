@@ -15,4 +15,9 @@ class AppTextStyles {
       fontFamily: AppFonts.nexaBook,
       fontSize: 12.sp,
       color: AppColors.colorblack);
+
+  static TextStyle appbar = TextStyle(
+      fontFamily: AppFonts.nexaBook,
+      fontSize: 12.sp,
+      color: AppColors.colorWhite);
 }

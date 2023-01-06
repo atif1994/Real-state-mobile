@@ -15,15 +15,11 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.appthem,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            text ?? "",
-            style: AppTextStyles.labelSmall
-                .copyWith(color: AppColors.colorWhite, fontSize: 14.sp),
-          ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10))),
+        child: Text(
+          text ?? "",
+          style: AppTextStyles.heading1,
         ),
         onPressed: () {
           onPressed;
