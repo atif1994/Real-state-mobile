@@ -3,25 +3,24 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:prologic_29/Controllers/pick_image_controller.dart';
+import 'package:prologic_29/data/Controllers/pick_image_controller.dart';
 
-import '../../Controllers/profile_controller.dart';
-
+import '../../data/Controllers/profile_controller.dart';
 
 class ProfileImageEdit extends StatelessWidget {
   File? imageFile;
   ImagePicker imagePicker = ImagePicker();
-     ImagePickerController imagePickerController =
-      Get.put(ImagePickerController());  
- 
-   ProfileImageEdit({super.key});
+  ImagePickerController imagePickerController =
+      Get.put(ImagePickerController());
+
+  ProfileImageEdit({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
-         // mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // const Text(
             //   "Image Picker Page",
@@ -43,7 +42,7 @@ class ProfileImageEdit extends StatelessWidget {
                             ? FileImage(
                                     File(imagePickerController.imagePath.value))
                                 as ImageProvider
-                            : AssetImage(""),
+                            : const AssetImage(""),
                       )),
                   Positioned(
                     bottom: 0,
@@ -69,26 +68,27 @@ class ProfileImageEdit extends StatelessWidget {
       ),
     );
   }
+
   Widget bottomSheet(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
       height: 100,
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 20,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             "Select or Capture Photo",
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           Row(
@@ -149,7 +149,7 @@ class ProfileImageEdit extends StatelessWidget {
         await imagePicker.pickImage(source: source, imageQuality: 100);
 
     imageFile = File(pickedImage!.path);
-    print(' imagee path:${imageFile}');
+    print(' imagee path:$imageFile');
 
     imagePickerController.setImagePath(imageFile!.path);
     Navigator.pop(context);

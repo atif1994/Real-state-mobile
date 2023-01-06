@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
-import 'package:prologic_29/Services/constants.dart';
+import 'package:prologic_29/data/Services/constants.dart';
 import 'package:prologic_29/Views/Home/Post/post_comments.dart';
 
 class PostDetails extends StatefulWidget {
@@ -137,21 +137,19 @@ class _PostDetailsState extends State<PostDetails> {
                           // allowHalfRating: true,
                           itemCount: 5,
                           itemPadding:
-                          const EdgeInsets.symmetric(
-                              horizontal: 1.0),
-                          itemBuilder: (context, _) =>
-                          const Icon(
+                              const EdgeInsets.symmetric(horizontal: 1.0),
+                          itemBuilder: (context, _) => const Icon(
                             Icons.star,
                             color: Colors.amber,
                           ),
-                          onRatingUpdate: (rating) {
-
-                          },
+                          onRatingUpdate: (rating) {},
                         ),
                       ),
-                      TextButton(onPressed: (){
-                        Get.to(const PostComments());
-                      }, child: const Text('Comments')),
+                      TextButton(
+                          onPressed: () {
+                            Get.to(const PostComments());
+                          },
+                          child: const Text('Comments')),
                     ],
                   ),
                   const Padding(
@@ -237,13 +235,15 @@ class _PostDetailsState extends State<PostDetails> {
                     padding: const EdgeInsets.only(bottom: horizontalPadding),
                     child: Row(
                       children: [
-                        Flexible(child: Padding(
+                        Flexible(
+                            child: Padding(
                           padding: const EdgeInsets.only(right: 5),
-                          child: MyButton(onTap: (){}, text: 'Call'),
+                          child: MyButton(onTap: () {}, text: 'Call'),
                         )),
-                        Flexible(child: Padding(
+                        Flexible(
+                            child: Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: MyButton(onTap: (){}, text: 'Email'),
+                          child: MyButton(onTap: () {}, text: 'Email'),
                         )),
                       ],
                     ),

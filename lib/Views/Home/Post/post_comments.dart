@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field_2.dart';
-import 'package:prologic_29/Services/constants.dart';
+import 'package:prologic_29/data/Services/constants.dart';
 
 class PostComments extends StatefulWidget {
   const PostComments({Key? key}) : super(key: key);
@@ -25,9 +25,10 @@ class _PostCommentsState extends State<PostComments> {
               primary: true,
               shrinkWrap: true,
               itemCount: 10,
-              itemBuilder: (context, index){
+              itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 5),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: horizontalPadding, vertical: 5),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -45,12 +46,20 @@ class _PostCommentsState extends State<PostComments> {
                                 CircleAvatar(child: Icon(Icons.person)),
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 5),
-                                  child: Expanded(child: Text('Uzair Ali', style: TextStyle(fontWeight: FontWeight.bold),)),
+                                  child: Expanded(
+                                      child: Text(
+                                    'Uzair Ali',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
                                 ),
                               ],
                             ),
                           ),
-                          const Text('This is a good property. Great shape and design with a reasonable price. a good value for money', textAlign: TextAlign.justify,)
+                          const Text(
+                            'This is a good property. Great shape and design with a reasonable price. a good value for money',
+                            textAlign: TextAlign.justify,
+                          )
                         ],
                       ),
                     ),
@@ -63,10 +72,13 @@ class _PostCommentsState extends State<PostComments> {
             padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
             child: Row(
               children: [
-                Flexible(child: Container(color: Colors.white,child: const MyTextField2(
-                  hintText: 'Write a comment',
-                ))),
-                IconButton(onPressed: (){}, icon: const Icon(Icons.send))
+                Flexible(
+                    child: Container(
+                        color: Colors.white,
+                        child: const MyTextField2(
+                          hintText: 'Write a comment',
+                        ))),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.send))
               ],
             ),
           ),

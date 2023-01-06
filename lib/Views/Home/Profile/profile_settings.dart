@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:prologic_29/Services/constants.dart';
-import 'package:prologic_29/Services/my_shared_preferences.dart';
-import '../../../Controllers/pick_image_controller.dart';
+import 'package:prologic_29/data/Services/constants.dart';
+import 'package:prologic_29/data/Services/my_shared_preferences.dart';
+import '../../../data/Controllers/pick_image_controller.dart';
 import '../../../My Widgets/my_button.dart';
 import '../../../My Widgets/my_text_field_2.dart';
 import '../../profile/profile_screen.dart';
 
 class ProfileSettings extends StatefulWidget {
-  ProfileSettings({Key? key}) : super(key: key);
+  const ProfileSettings({Key? key}) : super(key: key);
   @override
   State<ProfileSettings> createState() => _ProfileSettingsState();
 }
@@ -22,16 +22,15 @@ class ProfileSettings extends StatefulWidget {
 class _ProfileSettingsState extends State<ProfileSettings> {
   File? imageFile;
   int usid = 0;
-  GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
+  final GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
 
- 
   final TextEditingController UserController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
-  String country= "--Select Country--" ;
+  String country = "--Select Country--";
   String state = "--Select State--";
   String city = "--Select City--";
   String address = "";
@@ -41,6 +40,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   ImagePicker imagePicker = ImagePicker();
   ImagePickerController imagePickerController =
       Get.put(ImagePickerController());
+  @override
   void initState() {
     getUserData();
     super.initState();
@@ -103,7 +103,6 @@ class _ProfileSettingsState extends State<ProfileSettings> {
       city = user['address']['city'];
       print(country);
       print(city);
-
     }
   }
 
@@ -118,11 +117,10 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 //   });
 // }
   @override
- 
   Widget build(BuildContext context) {
     final formkey = GlobalKey<FormState>();
 
-    GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
+    GlobalKey<CSCPickerState> cscPickerKey = GlobalKey();
     return Scaffold(
       appBar: AppBar(title: const Text('Profile Settings')),
       body: SingleChildScrollView(
@@ -141,7 +139,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             ? FileImage(
                                     File(imagePickerController.imagePath.value))
                                 as ImageProvider
-                            : NetworkImage(''),
+                            : const NetworkImage(''),
                       )),
                   Positioned(
                     bottom: 0,
@@ -162,7 +160,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             MyTextField2(
@@ -191,6 +189,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                   if (val!.isEmpty) {
                     return 'Phone Number must be required';
                   }
+                  return null;
                 },
               ),
             ),
@@ -213,13 +212,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
               ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
               dropdownDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                   color: Colors.white,
                   border: Border.all(color: Colors.grey.shade300, width: 1)),
 
               ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
               disabledDropdownDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                   color: Colors.grey.shade300,
                   border: Border.all(color: Colors.grey.shade300, width: 1)),
 
@@ -254,7 +253,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                   fontWeight: FontWeight.bold),
 
               ///DropdownDialog Item style [OPTIONAL PARAMETER]
-              dropdownItemStyle: TextStyle(
+              dropdownItemStyle: const TextStyle(
                 color: Colors.black,
                 fontSize: 14,
               ),
@@ -267,7 +266,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
               ///triggers once country selected in dropdown
               onCountryChanged: (value) {
-                country= value;
+                country = value;
 
                 // setState(() {
                 //   ///store value in country variable
@@ -286,7 +285,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
               ///triggers once city selected in dropdown
               onCityChanged: (value) {
-                city= value.toString();
+                city = value.toString();
                 //controller=controller.CityController,
                 // setState(() {
                 //   ///store value in city variable
@@ -337,21 +336,21 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     return Container(
       width: double.infinity,
       height: 100,
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 20,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             "Select or Capture Photo",
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           Row(
