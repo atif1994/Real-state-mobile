@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
+import 'package:prologic_29/utils/constants/image_resources.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
+import 'package:prologic_29/utils/styles/custom_decorations.dart';
+import 'package:sizer/sizer.dart';
 
 class AboutUs extends StatefulWidget {
   const AboutUs({super.key});
@@ -15,15 +18,15 @@ class _AboutUsState extends State<AboutUs> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.appthem,
-        title: Text("About Us", style: AppTextStyles.heading1),
+        title: Text("About Us", style: AppTextStyles.appbar),
       ),
       body: SafeArea(
           child: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 18.00),
         children: <Widget>[
           Column(children: [
-            const SizedBox(
-              height: 28,
+            SizedBox(
+              height: 3.0.h,
             ),
             const Text(
               'Our Story',
@@ -32,8 +35,8 @@ class _AboutUsState extends State<AboutUs> {
                   fontWeight: FontWeight.w700,
                   color: Color.fromARGB(255, 11, 11, 11)),
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 3.0.h,
             ),
             const Text(
               textAlign: TextAlign.justify,
@@ -45,78 +48,49 @@ class _AboutUsState extends State<AboutUs> {
                   fontFamily: 'Rubik Medium',
                   color: Color.fromARGB(255, 131, 130, 130)),
             ),
-            const SizedBox(
-              height: 40,
-            ),
             Image.asset(
-              'assets/abt.png',
-              height: 340,
-              width: 340,
-            ),
-            const SizedBox(
-              height: 40,
+              AppImageResources.abt,
+              height: 45.0.h,
             ),
             const Text(
               'Our Mission & Work Process',
               style: TextStyle(
-                fontSize: 19,
+                fontSize: 17,
                 fontFamily: 'Rubik Medium',
                 color: Color.fromARGB(255, 8, 8, 8),
                 fontWeight: FontWeight.w500,
               ),
             ),
+            SizedBox(
+              height: 1.0.h,
+            ),
             const Text(
               'Professional & Dedicated Team',
               style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 13,
                   fontFamily: 'Rubik Medium',
                   color: Color.fromARGB(255, 131, 130, 130)),
             ),
-            const SizedBox(
-              height: 50,
+            SizedBox(
+              height: 6.0.h,
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                //BorderRadius.only
-                /************************************/
-                /* The BoxShadow widget  is here */
-                /************************************/
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color.fromARGB(255, 161, 158, 158),
-                    offset: Offset(
-                      6.0,
-                      6.0,
-                    ),
-                    blurRadius: 8.0,
-                    spreadRadius: 1.0,
-                  ), //BoxShadow
-                  BoxShadow(
-                    color: Colors.white,
-                    offset: Offset(0.0, 0.0),
-                    blurRadius: 0.0,
-                    spreadRadius: 0.0,
-                  ), //BoxShadow
-                ],
-              ),
+              decoration: CustomDecorations.mainCon,
               child: Row(
                 children: [
-                  const SizedBox(
-                    width: 70,
+                  SizedBox(
+                    width: 9.0.h,
                     // color: Colors.blue,
                     child: Padding(
-                      padding: EdgeInsets.only(right: 18),
-                      child: Image(
-                        image: AssetImage('assets/lock.png'),
-                        height: 30,
-                        width: 30,
+                      padding: const EdgeInsets.only(right: 30),
+                      child: Image.asset(
+                        AppImageResources.lock,
+                        height: 3.5.h,
+                        //width: 4.0.h,
                       ),
+                      //image: AssetImage('assets/lock.png'),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 0,
                   ),
                   Expanded(
                     child: Column(children: const [
@@ -149,50 +123,23 @@ class _AboutUsState extends State<AboutUs> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 1.5.h,
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              // decoration: BoxDecoration(
-              //   borderRadius: BorderRadius.circular(5.0),
-              //   //BorderRadius.only
-              //   /************************************/
-              //   /* The BoxShadow widget  is here */
-              //   /************************************/
-              //   boxShadow: const [
-              //     BoxShadow(
-              //       color: Color.fromARGB(255, 161, 158, 158),
-              //       offset: Offset(
-              //         6.0,
-              //         6.0,
-              //       ),
-              //       blurRadius: 8.0,
-              //       spreadRadius: 1.0,
-              //     ), //BoxShadow
-              //     BoxShadow(
-              //       color: Colors.white,
-              //       offset: Offset(0.0, 0.0),
-              //       blurRadius: 0.0,
-              //       spreadRadius: 0.0,
-              //     ), //BoxShadow
-              //   ],
-              // ),
+              decoration: CustomDecorations.mainCon,
               child: Row(
                 children: [
-                  const SizedBox(
-                    width: 70,
+                  SizedBox(
+                    width: 9.0.h,
                     child: Padding(
-                      padding: EdgeInsets.only(right: 15),
-                      child: Image(
-                        image: AssetImage('assets/twitter.png'),
-                        height: 25,
-                        width: 25,
+                      padding: const EdgeInsets.only(right: 28),
+                      child: Image.asset(
+                        AppImageResources.twitter,
+                        height: 3.0.h,
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 0,
                   ),
                   Expanded(
                     child: Column(children: const [
@@ -224,50 +171,23 @@ class _AboutUsState extends State<AboutUs> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 1.5.h,
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                //BorderRadius.only
-                /************************************/
-                /* The BoxShadow widget  is here */
-                /************************************/
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color.fromARGB(255, 161, 158, 158),
-                    offset: Offset(
-                      6.0,
-                      6.0,
-                    ),
-                    blurRadius: 8.0,
-                    spreadRadius: 1.0,
-                  ), //BoxShadow
-                  BoxShadow(
-                    color: Colors.white,
-                    offset: Offset(0.0, 0.0),
-                    blurRadius: 0.0,
-                    spreadRadius: 0.0,
-                  ), //BoxShadow
-                ],
-              ),
+              decoration: CustomDecorations.mainCon,
               child: Row(
                 children: [
-                  const SizedBox(
-                    width: 70,
+                  SizedBox(
+                    width: 9.0.h,
                     child: Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Image(
-                        image: AssetImage('assets/square.png'),
-                        height: 25,
-                        width: 25,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 0,
+                        padding: const EdgeInsets.only(right: 28),
+                        child: Image.asset(
+                          AppImageResources.square,
+                          height: 2.6.h,
+                          width: 3.0.h,
+                        )),
                   ),
                   Expanded(
                     child: Column(children: const [
@@ -300,13 +220,13 @@ class _AboutUsState extends State<AboutUs> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 3.0.h,
             ),
             Image.asset(
-              'assets/team.png',
-              height: 320,
-              width: 320,
+              AppImageResources.team,
+              height: 30.0.h,
+              width: 35.0.h,
             ),
           ]),
         ],
