@@ -1,11 +1,13 @@
 // ignore_for_file: unused_field
 
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+// import 'package:prologic_29/Views/Drawer/about_us.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
+import 'package:prologic_29/Views/area_guide/area_guid.dart';
+import 'package:prologic_29/Views/newsFeeed/newsfeed.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
-import 'package:prologic_29/custom_widgets/drawer_widget.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
@@ -13,6 +15,8 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
+import '../AboutUs/about_us.dart';
+import '../ContactUs/contact_us.dart';
 import 'home_screen.dart';
 
 class Home extends StatefulWidget {
@@ -55,7 +59,7 @@ class _HomeState extends State<Home> {
     AppImageResources.img3
   ];
   final bool _isContainerExpand = false;
-  int _navBarIndex = 0;
+  final int _navBarIndex = 0;
   int _selectedIndex = 0;
   int _browsPropertyIndex = 0;
   int _browsPropertyIndex1 = 0;
@@ -68,39 +72,127 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: const CustomDrawer(),
-
-        bottomNavigationBar: BottomNavyBar(
-          backgroundColor: AppColors.appthem,
-          selectedIndex: _navBarIndex,
-          showElevation: true, // use this to remove appBar's elevation
-          onItemSelected: (index) => setState(() {
-            _navBarIndex = index;
-            // _pageController.animateToPage(index,
-            //     duration: Duration(milliseconds: 300), curve: Curves.ease);
-          }),
-          items: [
-            BottomNavyBarItem(
-              icon: const Icon(Icons.home),
-              title: const Text('Home'),
-              activeColor: Colors.white,
-            ),
-            BottomNavyBarItem(
-              icon: const Icon(Icons.search),
-              title: const Text('Serach'),
-              activeColor: Colors.white,
-            ),
-            BottomNavyBarItem(
-              icon: const Icon(Icons.person),
-              title: const Text('Person'),
-              activeColor: Colors.white,
-            ),
-            BottomNavyBarItem(
-              icon: const Icon(Icons.login),
-              title: const Text('SignIn'),
-              activeColor: Colors.white,
-            ),
-          ],
+        drawer: Drawer(
+          child: Column(
+            children: [
+              Container(
+                width: 100.0.w,
+                height: 24.0.h,
+                color: AppColors.appthem,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 2.0.h,
+                    ),
+                    Image.asset(
+                      AppImageResources.applogo,
+                      height: 14.0.h,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                          left: 6.0.w, right: 6.0.w, top: 1.0.h),
+                      height: 5.0.h,
+                      width: 100.0.w,
+                      decoration: CustomDecorations.con3.copyWith(
+                          color: Colors.transparent,
+                          border: Border.all(color: AppColors.colorWhite)),
+                      child: Center(
+                        child: Text(
+                          "Login or Create Account",
+                          style: AppTextStyles.labelSmall.copyWith(
+                              color: AppColors.colorWhite, fontSize: 10.sp),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const Divider(),
+              ListTile(
+                leading: Image.asset(
+                  AppImageResources.home,
+                  height: 3.0.h,
+                ),
+                title: Text(
+                  "Home",
+                  style: AppTextStyles.heading1
+                      .copyWith(color: AppColors.colorblack),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
+                child: const Divider(),
+              ),
+              ListTile(
+                onTap: () {
+                  Get.to(() => const AboutUs());
+                },
+                leading: Image.asset(
+                  AppImageResources.aboutUs,
+                  height: 3.0.h,
+                ),
+                title: Text(
+                  "About Us",
+                  style: AppTextStyles.heading1
+                      .copyWith(color: AppColors.colorblack),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
+                child: const Divider(),
+              ),
+              ListTile(
+                onTap: () {
+                  Get.to(() => const AreaGuide());
+                },
+                leading: Image.asset(
+                  AppImageResources.areaGuide,
+                  height: 3.0.h,
+                ),
+                title: Text(
+                  "Area Guide",
+                  style: AppTextStyles.heading1
+                      .copyWith(color: AppColors.colorblack),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
+                child: const Divider(),
+              ),
+              ListTile(
+                onTap: () {
+                  Get.to(() => const ContactUs());
+                },
+                leading: Image.asset(
+                  AppImageResources.contact,
+                  height: 3.0.h,
+                ),
+                title: Text(
+                  "Contact",
+                  style: AppTextStyles.heading1
+                      .copyWith(color: AppColors.colorblack),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
+                child: const Divider(),
+              ),
+              ListTile(
+                onTap: () {
+                  Get.to(() => const NewsFeed());
+                },
+                leading: Image.asset(
+                  AppImageResources.newFeed,
+                  height: 2.5.h,
+                ),
+                title: Text(
+                  "News Feed",
+                  style: AppTextStyles.heading1
+                      .copyWith(color: AppColors.colorblack),
+                ),
+              )
+            ],
+          ),
         ),
 
         ///bottom nav bar end
