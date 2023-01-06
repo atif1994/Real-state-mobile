@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:prologic_29/Views/Drawer/about_us.dart';
+// import 'package:prologic_29/Views/Drawer/about_us.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
+
+import '../AboutUs/about_us.dart';
 // import 'package:prologic_29/utils/styles/app_textstyles.dart';
 
 class AreaGuide extends StatelessWidget {
