@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/AboutUs/about_us.dart';
-import 'package:prologic_29/Views/ContactUs/contact_us.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
+
+import '../Views/ContactUs/contact_us.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
