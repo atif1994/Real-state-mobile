@@ -587,10 +587,23 @@ class _HomeState extends State<Home> {
                                               .value !=
                                           ''
                                       ? Center(
-                                          child: Text(
-                                              featuredPropertiseController
-                                                  .errorLoadingFeaturedPropertise
-                                                  .value))
+                                          child: Column(
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  featuredPropertiseController
+                                                      .getFeaturedPropertise();
+                                                },
+                                                icon:
+                                                    const Icon(Icons.refresh)),
+                                            SizedBox(
+                                              height: 1.0.h,
+                                            ),
+                                            Text(featuredPropertiseController
+                                                .errorLoadingFeaturedPropertise
+                                                .value),
+                                          ],
+                                        ))
                                       : ListView.builder(
                                           padding:
                                               EdgeInsets.only(bottom: 1.0.h),
