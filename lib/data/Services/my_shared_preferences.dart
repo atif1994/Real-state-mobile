@@ -12,8 +12,6 @@ class MySharedPreferences {
   // static const String _cityKey = 'city';
   // static const String _stateKey = 'state';
   // static const String _countryKey = 'country';
- 
-
 
   static storeUserData({required UserModel userModel}) async {
     await SharedPreferences.getInstance().then((value) {
@@ -26,7 +24,6 @@ class MySharedPreferences {
       // value.setString(_stateKey, userModel.state);
       // value.setString(_countryKey, userModel.country);
       // value.setString(_cityKey, userModel.city);
-    
     });
   }
 
@@ -51,10 +48,6 @@ class MySharedPreferences {
       // value.getString(_countryKey) ?? value.setString(_countryKey, '');
 
       // value.getString(_stateKey) ?? value.setString(_stateKey, '');
-      
-      
-
-      
 
       userModel = UserModel(
         userId: value.getInt(_userIdKey)!,
@@ -66,8 +59,6 @@ class MySharedPreferences {
         // state: value.getString(_stateKey)!,
         // country: value.getString(_countryKey)!,
         // city: value.getString(_cityKey)!,
-     
-
       );
     });
 
