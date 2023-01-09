@@ -5,7 +5,7 @@ import '../../Models/property_model/featured_propertise_response.dart';
 
 class FeaturedPropertyController extends GetxController {
   RxBool loadingFeaturedPropertise = false.obs;
-  // var featuredPropertyModel = FeaturedPropertiseModel();
+  var featuredPropertyModel = FeaturedPropertiseModel();
   List<Datum>? data;
   RxString errorLoadingFeaturedPropertise = ''.obs;
 
@@ -20,9 +20,8 @@ class FeaturedPropertyController extends GetxController {
     errorLoadingFeaturedPropertise.value = '';
     var res = await FeaturedPropertyService.getFeaturedPropertiser();
     loadingFeaturedPropertise.value = false;
-    if (res is List<Datum>) {
-      data = res;
-      print(res);
+    if (res is FeaturedPropertiseModel) {
+      featuredPropertyModel = res;
     } else {
       loadingFeaturedPropertise.value = false;
       errorLoadingFeaturedPropertise.value = res.toString();

@@ -7,6 +7,7 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../data/Services/constants.dart';
 import '../../utils/constants/appcolors.dart';
 
 class ContactUs extends StatefulWidget {

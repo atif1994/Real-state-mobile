@@ -493,7 +493,12 @@ class _HomeState extends State<Home> {
                                         child: ListView.builder(
                                             padding:
                                                 EdgeInsets.only(bottom: 1.0.h),
-                                            itemCount: 5,
+                                            itemCount:
+                                                featuredPropertiseController
+                                                    .featuredPropertyModel
+                                                    .data!
+                                                    .data!
+                                                    .length,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
                                               return Container(
@@ -560,7 +565,14 @@ class _HomeState extends State<Home> {
                                                                             300)),
                                                             child: Center(
                                                                 child: Text(
-                                                              "For sale ",
+                                                              featuredPropertiseController
+                                                                      .featuredPropertyModel
+                                                                      .data!
+                                                                      .data![
+                                                                          index]
+                                                                      .type!
+                                                                      .name ??
+                                                                  "",
                                                               style: AppTextStyles
                                                                   .labelSmall
                                                                   .copyWith(
@@ -568,14 +580,23 @@ class _HomeState extends State<Home> {
                                                                           .colorWhite),
                                                             )),
                                                           ),
-                                                          Text("PKR 160,00000",
-                                                              style: AppTextStyles
-                                                                  .heading1
-                                                                  .copyWith(
-                                                                      color: AppColors
-                                                                          .colorblack,
-                                                                      fontSize:
-                                                                          10.sp))
+                                                          Flexible(
+                                                            child: Text(
+                                                                featuredPropertiseController
+                                                                        .featuredPropertyModel
+                                                                        .data!
+                                                                        .data![
+                                                                            index]
+                                                                        .price ??
+                                                                    "",
+                                                                style: AppTextStyles
+                                                                    .heading1
+                                                                    .copyWith(
+                                                                        color: AppColors
+                                                                            .colorblack,
+                                                                        fontSize:
+                                                                            10.sp)),
+                                                          )
                                                         ],
                                                       ),
                                                       Padding(
@@ -584,7 +605,13 @@ class _HomeState extends State<Home> {
                                                                 left: 2.0.w,
                                                                 top: 1.0.h),
                                                         child: Text(
-                                                            "New Property",
+                                                            featuredPropertiseController
+                                                                    .featuredPropertyModel
+                                                                    .data!
+                                                                    .data![
+                                                                        index]
+                                                                    .name ??
+                                                                "",
                                                             style: AppTextStyles
                                                                 .heading1
                                                                 .copyWith(
