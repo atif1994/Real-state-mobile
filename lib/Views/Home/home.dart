@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 // import 'package:prologic_29/Views/Drawer/about_us.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
+import 'package:prologic_29/custom_widgets/drawer_widget.dart';
 import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
@@ -14,10 +15,6 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
-import '../AboutUs/about_us.dart';
-import '../ContactUs/contact_us.dart';
-import '../area_guide/area_guid.dart';
-import '../newsFeeed/newsfeed.dart';
 import 'home_screen.dart';
 
 class Home extends StatefulWidget {
@@ -74,128 +71,130 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: Drawer(
-          child: Column(
-            children: [
-              Container(
-                width: 100.0.w,
-                height: 24.0.h,
-                color: AppColors.appthem,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 2.0.h,
-                    ),
-                    Image.asset(
-                      AppImageResources.applogo,
-                      height: 14.0.h,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                          left: 6.0.w, right: 6.0.w, top: 1.0.h),
-                      height: 5.0.h,
-                      width: 100.0.w,
-                      decoration: CustomDecorations.con3.copyWith(
-                          color: Colors.transparent,
-                          border: Border.all(color: AppColors.colorWhite)),
-                      child: Center(
-                        child: Text(
-                          "Login or Create Account",
-                          style: AppTextStyles.labelSmall.copyWith(
-                              color: AppColors.colorWhite, fontSize: 10.sp),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const Divider(),
-              ListTile(
-                leading: Image.asset(
-                  AppImageResources.home,
-                  height: 3.0.h,
-                ),
-                title: Text(
-                  "Home",
-                  style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorblack),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(),
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => const AboutUs());
-                },
-                leading: Image.asset(
-                  AppImageResources.aboutUs,
-                  height: 3.0.h,
-                ),
-                title: Text(
-                  "About Us",
-                  style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorblack),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(),
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => const AreaGuide());
-                },
-                leading: Image.asset(
-                  AppImageResources.areaGuide,
-                  height: 3.0.h,
-                ),
-                title: Text(
-                  "Area Guide",
-                  style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorblack),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(),
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => const ContactUs());
-                },
-                leading: Image.asset(
-                  AppImageResources.contact,
-                  height: 3.0.h,
-                ),
-                title: Text(
-                  "Contact",
-                  style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorblack),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
-                child: const Divider(),
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => NewsFeed());
-                },
-                leading: Image.asset(
-                  AppImageResources.newFeed,
-                  height: 2.5.h,
-                ),
-                title: Text(
-                  "News Feed",
-                  style: AppTextStyles.heading1
-                      .copyWith(color: AppColors.colorblack),
-                ),
-              )
-            ],
-          ),
-        ),
+        drawer: const CustomDrawer(),
+
+        // Drawer(
+        //   child: Column(
+        //     children: [
+        //       Container(
+        //         width: 100.0.w,
+        //         height: 24.0.h,
+        //         color: AppColors.appthem,
+        //         child: Column(
+        //           children: [
+        //             SizedBox(
+        //               height: 2.0.h,
+        //             ),
+        //             Image.asset(
+        //               AppImageResources.applogo,
+        //               height: 14.0.h,
+        //             ),
+        //             Container(
+        //               margin: EdgeInsets.only(
+        //                   left: 6.0.w, right: 6.0.w, top: 1.0.h),
+        //               height: 5.0.h,
+        //               width: 100.0.w,
+        //               decoration: CustomDecorations.con3.copyWith(
+        //                   color: Colors.transparent,
+        //                   border: Border.all(color: AppColors.colorWhite)),
+        //               child: Center(
+        //                 child: Text(
+        //                   "Login or Create Account",
+        //                   style: AppTextStyles.labelSmall.copyWith(
+        //                       color: AppColors.colorWhite, fontSize: 10.sp),
+        //                 ),
+        //               ),
+        //             )
+        //           ],
+        //         ),
+        //       ),
+        //       const Divider(),
+        //       ListTile(
+        //         leading: Image.asset(
+        //           AppImageResources.home,
+        //           height: 3.0.h,
+        //         ),
+        //         title: Text(
+        //           "Home",
+        //           style: AppTextStyles.heading1
+        //               .copyWith(color: AppColors.colorblack),
+        //         ),
+        //       ),
+        //       Padding(
+        //         padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
+        //         child: const Divider(),
+        //       ),
+        //       ListTile(
+        //         onTap: () {
+        //           Get.to(() => const AboutUs());
+        //         },
+        //         leading: Image.asset(
+        //           AppImageResources.aboutUs,
+        //           height: 3.0.h,
+        //         ),
+        //         title: Text(
+        //           "About Us",
+        //           style: AppTextStyles.heading1
+        //               .copyWith(color: AppColors.colorblack),
+        //         ),
+        //       ),
+        //       Padding(
+        //         padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
+        //         child: const Divider(),
+        //       ),
+        //       ListTile(
+        //         onTap: () {
+        //           Get.to(() => const AreaGuide());
+        //         },
+        //         leading: Image.asset(
+        //           AppImageResources.areaGuide,
+        //           height: 3.0.h,
+        //         ),
+        //         title: Text(
+        //           "Area Guide",
+        //           style: AppTextStyles.heading1
+        //               .copyWith(color: AppColors.colorblack),
+        //         ),
+        //       ),
+        //       Padding(
+        //         padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
+        //         child: const Divider(),
+        //       ),
+        //       ListTile(
+        //         onTap: () {
+        //           Get.to(() => const ContactUs());
+        //         },
+        //         leading: Image.asset(
+        //           AppImageResources.contact,
+        //           height: 3.0.h,
+        //         ),
+        //         title: Text(
+        //           "Contact",
+        //           style: AppTextStyles.heading1
+        //               .copyWith(color: AppColors.colorblack),
+        //         ),
+        //       ),
+        //       Padding(
+        //         padding: EdgeInsets.only(left: 1.0.w, right: 1.0.w),
+        //         child: const Divider(),
+        //       ),
+        //       ListTile(
+        //         onTap: () {
+        //           Get.to(() => NewsFeed());
+        //         },
+        //         leading: Image.asset(
+        //           AppImageResources.newFeed,
+        //           height: 2.5.h,
+        //         ),
+        //         title: Text(
+        //           "News Feed",
+        //           style: AppTextStyles.heading1
+        //               .copyWith(color: AppColors.colorblack),
+        //         ),
+        //       )
+        //     ],
+        //   ),
+        // ),
 
         ///bottom nav bar end
         body: NestedScrollView(
