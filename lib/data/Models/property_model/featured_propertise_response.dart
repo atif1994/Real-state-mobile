@@ -449,7 +449,7 @@ class Currency {
 
   int? id;
   String? title;
-  Symbol? symbol;
+  String? symbol;
   String? isPrefixSymbol;
   String? decimals;
   String? order;
@@ -503,21 +503,21 @@ class Feature {
     this.name,
     this.icon,
     this.status,
-    this.pivot,
+    // this.pivot,
   });
 
   int? id;
   String? name;
   String? icon;
   String? status;
-  Pivot? pivot;
+  //Pivot? pivot;
 
   factory Feature.fromJson(Map<String, dynamic> json) => Feature(
         id: json["id"],
         name: json["name"],
         icon: json["icon"],
         status: json["status"],
-        pivot: json["pivot"],
+        //   pivot: json["pivot"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -525,7 +525,7 @@ class Feature {
         "name": name,
         "icon": icon,
         "status": status,
-        "pivot": pivot,
+        //    "pivot": pivot,
       };
 }
 
