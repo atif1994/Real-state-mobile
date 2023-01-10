@@ -8,6 +8,7 @@ import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Views/ContactUs/contact_us.dart';
+import '../Views/area_guide/area_guid.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -111,6 +112,9 @@ class CustomDrawer extends StatelessWidget {
             width: 100.0.w,
             color: const Color.fromARGB(255, 53, 56, 61),
             child: ListTile(
+              onTap: () {
+                Get.to(() => const AreaGuide());
+              },
               leading: Image.asset(
                 AppImageResources.areaGuide,
                 color: AppColors.colorWhite,
