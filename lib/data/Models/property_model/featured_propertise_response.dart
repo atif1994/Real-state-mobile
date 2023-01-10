@@ -156,7 +156,7 @@ class Datum {
   String? description;
   String? content;
   String? location;
-  dynamic images;
+  String? images;
   String? numberBedroom;
   String? numberBathroom;
   String? numberFloor;
