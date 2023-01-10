@@ -13,6 +13,9 @@ class AppImageResources {
   static const String property = 'assets/hhh.jpeg';
   static const String bath = 'assets/icons/bath.png';
   static const String bed = 'assets/icons/bed.png';
+  static const String addproperty = 'assets/plus.png';
+  static const String blogger = 'assets/blogger.png';
+  static const String wishlistsearches = 'assets/icons/love.png';
   // static const String comment = ;
   static const String loc = 'assets/icons/loc.png';
   static const String islamabad = 'assets/isb.jpg';
@@ -28,4 +31,5 @@ class AppImageResources {
   static const String square = 'assets/square.png';
   static const String team = 'assets/team.png';
   static const String abt = 'assets/abt.png';
+  static const String blog2 = 'assets/pexels-jessica-bryant-1370704.jpg';
 }
