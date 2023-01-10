@@ -13,7 +13,7 @@ class AppImageResources {
   static const String property = 'assets/hhh.jpeg';
   static const String bath = 'assets/icons/bath.png';
   static const String bed = 'assets/icons/bed.png';
-  // static const String comment = ;
+  static const String propertyblog = 'assets/property.jpg';
   static const String loc = 'assets/icons/loc.png';
   static const String islamabad = 'assets/isb.jpg';
   static const String faisalabad = 'assets/faisalabad.jpeg';
