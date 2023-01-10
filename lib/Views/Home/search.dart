@@ -85,8 +85,8 @@ class Search extends GetView<SearchController> {
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: const [
-                                      Padding(
+                                    children: [
+                                      const Padding(
                                         padding: EdgeInsets.only(bottom: 5),
                                         child: Text('City',
                                             textScaleFactor: 1.25,

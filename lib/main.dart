@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:prologic_29/Views/Auth/auth.dart';
+import 'package:prologic_29/Views/AddProperty/add_property.dart';
 import 'package:prologic_29/data/Services/app_bindings.dart';
-import 'package:prologic_29/data/Services/constants.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
         title: 'Prologic 29',
         initialBinding: AppBindings(),
         theme: ThemeData(
-            primarySwatch: primaryColor,
+            primarySwatch: Colors.grey,
             appBarTheme: const AppBarTheme(
               centerTitle: true,
               iconTheme: IconThemeData(color: Colors.white),
@@ -32,7 +31,9 @@ class MyApp extends StatelessWidget {
         home:
             //Profile_Page()
             // const NewsFeed(),
-            const Auth(),
+            const Property(),
+        // const Blog(),
+        //  home: Auth(),
         //MyHomePage(),
       );
     });

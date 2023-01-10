@@ -65,7 +65,7 @@ class PostTile extends StatelessWidget {
                     'PKR 80000',
                     textScaleFactor: 1.5,
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: primaryColor),
+                        fontWeight: FontWeight.bold, color: Colors.grey),
                   ),
                 ),
                 myDivider(),
