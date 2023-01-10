@@ -668,7 +668,7 @@ class _HomeState extends State<Home> {
                                                           SizedBox(
                                                             width: 2.0.w,
                                                           ),
-                                                          Icon(
+                                                          const Icon(
                                                             Icons
                                                                 .landscape_outlined,
                                                           ),
@@ -802,7 +802,7 @@ class _HomeState extends State<Home> {
                         Padding(
                           padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
                           child: Text(
-                            "Find By Locations",
+                            "Find By Latttion test push to main",
                             style: AppTextStyles.heading1.copyWith(
                                 fontFamily: AppFonts.nexaBold,
                                 fontSize: 16.sp,
