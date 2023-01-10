@@ -672,11 +672,11 @@ class _HomeState extends State<Home> {
                                                             Icons
                                                                 .landscape_outlined,
                                                           ),
-                                                          Image.asset(
-                                                            AppImageResources
-                                                                .plots,
-                                                            height: 2.0.h,
-                                                          ),
+                                                          // Image.asset(
+                                                          //   AppImageResources
+                                                          //       .plots,
+                                                          //   height: 2.0.h,
+                                                          // ),
                                                           SizedBox(
                                                             width: 2.0.w,
                                                           ),

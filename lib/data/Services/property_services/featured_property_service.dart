@@ -1,3 +1,4 @@
+import 'package:prologic_29/data/Models/property_model/cities__model.dart';
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +13,23 @@ class FeaturedPropertyService {
     try {
       if (res is http.Response) {
         return featuredPropertiseModelFromJson(res.body);
+      } else {
+        return res;
+      }
+    } catch (e) {
+      return e;
+    }
+  }
+
+//----Cities API Call----
+
+  static Future<dynamic> getCities() async {
+    var url = "${AppUrls.baseUrl}${AppUrls.propertyCities}";
+    var res = await BaseClientClass.get(url, '');
+
+    try {
+      if (res is http.Response) {
+        return citiesResponseFromJson(res.body);
       } else {
         return res;
       }
