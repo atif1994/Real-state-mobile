@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Views/Home/Profile/Properties/add_property.dart';
+import 'package:prologic_29/Views/AddProperty/add_property.dart';
 import '../../../../data/Services/constants.dart';
 import '../../Post/post_tile.dart';
 
@@ -15,7 +15,7 @@ class MyProperties extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Get.to(const AddProperty());
+                Get.to(const Property());
               },
               icon: const Icon(Icons.add))
         ],
