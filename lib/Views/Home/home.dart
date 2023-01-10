@@ -582,13 +582,7 @@ class _HomeState extends State<Home> {
                                                           ),
                                                           Flexible(
                                                             child: Text(
-                                                                featuredPropertiseController
-                                                                        .featuredPropertyModel
-                                                                        .data!
-                                                                        .data![
-                                                                            index]
-                                                                        .price ??
-                                                                    "",
+                                                                "Rs  ${featuredPropertiseController.featuredPropertyModel.data!.data![index].price ?? ""} PKR",
                                                                 style: AppTextStyles
                                                                     .heading1
                                                                     .copyWith(
@@ -633,7 +627,13 @@ class _HomeState extends State<Home> {
                                                             width: 2.0.w,
                                                           ),
                                                           Text(
-                                                            "3 beds",
+                                                            featuredPropertiseController
+                                                                    .featuredPropertyModel
+                                                                    .data!
+                                                                    .data![
+                                                                        index]
+                                                                    .numberBedroom ??
+                                                                "",
                                                             style: AppTextStyles
                                                                 .labelSmall
                                                                 .copyWith(
@@ -652,7 +652,13 @@ class _HomeState extends State<Home> {
                                                             width: 2.0.w,
                                                           ),
                                                           Text(
-                                                            "Bath",
+                                                            featuredPropertiseController
+                                                                    .featuredPropertyModel
+                                                                    .data!
+                                                                    .data![
+                                                                        index]
+                                                                    .numberBathroom ??
+                                                                "",
                                                             style: AppTextStyles
                                                                 .labelSmall
                                                                 .copyWith(
@@ -661,6 +667,10 @@ class _HomeState extends State<Home> {
                                                           ),
                                                           SizedBox(
                                                             width: 2.0.w,
+                                                          ),
+                                                          Icon(
+                                                            Icons
+                                                                .landscape_outlined,
                                                           ),
                                                           Image.asset(
                                                             AppImageResources
@@ -671,7 +681,13 @@ class _HomeState extends State<Home> {
                                                             width: 2.0.w,
                                                           ),
                                                           Text(
-                                                            "Area",
+                                                            featuredPropertiseController
+                                                                    .featuredPropertyModel
+                                                                    .data!
+                                                                    .data![
+                                                                        index]
+                                                                    .square ??
+                                                                "",
                                                             style: AppTextStyles
                                                                 .labelSmall
                                                                 .copyWith(
@@ -688,14 +704,20 @@ class _HomeState extends State<Home> {
                                                           ),
                                                           Image.asset(
                                                             AppImageResources
-                                                                .loc,
+                                                                .plots,
                                                             height: 2.0.h,
                                                           ),
                                                           SizedBox(
                                                             width: 2.0.w,
                                                           ),
                                                           Text(
-                                                            "Islamabad,Punjab",
+                                                            featuredPropertiseController
+                                                                    .featuredPropertyModel
+                                                                    .data!
+                                                                    .data![
+                                                                        index]
+                                                                    .location ??
+                                                                "",
                                                             style: AppTextStyles
                                                                 .labelSmall,
                                                           ),
