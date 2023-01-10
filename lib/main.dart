@@ -32,6 +32,8 @@ class MyApp extends StatelessWidget {
             //Profile_Page()
             // const NewsFeed(),
             const Property(),
+        // const Blog(),
+        //  home: Auth(),
         //MyHomePage(),
       );
     });
