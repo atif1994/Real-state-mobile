@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../utils/constants/image_resources.dart';
 import '../Favorites/favorites.dart';
+
 // import 'package:prologic_29/utils/styles/app_textstyles.dart';
 
 class AreaGuide extends StatelessWidget {
