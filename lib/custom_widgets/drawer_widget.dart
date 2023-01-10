@@ -10,6 +10,7 @@ import 'package:sizer/sizer.dart';
 
 import '../Views/BlogPage/Blog_page.dart';
 import '../Views/ContactUs/contact_us.dart';
+import '../Views/area_guide/area_guid.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -61,6 +62,100 @@ class CustomDrawer extends StatelessWidget {
             height: 2.0.h,
           ),
           SizedBox(
+<<<<<<< HEAD
+            height: 2.0.h,
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+            height: 6.0.h,
+            width: 100.0.w,
+            color: const Color.fromARGB(255, 53, 56, 61),
+            child: ListTile(
+              onTap: () {
+                Get.to(() => const AboutUs());
+              },
+              leading: Image.asset(
+                AppImageResources.aboutUs,
+                color: AppColors.colorWhite,
+                height: 3.0.h,
+              ),
+              title: Text(
+                "About Us",
+                style: AppTextStyles.heading1
+                    .copyWith(color: AppColors.colorWhite),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 2.0.h,
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+            height: 6.0.h,
+            width: 100.0.w,
+            color: const Color.fromARGB(255, 53, 56, 61),
+            child: ListTile(
+              onTap: () {
+                Get.to(() => const AreaGuide());
+              },
+              leading: Image.asset(
+                AppImageResources.areaGuide,
+                color: AppColors.colorWhite,
+                height: 3.0.h,
+              ),
+              title: Text(
+                "Area Guide",
+                style: AppTextStyles.heading1
+                    .copyWith(color: AppColors.colorWhite),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 2.0.h,
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+            height: 6.0.h,
+            width: 100.0.w,
+            color: const Color.fromARGB(255, 53, 56, 61),
+            child: ListTile(
+              onTap: () {
+                Get.to(() => const ContactUs());
+              },
+              leading: Image.asset(
+                AppImageResources.contact,
+                color: AppColors.colorWhite,
+                height: 3.0.h,
+              ),
+              title: Text(
+                "Contact",
+                style: AppTextStyles.heading1
+                    .copyWith(color: AppColors.colorWhite),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 2.0.h,
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+            height: 6.0.h,
+            width: 100.0.w,
+            color: const Color.fromARGB(255, 53, 56, 61),
+            child: ListTile(
+              leading: Image.asset(
+                color: AppColors.colorWhite,
+                AppImageResources.newFeed,
+                height: 2.5.h,
+              ),
+              title: Text(
+                "News Feed",
+                style: AppTextStyles.heading1
+                    .copyWith(color: AppColors.colorWhite),
+              ),
+            ),
+          ),
+=======
             height: 68.0.h,
             child: SingleChildScrollView(
               child: Column(
@@ -135,6 +230,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
+>>>>>>> 8540c73242c4160c6be4b554230dd0a37de385c3
 
                   //wishlist
                   SizedBox(
