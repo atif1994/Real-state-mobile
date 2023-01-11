@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/AboutUs/about_us.dart';
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+
 import 'package:prologic_29/Views/blog/blog.dart';
-=======
-import 'package:prologic_29/Views/Favorites/favorites.dart';
->>>>>>> 108fe8307d15a09ec257e360ae78997563b23470
 import 'package:prologic_29/Views/area_guide/area_guid.dart';
->>>>>>> 35f408453c271982d95871ede88df6d29394da89
 import 'package:prologic_29/Views/newsFeeed/newsfeed.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
