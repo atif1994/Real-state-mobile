@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
-import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
-import 'package:prologic_29/data/Services/constants.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../custom_widgets/custom_button.dart';
 import '../../data/Services/constants.dart';
 import '../../utils/constants/appcolors.dart';
 
