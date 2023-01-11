@@ -75,5 +75,8 @@ class SignInController extends GetxController {
 
   _saveCountryData(int cID, String cName) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
+
+    pref.setInt("cityId", cID);
+    pref.setString("cityName", cName);
   }
 }

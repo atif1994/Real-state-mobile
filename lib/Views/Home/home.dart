@@ -13,6 +13,7 @@ import 'package:prologic_29/utils/constants/fonts.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import 'home_screen.dart';
@@ -26,18 +27,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var dashboardController = Get.put(DashboardController());
-
+  int? cid;
+  String? cityName;
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final labels = ["Buy", "Rent", "Invest"];
   final labels1 = ["Homes", "Plots", "Commercial"];
-
-  final citiesLabel = [
-    "Islamabad",
-    "Lahore",
-    "Karachi",
-    "Faisalabad",
-    "Rawalpindi"
-  ];
 
   final images = [
     AppImageResources.home,
@@ -67,6 +61,18 @@ class _HomeState extends State<Home> {
     const HomeScreen(),
     const Profile(),
   ];
+  void getCityInfo() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    cid = pref.getInt("cityId");
+    cityName = pref.getString("cityName");
+  }
+
+  @override
+  void initState() {
+    getCityInfo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +186,14 @@ class _HomeState extends State<Home> {
                                   ),
                                 ],
                               ),
-                              const SizedBox()
+                              const Spacer(),
+                              Text(
+                                "$cityName",
+                                style: AppTextStyles.labelSmall,
+                              ),
+                              SizedBox(
+                                width: 5.0.w,
+                              )
                             ],
                           ),
                         )
