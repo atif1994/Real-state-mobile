@@ -1,4 +1,5 @@
 import 'package:get/state_manager.dart';
+import 'package:prologic_29/data/Models/location_model.dart';
 import 'package:prologic_29/data/Models/property_model/cities__model.dart';
 import 'package:prologic_29/data/Services/property_services/featured_property_service.dart';
 
@@ -45,6 +46,24 @@ class DashboardController extends GetxController {
     } else {
       loadingCities.value = false;
       errorLoadingCities.value = res.toString();
+    }
+  }
+
+//Location Api properties
+  RxBool loadingLocation = false.obs;
+  var propertyLocationModel = LocationModel();
+  RxString errorLoadingLocation = ''.obs;
+
+  void getPrpertLocation(int id, int cnameId) async {
+    loadingLocation.value = true;
+    errorLoadingLocation.value = '';
+    var res = await FeaturedPropertyService.getCityLocation(id, cnameId);
+    loadingLocation.value = false;
+    if (res is LocationModel) {
+      propertyLocationModel = res;
+    } else {
+      loadingLocation.value = false;
+      errorLoadingLocation.value = res.toString();
     }
   }
 }

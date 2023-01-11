@@ -1,3 +1,4 @@
+import 'package:prologic_29/data/Models/location_model.dart';
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
@@ -30,6 +31,22 @@ class FeaturedPropertyService {
     try {
       if (res is http.Response) {
         return citiesResponseFromJson(res.body);
+      } else {
+        return res;
+      }
+    } catch (e) {
+      return e;
+    }
+  }
+
+//---------Location Api Calls------
+  static Future<dynamic> getCityLocation(int id, int cnameId) async {
+    var url = "${AppUrls.baseUrl}${AppUrls.citiesLocation}/$id/$cnameId";
+    var res = await BaseClientClass.get(url, '');
+
+    try {
+      if (res is http.Response) {
+        return locationModelFromJson(res.body);
       } else {
         return res;
       }
