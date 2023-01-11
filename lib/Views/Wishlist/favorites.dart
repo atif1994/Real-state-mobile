@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:prologic_29/Views/Wishlist/wishlist_properties.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:sizer/sizer.dart';
@@ -6,8 +8,8 @@ import 'package:sizer/sizer.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../utils/constants/image_resources.dart';
 
-class FavoritesPage extends StatelessWidget {
-  const FavoritesPage({super.key});
+class WishlistPage extends StatelessWidget {
+  const WishlistPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class FavoritesPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          leading: const Icon(Icons.menu),
+          // leading: const Icon(Icons.menu),
           backgroundColor: AppColors.appthem,
           title: Text(
             'Favorites and Saved',
@@ -91,7 +93,9 @@ class FavoritesPage extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(left: 11.0.w, right: 11.0.w),
                       child: CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(() => WishlistProperties());
+                        },
                         text: "Search Properties",
                       ),
                     ),
@@ -143,7 +147,9 @@ class FavoritesPage extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(left: 11.0.w, right: 11.0.w),
                       child: CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(() => WishlistProperties());
+                        },
                         text: "Find Properties Now",
                       ),
                     ),
@@ -151,27 +157,9 @@ class FavoritesPage extends StatelessWidget {
                 ],
               ),
             ),
-            // ListView.builder(
-            //     itemCount: 100,
-            //     itemBuilder: (context, index) {
-            //       return const ListTile(
-            //         leading: CircleAvatar(
-            //             backgroundImage: NetworkImage(
-            //                 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')),
-            //         title: Text('Active Use'),
-            //         subtitle: Text('Hows everything'),
-            //         trailing: Text('6.46 PM'),
-            //       );
-            //     }),
           ],
         ),
       ),
     );
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     title: Text('Favorites'),
-    //   ),
-    //   body: FavoritesPage(),
-    // );
   }
 }

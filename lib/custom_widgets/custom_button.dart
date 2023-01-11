@@ -7,7 +7,10 @@ import 'package:sizer/sizer.dart';
 class CustomButton extends StatelessWidget {
   final String? text;
   final Function? onPressed;
-  const CustomButton({this.text, this.onPressed});
+  const CustomButton({
+    this.text,
+    this.onPressed,
+  });
   @override
   Widget build(BuildContext context) {
     return SizedBox(
