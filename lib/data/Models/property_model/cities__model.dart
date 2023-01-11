@@ -19,7 +19,7 @@ class CitiesResponse {
   });
 
   bool? error;
-  List<Datum>? data;
+  List<Datum?>? data;
   dynamic message;
 
   factory CitiesResponse.fromJson(Map<String, dynamic> json) => CitiesResponse(

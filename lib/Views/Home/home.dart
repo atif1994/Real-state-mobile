@@ -870,17 +870,18 @@ class _HomeState extends State<Home> {
                           width: 100.0.w,
                           // color: Colors.red,
                           child:
-                              //  dashboardController.citiesModel.data!.isEmpty
+                              // dashboardController.citiesModel.data!.isEmpty
                               //     ? const Center(child: Text("No data found"))
                               //     :
+
                               ListView.builder(
                                   itemCount: 5,
                                   padding: EdgeInsets.only(
                                       top: 1.0.h, bottom: 1.0.h),
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (context, index) {
-                                    // var citiesModel = dashboardController
-                                    //     .citiesModel.data![index];
+                                    var citiesModel = dashboardController
+                                        .citiesModel.data![index];
                                     return Container(
                                       margin: EdgeInsets.only(
                                           left: index == 0 ? 2.0.w : 3.0.w,
@@ -929,7 +930,7 @@ class _HomeState extends State<Home> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "citiesModel.name ?? ''",
+                                                    " citiesModel!.name ?? ''",
                                                     style: AppTextStyles
                                                         .labelSmall,
                                                   ),
