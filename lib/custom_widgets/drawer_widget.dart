@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/AboutUs/about_us.dart';
+<<<<<<< HEAD
+import 'package:prologic_29/Views/blog/blog.dart';
+=======
 import 'package:prologic_29/Views/Favorites/favorites.dart';
 import 'package:prologic_29/Views/area_guide/area_guid.dart';
+>>>>>>> 35f408453c271982d95871ede88df6d29394da89
 import 'package:prologic_29/Views/newsFeeed/newsfeed.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
@@ -122,9 +126,9 @@ class CustomDrawer extends StatelessWidget {
                     width: 100.0.w,
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
-                      // onTap: () {
-                      //   Get.to(() => const AboutUs());
-                      // },
+                      onTap: () {
+                        Get.to(() => const Blog());
+                      },
                       leading: Image.asset(
                         AppImageResources.blogger,
                         color: AppColors.colorWhite,

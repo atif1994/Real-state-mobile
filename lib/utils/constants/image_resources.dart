@@ -34,3 +34,9 @@ class AppImageResources {
   static const String abt = 'assets/abt.png';
   static const String blog2 = 'assets/pexels-jessica-bryant-1370704.jpg';
 }
+
+
+
+
+
+//----
