@@ -18,7 +18,7 @@ class _AboutUsState extends State<AboutUs> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.appthem,
-        title: Text("About U", style: AppTextStyles.appbar),
+        title: Text("About Us", style: AppTextStyles.appbar),
       ),
       body: SafeArea(
           child: ListView(

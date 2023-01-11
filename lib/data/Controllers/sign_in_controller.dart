@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/data/Services/my_shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/user_model.dart';
 import 'auth_controller.dart';
 
@@ -39,9 +40,10 @@ class SignInController extends GetxController {
         // country: user['country'],
         // state: user['state'],
       ));
-
+      var cId = data['data']['city']['id'];
+      var cName = data['data']['city']['name'];
       Get.find<AuthController>().isUserSignedIn();
-
+      _saveCountryData(cId, cName);
       // Get.snackbar('Signed In', 'User is signed in');
       isLoading(false);
     } else {
@@ -69,5 +71,9 @@ class SignInController extends GetxController {
       //   Fluttertoast.showToast(msg: 'unAuthorized');
       //   isLoading(false);
     }
+  }
+
+  _saveCountryData(int cID, String cName) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
   }
 }
