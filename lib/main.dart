@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:prologic_29/Views/AddProperty/add_property.dart';
 import 'package:prologic_29/data/Services/app_bindings.dart';
 import 'package:sizer/sizer.dart';
+
+import 'Views/Auth/auth.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,9 +32,9 @@ class MyApp extends StatelessWidget {
         home:
             //Profile_Page()
             // const NewsFeed(),
-            const Property(),
-        // const Blog(),
-        //  home: Auth(),
+            // const Property(),
+            // const Blog(),
+            const Auth(),
         //MyHomePage(),
       );
     });

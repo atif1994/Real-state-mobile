@@ -8,7 +8,7 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
-import '../Views/BlogPage/Blog_page.dart';
+import '../Views/AddProperty/add_property.dart';
 import '../Views/ContactUs/contact_us.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -96,7 +96,7 @@ class CustomDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => const Blogpage2());
+                        Get.to(() => const Property());
                       },
                       leading: Image.asset(
                         AppImageResources.addproperty,
