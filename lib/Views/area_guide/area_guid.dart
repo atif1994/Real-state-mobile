@@ -7,7 +7,8 @@ import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utils/constants/image_resources.dart';
-import 'properties_areaguide.dart';
+import '../Favorites/favorites.dart';
+
 // import 'package:prologic_29/utils/styles/app_textstyles.dart';
 
 class AreaGuide extends StatelessWidget {
@@ -39,7 +40,7 @@ class AreaGuide extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 1.0.h,
+                    height: 0.0.h,
                   ),
                   Text(
                     'Find your dream home from your dream location',
@@ -56,12 +57,12 @@ class AreaGuide extends StatelessWidget {
           ListView.builder(
             primary: false,
             shrinkWrap: true,
-            itemCount: 3,
+            itemCount: 2,
             itemBuilder: (context, index) {
               return Container(
                 margin: EdgeInsets.only(
-                    left: 5.0.w, right: 5.0.w, top: index == 0 ? 1.0.h : 2.0.h),
-                height: 33.0.h,
+                    left: 6.0.w, right: 6.0.w, top: index == 0 ? 1.0.h : 2.0.h),
+                height: 31.0.h,
                 width: 100.0.w,
                 decoration: CustomDecorations.mainCon,
                 child: Stack(
@@ -69,7 +70,7 @@ class AreaGuide extends StatelessWidget {
                     Column(
                       children: [
                         SizedBox(
-                          height: 20.0.h,
+                          height: 21.5.h,
                           width: 100.0.w,
                           child: ClipRRect(
                             borderRadius: const BorderRadius.only(
@@ -82,7 +83,7 @@ class AreaGuide extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 2.0.h,
+                          height: 1.0.h,
                         ),
                         Row(
                           // mainAxisAlignment: MainAxisAlignment.,
@@ -111,7 +112,7 @@ class AreaGuide extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const Properties()),
+                                            const FavoritesPage()),
                                   );
                                   //Navigator.of(context).pop();
                                 },
@@ -149,7 +150,7 @@ class AreaGuide extends StatelessWidget {
           ),
           Center(
             child: Padding(
-              padding: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
+              padding: EdgeInsets.only(left: 6.0.w, right: 6.0.w),
               child: CustomButton(
                 onPressed: () {},
                 text: "Browse More Properties",

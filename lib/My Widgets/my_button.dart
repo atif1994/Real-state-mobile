@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../data/Services/constants.dart';
-
 class MyButton extends StatelessWidget {
   final Color? color;
   final void Function()? onTap;
@@ -10,7 +8,7 @@ class MyButton extends StatelessWidget {
 
   const MyButton({
     Key? key,
-    this.color = primaryColor,
+    this.color = Colors.grey,
     required this.onTap,
     required this.text,
     this.icon,
