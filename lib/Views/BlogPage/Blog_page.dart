@@ -43,11 +43,9 @@ class Blogpage2 extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
-                        const SizedBox(
-                          width: 100,
-                          child: CustomButton(
-                            text: 'property',
-                          ),
+                        CustomButton(
+                          text: 'property',
+                          onPressed: () {},
                         ),
                         SizedBox(
                           width: 5.0.w,

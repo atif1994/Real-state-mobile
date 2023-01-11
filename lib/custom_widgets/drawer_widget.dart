@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/AboutUs/about_us.dart';
-import 'package:prologic_29/Views/Favorites/favorites.dart';
 import 'package:prologic_29/Views/area_guide/area_guid.dart';
 import 'package:prologic_29/Views/newsFeeed/newsfeed.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
@@ -12,6 +11,7 @@ import 'package:sizer/sizer.dart';
 
 import '../Views/BlogPage/Blog_page.dart';
 import '../Views/ContactUs/contact_us.dart';
+import '../Views/Wishlist/favorites.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -149,7 +149,7 @@ class CustomDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => const FavoritesPage());
+                        Get.to(() => const WishlistPage());
                       },
                       leading: Image.asset(
                         AppImageResources.wishlistsearches,
