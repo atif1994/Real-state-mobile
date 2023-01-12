@@ -477,37 +477,8 @@ class _HomeState extends State<Home> {
                                         itemCount: dashboardController
                                                     .filteredPropertiseModel
                                                     .data!
-                                                    .popular ==
-                                                'popular'
-                                            ? dashboardController
-                                                .filteredPropertiseModel
-                                                .data!
-                                                .popular!
-                                                .length
-                                            : dashboardController
-                                                        .filteredPropertiseModel
-                                                        .data!
-                                                        .popular ==
-                                                    'type'
-                                                ? dashboardController
-                                                    .filteredPropertiseModel
-                                                    .data!
                                                     .types!
-                                                    .length
-                                                : dashboardController
-                                                            .filteredPropertiseModel
-                                                            .data! ==
-                                                        "location"
-                                                    ? dashboardController
-                                                        .filteredPropertiseModel
-                                                        .data!
-                                                        .locations!
-                                                        .length
-                                                    : dashboardController
-                                                        .filteredPropertiseModel
-                                                        .data!
-                                                        .area!
-                                                        .length,
+                                                    .length,
                                         itemBuilder: (BuildContext ctx, index) {
                                           return Container(
                                             margin: EdgeInsets.only(
@@ -526,7 +497,7 @@ class _HomeState extends State<Home> {
                                               child: Text(dashboardController
                                                   .filteredPropertiseModel
                                                   .data!
-                                                  .popular![index].
+                                                  .popular![index],
                                                 ),
                                             ),
                                           );
