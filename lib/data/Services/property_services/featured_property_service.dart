@@ -2,11 +2,8 @@ import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
 
-<<<<<<< HEAD
-=======
 import '../../Models/property_filters_model/property_filters_response.dart';
 import '../../Models/property_model/cities_response.dart';
->>>>>>> 5cd189d14db24facf0eebdd5fb94a94b0317b883
 import '../../Models/property_model/featured_propertise_response.dart';
 
 class FeaturedPropertyService {
@@ -24,8 +21,6 @@ class FeaturedPropertyService {
       return e;
     }
   }
-<<<<<<< HEAD
-=======
 
   // static Future<dynamic> filterApiCall() async {
   //   var url = "${AppUrls.baseUrl} ${AppUrls.filteredPropertise}";
@@ -107,5 +102,4 @@ class FeaturedPropertyService {
   //   }
   // }
 
->>>>>>> 5cd189d14db24facf0eebdd5fb94a94b0317b883
 }

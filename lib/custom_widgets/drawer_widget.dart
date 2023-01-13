@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/AboutUs/about_us.dart';
-<<<<<<< HEAD
-=======
 
-import 'package:prologic_29/Views/blog/blog.dart';
-
-import 'package:prologic_29/Views/area_guide/area_guid.dart';
->>>>>>> 5cd189d14db24facf0eebdd5fb94a94b0317b883
 import 'package:prologic_29/Views/newsFeeed/newsfeed.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
@@ -16,6 +10,7 @@ import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Views/AddProperty/add_property.dart';
+import '../Views/BlogPage/Blog_page.dart';
 import '../Views/ContactUs/contact_us.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -79,6 +74,9 @@ class CustomDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: Center(
                       child: ListTile(
+                        onTap: () {
+                          Get.to(() => const Blogpage2());
+                        },
                         leading: Image.asset(
                           AppImageResources.home,
                           color: AppColors.colorWhite,

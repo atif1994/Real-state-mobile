@@ -17,6 +17,12 @@ class AppImageResources {
   static const String addproperty = 'assets/plus.png';
   static const String blogger = 'assets/blogger.png';
   static const String wishlistsearches = 'assets/icons/love.png';
+  //....................................Blog Pictures
+  static const String facebook = 'assets/facebook.png';
+  static const String whatsaap = 'assets/whatsapp.png';
+  static const String linkedinlogo = 'assets/linkedin.png';
+  static const String twitterlogo = 'assets/twitter2.png';
+
   // static const String comment = ;
   static const String loc = 'assets/icons/loc.png';
   static const String islamabad = 'assets/isb.jpg';
