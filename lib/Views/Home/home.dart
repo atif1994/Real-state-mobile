@@ -572,7 +572,7 @@ class _HomeState extends State<Home> {
                                         child: SizedBox(
                                           width: 80.0.w,
                                           child: Text(
-                                              "Find your dream home from our Newly added properties",
+                                              "Find your dream home from our Newly added propertiess",
                                               style: AppTextStyles.labelSmall
                                                   .copyWith(fontSize: 9.sp)),
                                         ),
