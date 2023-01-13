@@ -1,7 +1,7 @@
 import 'package:get/state_manager.dart';
+import 'package:prologic_29/data/Models/propertyfilter_model.dart';
 import 'package:prologic_29/data/Services/property_services/featured_property_service.dart';
 
-import '../../Models/property_filters_model/property_filters_response.dart';
 import '../../Models/property_model/cities_response.dart';
 import '../../Models/property_model/featured_propertise_response.dart';
 
@@ -15,7 +15,8 @@ class DashboardController extends GetxController {
   void onInit() {
     getFeaturedPropertise();
     getPrpertyCitis();
-    //  getFilteredPropertiseWithoutPerm();
+    print("Filter propertties ================>>>>>>>>>>>>>>========");
+    getFilteredPropertiseWithoutPerm();
     super.onInit();
   }
 
@@ -50,44 +51,44 @@ class DashboardController extends GetxController {
     }
   }
 
-///////////////////method for getting filtered propertise
+// ///////////////////method for getting filtered propertise
+//   RxBool loadingfilteredPropertise = false.obs;
+//   RxString errorLoadingFilteredPropertise = ''.obs;
+//   String type = 'popular';
+//   var filteredPropertiseModel = PropertiseFiltersResponse();
+//   void getFilteredPropertise(int cityId, int catId, String type) async {
+//     loadingfilteredPropertise.value = true;
+//     errorLoadingFilteredPropertise.value = '';
+
+//     var res = await FeaturedPropertyService.getFilteredPropertise(
+//         cityId, catId, type);
+
+//     loadingfilteredPropertise.value = false;
+
+//     if (res is PropertiseFiltersResponse) {
+//       filteredPropertiseModel = res;
+//     } else {
+//       loadingfilteredPropertise.value = false;
+
+//       errorLoadingFilteredPropertise.value = res.toString();
+//     }
+//   }
+
+  //filter property without perameter
+  var filteredPropertyModel = PropertyFilterModel();
   RxBool loadingfilteredPropertise = false.obs;
   RxString errorLoadingFilteredPropertise = ''.obs;
-  String type = 'popular';
-  var filteredPropertiseModel = PropertiseFiltersResponse();
-  void getFilteredPropertise(int cityId, int catId, String type) async {
-    loadingfilteredPropertise.value = true;
-    errorLoadingFilteredPropertise.value = '';
-
-    var res = await FeaturedPropertyService.getFilteredPropertise(
-        cityId, catId, type);
+  void getFilteredPropertiseWithoutPerm() async {
+    var res = await FeaturedPropertyService.propertyfilterService();
 
     loadingfilteredPropertise.value = false;
 
-    if (res is PropertiseFiltersResponse) {
-      filteredPropertiseModel = res;
+    if (res is PropertyFilterModel) {
+      filteredPropertyModel = res;
     } else {
       loadingfilteredPropertise.value = false;
 
       errorLoadingFilteredPropertise.value = res.toString();
     }
   }
-
-  //filter property without perameter
-  // void getFilteredPropertiseWithoutPerm() async {
-  //   loadingfilteredPropertise.value = true;
-  //   errorLoadingFilteredPropertise.value = '';
-
-  //   var res = await FeaturedPropertyService.getFilteredPropertywithoutperm();
-
-  //   loadingfilteredPropertise.value = false;
-
-  //   if (res is PropertiseFiltersResponse) {
-  //     filteredPropertiseModel = res;
-  //   } else {
-  //     loadingfilteredPropertise.value = false;
-
-  //     errorLoadingFilteredPropertise.value = res.toString();
-  //   }
-  // }
 }

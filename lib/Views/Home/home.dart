@@ -220,292 +220,357 @@ class _HomeState extends State<Home> {
                     height: 48.0.h,
                     width: 100.0.w,
                     decoration: CustomDecorations.mainCon,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Browse Propertise",
-                            style: AppTextStyles.heading1.copyWith(
-                                fontFamily: AppFonts.nexaBold,
-                                fontSize: 16.sp,
-                                color: AppColors.appthem),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
-                          height: 5.0.h,
-                          width: 100.0.w,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 3,
-                              itemBuilder: (context, index) {
-                                return Padding(
+                    child: Obx(
+                      () => dashboardController.loadingfilteredPropertise.value
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                  color: AppColors.appthem),
+                            )
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        left: index == 0 ? 0.0.w : 2.0.w),
-                                    child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                _browsPropertyIndex == index
-                                                    ? AppColors.appthem
-                                                    : AppColors.colorWhite),
-                                        onPressed: () {
-                                          dashboardController
-                                              .getFilteredPropertise(
-                                                  cid!,
-                                                  index,
-                                                  dashboardController.type);
-
-                                          setState(() {
-                                            _browsPropertyIndex = index;
-                                          });
-                                        },
-                                        child: Row(
-                                          children: [
-                                            Image.asset(images[index],
-                                                height: 2.0.h,
-                                                color:
-                                                    _browsPropertyIndex == index
-                                                        ? AppColors.colorWhite
-                                                        : AppColors.colorblack),
-                                            SizedBox(
-                                              width: 0.8.w,
-                                            ),
-                                            Text(
-                                              labels1[index],
-                                              style: TextStyle(
-                                                  color: _browsPropertyIndex ==
-                                                          index
-                                                      ? AppColors.colorWhite
-                                                      : AppColors.colorblack),
-                                            )
-                                          ],
-                                        )),
-                                  ),
-                                );
-                              }),
-                        ),
-                        const Divider(),
-                        Container(
-                          margin: EdgeInsets.only(left: 5.0.w, right: 3.0.w),
-                          height: 5.0.h,
-                          width: 100.0.w,
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _browsPropertyIndex1 = 0;
-                                    dashboardController.type = 'popular';
-                                  });
-
-                                  dashboardController.getFilteredPropertise(
-                                      cid!,
-                                      _browsPropertyIndex,
-                                      dashboardController.type);
-                                },
-                                child: Container(
-                                  height: 3.0.h,
-                                  width: 20.0.w,
-                                  decoration: BoxDecoration(
-                                    color: _browsPropertyIndex1 == 0
-                                        ? AppColors.appthem.withOpacity(0.4)
-                                        : AppColors.colorWhite,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Popular",
-                                      style: AppTextStyles.heading1.copyWith(
-                                          fontSize: 11.sp,
-                                          color: _browsPropertyIndex1 == 0
-                                              ? AppColors.appthem
-                                              : AppColors.colorblack),
-                                    ),
+                                  child: Text(
+                                    "Browse Propertise",
+                                    style: AppTextStyles.heading1.copyWith(
+                                        fontFamily: AppFonts.nexaBold,
+                                        fontSize: 16.sp,
+                                        color: AppColors.appthem),
                                   ),
                                 ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _browsPropertyIndex1 = 1;
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: 3.0.w, right: 3.0.w),
+                                  height: 5.0.h,
+                                  width: 100.0.w,
+                                  child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: 3,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left:
+                                                    index == 0 ? 0.0.w : 2.0.w),
+                                            child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        _browsPropertyIndex ==
+                                                                index
+                                                            ? AppColors.appthem
+                                                            : AppColors
+                                                                .colorWhite),
+                                                onPressed: () {
+                                                  // dashboardController
+                                                  //     .getFilteredPropertise(
+                                                  //         cid!,
+                                                  //         index,
+                                                  //         dashboardController
+                                                  //             .type);
 
-                                    dashboardController.type = 'type';
-                                  });
-
-                                  dashboardController.getFilteredPropertise(
-                                      cid!,
-                                      _browsPropertyIndex,
-                                      dashboardController.type);
-                                },
-                                child: Container(
-                                  height: 3.0.h,
-                                  width: 20.0.w,
-                                  decoration: BoxDecoration(
-                                    color: _browsPropertyIndex1 == 1
-                                        ? AppColors.appthem.withOpacity(0.4)
-                                        : AppColors.colorWhite,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Type",
-                                      style: AppTextStyles.heading1.copyWith(
-                                          fontSize: 11.sp,
-                                          color: _browsPropertyIndex1 == 1
-                                              ? AppColors.appthem
-                                              : AppColors.colorblack),
-                                    ),
-                                  ),
+                                                  setState(() {
+                                                    _browsPropertyIndex = index;
+                                                    dashboardController
+                                                        .getFilteredPropertiseWithoutPerm();
+                                                  });
+                                                },
+                                                child: Row(
+                                                  children: [
+                                                    Image.asset(images[index],
+                                                        height: 2.0.h,
+                                                        color: _browsPropertyIndex ==
+                                                                index
+                                                            ? AppColors
+                                                                .colorWhite
+                                                            : AppColors
+                                                                .colorblack),
+                                                    SizedBox(
+                                                      width: 0.8.w,
+                                                    ),
+                                                    Text(
+                                                      labels1[index],
+                                                      style: TextStyle(
+                                                          color: _browsPropertyIndex ==
+                                                                  index
+                                                              ? AppColors
+                                                                  .colorWhite
+                                                              : AppColors
+                                                                  .colorblack),
+                                                    )
+                                                  ],
+                                                )),
+                                          ),
+                                        );
+                                      }),
                                 ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _browsPropertyIndex1 = 2;
-                                    dashboardController.type = "location";
-                                  });
-
-                                  dashboardController.getFilteredPropertise(
-                                      cid!,
-                                      _browsPropertyIndex,
-                                      dashboardController.type);
-                                },
-                                child: Container(
-                                  height: 3.0.h,
-                                  width: 20.0.w,
-                                  decoration: BoxDecoration(
-                                    color: _browsPropertyIndex1 == 2
-                                        ? AppColors.appthem.withOpacity(0.4)
-                                        : AppColors.colorWhite,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Location",
-                                      style: AppTextStyles.heading1.copyWith(
-                                          fontSize: 11.sp,
-                                          color: _browsPropertyIndex1 == 2
-                                              ? AppColors.appthem
-                                              : AppColors.colorblack),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _browsPropertyIndex1 = 3;
-
-                                    dashboardController.type = "area";
-                                  });
-
-                                  dashboardController.getFilteredPropertise(
-                                      cid!,
-                                      _browsPropertyIndex,
-                                      dashboardController.type);
-                                },
-                                child: Container(
-                                  height: 3.0.h,
-                                  width: 20.0.w,
-                                  decoration: BoxDecoration(
-                                    color: _browsPropertyIndex1 == 3
-                                        ? AppColors.appthem.withOpacity(0.4)
-                                        : AppColors.colorWhite,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Area Size",
-                                      style: AppTextStyles.heading1.copyWith(
-                                          fontSize: 11.sp,
-                                          color: _browsPropertyIndex1 == 3
-                                              ? AppColors.appthem
-                                              : AppColors.colorblack),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Obx(() => dashboardController
-                                .loadingfilteredPropertise.value
-                            ? const Center(
-                                child: CircularProgressIndicator(
-                                color: AppColors.appthem,
-                              ))
-                            : dashboardController
-                                        .errorLoadingFilteredPropertise.value !=
-                                    ''
-                                ? Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                const Divider(),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: 5.0.w, right: 3.0.w),
+                                  height: 5.0.h,
+                                  width: 100.0.w,
+                                  child: Row(
                                     children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          dashboardController
-                                              .getFilteredPropertise(
-                                                  cid!,
-                                                  _browsPropertyIndex,
-                                                  dashboardController.type);
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            _browsPropertyIndex1 = 0;
+                                            // dashboardController.type =
+                                            //     'popular';
+                                          });
+                                          // dashboardController
+                                          //     .getFilteredPropertiseWithoutPerm();
+
+                                          // dashboardController
+                                          //     .getFilteredPropertise(
+                                          //         cid!,
+                                          //         _browsPropertyIndex,
+                                          //         dashboardController.type);
                                         },
-                                        icon: const Icon(
-                                          Icons.refresh,
-                                          color: AppColors.appthem,
+                                        child: Container(
+                                          height: 3.0.h,
+                                          width: 20.0.w,
+                                          decoration: BoxDecoration(
+                                            color: _browsPropertyIndex1 == 0
+                                                ? AppColors.appthem
+                                                    .withOpacity(0.4)
+                                                : AppColors.colorWhite,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "Popular",
+                                              style: AppTextStyles.heading1
+                                                  .copyWith(
+                                                      fontSize: 11.sp,
+                                                      color:
+                                                          _browsPropertyIndex1 ==
+                                                                  0
+                                                              ? AppColors
+                                                                  .appthem
+                                                              : AppColors
+                                                                  .colorblack),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                      Text(dashboardController
-                                          .errorLoadingFilteredPropertise
-                                          .value),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            _browsPropertyIndex1 = 1;
+                                            dashboardController
+                                                .getFilteredPropertiseWithoutPerm();
+
+                                            //   dashboardController.type = 'type';
+                                          });
+
+                                          // dashboardController
+                                          //     .getFilteredPropertise(
+                                          //         cid!,
+                                          //         _browsPropertyIndex,
+                                          //         dashboardController.type
+                                          //         );
+                                        },
+                                        child: Container(
+                                          height: 3.0.h,
+                                          width: 20.0.w,
+                                          decoration: BoxDecoration(
+                                            color: _browsPropertyIndex1 == 1
+                                                ? AppColors.appthem
+                                                    .withOpacity(0.4)
+                                                : AppColors.colorWhite,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "Type",
+                                              style: AppTextStyles.heading1
+                                                  .copyWith(
+                                                      fontSize: 11.sp,
+                                                      color:
+                                                          _browsPropertyIndex1 ==
+                                                                  1
+                                                              ? AppColors
+                                                                  .appthem
+                                                              : AppColors
+                                                                  .colorblack),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            _browsPropertyIndex1 = 2;
+                                            // dashboardController.type =
+                                            //     "location";
+                                          });
+
+                                          // dashboardController
+                                          //     .getFilteredPropertise(
+                                          //         cid!,
+                                          //         _browsPropertyIndex,
+                                          //         dashboardController.type
+                                          //         );
+                                        },
+                                        child: Container(
+                                          height: 3.0.h,
+                                          width: 20.0.w,
+                                          decoration: BoxDecoration(
+                                            color: _browsPropertyIndex1 == 2
+                                                ? AppColors.appthem
+                                                    .withOpacity(0.4)
+                                                : AppColors.colorWhite,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "Location",
+                                              style: AppTextStyles.heading1
+                                                  .copyWith(
+                                                      fontSize: 11.sp,
+                                                      color:
+                                                          _browsPropertyIndex1 ==
+                                                                  2
+                                                              ? AppColors
+                                                                  .appthem
+                                                              : AppColors
+                                                                  .colorblack),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            _browsPropertyIndex1 = 3;
+
+                                            //  dashboardController.type = "area";
+                                          });
+
+                                          // dashboardController
+                                          //     .getFilteredPropertise(
+                                          //         cid!,
+                                          //         _browsPropertyIndex,
+                                          //         dashboardController.type);
+                                        },
+                                        child: Container(
+                                          height: 3.0.h,
+                                          width: 20.0.w,
+                                          decoration: BoxDecoration(
+                                            color: _browsPropertyIndex1 == 3
+                                                ? AppColors.appthem
+                                                    .withOpacity(0.4)
+                                                : AppColors.colorWhite,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "Area Size",
+                                              style: AppTextStyles.heading1
+                                                  .copyWith(
+                                                      fontSize: 11.sp,
+                                                      color:
+                                                          _browsPropertyIndex1 ==
+                                                                  3
+                                                              ? AppColors
+                                                                  .appthem
+                                                              : AppColors
+                                                                  .colorblack),
+                                            ),
+                                          ),
+                                        ),
+                                      )
                                     ],
-                                  )
-                                : Container(
-                                    margin: EdgeInsets.only(
-                                        left: 3.0.w, right: 3.0.w),
-                                    height: 28.0.h,
-                                    width: 100.0.w,
-                                    child: GridView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                maxCrossAxisExtent: 100,
-                                                childAspectRatio: 1.5 / 2,
-                                                crossAxisSpacing: 2,
-                                                mainAxisSpacing: 10),
-                                        itemCount: dashboardController
-                                            .filteredPropertiseModel
-                                            .data!
-                                            .types!
-                                            .length,
-                                        itemBuilder: (BuildContext ctx, index) {
-                                          return Container(
-                                            margin: EdgeInsets.only(
-                                              top: 2.0.h,
-                                            ),
-                                            height: 4.0.h,
-                                            width: 20.0.w,
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: Center(
-                                              child: Text(
-                                                dashboardController
-                                                    .filteredPropertiseModel
-                                                    .data!
-                                                    .popular![index],
+                                  ),
+                                ),
+                                Obx(() => dashboardController
+                                        .loadingfilteredPropertise.value
+                                    ? const Center(
+                                        child: CircularProgressIndicator(
+                                        color: AppColors.appthem,
+                                      ))
+                                    : dashboardController
+                                                .errorLoadingFilteredPropertise
+                                                .value !=
+                                            ''
+                                        ? Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  dashboardController
+                                                      .getFilteredPropertiseWithoutPerm();
+
+                                                  //  dashboardController
+                                                  // .getFilteredPropertise(
+                                                  //     cid!,
+                                                  //     _browsPropertyIndex,
+                                                  //     dashboardController
+                                                  //         .type);
+                                                },
+                                                icon: const Icon(
+                                                  Icons.refresh,
+                                                  color: AppColors.appthem,
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        }),
-                                  ))
-                      ],
+                                              Text(dashboardController
+                                                  .errorLoadingFilteredPropertise
+                                                  .value),
+                                            ],
+                                          )
+                                        : Container(
+                                            margin: EdgeInsets.only(
+                                                left: 3.0.w, right: 3.0.w),
+                                            height: 28.0.h,
+                                            width: 100.0.w,
+                                            child: GridView.builder(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                gridDelegate:
+                                                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                        maxCrossAxisExtent: 100,
+                                                        childAspectRatio:
+                                                            1.5 / 2,
+                                                        crossAxisSpacing: 2,
+                                                        mainAxisSpacing: 10),
+                                                itemCount: 8,
+                                                itemBuilder:
+                                                    (BuildContext ctx, index) {
+                                                  return Container(
+                                                    margin: EdgeInsets.only(
+                                                      top: 2.0.h,
+                                                    ),
+                                                    height: 4.0.h,
+                                                    width: 20.0.w,
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: Colors.grey),
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: Center(
+                                                      child: Text(
+                                                          dashboardController
+                                                                  .filteredPropertyModel
+                                                                  .data!
+                                                                  .name ??
+                                                              ''),
+                                                    ),
+                                                  );
+                                                }),
+                                          ))
+                              ],
+                            ),
                     ),
                   ),
 

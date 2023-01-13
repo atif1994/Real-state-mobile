@@ -77,22 +77,7 @@ class Data {
         updatedAt: DateTime.parse(json["updated_at"]),
         parentId: json["parent_id"],
         parentclass: json["parentclass"],
-        popular: json["popular"] == null
-            ? []
-            : List<Popular?>.from(
-                json["popular"]!.map((x) => Popular.fromJson(x))),
-        types: json["types"] == null
-            ? []
-            : List<Popular?>.from(
-                json["types"]!.map((x) => Popular.fromJson(x))),
-        locations: json["locations"] == null
-            ? []
-            : List<Location?>.from(
-                json["locations"]!.map((x) => Location.fromJson(x))),
-        area: json["area"] == null
-            ? []
-            : List<Area?>.from(json["area"]!.map((x) => Area.fromJson(x))),
-      );
+        popular: json["popular"],);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -105,19 +90,7 @@ class Data {
         "updated_at": updatedAt?.toIso8601String(),
         "parent_id": parentId,
         "parentclass": parentclass,
-        "popular": popular == null
-            ? []
-            : List<dynamic>.from(popular!.map((x) => x!.toJson())),
-        "types": types == null
-            ? []
-            : List<dynamic>.from(types!.map((x) => x!.toJson())),
-        "locations": locations == null
-            ? []
-            : List<dynamic>.from(locations!.map((x) => x!.toJson())),
-        "area": area == null
-            ? []
-            : List<dynamic>.from(area!.map((x) => x!.toJson())),
-      };
+        "popular": popular ,};
 }
 
 class Area {
