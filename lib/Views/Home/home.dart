@@ -469,16 +469,17 @@ class _HomeState extends State<Home> {
                                     width: 100.0.w,
                                     child: GridView.builder(
                                         scrollDirection: Axis.horizontal,
-                                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent: 100,
-                                            childAspectRatio: 1.5 / 2,
-                                            crossAxisSpacing: 2,
-                                            mainAxisSpacing: 10),
+                                        gridDelegate:
+                                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                maxCrossAxisExtent: 100,
+                                                childAspectRatio: 1.5 / 2,
+                                                crossAxisSpacing: 2,
+                                                mainAxisSpacing: 10),
                                         itemCount: dashboardController
-                                                    .filteredPropertiseModel
-                                                    .data!
-                                                    .types!
-                                                    .length,
+                                            .filteredPropertiseModel
+                                            .data!
+                                            .types!
+                                            .length,
                                         itemBuilder: (BuildContext ctx, index) {
                                           return Container(
                                             margin: EdgeInsets.only(
@@ -494,11 +495,12 @@ class _HomeState extends State<Home> {
                                                 borderRadius:
                                                     BorderRadius.circular(10)),
                                             child: Center(
-                                              child: Text(dashboardController
-                                                  .filteredPropertiseModel
-                                                  .data!
-                                                  .popular![index],
-                                                ),
+                                              child: Text(
+                                                dashboardController
+                                                    .filteredPropertiseModel
+                                                    .data!
+                                                    .popular![index],
+                                              ),
                                             ),
                                           );
                                         }),
@@ -569,7 +571,7 @@ class _HomeState extends State<Home> {
                                         child: SizedBox(
                                           width: 80.0.w,
                                           child: Text(
-                                              "Find your dream home from our Newly added properties",
+                                              "Find your dream home from our Newly added propertiess",
                                               style: AppTextStyles.labelSmall
                                                   .copyWith(fontSize: 9.sp)),
                                         ),
