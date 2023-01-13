@@ -13,7 +13,6 @@ import 'package:prologic_29/utils/constants/fonts.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Controllers/property_controllers/cities_controller.dart';
@@ -27,13 +26,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+<<<<<<< HEAD
+  var featuredPropertiseController = Get.put(FeaturedPropertyController());
+=======
   var dashboardController = Get.put(DashboardController());
   var citiesController = Get.put(CitiesController());
   int? cid;
   String? cityName;
+>>>>>>> 5cd189d14db24facf0eebdd5fb94a94b0317b883
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final labels = ["Buy", "Rent", "Invest"];
   final labels1 = ["Homes", "Plots", "Commercial"];
+
+  final citiesLabel = [
+    "Islamabad",
+    "Lahore",
+    "Karachi",
+    "Faisalabad",
+    "Rawalpindi"
+  ];
 
   final images = [
     AppImageResources.home,
@@ -64,6 +75,8 @@ class _HomeState extends State<Home> {
     const HomeScreen(),
     const Profile(),
   ];
+<<<<<<< HEAD
+=======
   void getCityInfo() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
@@ -77,6 +90,7 @@ class _HomeState extends State<Home> {
 
     super.initState();
   }
+>>>>>>> 5cd189d14db24facf0eebdd5fb94a94b0317b883
 
   @override
   Widget build(BuildContext context) {
@@ -190,14 +204,7 @@ class _HomeState extends State<Home> {
                                   ),
                                 ],
                               ),
-                              const Spacer(),
-                              Text(
-                                "$cityName",
-                                style: AppTextStyles.labelSmall,
-                              ),
-                              SizedBox(
-                                width: 5.0.w,
-                              )
+                              const SizedBox()
                             ],
                           ),
                         )
@@ -253,12 +260,15 @@ class _HomeState extends State<Home> {
                                                     ? AppColors.appthem
                                                     : AppColors.colorWhite),
                                         onPressed: () {
+<<<<<<< HEAD
+=======
                                           dashboardController
                                               .getFilteredPropertise(
                                                   cid!,
                                                   index,
                                                   dashboardController.type);
 
+>>>>>>> 5cd189d14db24facf0eebdd5fb94a94b0317b883
                                           setState(() {
                                             _browsPropertyIndex = index;
                                           });
@@ -432,6 +442,37 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                         ),
+<<<<<<< HEAD
+                        Container(
+                          margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
+                          height: 28.0.h,
+                          width: 100.0.w,
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              gridDelegate:
+                                  const SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent: 100,
+                                      childAspectRatio: 1.5 / 2,
+                                      crossAxisSpacing: 2,
+                                      mainAxisSpacing: 10),
+                              itemCount: 12,
+                              itemBuilder: (BuildContext ctx, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(
+                                    top: 2.0.h,
+                                  ),
+                                  height: 4.0.h,
+                                  width: 20.0.w,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: const Text("name"),
+                                );
+                              }),
+                        )
+=======
                         Obx(() => dashboardController
                                 .loadingfilteredPropertise.value
                             ? const Center(
@@ -503,6 +544,7 @@ class _HomeState extends State<Home> {
                                           );
                                         }),
                                   ))
+>>>>>>> 5cd189d14db24facf0eebdd5fb94a94b0317b883
                       ],
                     ),
                   ),
@@ -510,19 +552,19 @@ class _HomeState extends State<Home> {
                   ///constructio cost calculater
 
                   Container(
-                      height: 48.0.h,
+                      height: 50.0.h,
                       width: 100.0.w,
                       decoration: CustomDecorations.mainCon,
                       margin: EdgeInsets.only(
                           top: 2.0.h, left: 3.0.w, right: 3.0.w),
                       child: Obx(() {
-                        return dashboardController
+                        return featuredPropertiseController
                                 .loadingFeaturedPropertise.value
                             ? const Center(
                                 child: CircularProgressIndicator(
                                 color: AppColors.appthem,
                               ))
-                            : dashboardController
+                            : featuredPropertiseController
                                         .errorLoadingFeaturedPropertise.value !=
                                     ''
                                 ? Center(
@@ -532,7 +574,7 @@ class _HomeState extends State<Home> {
                                       children: [
                                         IconButton(
                                             onPressed: () {
-                                              dashboardController
+                                              featuredPropertiseController
                                                   .getFeaturedPropertise();
                                             },
                                             icon: const Icon(
@@ -542,7 +584,7 @@ class _HomeState extends State<Home> {
                                         SizedBox(
                                           height: 1.0.h,
                                         ),
-                                        Text(dashboardController
+                                        Text(featuredPropertiseController
                                             .errorLoadingFeaturedPropertise
                                             .value),
                                       ],
@@ -585,11 +627,12 @@ class _HomeState extends State<Home> {
                                         child: ListView.builder(
                                             padding:
                                                 EdgeInsets.only(bottom: 1.0.h),
-                                            itemCount: dashboardController
-                                                .featuredPropertyModel
-                                                .data!
-                                                .data!
-                                                .length,
+                                            itemCount:
+                                                featuredPropertiseController
+                                                    .featuredPropertyModel
+                                                    .data!
+                                                    .data!
+                                                    .length,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
                                               return Container(
@@ -656,11 +699,11 @@ class _HomeState extends State<Home> {
                                                                             300)),
                                                             child: Center(
                                                                 child: Text(
-                                                              dashboardController
+                                                              featuredPropertiseController
                                                                       .featuredPropertyModel
                                                                       .data!
                                                                       .data![
-                                                                          index]!
+                                                                          index]
                                                                       .type!
                                                                       .name ??
                                                                   "",
@@ -673,7 +716,13 @@ class _HomeState extends State<Home> {
                                                           ),
                                                           Flexible(
                                                             child: Text(
-                                                                "Rs  ${dashboardController.featuredPropertyModel.data!.data![index]!.price ?? ""} PKR",
+                                                                featuredPropertiseController
+                                                                        .featuredPropertyModel
+                                                                        .data!
+                                                                        .data![
+                                                                            index]
+                                                                        .price ??
+                                                                    "",
                                                                 style: AppTextStyles
                                                                     .heading1
                                                                     .copyWith(
@@ -690,11 +739,11 @@ class _HomeState extends State<Home> {
                                                                 left: 2.0.w,
                                                                 top: 1.0.h),
                                                         child: Text(
-                                                            dashboardController
+                                                            featuredPropertiseController
                                                                     .featuredPropertyModel
                                                                     .data!
                                                                     .data![
-                                                                        index]!
+                                                                        index]
                                                                     .name ??
                                                                 "",
                                                             style: AppTextStyles
@@ -718,13 +767,7 @@ class _HomeState extends State<Home> {
                                                             width: 2.0.w,
                                                           ),
                                                           Text(
-                                                            dashboardController
-                                                                    .featuredPropertyModel
-                                                                    .data!
-                                                                    .data![
-                                                                        index]!
-                                                                    .numberBedroom ??
-                                                                "",
+                                                            "3 beds",
                                                             style: AppTextStyles
                                                                 .labelSmall
                                                                 .copyWith(
@@ -743,13 +786,7 @@ class _HomeState extends State<Home> {
                                                             width: 2.0.w,
                                                           ),
                                                           Text(
-                                                            dashboardController
-                                                                    .featuredPropertyModel
-                                                                    .data!
-                                                                    .data![
-                                                                        index]!
-                                                                    .numberBathroom ??
-                                                                "",
+                                                            "Bath",
                                                             style: AppTextStyles
                                                                 .labelSmall
                                                                 .copyWith(
@@ -759,26 +796,16 @@ class _HomeState extends State<Home> {
                                                           SizedBox(
                                                             width: 2.0.w,
                                                           ),
-                                                          const Icon(
-                                                            Icons
-                                                                .landscape_outlined,
+                                                          Image.asset(
+                                                            AppImageResources
+                                                                .plots,
+                                                            height: 2.0.h,
                                                           ),
-                                                          // Image.asset(
-                                                          //   AppImageResources
-                                                          //       .plots,
-                                                          //   height: 2.0.h,
-                                                          // ),
                                                           SizedBox(
                                                             width: 2.0.w,
                                                           ),
                                                           Text(
-                                                            dashboardController
-                                                                    .featuredPropertyModel
-                                                                    .data!
-                                                                    .data![
-                                                                        index]!
-                                                                    .square ??
-                                                                "",
+                                                            "Area",
                                                             style: AppTextStyles
                                                                 .labelSmall
                                                                 .copyWith(
@@ -795,20 +822,14 @@ class _HomeState extends State<Home> {
                                                           ),
                                                           Image.asset(
                                                             AppImageResources
-                                                                .plots,
+                                                                .loc,
                                                             height: 2.0.h,
                                                           ),
                                                           SizedBox(
                                                             width: 2.0.w,
                                                           ),
                                                           Text(
-                                                            dashboardController
-                                                                    .featuredPropertyModel
-                                                                    .data!
-                                                                    .data![
-                                                                        index]!
-                                                                    .location ??
-                                                                "",
+                                                            "Islamabad,Punjab",
                                                             style: AppTextStyles
                                                                 .labelSmall,
                                                           ),
@@ -882,6 +903,141 @@ class _HomeState extends State<Home> {
 
                   ///cites/locations
                   Container(
+<<<<<<< HEAD
+                    margin:
+                        EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 1.0.h),
+                    height: 43.0.h,
+                    width: 100.0.w,
+                    decoration: CustomDecorations.mainCon,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
+                          child: Text(
+                            "Find By Locations",
+                            style: AppTextStyles.heading1.copyWith(
+                                fontFamily: AppFonts.nexaBold,
+                                fontSize: 16.sp,
+                                color: AppColors.appthem),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
+                          child: SizedBox(
+                            width: 80.0.w,
+                            child: Text(
+                                "Find your dream home from your dream location",
+                                style: AppTextStyles.labelSmall
+                                    .copyWith(fontSize: 9.sp)),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: 1.0.w, right: 1.0.w, top: 1.0.h),
+                          height: 26.0.h,
+                          width: 100.0.w,
+                          // color: Colors.red,
+                          child: ListView.builder(
+                              itemCount: citieseImages.length,
+                              padding:
+                                  EdgeInsets.only(top: 1.0.h, bottom: 1.0.h),
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(
+                                      left: index == 0 ? 2.0.w : 3.0.w,
+                                      right: index == citieseImages.length - 1
+                                          ? 2.0.w
+                                          : 0.0.w),
+                                  height: 20.0.h,
+                                  width: 50.0.w,
+                                  decoration: CustomDecorations.mainCon,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 15.0.h,
+                                        width: 100.0.w,
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10),
+                                          ),
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10),
+                                          ),
+                                          child: Image.asset(
+                                            citieseImages[index],
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 2.0.h,
+                                      ),
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 2.0.w,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                citiesLabel[index],
+                                                style: AppTextStyles.labelSmall,
+                                              ),
+                                              Text(
+                                                "13 Propertise",
+                                                style: AppTextStyles.labelSmall
+                                                    .copyWith(
+                                                        color: Colors.grey,
+                                                        fontSize: 10.sp),
+                                              )
+                                            ],
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            height: 7.0.w,
+                                            width: 7.0.w,
+                                            decoration: BoxDecoration(
+                                                color: AppColors.appthem,
+                                                borderRadius:
+                                                    BorderRadius.circular(300)),
+                                            child: const Center(
+                                                child: Icon(
+                                              Icons.arrow_forward_ios,
+                                              color: Colors.white,
+                                              size: 14,
+                                            )),
+                                          ),
+                                          SizedBox(
+                                            width: 2.0.w,
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 2.0.h, left: 3.0.w, right: 3.0.w),
+                          child: const CustomButton(
+                            text: "More Locations",
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+=======
                       margin: EdgeInsets.only(
                           left: 3.0.w, right: 3.0.w, top: 1.0.h),
                       height: 43.0.h,
@@ -1055,13 +1211,15 @@ class _HomeState extends State<Home> {
                                 ],
                               ),
                       )),
+>>>>>>> 5cd189d14db24facf0eebdd5fb94a94b0317b883
 
                   ///prologics 29
 
-                  Container(
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
                     margin:
                         EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 2.0.h),
-                    height: 43.0.h,
+                    height: 70.0.h,
                     width: 100.0.w,
                     decoration: CustomDecorations.mainCon,
                     child: Column(
@@ -1090,7 +1248,7 @@ class _HomeState extends State<Home> {
                         Container(
                           margin: EdgeInsets.only(
                               left: 2.0.w, right: 2.0.w, top: 1.0.h),
-                          height: 34.0.h,
+                          height: 60.0.h,
                           width: 100.0.w,
                           //color: Colors.red,
                           child: ListView.builder(
@@ -1103,7 +1261,7 @@ class _HomeState extends State<Home> {
                                       right: index == 2 ? 2.0.w : 0.0.w,
                                       top: 1.0.h,
                                       bottom: 1.0.h),
-                                  height: 25.0.h,
+                                  height: 44.0.h,
                                   width: 50.0.w,
                                   decoration: CustomDecorations.mainCon,
                                   child: Column(
@@ -1167,13 +1325,13 @@ class _HomeState extends State<Home> {
                                             right: 2.0.w,
                                             top: 1.0.h),
                                         child: Text(
-                                            // "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities."
-                                            "",
+                                            "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities.",
                                             style: AppTextStyles.labelSmall
                                                 .copyWith(fontSize: 8.sp)),
                                       ),
                                       Container(
-                                        margin: EdgeInsets.only(left: 2.0.w),
+                                        margin: EdgeInsets.only(
+                                            top: 2.0.h, left: 2.0.w),
                                         height: 4.0.h,
                                         width: 30.0.w,
                                         decoration: BoxDecoration(

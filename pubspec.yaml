@@ -27,7 +27,6 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  
   cached_network_image: ^3.2.1
   csc_picker: ^0.2.6
   cupertino_icons: ^1.0.2
@@ -47,7 +46,6 @@ dependencies:
   animated_text_kit: ^4.2.2
   bottom_navy_bar: ^6.0.0
   sizer: ^2.0.15
-  easy_search_bar: ^2.4.2
 dev_dependencies:
 
   # The "flutter_lints" package below contains a set of recommended lints to
