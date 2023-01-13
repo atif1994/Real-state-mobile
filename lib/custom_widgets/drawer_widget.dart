@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/AboutUs/about_us.dart';
+<<<<<<< HEAD
+=======
+
+import 'package:prologic_29/Views/blog/blog.dart';
+
+import 'package:prologic_29/Views/area_guide/area_guid.dart';
+>>>>>>> 5cd189d14db24facf0eebdd5fb94a94b0317b883
 import 'package:prologic_29/Views/newsFeeed/newsfeed.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';

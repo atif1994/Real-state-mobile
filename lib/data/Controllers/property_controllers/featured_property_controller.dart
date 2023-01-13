@@ -1,17 +1,21 @@
 import 'package:get/state_manager.dart';
 import 'package:prologic_29/data/Services/property_services/featured_property_service.dart';
 
+import '../../Models/property_filters_model/property_filters_response.dart';
+import '../../Models/property_model/cities_response.dart';
 import '../../Models/property_model/featured_propertise_response.dart';
 
-class FeaturedPropertyController extends GetxController {
+class DashboardController extends GetxController {
   RxBool loadingFeaturedPropertise = false.obs;
   var featuredPropertyModel = FeaturedPropertiseModel();
-  List<Datum>? data;
+  // List<Datum>? data;
   RxString errorLoadingFeaturedPropertise = ''.obs;
 
   @override
   void onInit() {
     getFeaturedPropertise();
+    getPrpertyCitis();
+    //  getFilteredPropertiseWithoutPerm();
     super.onInit();
   }
 
@@ -27,4 +31,63 @@ class FeaturedPropertyController extends GetxController {
       errorLoadingFeaturedPropertise.value = res.toString();
     }
   }
+
+//Cities Api properties
+  RxBool loadingCities = false.obs;
+  var citiesModel = CitiesResponse();
+  RxString errorLoadingCities = ''.obs;
+
+  void getPrpertyCitis() async {
+    loadingCities.value = true;
+    errorLoadingCities.value = '';
+    var res = await FeaturedPropertyService.getCities();
+    loadingCities.value = false;
+    if (res is CitiesResponse) {
+      citiesModel = res;
+    } else {
+      loadingCities.value = false;
+      errorLoadingCities.value = res.toString();
+    }
+  }
+
+///////////////////method for getting filtered propertise
+  RxBool loadingfilteredPropertise = false.obs;
+  RxString errorLoadingFilteredPropertise = ''.obs;
+  String type = 'popular';
+  var filteredPropertiseModel = PropertiseFiltersResponse();
+  void getFilteredPropertise(int cityId, int catId, String type) async {
+    loadingfilteredPropertise.value = true;
+    errorLoadingFilteredPropertise.value = '';
+
+    var res = await FeaturedPropertyService.getFilteredPropertise(
+        cityId, catId, type);
+
+    loadingfilteredPropertise.value = false;
+
+    if (res is PropertiseFiltersResponse) {
+      filteredPropertiseModel = res;
+    } else {
+      loadingfilteredPropertise.value = false;
+
+      errorLoadingFilteredPropertise.value = res.toString();
+    }
+  }
+
+  //filter property without perameter
+  // void getFilteredPropertiseWithoutPerm() async {
+  //   loadingfilteredPropertise.value = true;
+  //   errorLoadingFilteredPropertise.value = '';
+
+  //   var res = await FeaturedPropertyService.getFilteredPropertywithoutperm();
+
+  //   loadingfilteredPropertise.value = false;
+
+  //   if (res is PropertiseFiltersResponse) {
+  //     filteredPropertiseModel = res;
+  //   } else {
+  //     loadingfilteredPropertise.value = false;
+
+  //     errorLoadingFilteredPropertise.value = res.toString();
+  //   }
+  // }
 }
