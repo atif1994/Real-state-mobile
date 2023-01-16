@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field_2.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../data/Services/constants.dart';
 import '../../utils/constants/appcolors.dart';
@@ -731,8 +732,8 @@ class _PropertyState extends State<Property>
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 8,
+                  SizedBox(
+                    height: 2.0.h,
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -772,8 +773,8 @@ class _PropertyState extends State<Property>
                           }),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 1.5.h,
                   ),
                   TextField(
                     decoration: InputDecoration(
@@ -787,27 +788,19 @@ class _PropertyState extends State<Property>
                   ),
                 ],
               ),
-              // Center(
-              //   child: Padding(
-              //     padding: const EdgeInsets.only(top: 7),
-              //     child: CustomButton(
-              //       onPressed: () {},
-              //       text: "Browse More Properties",
-              //     ),
-              //   ),
-              // ),
               Padding(
-                padding: const EdgeInsets.only(top: 15),
+                padding: const EdgeInsets.only(top: 12),
                 child: MyButton(onTap: () {}, text: 'Add New'),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 2.0.h,
               ),
               Row(
-                children: const [
-                  Text('Type', style: TextStyle(fontWeight: FontWeight.bold)),
+                children: [
+                  const Text('Type',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   SizedBox(
-                    height: 10,
+                    height: 3.0.h,
                   ),
                 ],
               ),
@@ -829,16 +822,13 @@ class _PropertyState extends State<Property>
                   const MyTextField2(),
                 ],
               ),
-              const SizedBox(
-                height: 8,
+              SizedBox(
+                height: 1.0.h,
               ),
               Row(children: const [
                 Text('Features', style: TextStyle(fontWeight: FontWeight.bold)),
               ]),
               myDivider(),
-              const SizedBox(
-                height: 10,
-              ),
               Row(children: [
                 Checkbox(
                     value: checkBoxValue1,
@@ -850,9 +840,6 @@ class _PropertyState extends State<Property>
                     }),
                 const Text('Balcony')
               ]),
-              const SizedBox(
-                height: 10,
-              ),
               Row(children: [
                 Checkbox(
                     value: checkBoxValue2,
@@ -864,9 +851,6 @@ class _PropertyState extends State<Property>
                     }),
                 const Text('Security Staff')
               ]),
-              const SizedBox(
-                height: 10,
-              ),
               Row(children: [
                 Checkbox(
                     value: checkBoxValue3,
@@ -878,9 +862,6 @@ class _PropertyState extends State<Property>
                     }),
                 const Text('Parking Area')
               ]),
-              const SizedBox(
-                height: 10,
-              ),
               Row(children: [
                 Checkbox(
                     value: checkBoxValue4,
@@ -892,9 +873,6 @@ class _PropertyState extends State<Property>
                     }),
                 const Text('Electricity')
               ]),
-              const SizedBox(
-                height: 10,
-              ),
               Row(children: [
                 Checkbox(
                     value: checkBoxValue5,
@@ -906,9 +884,6 @@ class _PropertyState extends State<Property>
                     }),
                 const Text('Accessible by Road')
               ]),
-              const SizedBox(
-                height: 10,
-              ),
               Row(children: [
                 Checkbox(
                     value: checkBoxValue6,
@@ -940,24 +915,22 @@ class _PropertyState extends State<Property>
                 ],
               ),
               myDivider(),
-              const SizedBox(
-                height: 8,
-              ),
               Row(
                 children: const [
                   Text('Category',
                       style: TextStyle(fontWeight: FontWeight.bold)),
                 ],
               ),
-              const SizedBox(
-                height: 12,
+              SizedBox(
+                height: 1.5.h,
               ),
               Column(
                 children: [
                   DecoratedBox(
+                    // decoration: CustomDecorations.mainCon,
                     decoration: BoxDecoration(
 
-                        //borderRadius: BorderRadius.circular(5),
+                        // borderRadius: BorderRadius.circular(5),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
                         color: const Color.fromARGB(255, 241, 239, 239),
@@ -993,7 +966,7 @@ class _PropertyState extends State<Property>
                   ),
                   myDivider(),
                   Padding(
-                    padding: const EdgeInsets.only(top: 5),
+                    padding: const EdgeInsets.only(top: 1),
                     child: MyButton(onTap: () {}, text: 'Add Property'),
                   ),
                 ],

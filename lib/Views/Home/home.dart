@@ -273,7 +273,8 @@ class _HomeState extends State<Home> {
                                                   setState(() {
                                                     _browsPropertyIndex = index;
                                                     dashboardController
-                                                        .getFilteredPropertiseWithoutPerm();
+                                                        .getFilteredPropertiseWithoutPerm(
+                                                            cid!, index);
                                                   });
                                                 },
                                                 child: Row(
@@ -362,7 +363,8 @@ class _HomeState extends State<Home> {
                                           setState(() {
                                             _browsPropertyIndex1 = 1;
                                             dashboardController
-                                                .getFilteredPropertiseWithoutPerm();
+                                                .getFilteredPropertiseWithoutPerm(
+                                                    cid!, _browsPropertyIndex);
 
                                             //   dashboardController.type = 'type';
                                           });
@@ -507,7 +509,9 @@ class _HomeState extends State<Home> {
                                               IconButton(
                                                 onPressed: () {
                                                   dashboardController
-                                                      .getFilteredPropertiseWithoutPerm();
+                                                      .getFilteredPropertiseWithoutPerm(
+                                                          cid!,
+                                                          _browsPropertyIndex);
 
                                                   //  dashboardController
                                                   // .getFilteredPropertise(
