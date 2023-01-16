@@ -1,3 +1,4 @@
+import 'package:prologic_29/data/Models/propertyfilter_model.dart';
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
@@ -49,7 +50,7 @@ class FeaturedPropertyService {
     }
   }
 
-//---------Location Api Calls------
+//---------filter Api Calls------
 
   static Future<dynamic> getFilteredPropertise(
       int cityId, int catId, String type) async {
@@ -64,6 +65,25 @@ class FeaturedPropertyService {
         return propertiseFiltersResponseFromJson(res.body);
       } else {
         return res;
+      }
+    } catch (e) {
+      return e;
+    }
+  }
+
+//---------property filter------------
+
+  static Future<dynamic> propertyfilterService(int cityId, int catId) async {
+    Map data = {
+      "city_id": cityId,
+      "category_id": catId,
+    };
+    var url = "${AppUrls.baseUrl}${AppUrls.filteredPropertise}";
+
+    try {
+      var res = await BaseClientClass.post(url, data);
+      if (res is http.Response) {
+        return propertyFilterModelFromJson(res.body);
       }
     } catch (e) {
       return e;

@@ -10,7 +10,10 @@ import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Views/AddProperty/add_property.dart';
+
+
 import '../Views/BlogPage/Blog_page.dart';
+
 import '../Views/ContactUs/contact_us.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -109,7 +112,7 @@ class CustomDrawer extends StatelessWidget {
                         height: 2.0.h,
                       ),
                       title: Text(
-                        "Add Property",
+                        "Add Propertyy",
                         style: AppTextStyles.heading1
                             .copyWith(color: AppColors.colorWhite),
                       ),
