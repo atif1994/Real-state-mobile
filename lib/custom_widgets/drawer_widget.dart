@@ -109,7 +109,7 @@ class CustomDrawer extends StatelessWidget {
                         height: 2.0.h,
                       ),
                       title: Text(
-                        "Add Property",
+                        "Add Propertyy",
                         style: AppTextStyles.heading1
                             .copyWith(color: AppColors.colorWhite),
                       ),
