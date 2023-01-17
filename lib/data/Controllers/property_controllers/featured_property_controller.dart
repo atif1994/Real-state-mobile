@@ -1,6 +1,8 @@
 import 'package:get/state_manager.dart';
+import 'package:prologic_29/data/Models/myproperty_model.dart';
 import 'package:prologic_29/data/Models/propertyfilter_model.dart';
 import 'package:prologic_29/data/Services/property_services/featured_property_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Models/property_model/cities_response.dart';
 import '../../Models/property_model/featured_propertise_response.dart';
@@ -10,7 +12,7 @@ class DashboardController extends GetxController {
   var featuredPropertyModel = FeaturedPropertiseModel();
   // List<Datum>? data;
   RxString errorLoadingFeaturedPropertise = ''.obs;
-
+  int userid = 273;
   @override
   void onInit() {
     getFeaturedPropertise();
@@ -18,6 +20,9 @@ class DashboardController extends GetxController {
     print("Filter propertties ================>>>>>>>>>>>>>>========");
     getFilteredPropertiseWithoutPerm();
     super.onInit();
+    getuserId(userid);
+    getMyProperty(userid);
+    print("=============???????? $userid");
   }
 
   void getFeaturedPropertise() async {
@@ -75,6 +80,7 @@ class DashboardController extends GetxController {
 //   }
 
   //filter property without perameter
+
   var filteredPropertyModel = PropertyFilterModel();
   RxBool loadingfilteredPropertise = false.obs;
   RxString errorLoadingFilteredPropertise = ''.obs;
@@ -89,6 +95,30 @@ class DashboardController extends GetxController {
       loadingfilteredPropertise.value = false;
 
       errorLoadingFilteredPropertise.value = res.toString();
+    }
+  }
+
+  //My Property  Api Call
+
+  getuserId(userid) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    userid = pref.getInt("userid");
+  }
+
+  var myPropertyModel = MyProperty();
+  RxBool loadingMyPropertise = false.obs;
+  RxString errorLoadingMyPropertise = ''.obs;
+  void getMyProperty(int userid) async {
+    var res = await FeaturedPropertyService.myPropertyService(userid);
+
+    loadingMyPropertise.value = false;
+
+    if (res is MyProperty) {
+      myPropertyModel = res;
+    } else {
+      loadingMyPropertise.value = false;
+
+      errorLoadingMyPropertise.value = res.toString();
     }
   }
 }
