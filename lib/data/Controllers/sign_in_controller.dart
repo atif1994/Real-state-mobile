@@ -46,7 +46,7 @@ class SignInController extends GetxController {
       var cName = data['data']['city']['name'];
 
       Get.find<AuthController>().isUserSignedIn();
-
+      _saveCountryData(cId, cName);
       // Get.snackbar('Signed In', 'User is signed in');
       isLoading(false);
     } else {

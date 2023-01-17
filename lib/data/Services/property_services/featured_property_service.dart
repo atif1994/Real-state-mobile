@@ -74,10 +74,10 @@ class FeaturedPropertyService {
 
 //---------property filter------------
 
-  static Future<dynamic> propertyfilterService(int cityId, int catId) async {
+  static Future<dynamic> propertyfilterService() async {
     Map data = {
-      "city_id": cityId,
-      "category_id": catId,
+      "city_id": 1,
+      "category_id": 0,
     };
     var url = "${AppUrls.baseUrl}${AppUrls.filteredPropertise}";
 

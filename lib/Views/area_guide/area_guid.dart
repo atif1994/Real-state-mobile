@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prologic_29/Views/area_guide/properties_areaguide.dart';
 // import 'package:prologic_29/Views/Drawer/about_us.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
@@ -7,7 +8,7 @@ import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utils/constants/image_resources.dart';
-import 'properties_areaguide.dart';
+
 // import 'package:prologic_29/utils/styles/app_textstyles.dart';
 
 class AreaGuide extends StatelessWidget {
@@ -23,8 +24,8 @@ class AreaGuide extends StatelessWidget {
       body: SingleChildScrollView(
           child: Column(
         children: [
-          const SizedBox(
-            height: 30,
+          SizedBox(
+            height: 3.0.h,
           ),
           Container(
             child: Center(
@@ -39,7 +40,7 @@ class AreaGuide extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 1.0.h,
+                    height: 0.0.h,
                   ),
                   Text(
                     'Find your dream home from your dream location',
@@ -51,17 +52,56 @@ class AreaGuide extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 3.0.h,
+            height: 2.6.h,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 6.0.w, right: 6.0.w),
+            child: SizedBox(
+              height: 6.3.h,
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24.0),
+                    borderSide: const BorderSide(
+                      color: AppColors.colorblack,
+                      width: 6.0,
+                      style: BorderStyle.solid,
+                    ),
+                  ),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: AppColors.colorblack,
+                  ),
+                  hintStyle: const TextStyle(color: AppColors.colorblack),
+                  hintText: 'Search...',
+                ),
+              ),
+            ),
+          ),
+          // ignore: prefer_const_constructors
+          // TextField(
+          //   decoration: const InputDecoration(
+          //     focusedBorder: OutlineInputBorder(
+          //       borderSide: BorderSide(color: Colors.greenAccent, width: 5.0),
+          //     ),
+          //     enabledBorder: OutlineInputBorder(
+          //       borderSide: BorderSide(color: Colors.red, width: 5.0),
+          //     ),
+          //     hintText: 'Mobile Number',
+          //   ),
+          // ),
+          SizedBox(
+            height: 1.0.h,
           ),
           ListView.builder(
             primary: false,
             shrinkWrap: true,
-            itemCount: 3,
+            itemCount: 2,
             itemBuilder: (context, index) {
               return Container(
                 margin: EdgeInsets.only(
-                    left: 5.0.w, right: 5.0.w, top: index == 0 ? 1.0.h : 2.0.h),
-                height: 33.0.h,
+                    left: 6.1.w, right: 6.1.w, top: index == 0 ? 1.0.h : 2.0.h),
+                height: 31.0.h,
                 width: 100.0.w,
                 decoration: CustomDecorations.mainCon,
                 child: Stack(
@@ -69,7 +109,7 @@ class AreaGuide extends StatelessWidget {
                     Column(
                       children: [
                         SizedBox(
-                          height: 20.0.h,
+                          height: 21.5.h,
                           width: 100.0.w,
                           child: ClipRRect(
                             borderRadius: const BorderRadius.only(
@@ -82,7 +122,7 @@ class AreaGuide extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 2.0.h,
+                          height: 1.0.h,
                         ),
                         Row(
                           // mainAxisAlignment: MainAxisAlignment.,
@@ -149,7 +189,7 @@ class AreaGuide extends StatelessWidget {
           ),
           Center(
             child: Padding(
-              padding: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
+              padding: EdgeInsets.only(left: 6.0.w, right: 6.0.w),
               child: CustomButton(
                 onPressed: () {},
                 text: "Browse More Properties",
@@ -384,3 +424,38 @@ class AreaGuide extends StatelessWidget {
   }
 }
 // #242423
+
+// class searchBox extends StatelessWidget {
+//   const searchBox({
+//     Key? key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.symmetric(
+//         horizontal: 25,
+//         vertical: 3,
+//       ),
+
+//       decoration: BoxDecoration(
+//           color: AppColors.appthem, borderRadius: BorderRadius.circular(25)),
+
+//       // ignore: prefer_const_constructors
+//       child: TextField(
+//         decoration: const InputDecoration(
+//           contentPadding: EdgeInsets.only(top: 0),
+//           suffix: Icon(
+//             Icons.search,
+//             color: AppColors.colorWhite,
+//             size: 21,
+//           ),
+//           prefixIconConstraints: BoxConstraints(maxHeight: 20, minWidth: 25),
+//           border: InputBorder.none,
+//           hintText: '   Search',
+//           hintStyle: TextStyle(color: AppColors.colorWhite),
+//         ),
+//       ),
+//     );
+//   }
+// }
