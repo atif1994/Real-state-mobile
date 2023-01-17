@@ -362,9 +362,9 @@ class _HomeState extends State<Home> {
                                         onTap: () {
                                           setState(() {
                                             _browsPropertyIndex1 = 1;
-                                            dashboardController
-                                                .getFilteredPropertiseWithoutPerm(
-                                                    cid!, _browsPropertyIndex);
+                                            // dashboardController
+                                            //     .getFilteredPropertiseWithoutPerm(
+                                            //         cid!, _browsPropertyIndex);
 
                                             //   dashboardController.type = 'type';
                                           });
@@ -535,44 +535,79 @@ class _HomeState extends State<Home> {
                                                 left: 3.0.w, right: 3.0.w),
                                             height: 28.0.h,
                                             width: 100.0.w,
-                                            child: GridView.builder(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                gridDelegate:
-                                                    const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                        maxCrossAxisExtent: 100,
-                                                        childAspectRatio:
-                                                            1.5 / 2,
-                                                        crossAxisSpacing: 2,
-                                                        mainAxisSpacing: 10),
-                                                itemCount: 8,
-                                                itemBuilder:
-                                                    (BuildContext ctx, index) {
-                                                  return Container(
-                                                    margin: EdgeInsets.only(
-                                                      top: 2.0.h,
-                                                    ),
-                                                    height: 4.0.h,
-                                                    width: 20.0.w,
-                                                    alignment: Alignment.center,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: Colors.grey),
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    child: Center(
-                                                      child: Text(
-                                                          dashboardController
-                                                                  .filteredPropertyModel
-                                                                  .data!
-                                                                  .name ??
-                                                              ''),
-                                                    ),
-                                                  );
-                                                }),
-                                          ))
+                                            child: Wrap(
+                                              direction: Axis.vertical,
+                                              children: [
+                                                Text(dashboardController
+                                                        .filteredPropertyModel
+                                                        .data!
+                                                        .name ??
+                                                    ''),
+                                                const SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Text(dashboardController
+                                                        .filteredPropertyModel
+                                                        .data!
+                                                        .status ??
+                                                    ''),
+                                                const SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Text(dashboardController
+                                                        .filteredPropertyModel
+                                                        .data!
+                                                        .order ??
+                                                    ''),
+                                                const SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Text(dashboardController
+                                                    .filteredPropertyModel
+                                                    .data!
+                                                    .parentclass
+                                                    .toString()),
+                                              ],
+                                            )
+
+                                            //    GridView.builder(
+                                            //       scrollDirection:
+                                            //           Axis.horizontal,
+                                            //       gridDelegate:
+                                            //           const SliverGridDelegateWithMaxCrossAxisExtent(
+                                            //               maxCrossAxisExtent: 100,
+                                            //               childAspectRatio:
+                                            //                   1.5 / 2,
+                                            //               crossAxisSpacing: 2,
+                                            //               mainAxisSpacing: 10),
+                                            //       itemCount: 8,
+                                            //       itemBuilder:
+                                            //           (BuildContext ctx, index) {
+                                            //         return Container(
+                                            //           margin: EdgeInsets.only(
+                                            //             top: 2.0.h,
+                                            //           ),
+                                            //           height: 4.0.h,
+                                            //           width: 20.0.w,
+                                            //           alignment: Alignment.center,
+                                            //           decoration: BoxDecoration(
+                                            //               border: Border.all(
+                                            //                   color: Colors.grey),
+                                            //               color: Colors.white,
+                                            //               borderRadius:
+                                            //                   BorderRadius
+                                            //                       .circular(10)),
+                                            //           child: Center(
+                                            //             child: Text(
+                                            //                 dashboardController
+                                            //                         .filteredPropertyModel
+                                            //                         .data!
+                                            //                         .name ??
+                                            //                     ''),
+                                            //           ),
+                                            //         );
+                                            //       }),
+                                            ))
                               ],
                             ),
                     ),

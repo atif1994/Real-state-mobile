@@ -1,3 +1,4 @@
+import 'package:prologic_29/data/Models/myproperty_model.dart';
 import 'package:prologic_29/data/Models/propertyfilter_model.dart';
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
@@ -84,6 +85,21 @@ class FeaturedPropertyService {
       var res = await BaseClientClass.post(url, data);
       if (res is http.Response) {
         return propertyFilterModelFromJson(res.body);
+      }
+    } catch (e) {
+      return e;
+    }
+  }
+
+  //---------property My prperty------------
+
+  static Future<dynamic> myPropertyService(int userid) async {
+    var url = "${AppUrls.baseUrl}${AppUrls.myproerty} $userid";
+
+    try {
+      var res = await BaseClientClass.get(url, '');
+      if (res is http.Response) {
+        return myPropertyFromJson(res.body);
       }
     } catch (e) {
       return e;

@@ -40,6 +40,8 @@ class SignInController extends GetxController {
         // country: user['country'],
         // state: user['state'],
       ));
+      var userid = data['data']['id'];
+      getuserId(userid);
       var cId = data['data']['city']['id'];
       var cName = data['data']['city']['name'];
       Get.find<AuthController>().isUserSignedIn();
@@ -71,6 +73,11 @@ class SignInController extends GetxController {
       //   Fluttertoast.showToast(msg: 'unAuthorized');
       //   isLoading(false);
     }
+  }
+
+  getuserId(int userid) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt("userid", userid);
   }
 
   _saveCountryData(int cID, String cName) async {
