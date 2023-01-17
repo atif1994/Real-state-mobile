@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Views/AddProperty/add_property.dart';
+import 'package:prologic_29/Views/AddProperty/add_property1.dart';
 import '../../../../data/Services/constants.dart';
 import '../../Post/post_tile.dart';
 
