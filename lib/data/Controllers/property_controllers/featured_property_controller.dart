@@ -15,7 +15,8 @@ class DashboardController extends GetxController {
   void onInit() {
     getFeaturedPropertise();
     getPrpertyCitis();
-    // getFilteredPropertiseWithoutPerm();
+    print("Filter propertties ================>>>>>>>>>>>>>>========");
+    getFilteredPropertiseWithoutPerm();
     super.onInit();
   }
 
@@ -77,9 +78,8 @@ class DashboardController extends GetxController {
   var filteredPropertyModel = PropertyFilterModel();
   RxBool loadingfilteredPropertise = false.obs;
   RxString errorLoadingFilteredPropertise = ''.obs;
-  void getFilteredPropertiseWithoutPerm(int cityId, int catId) async {
-    var res =
-        await FeaturedPropertyService.propertyfilterService(cityId, catId);
+  void getFilteredPropertiseWithoutPerm() async {
+    var res = await FeaturedPropertyService.propertyfilterService();
 
     loadingfilteredPropertise.value = false;
 
