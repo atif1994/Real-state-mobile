@@ -13,12 +13,22 @@ class DashboardController extends GetxController {
   // List<Datum>? data;
   RxString errorLoadingFeaturedPropertise = ''.obs;
   int userid = 273;
+  int? cid;
+  String? cityName;
+  int catid = 0;
   @override
   void onInit() {
+    void getCityInfo() async {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+
+      cid = pref.getInt("cityId");
+      cityName = pref.getString("cityName");
+    }
+
     getFeaturedPropertise();
     getPrpertyCitis();
     print("Filter propertties ================>>>>>>>>>>>>>>========");
-    getFilteredPropertiseWithoutPerm();
+    getFilteredPropertiseWithoutPerm(cid: cid, catid: catid);
     super.onInit();
     getuserId(userid);
     getMyProperty(userid);
@@ -84,8 +94,9 @@ class DashboardController extends GetxController {
   var filteredPropertyModel = PropertyFilterModel();
   RxBool loadingfilteredPropertise = false.obs;
   RxString errorLoadingFilteredPropertise = ''.obs;
-  void getFilteredPropertiseWithoutPerm() async {
-    var res = await FeaturedPropertyService.propertyfilterService();
+  void getFilteredPropertiseWithoutPerm({cid, required catid}) async {
+    loadingfilteredPropertise.value = true;
+    var res = await FeaturedPropertyService.propertyfilterService(cid, catid);
 
     loadingfilteredPropertise.value = false;
 

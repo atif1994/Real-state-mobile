@@ -273,7 +273,9 @@ class _HomeState extends State<Home> {
                                                   setState(() {
                                                     _browsPropertyIndex = index;
                                                     dashboardController
-                                                        .getFilteredPropertiseWithoutPerm();
+                                                        .getFilteredPropertiseWithoutPerm(
+                                                            cid: cid,
+                                                            catid: index);
                                                   });
                                                 },
                                                 child: Row(
@@ -491,120 +493,95 @@ class _HomeState extends State<Home> {
                                     ],
                                   ),
                                 ),
-                                Obx(() => dashboardController
-                                        .loadingfilteredPropertise.value
-                                    ? const Center(
-                                        child: CircularProgressIndicator(
-                                        color: AppColors.appthem,
-                                      ))
-                                    : dashboardController
-                                                .errorLoadingFilteredPropertise
-                                                .value !=
-                                            ''
-                                        ? Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              IconButton(
-                                                onPressed: () {
-                                                  dashboardController
-                                                      .getFilteredPropertiseWithoutPerm();
-
-                                                  //  dashboardController
-                                                  // .getFilteredPropertise(
-                                                  //     cid!,
-                                                  //     _browsPropertyIndex,
-                                                  //     dashboardController
-                                                  //         .type);
-                                                },
-                                                icon: const Icon(
-                                                  Icons.refresh,
-                                                  color: AppColors.appthem,
-                                                ),
-                                              ),
-                                              Text(dashboardController
+                                Obx(
+                                  () => dashboardController
+                                          .loadingfilteredPropertise.value
+                                      ? const Center(
+                                          child: CircularProgressIndicator(
+                                          color: AppColors.appthem,
+                                        ))
+                                      : dashboardController
                                                   .errorLoadingFilteredPropertise
-                                                  .value),
-                                            ],
-                                          )
-                                        : Container(
-                                            margin: EdgeInsets.only(
-                                                left: 3.0.w, right: 3.0.w),
-                                            height: 28.0.h,
-                                            width: 100.0.w,
-                                            child: Wrap(
-                                              direction: Axis.vertical,
+                                                  .value !=
+                                              ''
+                                          ? Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
-                                                Text(dashboardController
-                                                        .filteredPropertyModel
-                                                        .data!
-                                                        .name ??
-                                                    ''),
-                                                const SizedBox(
-                                                  width: 20,
+                                                IconButton(
+                                                  onPressed: () {
+                                                    dashboardController
+                                                        .getFilteredPropertiseWithoutPerm(
+                                                            cid: cid,
+                                                            catid:
+                                                                _browsPropertyIndex1);
+
+                                                    //  dashboardController
+                                                    // .getFilteredPropertise(
+                                                    //     cid!,
+                                                    //     _browsPropertyIndex,
+                                                    //     dashboardController
+                                                    //         .type);
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.refresh,
+                                                    color: AppColors.appthem,
+                                                  ),
                                                 ),
                                                 Text(dashboardController
-                                                        .filteredPropertyModel
-                                                        .data!
-                                                        .status ??
-                                                    ''),
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Text(dashboardController
-                                                        .filteredPropertyModel
-                                                        .data!
-                                                        .order ??
-                                                    ''),
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Text(dashboardController
-                                                    .filteredPropertyModel
-                                                    .data!
-                                                    .parentclass
-                                                    .toString()),
+                                                    .errorLoadingFilteredPropertise
+                                                    .value),
                                               ],
                                             )
-
-                                            //    GridView.builder(
-                                            //       scrollDirection:
-                                            //           Axis.horizontal,
-                                            //       gridDelegate:
-                                            //           const SliverGridDelegateWithMaxCrossAxisExtent(
-                                            //               maxCrossAxisExtent: 100,
-                                            //               childAspectRatio:
-                                            //                   1.5 / 2,
-                                            //               crossAxisSpacing: 2,
-                                            //               mainAxisSpacing: 10),
-                                            //       itemCount: 8,
-                                            //       itemBuilder:
-                                            //           (BuildContext ctx, index) {
-                                            //         return Container(
-                                            //           margin: EdgeInsets.only(
-                                            //             top: 2.0.h,
-                                            //           ),
-                                            //           height: 4.0.h,
-                                            //           width: 20.0.w,
-                                            //           alignment: Alignment.center,
-                                            //           decoration: BoxDecoration(
-                                            //               border: Border.all(
-                                            //                   color: Colors.grey),
-                                            //               color: Colors.white,
-                                            //               borderRadius:
-                                            //                   BorderRadius
-                                            //                       .circular(10)),
-                                            //           child: Center(
-                                            //             child: Text(
-                                            //                 dashboardController
-                                            //                         .filteredPropertyModel
-                                            //                         .data!
-                                            //                         .name ??
-                                            //                     ''),
-                                            //           ),
-                                            //         );
-                                            //       }),
-                                            ))
+                                          : Expanded(
+                                              child: GridView.builder(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  gridDelegate:
+                                                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                          maxCrossAxisExtent:
+                                                              100,
+                                                          childAspectRatio:
+                                                              1.5 / 2,
+                                                          crossAxisSpacing: 2,
+                                                          mainAxisSpacing: 10),
+                                                  itemCount: dashboardController
+                                                      .filteredPropertyModel
+                                                      .popular!
+                                                      .length,
+                                                  itemBuilder:
+                                                      (BuildContext ctx,
+                                                          index) {
+                                                    return Container(
+                                                      margin: EdgeInsets.only(
+                                                        top: 2.0.h,
+                                                      ),
+                                                      height: 4.0.h,
+                                                      width: 20.0.w,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10)),
+                                                      child: Center(
+                                                        child: Text(
+                                                            dashboardController
+                                                                    .filteredPropertyModel
+                                                                    .popular![
+                                                                        index]!
+                                                                    .name ??
+                                                                ''),
+                                                      ),
+                                                    );
+                                                  }),
+                                            ),
+                                )
                               ],
                             ),
                     ),
