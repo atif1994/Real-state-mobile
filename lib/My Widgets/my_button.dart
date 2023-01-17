@@ -8,7 +8,7 @@ class MyButton extends StatelessWidget {
 
   const MyButton({
     Key? key,
-    this.color = Colors.black,
+    this.color = Colors.grey,
     required this.onTap,
     required this.text,
     this.icon,
