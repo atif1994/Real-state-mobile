@@ -558,13 +558,13 @@ class _HomeState extends State<Home> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10)),
-                                                    child: Center(
+                                                    child: const Center(
                                                       child: Text(
-                                                          dashboardController
-                                                                  .filteredPropertyModel
-                                                                  .data!
-                                                                  .name ??
-                                                              ''),
+                                                          "gdgdsgdsgfdsfgsdfgdgf"),
+//kyukukyukyuk
+//yjfhj.m./m.fghjfghvj
+//jfhjfhjfghjgfh
+
                                                     ),
                                                   );
                                                 }),
