@@ -107,7 +107,7 @@ class Popular {
   int? id;
   String? name;
   String? description;
-  Status? status;
+  String? status;
   String? order;
   String? isDefault;
   DateTime? createdAt;
@@ -119,7 +119,7 @@ class Popular {
         id: json["id"],
         name: json["name"],
         description: json["description"],
-        status: statusValues.map[json["status"]],
+        status: json["status"],
         order: json["order"],
         isDefault: json["is_default"],
         createdAt: DateTime.parse(json["created_at"]),
