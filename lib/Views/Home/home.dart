@@ -29,6 +29,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var dashboardController = Get.put(DashboardController());
   var citiesController = Get.put(CitiesController());
+  var newspostController = Get.put(DashboardController());
   int? cid;
   String? cityName;
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -1144,136 +1145,193 @@ class _HomeState extends State<Home> {
                     height: 43.0.h,
                     width: 100.0.w,
                     decoration: CustomDecorations.mainCon,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
-                          child: Text(
-                            "ProLogic 29",
-                            style: AppTextStyles.heading1.copyWith(
-                                fontFamily: AppFonts.nexaBold,
-                                fontSize: 16.sp,
-                                color: AppColors.appthem),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
-                          child: SizedBox(
-                            width: 80.0.w,
-                            child: Text(
-                                "Let us help you navigate the renting, buying, selling & investing experience",
-                                style: AppTextStyles.labelSmall
-                                    .copyWith(fontSize: 9.sp)),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: 2.0.w, right: 2.0.w, top: 1.0.h),
-                          height: 34.0.h,
-                          width: 100.0.w,
-                          //color: Colors.red,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 3,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin: EdgeInsets.only(
-                                      left: index == 0 ? 2.0.w : 2.0.w,
-                                      right: index == 2 ? 2.0.w : 0.0.w,
-                                      top: 1.0.h,
-                                      bottom: 1.0.h),
-                                  height: 25.0.h,
-                                  width: 50.0.w,
-                                  decoration: CustomDecorations.mainCon,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 15.0.h,
-                                        width: 100.0.w,
-                                        decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(10),
-                                                topRight: Radius.circular(10))),
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10)),
-                                          child: Image.asset(
-                                            testimonialImages[index],
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
+                    child: Obx(
+                      (() => newspostController.loadingnewspost.value
+                          ? const Center(child: CircularProgressIndicator())
+                          : Expanded(
+                              child: Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 3.0.w, top: 0.3.h),
+                                      child: Text(
+                                        "ProLogic 29",
+                                        style: AppTextStyles.heading1.copyWith(
+                                            fontFamily: AppFonts.nexaBold,
+                                            fontSize: 16.sp,
+                                            color: AppColors.appthem),
                                       ),
-                                      SizedBox(
-                                        height: 1.0.h,
-                                      ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 2.0.w,
-                                          ),
-                                          const Icon(
-                                            Icons.date_range,
-                                            color: AppColors.appthem,
-                                          ),
-                                          SizedBox(
-                                            width: 2.0.w,
-                                          ),
-                                          Text(
-                                            "28 Oct, 2022",
-                                            style: AppTextStyles.labelSmall
-                                                .copyWith(fontSize: 10.sp),
-                                          )
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 2.0.w,
-                                            right: 2.0.w,
-                                            top: 1.0.h),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 3.0.w, top: 0.3.h),
+                                      child: SizedBox(
+                                        width: 80.0.w,
                                         child: Text(
-                                          "Common Malpractices In Real Estate",
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  color: AppColors.appthem),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 2.0.w,
-                                            right: 2.0.w,
-                                            top: 1.0.h),
-                                        child: Text(
-                                            // "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities."
-                                            "",
+                                            "Let us help you navigate the renting, buying, selling & investing experience",
                                             style: AppTextStyles.labelSmall
-                                                .copyWith(fontSize: 8.sp)),
+                                                .copyWith(fontSize: 9.sp)),
                                       ),
-                                      Container(
-                                        margin: EdgeInsets.only(left: 2.0.w),
-                                        height: 4.0.h,
-                                        width: 30.0.w,
-                                        decoration: BoxDecoration(
-                                            color: AppColors.appthem,
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: Center(
-                                            child: Text(
-                                          "Continue",
-                                          style: AppTextStyles.labelSmall
-                                              .copyWith(
-                                                  color: AppColors.colorWhite),
-                                        )),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }),
-                        )
-                      ],
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          left: 2.0.w,
+                                          right: 2.0.w,
+                                          top: 1.0.h),
+                                      height: 34.0.h,
+                                      width: 100.0.w,
+                                      //color: Colors.red,
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: newspostController
+                                              .newspostModel.data!.length,
+                                          itemBuilder: (context, index) {
+                                            return Expanded(
+                                              child: Container(
+                                                margin: EdgeInsets.only(
+                                                    left: index == 0
+                                                        ? 2.0.w
+                                                        : 2.0.w,
+                                                    right: index ==
+                                                            newspostController
+                                                                    .newspostModel
+                                                                    .data!
+                                                                    .length -
+                                                                1
+                                                        ? 2.0.w
+                                                        : 0.0.w),
+                                                height: 25.0.h,
+                                                width: 50.0.w,
+                                                decoration:
+                                                    CustomDecorations.mainCon,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      height: 15.0.h,
+                                                      width: 100.0.w,
+                                                      decoration: const BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          10),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          10))),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        10),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        10)),
+                                                        child: Image.asset(
+                                                          testimonialImages[
+                                                              index],
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 1.0.h,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        const Icon(
+                                                          Icons.date_range,
+                                                          color:
+                                                              AppColors.appthem,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Text(
+                                                          newspostController
+                                                                  .newspostModel
+                                                                  .data![index]!
+                                                                  .name ??
+                                                              "",
+                                                          style: AppTextStyles
+                                                              .labelSmall
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      10.sp),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 2.0.w,
+                                                          right: 2.0.w,
+                                                          top: 1.0.h),
+                                                      child: Text(
+                                                        newspostController
+                                                                .newspostModel
+                                                                .data![index]!
+                                                                .name ??
+                                                            "",
+                                                        style: AppTextStyles
+                                                            .heading1
+                                                            .copyWith(
+                                                                color: AppColors
+                                                                    .appthem),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 2.0.w,
+                                                          right: 2.0.w,
+                                                          top: 1.0.h),
+                                                      child: Text(
+                                                          // "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities."
+                                                          "",
+                                                          style: AppTextStyles
+                                                              .labelSmall
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      8.sp)),
+                                                    ),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          left: 2.0.w),
+                                                      height: 4.0.h,
+                                                      width: 30.0.w,
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              AppColors.appthem,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8)),
+                                                      child: Center(
+                                                          child: Text(
+                                                        "Continue",
+                                                        style: AppTextStyles
+                                                            .labelSmall
+                                                            .copyWith(
+                                                                color: AppColors
+                                                                    .colorWhite),
+                                                      )),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
                     ),
                   ),
                   SizedBox(
