@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:prologic_29/Views/Drawer/about_us.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
+import 'package:prologic_29/Views/Notifications/notification_page.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/custom_widgets/drawer_widget.dart';
 import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
@@ -16,6 +17,7 @@ import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../data/Controllers/Notification_Controller/Notification_Controller.dart';
 import '../../data/Controllers/property_controllers/cities_controller.dart';
 import 'home_screen.dart';
 
@@ -29,6 +31,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var dashboardController = Get.put(DashboardController());
   var citiesController = Get.put(CitiesController());
+  var notificationController = Get.put(Notificationcontroller());
   int? cid;
   String? cityName;
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -107,6 +110,36 @@ class _HomeState extends State<Home> {
                                 fontFamily: AppFonts.nexaBold)),
                         SizedBox(
                           width: 4.0.w,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(
+                            right: 20,
+                          ),
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: SizedBox(
+                                  width: 8.0.w,
+                                  height: 5.0.h,
+                                  child: GestureDetector(
+                                    onTap: (() {
+                                      Get.to(AllNotifications());
+                                    }),
+                                    child: Image.asset(
+                                        AppImageResources.notificationbell),
+                                  ),
+                                  // child: IconButton(
+                                  //   onPressed: () {
+                                  //     Get.to(() => AllNotifications);
+                                  //   },
+                                  //   icon: const Icon(Icons.email,
+                                  //       color: Colors.lightBlueAccent),
+                                  // ),
+                                ),
+                              ),
+                              // Positioned(right: 3, top: 3, child: MyBadge(10)),
+                            ],
+                          ),
                         ),
                       ],
                     )
