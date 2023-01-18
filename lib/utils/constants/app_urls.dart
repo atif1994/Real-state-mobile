@@ -5,6 +5,9 @@ class AppUrls {
   static const String filteredPropertise = "v1/properties-filters";
   static const String myproerty = "v1/my-properties/";
 
+  /////
+  static const String propertyByID = "v1/Propertybyid/";
+
   //abc static const String filteredPropertise = "v1/properties-filters";
   static const String citiesLocation = "v1/properties-location";
 }
