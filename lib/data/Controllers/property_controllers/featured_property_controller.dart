@@ -13,11 +13,12 @@ class DashboardController extends GetxController {
   // List<Datum>? data;
   RxString errorLoadingFeaturedPropertise = ''.obs;
   int userid = 273;
-  int? cid;
+  int? cid = 0;
   String? cityName;
   int catid = 0;
   @override
   void onInit() {
+
     void getCityInfo() async {
       SharedPreferences pref = await SharedPreferences.getInstance();
 
@@ -27,14 +28,13 @@ class DashboardController extends GetxController {
 
     getnewspost();
 
+
     getFeaturedPropertise();
     getPrpertyCitis();
-    print("Filter propertties ================>>>>>>>>>>>>>>========");
     getFilteredPropertiseWithoutPerm(cid: cid, catid: catid);
     super.onInit();
     getuserId(userid);
     getMyProperty(userid);
-    print("=============???????? $userid");
   }
 
   void getFeaturedPropertise() async {
@@ -68,30 +68,13 @@ class DashboardController extends GetxController {
     }
   }
 
-// ///////////////////method for getting filtered propertise
-//   RxBool loadingfilteredPropertise = false.obs;
-//   RxString errorLoadingFilteredPropertise = ''.obs;
-//   String type = 'popular';
-//   var filteredPropertiseModel = PropertiseFiltersResponse();
-//   void getFilteredPropertise(int cityId, int catId, String type) async {
-//     loadingfilteredPropertise.value = true;
-//     errorLoadingFilteredPropertise.value = '';
-
-//     var res = await FeaturedPropertyService.getFilteredPropertise(
-//         cityId, catId, type);
-
-//     loadingfilteredPropertise.value = false;
-
-//     if (res is PropertiseFiltersResponse) {
-//       filteredPropertiseModel = res;
-//     } else {
-//       loadingfilteredPropertise.value = false;
-
-//       errorLoadingFilteredPropertise.value = res.toString();
-//     }
-//   }
-
   //filter property without perameter
+  void getCityInfo() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    cid = pref.getInt("cityId");
+    cityName = pref.getString("cityName");
+  }
 
   var filteredPropertyModel = PropertyFilterModel();
   RxBool loadingfilteredPropertise = false.obs;
@@ -103,6 +86,7 @@ class DashboardController extends GetxController {
     loadingfilteredPropertise.value = false;
 
     if (res is PropertyFilterModel) {
+      loadingfilteredPropertise.value = false;
       filteredPropertyModel = res;
     } else {
       loadingfilteredPropertise.value = false;

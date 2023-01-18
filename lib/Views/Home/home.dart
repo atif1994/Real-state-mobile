@@ -34,9 +34,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var dashboardController = Get.put(DashboardController());
   var citiesController = Get.put(CitiesController());
+
   var notificationController = Get.put(Notificationcontroller());
   var newspostController = Get.put(DashboardController());
   int? cid;
+
   String? cityName;
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final labels = ["Buy", "Rent", "Invest"];
@@ -80,6 +82,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    dashboardController.getFilteredPropertiseWithoutPerm(cid: cid, catid: 0);
     getCityInfo();
 
     super.initState();
@@ -530,95 +533,258 @@ class _HomeState extends State<Home> {
                                     ],
                                   ),
                                 ),
-                                Obx(
-                                  () => dashboardController
-                                          .loadingfilteredPropertise.value
-                                      ? const Center(
-                                          child: CircularProgressIndicator(
-                                          color: AppColors.appthem,
-                                        ))
-                                      : dashboardController
-                                                  .errorLoadingFilteredPropertise
-                                                  .value !=
-                                              ''
-                                          ? Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                IconButton(
-                                                  onPressed: () {
-                                                    dashboardController
-                                                        .getFilteredPropertiseWithoutPerm(
-                                                            cid: cid,
-                                                            catid:
-                                                                _browsPropertyIndex1);
+                                Obx(() => dashboardController
+                                        .loadingfilteredPropertise.value
+                                    ? const Center(
+                                        child: CircularProgressIndicator(
+                                        color: AppColors.appthem,
+                                      ))
+                                    : dashboardController
+                                                .errorLoadingFilteredPropertise
+                                                .value !=
+                                            ''
+                                        ? Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  dashboardController
+                                                      .getFilteredPropertiseWithoutPerm(
+                                                          cid: cid,
+                                                          catid:
+                                                              _browsPropertyIndex1);
 
-                                                    //  dashboardController
-                                                    // .getFilteredPropertise(
-                                                    //     cid!,
-                                                    //     _browsPropertyIndex,
-                                                    //     dashboardController
-                                                    //         .type);
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.refresh,
-                                                    color: AppColors.appthem,
-                                                  ),
+                                                  //  dashboardController
+                                                  // .getFilteredPropertise(
+                                                  //     cid!,
+                                                  //     _browsPropertyIndex,
+                                                  //     dashboardController
+                                                  //         .type);
+                                                },
+                                                icon: const Icon(
+                                                  Icons.refresh,
+                                                  color: AppColors.appthem,
                                                 ),
-                                                Text(dashboardController
-                                                    .errorLoadingFilteredPropertise
-                                                    .value),
-                                              ],
-                                            )
-                                          : Expanded(
-                                              child: GridView.builder(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  gridDelegate:
-                                                      const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                          maxCrossAxisExtent:
-                                                              100,
-                                                          childAspectRatio:
-                                                              1.5 / 2,
-                                                          crossAxisSpacing: 2,
-                                                          mainAxisSpacing: 10),
-                                                  itemCount: dashboardController
-                                                      .filteredPropertyModel
-                                                      .popular!
-                                                      .length,
-                                                  itemBuilder:
-                                                      (BuildContext ctx,
-                                                          index) {
-                                                    return Container(
-                                                      margin: EdgeInsets.only(
-                                                        top: 2.0.h,
-                                                      ),
-                                                      height: 4.0.h,
-                                                      width: 20.0.w,
-                                                      alignment:
-                                                          Alignment.center,
-                                                      decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                              color:
-                                                                  Colors.grey),
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)),
-                                                      child: Center(
-                                                        child: Text(
+                                              ),
+                                              Text(dashboardController
+                                                  .errorLoadingFilteredPropertise
+                                                  .value),
+                                            ],
+                                          )
+                                        : _browsPropertyIndex1 == 0
+                                            ? Expanded(
+                                                child: GridView.builder(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    gridDelegate:
+                                                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                            maxCrossAxisExtent:
+                                                                100,
+                                                            childAspectRatio:
+                                                                1.5 / 2,
+                                                            crossAxisSpacing: 2,
+                                                            mainAxisSpacing:
+                                                                10),
+                                                    itemCount: dashboardController
+                                                        .filteredPropertyModel
+                                                        .popular!
+                                                        .length,
+                                                    itemBuilder:
+                                                        (BuildContext ctx,
+                                                            index) {
+                                                      return Container(
+                                                        margin: EdgeInsets.only(
+                                                            top: 1.0.h,
+                                                            bottom: 1.h,
+                                                            left: 1.w),
+                                                        height: 4.0.h,
+                                                        width: 20.0.w,
+                                                        alignment:
+                                                            Alignment.center,
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                color: Colors
+                                                                    .grey),
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                        child: Center(
+                                                          child: Text(
+                                                              dashboardController
+                                                                      .filteredPropertyModel
+                                                                      .popular![
+                                                                          index]!
+                                                                      .name ??
+                                                                  ''),
+                                                        ),
+                                                      );
+                                                    }),
+                                              )
+                                            : _browsPropertyIndex1 == 1
+                                                ? Expanded(
+                                                    child: GridView.builder(
+                                                        scrollDirection:
+                                                            Axis.horizontal,
+                                                        gridDelegate:
+                                                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                maxCrossAxisExtent:
+                                                                    100,
+                                                                childAspectRatio:
+                                                                    1.5 / 2,
+                                                                crossAxisSpacing:
+                                                                    2,
+                                                                mainAxisSpacing:
+                                                                    10),
+                                                        itemCount:
                                                             dashboardController
+                                                                .filteredPropertyModel
+                                                                .types!
+                                                                .length,
+                                                        itemBuilder:
+                                                            (BuildContext ctx,
+                                                                index) {
+                                                          return Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: 1.0.h,
+                                                                    bottom: 1.h,
+                                                                    left: 1.w),
+                                                            height: 4.0.h,
+                                                            width: 20.0.w,
+                                                            alignment: Alignment
+                                                                .center,
+                                                            decoration: BoxDecoration(
+                                                                border: Border.all(
+                                                                    color: Colors
+                                                                        .grey),
+                                                                color: Colors
+                                                                    .white,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10)),
+                                                            child: Center(
+                                                              child: Text(dashboardController
+                                                                      .filteredPropertyModel
+                                                                      .types![
+                                                                          index]!
+                                                                      .name ??
+                                                                  ''),
+                                                            ),
+                                                          );
+                                                        }),
+                                                  )
+                                                : _browsPropertyIndex1 == 2
+                                                    ? Expanded(
+                                                        child: GridView.builder(
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                maxCrossAxisExtent:
+                                                                    100,
+                                                                childAspectRatio:
+                                                                    1.5 / 2,
+                                                                crossAxisSpacing:
+                                                                    2,
+                                                                mainAxisSpacing:
+                                                                    10),
+                                                            itemCount:
+                                                                dashboardController
                                                                     .filteredPropertyModel
-                                                                    .popular![
-                                                                        index]!
-                                                                    .name ??
-                                                                ''),
-                                                      ),
-                                                    );
-                                                  }),
-                                            ),
-                                )
+                                                                    .locations!
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        ctx,
+                                                                    index) {
+                                                              return Container(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        top: 1.0
+                                                                            .h,
+                                                                        bottom:
+                                                                            1.h,
+                                                                        left: 1
+                                                                            .w),
+                                                                height: 4.0.h,
+                                                                width: 20.0.w,
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                decoration: BoxDecoration(
+                                                                    border: Border.all(
+                                                                        color: Colors
+                                                                            .grey),
+                                                                    color: Colors
+                                                                        .white,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10)),
+                                                                child: Center(
+                                                                  child: Text(dashboardController
+                                                                          .filteredPropertyModel
+                                                                          .locations![
+                                                                              index]!
+                                                                          .sectorAndBlockName ??
+                                                                      ''),
+                                                                ),
+                                                              );
+                                                            }),
+                                                      )
+                                                    : _browsPropertyIndex1 == 3
+                                                        ? Expanded(
+                                                            child: GridView
+                                                                .builder(
+                                                                    scrollDirection:
+                                                                        Axis
+                                                                            .horizontal,
+                                                                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                        maxCrossAxisExtent:
+                                                                            100,
+                                                                        childAspectRatio:
+                                                                            1.5 /
+                                                                                2,
+                                                                        crossAxisSpacing:
+                                                                            2,
+                                                                        mainAxisSpacing:
+                                                                            10),
+                                                                    itemCount: dashboardController
+                                                                        .filteredPropertyModel
+                                                                        .areas!
+                                                                        .length,
+                                                                    itemBuilder:
+                                                                        (BuildContext
+                                                                                ctx,
+                                                                            index) {
+                                                                      return Container(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                1.0.h,
+                                                                            bottom: 1.h,
+                                                                            left: 1.w),
+                                                                        height:
+                                                                            4.0.h,
+                                                                        width:
+                                                                            20.0.w,
+                                                                        alignment:
+                                                                            Alignment.center,
+                                                                        decoration: BoxDecoration(
+                                                                            border:
+                                                                                Border.all(color: Colors.grey),
+                                                                            color: Colors.white,
+                                                                            borderRadius: BorderRadius.circular(10)),
+                                                                        child:
+                                                                            Center(
+                                                                          child:
+                                                                              Text(dashboardController.filteredPropertyModel.areas![index]!.square ?? ''),
+                                                                        ),
+                                                                      );
+                                                                    }),
+                                                          )
+                                                        : Container())
                               ],
                             ),
                     ),
