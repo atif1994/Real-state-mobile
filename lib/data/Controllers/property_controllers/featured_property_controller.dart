@@ -3,7 +3,7 @@ import 'package:prologic_29/data/Models/myproperty_model.dart';
 import 'package:prologic_29/data/Models/propertyfilter_model.dart';
 import 'package:prologic_29/data/Services/property_services/featured_property_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../../Models/newspost_model.dart';
 import '../../Models/property_model/cities_response.dart';
 import '../../Models/property_model/featured_propertise_response.dart';
 
@@ -24,6 +24,8 @@ class DashboardController extends GetxController {
       cid = pref.getInt("cityId");
       cityName = pref.getString("cityName");
     }
+
+    getnewspost();
 
     getFeaturedPropertise();
     getPrpertyCitis();
@@ -130,6 +132,24 @@ class DashboardController extends GetxController {
       loadingMyPropertise.value = false;
 
       errorLoadingMyPropertise.value = res.toString();
+    }
+  }
+
+  RxBool loadingnewspost = false.obs;
+  var newspostModel = Newspost();
+  RxString errorLoadingnewspost = ''.obs;
+
+  void getnewspost() async {
+    loadingnewspost.value = true;
+    errorLoadingnewspost.value = '';
+    var res = await FeaturedPropertyService.getNewsPostAPI();
+
+    loadingnewspost.value = false;
+    if (res is Newspost) {
+      newspostModel = res;
+    } else {
+      loadingnewspost.value = false;
+      errorLoadingnewspost.value = res.toString();
     }
   }
 }
