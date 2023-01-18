@@ -8,7 +8,7 @@ import 'package:prologic_29/Views/Home/Profile/profile.dart';
 
 import 'package:prologic_29/Views/Notifications/notification_page.dart';
 import 'package:prologic_29/Views/Property_by_id/property_by_id.dart';
- 
+
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/custom_widgets/drawer_widget.dart';
 import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
@@ -23,6 +23,7 @@ import 'package:sizer/sizer.dart';
 import '../../data/Controllers/Notification_Controller/Notification_Controller.dart';
 import '../../data/Controllers/property_controllers/cities_controller.dart';
 import 'home_screen.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -32,6 +33,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final f = DateFormat('yyyy-MM-dd');
   var dashboardController = Get.put(DashboardController());
   var citiesController = Get.put(CitiesController());
 
@@ -61,7 +63,17 @@ class _HomeState extends State<Home> {
   final testimonialImages = [
     AppImageResources.img1,
     AppImageResources.img2,
-    AppImageResources.img3
+    AppImageResources.img3,
+    AppImageResources.img1,
+    AppImageResources.img2,
+    AppImageResources.img3,
+    AppImageResources.img1,
+    AppImageResources.img2,
+    AppImageResources.img3,
+    AppImageResources.img3,
+    AppImageResources.img2,
+    AppImageResources.img3,
+    AppImageResources.img3,
   ];
   final bool _isContainerExpand = false;
   final int _navBarIndex = 0;
@@ -1382,7 +1394,7 @@ class _HomeState extends State<Home> {
                                       padding: EdgeInsets.only(
                                           left: 3.0.w, top: 0.3.h),
                                       child: SizedBox(
-                                        width: 80.0.w,
+                                        width: 110.0.w,
                                         child: Text(
                                             "Let us help you navigate the renting, buying, selling & investing experience",
                                             style: AppTextStyles.labelSmall
@@ -1402,6 +1414,8 @@ class _HomeState extends State<Home> {
                                           itemCount: newspostController
                                               .newspostModel.data!.length,
                                           itemBuilder: (context, index) {
+                                            print(
+                                                "===========>>>>>>>>>${newspostController.newspostModel.data!.length}");
                                             return Expanded(
                                               child: Container(
                                                 margin: EdgeInsets.only(
@@ -1470,11 +1484,15 @@ class _HomeState extends State<Home> {
                                                           width: 2.0.w,
                                                         ),
                                                         Text(
-                                                          newspostController
-                                                                  .newspostModel
-                                                                  .data![index]!
-                                                                  .name ??
-                                                              "",
+                                                          DateFormat(
+                                                                  'dd-MM-yyyy')
+                                                              .format(DateTime.parse(
+                                                                  newspostController
+                                                                      .newspostModel
+                                                                      .data![
+                                                                          index]!
+                                                                      .createdAt
+                                                                      .toString())),
                                                           style: AppTextStyles
                                                               .labelSmall
                                                               .copyWith(
