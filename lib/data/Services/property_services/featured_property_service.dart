@@ -1,9 +1,9 @@
-import 'package:prologic_29/data/Models/myproperty_model.dart';
 import 'package:prologic_29/data/Models/propertyfilter_model.dart';
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
 
+import '../../Models/mypropertyModel.dart';
 import '../../Models/property_filters_model/property_filters_response.dart';
 import '../../Models/property_model/cities_response.dart';
 import '../../Models/property_model/featured_propertise_response.dart';
@@ -93,18 +93,32 @@ class FeaturedPropertyService {
 
   //---------property My prperty------------
 
-  static Future<dynamic> myPropertyService(int userid) async {
-    var url = "${AppUrls.baseUrl}${AppUrls.myproerty} $userid";
+  static Future<dynamic> myPropertiser(int id) async {
+    var url = "${AppUrls.baseUrl}${AppUrls.myProperty}$id";
+    var res = await BaseClientClass.get(url, '');
 
     try {
-      var res = await BaseClientClass.get(url, '');
       if (res is http.Response) {
-        return myPropertyFromJson(res.body);
+        return myPropertyResponseFromJson(res.body);
+      } else {
+        return res;
       }
     } catch (e) {
       return e;
     }
   }
+  // static Future<dynamic> myPropertyService(int userid) async {
+  //   var url = "${AppUrls.baseUrl}${AppUrls.myproerty} $userid";
+
+  //   try {
+  //     var res = await BaseClientClass.get(url, '');
+  //     if (res is http.Response) {
+  //       return myPropertyFromJson(res.body);
+  //     }
+  //   } catch (e) {
+  //     return e;
+  //   }
+  // }
 
   //filter property without perameter
   // static Future<dynamic> getFilteredPropertywithoutperm() async {
