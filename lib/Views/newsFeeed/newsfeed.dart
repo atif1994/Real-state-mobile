@@ -271,16 +271,6 @@ class NewsFeed extends StatelessWidget {
                 ],
               );
               ///////////
-              ///
-              ///
-              ///
-              ///
-              ///
-              ///
-              ///
-              ///
-              ///
-              ///eman changes
             },
           )
         ],
