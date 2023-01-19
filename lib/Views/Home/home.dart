@@ -24,6 +24,7 @@ import 'package:intl/intl.dart';
 import '../../data/Controllers/Notification_Controller/Notification_Controller.dart';
 import '../../data/Controllers/property_controllers/cities_controller.dart';
 import 'home_screen.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -33,6 +34,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final f = DateFormat('yyyy-MM-dd');
   var dashboardController = Get.put(DashboardController());
   var citiesController = Get.put(CitiesController());
 
@@ -70,6 +72,7 @@ class _HomeState extends State<Home> {
     AppImageResources.img2,
     AppImageResources.img3,
     AppImageResources.img3,
+
   ];
   final bool _isContainerExpand = false;
   final int _navBarIndex = 0;
@@ -877,11 +880,7 @@ class _HomeState extends State<Home> {
                                         child: ListView.builder(
                                             padding:
                                                 EdgeInsets.only(bottom: 1.0.h),
-                                            itemCount: dashboardController
-                                                .featuredPropertyModel
-                                                .data!
-                                                .data!
-                                                .length,
+                                            itemCount: 3,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
                                               return GestureDetector(
@@ -931,10 +930,15 @@ class _HomeState extends State<Home> {
                                                                 topRight: Radius
                                                                     .circular(
                                                                         10)),
-                                                            child: Image.asset(
-                                                              AppImageResources
-                                                                  .property,
-                                                              fit: BoxFit.cover,
+                                                            child: Stack(
+                                                              children: [
+                                                                Image.asset(
+                                                                  AppImageResources
+                                                                      .property,
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
                                                         ),
@@ -1394,6 +1398,7 @@ class _HomeState extends State<Home> {
                                       padding: EdgeInsets.only(
                                           left: 3.0.w, top: 0.3.h),
                                       child: SizedBox(
+
                                         width: 40.0.w,
                                         child: Text(
                                             "Let us help you navigate the renting, buying, selling & investing experience",
@@ -1463,6 +1468,7 @@ class _HomeState extends State<Home> {
                                                         fit: BoxFit.cover,
                                                       ),
                                                     ),
+
                                                   ),
                                                   SizedBox(
                                                     height: 1.0.h,
@@ -1489,6 +1495,7 @@ class _HomeState extends State<Home> {
                                                                         index]!
                                                                     .createdAt
                                                                     .toString())),
+
                                                         style: AppTextStyles
                                                             .labelSmall
                                                             .copyWith(

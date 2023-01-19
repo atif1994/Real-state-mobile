@@ -7,7 +7,7 @@ import '../../Models/Notification_Model/notification_model.dart';
 
 class NotificationsServices {
   static Future<dynamic> getNotificationsServices() async {
-    var url = "${AppUrls.baseUrl}${AppUrls.Notificationend}";
+    var url = "${AppUrls.baseUrl}${AppUrls.notificationend}";
     var res = await BaseClientClass.get(url, '');
 
     try {

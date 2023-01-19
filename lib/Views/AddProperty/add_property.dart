@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field_2.dart';
+import 'package:prologic_29/data/Controllers/addProperty_Controller.dart';
+import 'package:prologic_29/data/Models/postDataProperty_model.dart';
+import 'package:prologic_29/data/Services/property_services/addproperty_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Services/constants.dart';
@@ -117,7 +121,7 @@ class _PropertyState extends State<Property>
     '6+',
   ];
   String selectedFloor = 'Any';
-
+  var postDataproperty = PostDataProperty();
   @override
   void initState() {
     // TODO: implement onInit
@@ -138,7 +142,12 @@ class _PropertyState extends State<Property>
     'Play Ground',
     'Park',
   ];
+  void postDataSharedPref(String title) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString(title, title);
+  }
 
+  var addPropertyController = Get.put(AddProperrtyController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -215,7 +224,15 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      const MyTextField2(),
+                      MyTextField2(
+                        onChanged: (title) {
+                          setState(() {
+                            postDataSharedPref(title);
+                            postDataproperty.name = title;
+                            print("Post DAta ======${postDataproperty.name}");
+                          });
+                        },
+                      ),
                     ],
                   ),
                   Column(
@@ -234,7 +251,13 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      const MyTextField2(),
+                      MyTextField2(
+                        onChanged: (disp) {
+                          setState(() {
+                            postDataSharedPref(disp);
+                          });
+                        },
+                      ),
                     ],
                   ),
                   Column(
@@ -978,7 +1001,13 @@ class _PropertyState extends State<Property>
                   myDivider(),
                   Padding(
                     padding: const EdgeInsets.only(top: 1),
-                    child: MyButton(onTap: () {}, text: 'Add Property'),
+                    child: MyButton(
+                        onTap: () {
+                          setState(() {
+                            AddPropertyServices.addPropertyAPI();
+                          });
+                        },
+                        text: 'Add Property'),
                   ),
                 ],
               ),
