@@ -64,8 +64,8 @@ class Datum {
   String? image;
   List<Category?>? categories;
   List<dynamic>? tags;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
@@ -80,8 +80,8 @@ class Datum {
         tags: json["tags"] == null
             ? []
             : List<dynamic>.from(json["tags"]!.map((x) => x)),
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -94,8 +94,8 @@ class Datum {
             ? []
             : List<dynamic>.from(categories!.map((x) => x!.toJson())),
         "tags": tags == null ? [] : List<dynamic>.from(tags!.map((x) => x)),
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
       };
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,6 +10,7 @@ import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/custom_decorations.dart';
 
 class NewsFeed extends StatelessWidget {
+  var newsfeedController = Get.put(NewsFeed());
   NewsFeed({super.key});
   final commentController = TextEditingController();
 
@@ -260,7 +262,7 @@ class NewsFeed extends StatelessWidget {
                         right: 5.0.w,
                         left: 5.0.w,
                         top: index == 0 ? 1.0.h : 2.0.h),
-                    height: 7.0.h,
+                    height: 6.0.h,
                     width: 100.w,
                     decoration: CustomDecorations.mainCon,
                     child: CustomTextField(
