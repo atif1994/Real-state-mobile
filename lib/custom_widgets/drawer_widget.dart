@@ -4,7 +4,6 @@ import 'package:prologic_29/Views/AboutUs/about_us.dart';
 
 import 'package:prologic_29/Views/blog/blog.dart';
 
-import 'package:prologic_29/Views/area_guide/area_guid.dart';
 import 'package:prologic_29/Views/newsFeeed/newsfeed.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
@@ -71,26 +70,26 @@ class CustomDrawer extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
-                    height: 6.0.h,
-                    width: 100.0.w,
-                    color: const Color.fromARGB(255, 53, 56, 61),
-                    child: Center(
-                      child: ListTile(
-                        leading: Image.asset(
-                          AppImageResources.home,
-                          color: AppColors.colorWhite,
-                          height: 3.0.h,
-                        ),
-                        title: Text(
-                          "Home",
-                          style: AppTextStyles.heading1
-                              .copyWith(color: AppColors.colorWhite),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                  //   height: 6.0.h,
+                  //   width: 100.0.w,
+                  //   color: const Color.fromARGB(255, 53, 56, 61),
+                  //   child: Center(
+                  //     child: ListTile(
+                  //       leading: Image.asset(
+                  //         AppImageResources.home,
+                  //         color: AppColors.colorWhite,
+                  //         height: 3.0.h,
+                  //       ),
+                  //       title: Text(
+                  //         "Home",
+                  //         style: AppTextStyles.heading1
+                  //             .copyWith(color: AppColors.colorWhite),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   //add property
                   SizedBox(
                     height: 2.0.h,
@@ -136,6 +135,32 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       title: Text(
                         "Prologic Blog",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
+                  //profile
+
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: () {
+                        Get.to(() => const Blog());
+                      },
+                      leading: Image.asset(
+                        AppImageResources.profilesetting,
+                        color: AppColors.colorWhite,
+                        height: 3.0.h,
+                      ),
+                      title: Text(
+                        "Profile",
                         style: AppTextStyles.heading1
                             .copyWith(color: AppColors.colorWhite),
                       ),
@@ -194,29 +219,29 @@ class CustomDrawer extends StatelessWidget {
                   SizedBox(
                     height: 2.0.h,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
-                    height: 6.0.h,
-                    width: 100.0.w,
-                    color: const Color.fromARGB(255, 53, 56, 61),
-                    child: ListTile(
-                      onTap: () {
-                        Get.to(() => const AreaGuide());
-                      },
-                      leading: Image.asset(
-                        AppImageResources.areaGuide,
-                        color: AppColors.colorWhite,
-                        height: 3.0.h,
-                      ),
-                      title: Text(
-                        "Area Guide",
-                        style: AppTextStyles.heading1
-                            .copyWith(color: AppColors.colorWhite),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                  //   height: 6.0.h,
+                  //   width: 100.0.w,
+                  //   color: const Color.fromARGB(255, 53, 56, 61),
+                  //   child: ListTile(
+                  //     onTap: () {
+                  //       Get.to(() => const AreaGuide());
+                  //     },
+                  //     leading: Image.asset(
+                  //       AppImageResources.areaGuide,
+                  //       color: AppColors.colorWhite,
+                  //       height: 3.0.h,
+                  //     ),
+                  //     title: Text(
+                  //       "Area Guide",
+                  //       style: AppTextStyles.heading1
+                  //           .copyWith(color: AppColors.colorWhite),
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(
-                    height: 2.0.h,
+                    height: 1.0.h,
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
