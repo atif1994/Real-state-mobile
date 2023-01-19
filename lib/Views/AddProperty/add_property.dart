@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field_2.dart';
 import 'package:sizer/sizer.dart';
@@ -7,6 +8,8 @@ import 'package:sizer/sizer.dart';
 import '../../data/Services/constants.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
+
+import 'all_property.dart';
 
 class Property extends StatefulWidget {
   const Property({Key? key}) : super(key: key);
@@ -142,6 +145,14 @@ class _PropertyState extends State<Property>
       appBar: AppBar(
         backgroundColor: AppColors.appthem,
         title: Text("Add Property", style: AppTextStyles.appbar),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Get.to(() => const AllProperty());
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
