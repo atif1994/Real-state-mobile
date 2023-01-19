@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart';
 
 import 'package:prologic_29/custom_widgets/custom_button.dart';
@@ -7,6 +8,7 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../data/Controllers/contactus_controller/contact_us_controller.dart';
 import '../../data/Services/constants.dart';
 import '../../utils/constants/appcolors.dart';
 
@@ -18,6 +20,7 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
+  var contactuscontroller = Get.put(ContactusController());
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
@@ -77,11 +80,34 @@ class _ContactUsState extends State<ContactUs> {
                 ),
                 Column(
                   children: <Widget>[
-                    CustomButton(
-                      text: 'Send Message',
-                      onPressed: () {
-                        makePostRequest();
-                      },
+                    Obx(
+                      () => contactuscontroller.loadingcontactus.value
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.appthem,
+                              ),
+                            )
+                          : contactuscontroller.errorloadingcontactus.value !=
+                                  ''
+                              ? Text(contactuscontroller
+                                  .errorloadingcontactus.value)
+                              : CustomButton(
+                                  text: 'Send Message',
+                                  onPressed: () {
+                                    contactuscontroller.getcontactus(
+                                        nameController.text,
+                                        emailController.text,
+                                        subjectController.text,
+                                        phoneNumberController.text,
+                                        MessageController.text);
+
+                                    nameController.clear();
+                                    emailController.clear();
+                                    subjectController.clear();
+                                    phoneNumberController.clear();
+                                    MessageController.clear();
+                                  },
+                                ),
                     ),
                     SizedBox(
                       height: 2.0.h,

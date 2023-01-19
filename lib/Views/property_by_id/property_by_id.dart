@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Controllers/property_controllers/propertyby_id_controller.dart';
@@ -73,17 +74,33 @@ class _PropertyByIDState extends State<PropertyByID> {
                           children: [
                             Container(
                               height: 5.0.h,
-                              width: 24.0.w,
+                              width: 30.0.w,
                               decoration: BoxDecoration(
                                   color: AppColors.appthem,
                                   borderRadius: BorderRadius.circular(300)),
+
                               child: Center(
                                   child: Text(
-                                "For sale ",
+                                propertybyyidController
+                                        .propertybyIDmodel.data!.type!.name ??
+                                    "",
                                 style: AppTextStyles.labelSmall
                                     .copyWith(color: AppColors.colorWhite),
                               )),
+                              // child: Center(
+                              //     child: Text(
+                              //   "For sale ",
+                              //   style: AppTextStyles.labelSmall
+                              //       .copyWith(color: AppColors.colorWhite),
+                              // )),
                             ),
+                            Flexible(
+                              child: Text(
+                                  "Rs  ${propertybyyidController.propertybyIDmodel.data!.price ?? ""} PKR",
+                                  style: AppTextStyles.heading1.copyWith(
+                                      color: AppColors.colorblack,
+                                      fontSize: 12.sp)),
+                            )
                           ],
                         ),
                       ),
@@ -109,14 +126,78 @@ class _PropertyByIDState extends State<PropertyByID> {
                           ),
                         ],
                       ),
+                      Container(
+                        child: Row(children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 0.5.h, left: 4.0.w),
+                            child: Text(
+                              "Description: ${propertybyyidController.propertybyIDmodel.data!.description ?? ""}",
+                              style: AppTextStyles.labelSmall.copyWith(
+                                color: AppColors.colorblack,
+                              ),
+                            ),
+                          ),
+                        ]),
+                      ),
+
+                      Column(
+                        children: [
+                          Row(children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 0.5.h, left: 4.0.w),
+                              child: Text(
+                                "Sector and Block Name : ${propertybyyidController.propertybyIDmodel.data!.sectorAndBlockName ?? ""}",
+                                // textAlign: TextAlign.start,
+                                style: AppTextStyles.labelSmall.copyWith(
+                                  color: AppColors.colorblack,
+                                ),
+                              ),
+                            ),
+                          ]),
+                          Row(children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 0.5.h, left: 4.0.w),
+                              child: Text(
+                                "Street Number : ${propertybyyidController.propertybyIDmodel.data!.streetNumber ?? ""}",
+                                // textAlign: TextAlign.start,
+                                style: AppTextStyles.labelSmall.copyWith(
+                                  color: AppColors.colorblack,
+                                ),
+                              ),
+                            ),
+                          ]),
+                          Row(children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 0.5.h, left: 4.0.w),
+                              child: Text(
+                                "Plot Number : ${propertybyyidController.propertybyIDmodel.data!.plotNumber ?? ""}",
+                                style: AppTextStyles.labelSmall.copyWith(
+                                  color: AppColors.colorblack,
+                                ),
+                              ),
+                            ),
+                          ]),
+                          Row(children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 0.5.h, left: 4.0.w),
+                              child: Text(
+                                "Floor Number : ${propertybyyidController.propertybyIDmodel.data!.numberFloor ?? ""}",
+                                style: AppTextStyles.labelSmall.copyWith(
+                                  color: AppColors.colorblack,
+                                ),
+                              ),
+                            ),
+                          ]),
+                        ],
+                      ),
                       SizedBox(
-                        height: 3.0.h,
+                        height: 0.7.h,
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 3.0.w),
                         child: Row(
                           // crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
                               width: 3.0.w,
@@ -129,10 +210,18 @@ class _PropertyByIDState extends State<PropertyByID> {
                               width: 3.0.w,
                             ),
                             Text(
-                              "3 beds",
-                              style: AppTextStyles.labelSmall
-                                  .copyWith(fontSize: 11.sp),
+                              propertybyyidController
+                                      .propertybyIDmodel.data!.numberBedroom ??
+                                  "",
+                              style: AppTextStyles.heading1.copyWith(
+                                color: AppColors.colorblack,
+                              ),
                             ),
+                            // Text(
+                            //   "3 beds",
+                            //   style: AppTextStyles.labelSmall
+                            //       .copyWith(fontSize: 11.sp),
+                            // ),
                             SizedBox(
                               width: 3.0.w,
                             ),
@@ -144,9 +233,12 @@ class _PropertyByIDState extends State<PropertyByID> {
                               width: 3.0.w,
                             ),
                             Text(
-                              "Bath",
-                              style: AppTextStyles.labelSmall
-                                  .copyWith(fontSize: 11.sp),
+                              propertybyyidController
+                                      .propertybyIDmodel.data!.numberBathroom ??
+                                  "",
+                              style: AppTextStyles.heading1.copyWith(
+                                color: AppColors.colorblack,
+                              ),
                             ),
                             SizedBox(
                               width: 3.0.w,
@@ -159,19 +251,48 @@ class _PropertyByIDState extends State<PropertyByID> {
                               width: 2.0.w,
                             ),
                             Text(
-                              "Area",
-                              style: AppTextStyles.labelSmall
-                                  .copyWith(fontSize: 11.sp),
-                            )
+                              propertybyyidController
+                                      .propertybyIDmodel.data!.square ??
+                                  "",
+                              style: AppTextStyles.heading1.copyWith(
+                                color: AppColors.colorblack,
+                              ),
+                            ),
                           ],
                         ),
                       ),
                       const Divider(),
+                      Row(children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 0.5.h, left: 4.0.w),
+                          child: Text(
+                            'Date Posted : ',
+                            style: AppTextStyles.labelSmall.copyWith(
+                              color: AppColors.colorblack,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: 0.5.h,
+                          ),
+                          child: Text(
+                            DateFormat("dd-MM-yyyy").format(DateTime.parse(
+                                propertybyyidController
+                                    .propertybyIDmodel.data!.category!.createdAt
+                                    .toString())),
+                            style: AppTextStyles.labelSmall.copyWith(
+                              color: AppColors.colorblack,
+                            ),
+                          ),
+                        ),
+                      ]),
+
                       Padding(
                         padding: EdgeInsets.only(
-                            top: 1.0.h, left: 3.0.w, right: 1.6.w),
+                            top: 0.6.h, left: 4.0.w, right: 1.6.w),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Image.asset(
                               AppImageResources.loc,
@@ -181,25 +302,18 @@ class _PropertyByIDState extends State<PropertyByID> {
                               width: 1.0.w,
                             ),
                             Text(
-                              "Islamabad,Punjab",
-                              style: AppTextStyles.labelSmall
-                                  .copyWith(fontSize: 13.sp),
+                              propertybyyidController
+                                      .propertybyIDmodel.data!.location ??
+                                  "",
+                              style: AppTextStyles.heading1.copyWith(
+                                color: AppColors.colorblack,
+                              ),
                             ),
-                            SizedBox(
-                              width: 24.0.w,
-                            ),
-                            Container(
-                              height: 5.0.h,
-                              width: 24.0.w,
-                              decoration: BoxDecoration(
-                                  color: AppColors.appthem,
-                                  borderRadius: BorderRadius.circular(300)),
-                              child: Center(
-                                  child: Text(
-                                "View ",
-                                style: AppTextStyles.labelSmall
-                                    .copyWith(color: AppColors.colorWhite),
-                              )),
+                            Text(
+                              " , ${propertybyyidController.propertybyIDmodel.data!.city!.name ?? ""}",
+                              style: AppTextStyles.heading1.copyWith(
+                                color: AppColors.colorblack,
+                              ),
                             ),
                           ],
                         ),
@@ -209,7 +323,10 @@ class _PropertyByIDState extends State<PropertyByID> {
   }
 }
 
-
+// DateFormat("dd-MM-yyyy").format(DateTime.parse(
+//                                 propertybyyidController
+//                                     .propertybyIDmodel.data!.city!.createdAt
+//                                     .toString())),
 
 
 // Container(

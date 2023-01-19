@@ -102,7 +102,7 @@ class DashboardController extends GetxController {
   RxBool loadingMyPropertise = false.obs;
   RxString errorLoadingMyPropertise = ''.obs;
   void getMyProperty(int userid) async {
-    var res = await FeaturedPropertyService.myPropertyService(userid);
+    var res = await FeaturedPropertyService.myPropertiser(userid);
 
     loadingMyPropertise.value = false;
 

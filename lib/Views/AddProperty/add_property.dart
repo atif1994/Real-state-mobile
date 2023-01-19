@@ -13,6 +13,8 @@ import '../../data/Services/constants.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
 
+import 'all_property.dart';
+
 class Property extends StatefulWidget {
   const Property({Key? key}) : super(key: key);
 
@@ -152,6 +154,14 @@ class _PropertyState extends State<Property>
       appBar: AppBar(
         backgroundColor: AppColors.appthem,
         title: Text("Add Property", style: AppTextStyles.appbar),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Get.to(() => const AllProperty());
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
