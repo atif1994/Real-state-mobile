@@ -18,6 +18,7 @@ class AppImageResources {
   static const String blogger = 'assets/blogger.png';
   static const String wishlistsearches = 'assets/icons/love.png';
   static const String notificationbell = 'assets/bell.png';
+  static const String profilesetting = 'assets/profilesetting.png';
   // static const String comment = ;
   static const String loc = 'assets/icons/loc.png';
   static const String islamabad = 'assets/isb.jpg';

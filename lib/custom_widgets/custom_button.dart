@@ -26,7 +26,8 @@ class CustomButton extends StatelessWidget {
           style: AppTextStyles.heading1,
         ),
         onPressed: () {
-          onPressed;
+          print("heloooo ");
+          onPressed!();
         },
       ),
     );
