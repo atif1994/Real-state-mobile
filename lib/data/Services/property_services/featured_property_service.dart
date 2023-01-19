@@ -106,37 +106,6 @@ class FeaturedPropertyService {
     }
   }
 
-  //filter property without perameter
-  // static Future<dynamic> getFilteredPropertywithoutperm() async {
-  //   var url = "${AppUrls.baseUrl}${AppUrls.filteredPropertise}";
-
-  //   try {
-  //     var res = await BaseClientClass.post(url, {});
-
-  //     if (res is http.Response) {
-  //       return propertiseFiltersResponseFromJson(res.body);
-  //     } else {
-  //       return res;
-  //     }
-  //   } catch (e) {
-  //     return e;
-  //   }
-  // }
-
-  // static Future<dynamic> getCityLocation(int id, int cnameId) async {
-  //   var url = "${AppUrls.baseUrl}${AppUrls.citiesLocation}/$id/$cnameId";
-  //   var res = await BaseClientClass.get(url, '');
-
-  //   try {
-  //     if (res is http.Response) {
-  //       return locationModelFromJson(res.body);
-  //     } else {
-  //       return res;
-  //     }
-  //   } catch (e) {
-  //     return e;
-  //   }
-  // }
   static Future<dynamic> getNewsPostAPI() async {
     var url = "${AppUrls.baseUrl}${AppUrls.newspost}";
     var res = await BaseClientClass.get(url, '');

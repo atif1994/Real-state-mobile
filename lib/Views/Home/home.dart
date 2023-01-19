@@ -880,11 +880,7 @@ class _HomeState extends State<Home> {
                                         child: ListView.builder(
                                             padding:
                                                 EdgeInsets.only(bottom: 1.0.h),
-                                            itemCount: dashboardController
-                                                .featuredPropertyModel
-                                                .data!
-                                                .data!
-                                                .length,
+                                            itemCount: 3,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
                                               return GestureDetector(
@@ -934,10 +930,15 @@ class _HomeState extends State<Home> {
                                                                 topRight: Radius
                                                                     .circular(
                                                                         10)),
-                                                            child: Image.asset(
-                                                              AppImageResources
-                                                                  .property,
-                                                              fit: BoxFit.cover,
+                                                            child: Stack(
+                                                              children: [
+                                                                Image.asset(
+                                                                  AppImageResources
+                                                                      .property,
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
                                                         ),
@@ -1414,8 +1415,6 @@ class _HomeState extends State<Home> {
                                           itemCount: newspostController
                                               .newspostModel.data!.length,
                                           itemBuilder: (context, index) {
-                                            print(
-                                                "===========>>>>>>>>>${newspostController.newspostModel.data!.length}");
                                             return Expanded(
                                               child: Container(
                                                 margin: EdgeInsets.only(

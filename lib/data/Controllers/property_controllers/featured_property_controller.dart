@@ -18,17 +18,13 @@ class DashboardController extends GetxController {
   int catid = 0;
   @override
   void onInit() {
-
     void getCityInfo() async {
       SharedPreferences pref = await SharedPreferences.getInstance();
-
       cid = pref.getInt("cityId");
       cityName = pref.getString("cityName");
     }
 
     getnewspost();
-
-
     getFeaturedPropertise();
     getPrpertyCitis();
     getFilteredPropertiseWithoutPerm(cid: cid, catid: catid);
