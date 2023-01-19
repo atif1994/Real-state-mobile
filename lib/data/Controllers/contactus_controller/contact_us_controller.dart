@@ -21,7 +21,7 @@ class ContactusController extends GetxController {
       contactusModel = res;
       print(res);
 
-      Get.snackbar("Successfully", contactusModel.message.toString(),
+      Get.snackbar("Successfullly", contactusModel.message.toString(),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: AppColors.appthem,
           colorText: Colors.white);
