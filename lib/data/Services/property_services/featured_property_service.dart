@@ -3,7 +3,11 @@ import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
 
+
 import '../../Models/mypropertyModel.dart';
+
+import '../../Models/newspost_model.dart';
+
 import '../../Models/property_filters_model/property_filters_response.dart';
 import '../../Models/property_model/cities_response.dart';
 import '../../Models/property_model/featured_propertise_response.dart';
@@ -151,5 +155,18 @@ class FeaturedPropertyService {
   //     return e;
   //   }
   // }
+  static Future<dynamic> getNewsPostAPI() async {
+    var url = "${AppUrls.baseUrl}${AppUrls.newspost}";
+    var res = await BaseClientClass.get(url, '');
 
+    try {
+      if (res is http.Response) {
+        return newspostFromJson(res.body);
+      } else {
+        return res;
+      }
+    } catch (e) {
+      return e;
+    }
+  }
 }

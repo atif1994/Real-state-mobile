@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:prologic_29/Views/Drawer/about_us.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
+
+import 'package:prologic_29/Views/Notifications/notification_page.dart';
+import 'package:prologic_29/Views/Property_by_id/property_by_id.dart';
+ 
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/custom_widgets/drawer_widget.dart';
 import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
@@ -16,6 +20,7 @@ import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../data/Controllers/Notification_Controller/Notification_Controller.dart';
 import '../../data/Controllers/property_controllers/cities_controller.dart';
 import 'home_screen.dart';
 
@@ -29,7 +34,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var dashboardController = Get.put(DashboardController());
   var citiesController = Get.put(CitiesController());
+
+  var notificationController = Get.put(Notificationcontroller());
+  var newspostController = Get.put(DashboardController());
   int? cid;
+
   String? cityName;
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final labels = ["Buy", "Rent", "Invest"];
@@ -73,6 +82,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    dashboardController.getFilteredPropertiseWithoutPerm(cid: cid, catid: 0);
     getCityInfo();
 
     super.initState();
@@ -107,6 +117,36 @@ class _HomeState extends State<Home> {
                                 fontFamily: AppFonts.nexaBold)),
                         SizedBox(
                           width: 4.0.w,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(
+                            right: 20,
+                          ),
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: SizedBox(
+                                  width: 8.0.w,
+                                  height: 5.0.h,
+                                  child: GestureDetector(
+                                    onTap: (() {
+                                      Get.to(AllNotifications());
+                                    }),
+                                    child: Image.asset(
+                                        AppImageResources.notificationbell),
+                                  ),
+                                  // child: IconButton(
+                                  //   onPressed: () {
+                                  //     Get.to(() => AllNotifications);
+                                  //   },
+                                  //   icon: const Icon(Icons.email,
+                                  //       color: Colors.lightBlueAccent),
+                                  // ),
+                                ),
+                              ),
+                              // Positioned(right: 3, top: 3, child: MyBadge(10)),
+                            ],
+                          ),
                         ),
                       ],
                     )
@@ -493,95 +533,258 @@ class _HomeState extends State<Home> {
                                     ],
                                   ),
                                 ),
-                                Obx(
-                                  () => dashboardController
-                                          .loadingfilteredPropertise.value
-                                      ? const Center(
-                                          child: CircularProgressIndicator(
-                                          color: AppColors.appthem,
-                                        ))
-                                      : dashboardController
-                                                  .errorLoadingFilteredPropertise
-                                                  .value !=
-                                              ''
-                                          ? Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                IconButton(
-                                                  onPressed: () {
-                                                    dashboardController
-                                                        .getFilteredPropertiseWithoutPerm(
-                                                            cid: cid,
-                                                            catid:
-                                                                _browsPropertyIndex1);
+                                Obx(() => dashboardController
+                                        .loadingfilteredPropertise.value
+                                    ? const Center(
+                                        child: CircularProgressIndicator(
+                                        color: AppColors.appthem,
+                                      ))
+                                    : dashboardController
+                                                .errorLoadingFilteredPropertise
+                                                .value !=
+                                            ''
+                                        ? Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  dashboardController
+                                                      .getFilteredPropertiseWithoutPerm(
+                                                          cid: cid,
+                                                          catid:
+                                                              _browsPropertyIndex1);
 
-                                                    //  dashboardController
-                                                    // .getFilteredPropertise(
-                                                    //     cid!,
-                                                    //     _browsPropertyIndex,
-                                                    //     dashboardController
-                                                    //         .type);
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.refresh,
-                                                    color: AppColors.appthem,
-                                                  ),
+                                                  //  dashboardController
+                                                  // .getFilteredPropertise(
+                                                  //     cid!,
+                                                  //     _browsPropertyIndex,
+                                                  //     dashboardController
+                                                  //         .type);
+                                                },
+                                                icon: const Icon(
+                                                  Icons.refresh,
+                                                  color: AppColors.appthem,
                                                 ),
-                                                Text(dashboardController
-                                                    .errorLoadingFilteredPropertise
-                                                    .value),
-                                              ],
-                                            )
-                                          : Expanded(
-                                              child: GridView.builder(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  gridDelegate:
-                                                      const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                          maxCrossAxisExtent:
-                                                              100,
-                                                          childAspectRatio:
-                                                              1.5 / 2,
-                                                          crossAxisSpacing: 2,
-                                                          mainAxisSpacing: 10),
-                                                  itemCount: dashboardController
-                                                      .filteredPropertyModel
-                                                      .popular!
-                                                      .length,
-                                                  itemBuilder:
-                                                      (BuildContext ctx,
-                                                          index) {
-                                                    return Container(
-                                                      margin: EdgeInsets.only(
-                                                        top: 2.0.h,
-                                                      ),
-                                                      height: 4.0.h,
-                                                      width: 20.0.w,
-                                                      alignment:
-                                                          Alignment.center,
-                                                      decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                              color:
-                                                                  Colors.grey),
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)),
-                                                      child: Center(
-                                                        child: Text(
+                                              ),
+                                              Text(dashboardController
+                                                  .errorLoadingFilteredPropertise
+                                                  .value),
+                                            ],
+                                          )
+                                        : _browsPropertyIndex1 == 0
+                                            ? Expanded(
+                                                child: GridView.builder(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    gridDelegate:
+                                                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                            maxCrossAxisExtent:
+                                                                100,
+                                                            childAspectRatio:
+                                                                1.5 / 2,
+                                                            crossAxisSpacing: 2,
+                                                            mainAxisSpacing:
+                                                                10),
+                                                    itemCount: dashboardController
+                                                        .filteredPropertyModel
+                                                        .popular!
+                                                        .length,
+                                                    itemBuilder:
+                                                        (BuildContext ctx,
+                                                            index) {
+                                                      return Container(
+                                                        margin: EdgeInsets.only(
+                                                            top: 1.0.h,
+                                                            bottom: 1.h,
+                                                            left: 1.w),
+                                                        height: 4.0.h,
+                                                        width: 20.0.w,
+                                                        alignment:
+                                                            Alignment.center,
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                color: Colors
+                                                                    .grey),
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                        child: Center(
+                                                          child: Text(
+                                                              dashboardController
+                                                                      .filteredPropertyModel
+                                                                      .popular![
+                                                                          index]!
+                                                                      .name ??
+                                                                  ''),
+                                                        ),
+                                                      );
+                                                    }),
+                                              )
+                                            : _browsPropertyIndex1 == 1
+                                                ? Expanded(
+                                                    child: GridView.builder(
+                                                        scrollDirection:
+                                                            Axis.horizontal,
+                                                        gridDelegate:
+                                                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                maxCrossAxisExtent:
+                                                                    100,
+                                                                childAspectRatio:
+                                                                    1.5 / 2,
+                                                                crossAxisSpacing:
+                                                                    2,
+                                                                mainAxisSpacing:
+                                                                    10),
+                                                        itemCount:
                                                             dashboardController
+                                                                .filteredPropertyModel
+                                                                .types!
+                                                                .length,
+                                                        itemBuilder:
+                                                            (BuildContext ctx,
+                                                                index) {
+                                                          return Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: 1.0.h,
+                                                                    bottom: 1.h,
+                                                                    left: 1.w),
+                                                            height: 4.0.h,
+                                                            width: 20.0.w,
+                                                            alignment: Alignment
+                                                                .center,
+                                                            decoration: BoxDecoration(
+                                                                border: Border.all(
+                                                                    color: Colors
+                                                                        .grey),
+                                                                color: Colors
+                                                                    .white,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10)),
+                                                            child: Center(
+                                                              child: Text(dashboardController
+                                                                      .filteredPropertyModel
+                                                                      .types![
+                                                                          index]!
+                                                                      .name ??
+                                                                  ''),
+                                                            ),
+                                                          );
+                                                        }),
+                                                  )
+                                                : _browsPropertyIndex1 == 2
+                                                    ? Expanded(
+                                                        child: GridView.builder(
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                maxCrossAxisExtent:
+                                                                    100,
+                                                                childAspectRatio:
+                                                                    1.5 / 2,
+                                                                crossAxisSpacing:
+                                                                    2,
+                                                                mainAxisSpacing:
+                                                                    10),
+                                                            itemCount:
+                                                                dashboardController
                                                                     .filteredPropertyModel
-                                                                    .popular![
-                                                                        index]!
-                                                                    .name ??
-                                                                ''),
-                                                      ),
-                                                    );
-                                                  }),
-                                            ),
-                                )
+                                                                    .locations!
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        ctx,
+                                                                    index) {
+                                                              return Container(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        top: 1.0
+                                                                            .h,
+                                                                        bottom:
+                                                                            1.h,
+                                                                        left: 1
+                                                                            .w),
+                                                                height: 4.0.h,
+                                                                width: 20.0.w,
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                decoration: BoxDecoration(
+                                                                    border: Border.all(
+                                                                        color: Colors
+                                                                            .grey),
+                                                                    color: Colors
+                                                                        .white,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10)),
+                                                                child: Center(
+                                                                  child: Text(dashboardController
+                                                                          .filteredPropertyModel
+                                                                          .locations![
+                                                                              index]!
+                                                                          .sectorAndBlockName ??
+                                                                      ''),
+                                                                ),
+                                                              );
+                                                            }),
+                                                      )
+                                                    : _browsPropertyIndex1 == 3
+                                                        ? Expanded(
+                                                            child: GridView
+                                                                .builder(
+                                                                    scrollDirection:
+                                                                        Axis
+                                                                            .horizontal,
+                                                                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                        maxCrossAxisExtent:
+                                                                            100,
+                                                                        childAspectRatio:
+                                                                            1.5 /
+                                                                                2,
+                                                                        crossAxisSpacing:
+                                                                            2,
+                                                                        mainAxisSpacing:
+                                                                            10),
+                                                                    itemCount: dashboardController
+                                                                        .filteredPropertyModel
+                                                                        .areas!
+                                                                        .length,
+                                                                    itemBuilder:
+                                                                        (BuildContext
+                                                                                ctx,
+                                                                            index) {
+                                                                      return Container(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                1.0.h,
+                                                                            bottom: 1.h,
+                                                                            left: 1.w),
+                                                                        height:
+                                                                            4.0.h,
+                                                                        width:
+                                                                            20.0.w,
+                                                                        alignment:
+                                                                            Alignment.center,
+                                                                        decoration: BoxDecoration(
+                                                                            border:
+                                                                                Border.all(color: Colors.grey),
+                                                                            color: Colors.white,
+                                                                            borderRadius: BorderRadius.circular(10)),
+                                                                        child:
+                                                                            Center(
+                                                                          child:
+                                                                              Text(dashboardController.filteredPropertyModel.areas![index]!.square ?? ''),
+                                                                        ),
+                                                                      );
+                                                                    }),
+                                                          )
+                                                        : Container())
                               ],
                             ),
                     ),
@@ -672,230 +875,242 @@ class _HomeState extends State<Home> {
                                                 .length,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
-                                              return Container(
-                                                  width: 58.0.w,
-                                                  margin: EdgeInsets.only(
-                                                      left: index == 0
-                                                          ? 1.0.w
-                                                          : 3.0.w),
-                                                  alignment: Alignment.center,
-                                                  decoration:
-                                                      CustomDecorations.mainCon,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Container(
-                                                        height: 14.0.h,
-                                                        width: 100.0.w,
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                                //    color: Colors.red,
-                                                                borderRadius: BorderRadius.only(
-                                                                    topLeft: Radius
-                                                                        .circular(
-                                                                            10),
-                                                                    topRight: Radius
-                                                                        .circular(
-                                                                            10))),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                      .only(
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          10),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          10)),
-                                                          child: Image.asset(
-                                                            AppImageResources
-                                                                .property,
-                                                            fit: BoxFit.cover,
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  Get.to(() => PropertyByID(
+                                                        id: dashboardController
+                                                            .featuredPropertyModel
+                                                            .data!
+                                                            .data![index]!
+                                                            .id,
+                                                      ));
+                                                },
+                                                child: Container(
+                                                    width: 58.0.w,
+                                                    margin: EdgeInsets.only(
+                                                        left: index == 0
+                                                            ? 1.0.w
+                                                            : 3.0.w),
+                                                    alignment: Alignment.center,
+                                                    decoration:
+                                                        CustomDecorations
+                                                            .mainCon,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Container(
+                                                          height: 14.0.h,
+                                                          width: 100.0.w,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                                  //    color: Colors.red,
+                                                                  borderRadius: BorderRadius.only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              10),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              10))),
+                                                          child: ClipRRect(
+                                                            borderRadius: const BorderRadius
+                                                                    .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        10),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        10)),
+                                                            child: Image.asset(
+                                                              AppImageResources
+                                                                  .property,
+                                                              fit: BoxFit.cover,
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 1.0.h,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: [
-                                                          Container(
-                                                            height: 3.5.h,
-                                                            width: 22.0.w,
-                                                            decoration: BoxDecoration(
-                                                                color: AppColors
-                                                                    .appthem,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            300)),
-                                                            child: Center(
-                                                                child: Text(
+                                                        SizedBox(
+                                                          height: 1.0.h,
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            Container(
+                                                              height: 3.5.h,
+                                                              width: 22.0.w,
+                                                              decoration: BoxDecoration(
+                                                                  color: AppColors
+                                                                      .appthem,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              300)),
+                                                              child: Center(
+                                                                  child: Text(
+                                                                dashboardController
+                                                                        .featuredPropertyModel
+                                                                        .data!
+                                                                        .data![
+                                                                            index]!
+                                                                        .type!
+                                                                        .name ??
+                                                                    "",
+                                                                style: AppTextStyles
+                                                                    .labelSmall
+                                                                    .copyWith(
+                                                                        color: AppColors
+                                                                            .colorWhite),
+                                                              )),
+                                                            ),
+                                                            Flexible(
+                                                              child: Text(
+                                                                  "Rs  ${dashboardController.featuredPropertyModel.data!.data![index]!.price ?? ""} PKR",
+                                                                  style: AppTextStyles
+                                                                      .heading1
+                                                                      .copyWith(
+                                                                          color: AppColors
+                                                                              .colorblack,
+                                                                          fontSize:
+                                                                              10.sp)),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 2.0.w,
+                                                                  top: 1.0.h),
+                                                          child: Text(
                                                               dashboardController
                                                                       .featuredPropertyModel
                                                                       .data!
                                                                       .data![
                                                                           index]!
-                                                                      .type!
                                                                       .name ??
+                                                                  "",
+                                                              style:
+                                                                  AppTextStyles
+                                                                      .heading1
+                                                                      .copyWith(
+                                                                color: AppColors
+                                                                    .colorblack,
+                                                              )),
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 2.0.w,
+                                                            ),
+                                                            Image.asset(
+                                                              AppImageResources
+                                                                  .bed,
+                                                              height: 2.0.h,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 2.0.w,
+                                                            ),
+                                                            Text(
+                                                              dashboardController
+                                                                      .featuredPropertyModel
+                                                                      .data!
+                                                                      .data![
+                                                                          index]!
+                                                                      .numberBedroom ??
                                                                   "",
                                                               style: AppTextStyles
                                                                   .labelSmall
                                                                   .copyWith(
-                                                                      color: AppColors
-                                                                          .colorWhite),
-                                                            )),
-                                                          ),
-                                                          Flexible(
-                                                            child: Text(
-                                                                "Rs  ${dashboardController.featuredPropertyModel.data!.data![index]!.price ?? ""} PKR",
-                                                                style: AppTextStyles
-                                                                    .heading1
-                                                                    .copyWith(
-                                                                        color: AppColors
-                                                                            .colorblack,
-                                                                        fontSize:
-                                                                            10.sp)),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 2.0.w,
-                                                                top: 1.0.h),
-                                                        child: Text(
-                                                            dashboardController
-                                                                    .featuredPropertyModel
-                                                                    .data!
-                                                                    .data![
-                                                                        index]!
-                                                                    .name ??
-                                                                "",
-                                                            style: AppTextStyles
-                                                                .heading1
-                                                                .copyWith(
-                                                              color: AppColors
-                                                                  .colorblack,
-                                                            )),
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 2.0.w,
-                                                          ),
-                                                          Image.asset(
-                                                            AppImageResources
-                                                                .bed,
-                                                            height: 2.0.h,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 2.0.w,
-                                                          ),
-                                                          Text(
-                                                            dashboardController
-                                                                    .featuredPropertyModel
-                                                                    .data!
-                                                                    .data![
-                                                                        index]!
-                                                                    .numberBedroom ??
-                                                                "",
-                                                            style: AppTextStyles
-                                                                .labelSmall
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        9.sp),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 2.0.w,
-                                                          ),
-                                                          Image.asset(
-                                                            AppImageResources
-                                                                .bath,
-                                                            height: 2.0.h,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 2.0.w,
-                                                          ),
-                                                          Text(
-                                                            dashboardController
-                                                                    .featuredPropertyModel
-                                                                    .data!
-                                                                    .data![
-                                                                        index]!
-                                                                    .numberBathroom ??
-                                                                "",
-                                                            style: AppTextStyles
-                                                                .labelSmall
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        9.sp),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 2.0.w,
-                                                          ),
-                                                          const Icon(
-                                                            Icons
-                                                                .landscape_outlined,
-                                                          ),
-                                                          // Image.asset(
-                                                          //   AppImageResources
-                                                          //       .plots,
-                                                          //   height: 2.0.h,
-                                                          // ),
-                                                          SizedBox(
-                                                            width: 2.0.w,
-                                                          ),
-                                                          Text(
-                                                            dashboardController
-                                                                    .featuredPropertyModel
-                                                                    .data!
-                                                                    .data![
-                                                                        index]!
-                                                                    .square ??
-                                                                "",
-                                                            style: AppTextStyles
-                                                                .labelSmall
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        9.sp),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      const Divider(),
-                                                      Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 2.0.w,
-                                                          ),
-                                                          Image.asset(
-                                                            AppImageResources
-                                                                .plots,
-                                                            height: 2.0.h,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 2.0.w,
-                                                          ),
-                                                          Text(
-                                                            dashboardController
-                                                                    .featuredPropertyModel
-                                                                    .data!
-                                                                    .data![
-                                                                        index]!
-                                                                    .location ??
-                                                                "",
-                                                            style: AppTextStyles
-                                                                .labelSmall,
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ));
+                                                                      fontSize:
+                                                                          9.sp),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 2.0.w,
+                                                            ),
+                                                            Image.asset(
+                                                              AppImageResources
+                                                                  .bath,
+                                                              height: 2.0.h,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 2.0.w,
+                                                            ),
+                                                            Text(
+                                                              dashboardController
+                                                                      .featuredPropertyModel
+                                                                      .data!
+                                                                      .data![
+                                                                          index]!
+                                                                      .numberBathroom ??
+                                                                  "",
+                                                              style: AppTextStyles
+                                                                  .labelSmall
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          9.sp),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 2.0.w,
+                                                            ),
+                                                            const Icon(
+                                                              Icons
+                                                                  .landscape_outlined,
+                                                            ),
+                                                            // Image.asset(
+                                                            //   AppImageResources
+                                                            //       .plots,
+                                                            //   height: 2.0.h,
+                                                            // ),
+                                                            SizedBox(
+                                                              width: 2.0.w,
+                                                            ),
+                                                            Text(
+                                                              dashboardController
+                                                                      .featuredPropertyModel
+                                                                      .data!
+                                                                      .data![
+                                                                          index]!
+                                                                      .square ??
+                                                                  "",
+                                                              style: AppTextStyles
+                                                                  .labelSmall
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          9.sp),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        const Divider(),
+                                                        Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 2.0.w,
+                                                            ),
+                                                            Image.asset(
+                                                              AppImageResources
+                                                                  .plots,
+                                                              height: 2.0.h,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 2.0.w,
+                                                            ),
+                                                            Text(
+                                                              dashboardController
+                                                                      .featuredPropertyModel
+                                                                      .data!
+                                                                      .data![
+                                                                          index]!
+                                                                      .location ??
+                                                                  "",
+                                                              style: AppTextStyles
+                                                                  .labelSmall,
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    )),
+                                              );
                                             }),
                                       ),
                                       Padding(
@@ -1144,136 +1359,193 @@ class _HomeState extends State<Home> {
                     height: 43.0.h,
                     width: 100.0.w,
                     decoration: CustomDecorations.mainCon,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
-                          child: Text(
-                            "ProLogic 29",
-                            style: AppTextStyles.heading1.copyWith(
-                                fontFamily: AppFonts.nexaBold,
-                                fontSize: 16.sp,
-                                color: AppColors.appthem),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 3.0.w, top: 0.3.h),
-                          child: SizedBox(
-                            width: 80.0.w,
-                            child: Text(
-                                "Let us help you navigate the renting, buying, selling & investing experience",
-                                style: AppTextStyles.labelSmall
-                                    .copyWith(fontSize: 9.sp)),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: 2.0.w, right: 2.0.w, top: 1.0.h),
-                          height: 34.0.h,
-                          width: 100.0.w,
-                          //color: Colors.red,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 3,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin: EdgeInsets.only(
-                                      left: index == 0 ? 2.0.w : 2.0.w,
-                                      right: index == 2 ? 2.0.w : 0.0.w,
-                                      top: 1.0.h,
-                                      bottom: 1.0.h),
-                                  height: 25.0.h,
-                                  width: 50.0.w,
-                                  decoration: CustomDecorations.mainCon,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 15.0.h,
-                                        width: 100.0.w,
-                                        decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(10),
-                                                topRight: Radius.circular(10))),
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10)),
-                                          child: Image.asset(
-                                            testimonialImages[index],
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
+                    child: Obx(
+                      (() => newspostController.loadingnewspost.value
+                          ? const Center(child: CircularProgressIndicator())
+                          : Expanded(
+                              child: Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 3.0.w, top: 0.3.h),
+                                      child: Text(
+                                        "ProLogic 29",
+                                        style: AppTextStyles.heading1.copyWith(
+                                            fontFamily: AppFonts.nexaBold,
+                                            fontSize: 16.sp,
+                                            color: AppColors.appthem),
                                       ),
-                                      SizedBox(
-                                        height: 1.0.h,
-                                      ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 2.0.w,
-                                          ),
-                                          const Icon(
-                                            Icons.date_range,
-                                            color: AppColors.appthem,
-                                          ),
-                                          SizedBox(
-                                            width: 2.0.w,
-                                          ),
-                                          Text(
-                                            "28 Oct, 2022",
-                                            style: AppTextStyles.labelSmall
-                                                .copyWith(fontSize: 10.sp),
-                                          )
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 2.0.w,
-                                            right: 2.0.w,
-                                            top: 1.0.h),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 3.0.w, top: 0.3.h),
+                                      child: SizedBox(
+                                        width: 80.0.w,
                                         child: Text(
-                                          "Common Malpractices In Real Estate",
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  color: AppColors.appthem),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 2.0.w,
-                                            right: 2.0.w,
-                                            top: 1.0.h),
-                                        child: Text(
-                                            // "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities."
-                                            "",
+                                            "Let us help you navigate the renting, buying, selling & investing experience",
                                             style: AppTextStyles.labelSmall
-                                                .copyWith(fontSize: 8.sp)),
+                                                .copyWith(fontSize: 9.sp)),
                                       ),
-                                      Container(
-                                        margin: EdgeInsets.only(left: 2.0.w),
-                                        height: 4.0.h,
-                                        width: 30.0.w,
-                                        decoration: BoxDecoration(
-                                            color: AppColors.appthem,
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: Center(
-                                            child: Text(
-                                          "Continue",
-                                          style: AppTextStyles.labelSmall
-                                              .copyWith(
-                                                  color: AppColors.colorWhite),
-                                        )),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }),
-                        )
-                      ],
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          left: 2.0.w,
+                                          right: 2.0.w,
+                                          top: 1.0.h),
+                                      height: 34.0.h,
+                                      width: 100.0.w,
+                                      //color: Colors.red,
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: newspostController
+                                              .newspostModel.data!.length,
+                                          itemBuilder: (context, index) {
+                                            return Expanded(
+                                              child: Container(
+                                                margin: EdgeInsets.only(
+                                                    left: index == 0
+                                                        ? 2.0.w
+                                                        : 2.0.w,
+                                                    right: index ==
+                                                            newspostController
+                                                                    .newspostModel
+                                                                    .data!
+                                                                    .length -
+                                                                1
+                                                        ? 2.0.w
+                                                        : 0.0.w),
+                                                height: 25.0.h,
+                                                width: 50.0.w,
+                                                decoration:
+                                                    CustomDecorations.mainCon,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      height: 15.0.h,
+                                                      width: 100.0.w,
+                                                      decoration: const BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          10),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          10))),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        10),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        10)),
+                                                        child: Image.asset(
+                                                          testimonialImages[
+                                                              index],
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 1.0.h,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        const Icon(
+                                                          Icons.date_range,
+                                                          color:
+                                                              AppColors.appthem,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Text(
+                                                          newspostController
+                                                                  .newspostModel
+                                                                  .data![index]!
+                                                                  .name ??
+                                                              "",
+                                                          style: AppTextStyles
+                                                              .labelSmall
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      10.sp),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 2.0.w,
+                                                          right: 2.0.w,
+                                                          top: 1.0.h),
+                                                      child: Text(
+                                                        newspostController
+                                                                .newspostModel
+                                                                .data![index]!
+                                                                .name ??
+                                                            "",
+                                                        style: AppTextStyles
+                                                            .heading1
+                                                            .copyWith(
+                                                                color: AppColors
+                                                                    .appthem),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 2.0.w,
+                                                          right: 2.0.w,
+                                                          top: 1.0.h),
+                                                      child: Text(
+                                                          // "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities."
+                                                          "",
+                                                          style: AppTextStyles
+                                                              .labelSmall
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      8.sp)),
+                                                    ),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          left: 2.0.w),
+                                                      height: 4.0.h,
+                                                      width: 30.0.w,
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              AppColors.appthem,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8)),
+                                                      child: Center(
+                                                          child: Text(
+                                                        "Continue",
+                                                        style: AppTextStyles
+                                                            .labelSmall
+                                                            .copyWith(
+                                                                color: AppColors
+                                                                    .colorWhite),
+                                                      )),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
                     ),
                   ),
                   SizedBox(
