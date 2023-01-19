@@ -3,7 +3,6 @@ import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
 
-
 import '../../Models/mypropertyModel.dart';
 
 import '../../Models/newspost_model.dart';
@@ -169,4 +168,6 @@ class FeaturedPropertyService {
       return e;
     }
   }
+
+  //static getNewsfeedAPI() {}
 }
