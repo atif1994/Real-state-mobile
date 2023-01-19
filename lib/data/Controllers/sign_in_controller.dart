@@ -41,7 +41,7 @@ class SignInController extends GetxController {
         // state: user['state'],
       ));
       var userid = data['data']['id'];
-      getuserId(userid);
+      setUserid(userid);
       var cId = data['data']['city']['id'];
       var cName = data['data']['city']['name'];
 
@@ -76,7 +76,12 @@ class SignInController extends GetxController {
     }
   }
 
-  getuserId(int userid) async {
+  // getuserId(int userid) async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   pref.setInt("userid", userid);
+  // }
+
+  void setUserid(int userid) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setInt("userid", userid);
   }

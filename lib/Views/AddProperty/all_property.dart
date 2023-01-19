@@ -62,8 +62,8 @@ class _AllPropertyState extends State<AllProperty> {
               : ListView.builder(
                   primary: false,
                   shrinkWrap: true,
-                  itemCount:
-                      myPropertiseController.myPropertiseResponse.data!.length,
+                  itemCount: 6,
+                  // myPropertiseController.myPropertiseResponse.data!.length,
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
