@@ -260,7 +260,7 @@ class NewsFeed extends StatelessWidget {
                         right: 5.0.w,
                         left: 5.0.w,
                         top: index == 0 ? 1.0.h : 2.0.h),
-                    height: 7.0.h,
+                    height: 6.4.h,
                     width: 100.w,
                     decoration: CustomDecorations.mainCon,
                     child: CustomTextField(
