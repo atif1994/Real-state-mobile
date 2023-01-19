@@ -802,7 +802,7 @@ class _HomeState extends State<Home> {
                   ///constructio cost calculater
 
                   Container(
-                      height: 48.0.h,
+                      height: 53.0.h,
                       width: 100.0.w,
                       decoration: CustomDecorations.mainCon,
                       margin: EdgeInsets.only(
@@ -871,7 +871,7 @@ class _HomeState extends State<Home> {
                                             top: 1.0.h,
                                             left: 2.0.w,
                                             right: 2.0.w),
-                                        height: 31.0.h,
+                                        height: 34.0.h,
                                         width: 100.0.w,
                                         //color: Colors.red,
                                         child: ListView.builder(
@@ -895,7 +895,7 @@ class _HomeState extends State<Home> {
                                                       ));
                                                 },
                                                 child: Container(
-                                                    width: 58.0.w,
+                                                    width: 59.0.w,
                                                     margin: EdgeInsets.only(
                                                         left: index == 0
                                                             ? 1.0.w

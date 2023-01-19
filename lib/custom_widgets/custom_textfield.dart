@@ -18,6 +18,7 @@ class CustomTextField extends StatelessWidget {
     return SizedBox(
       height: 6.0.h,
       child: TextField(
+        controller: editingController,
         decoration: InputDecoration(
             hintText: hintText,
             hintStyle: const TextStyle(fontFamily: AppFonts.nexaBook),

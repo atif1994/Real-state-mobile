@@ -10,7 +10,7 @@ class MyPropertyController extends GetxController {
   RxString errorGettingMyPropertise = ''.obs;
 
   var myPropertiseResponse = MyPropertyResponse();
-  int? userId = 273;
+  int? userId;
 
   @override
   void onInit() async {
