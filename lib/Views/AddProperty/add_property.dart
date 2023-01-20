@@ -4,9 +4,7 @@ import 'package:get/get.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field_2.dart';
 import 'package:prologic_29/data/Controllers/addProperty_Controller.dart';
-import 'package:prologic_29/data/Models/postDataProperty_model.dart';
-import 'package:prologic_29/data/Services/property_services/addproperty_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:prologic_29/data/Models/addproperty_model/postDataProperty_model.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Services/constants.dart';
@@ -142,12 +140,11 @@ class _PropertyState extends State<Property>
     'Play Ground',
     'Park',
   ];
-  void postDataSharedPref(String title) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString(title, title);
-  }
 
   var addPropertyController = Get.put(AddProperrtyController());
+  final nameController = TextEditingController();
+  final dispController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -225,13 +222,7 @@ class _PropertyState extends State<Property>
                         ],
                       ),
                       MyTextField2(
-                        onChanged: (title) {
-                          setState(() {
-                            postDataSharedPref(title);
-                            postDataproperty.name = title;
-                            print("Post DAta ======${postDataproperty.name}");
-                          });
-                        },
+                        controller: nameController,
                       ),
                     ],
                   ),
@@ -252,11 +243,7 @@ class _PropertyState extends State<Property>
                         ],
                       ),
                       MyTextField2(
-                        onChanged: (disp) {
-                          setState(() {
-                            postDataSharedPref(disp);
-                          });
-                        },
+                        controller: dispController,
                       ),
                     ],
                   ),
@@ -1004,7 +991,8 @@ class _PropertyState extends State<Property>
                     child: MyButton(
                         onTap: () {
                           setState(() {
-                            AddPropertyServices.addPropertyAPI();
+                            addPropertyController.getAddProperty(
+                                nameController.text, dispController.text);
                           });
                         },
                         text: 'Add Property'),

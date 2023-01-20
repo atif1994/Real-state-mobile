@@ -1,12 +1,12 @@
 import 'package:get/state_manager.dart';
-import 'package:prologic_29/data/Models/addproperty_model.dart';
+import 'package:prologic_29/data/Models/addproperty_model/addproperty_model.dart';
 import 'package:prologic_29/data/Services/property_services/addproperty_services.dart';
 
 class AddProperrtyController extends GetxController {
   @override
   void onInit() {
     print("add property???????????");
-    getAddProperty();
+   // getAddProperty();
 
     super.onInit();
   }
@@ -17,8 +17,8 @@ class AddProperrtyController extends GetxController {
   var addPropertyModel = AddPropertyModel();
   RxString errorLoadingAddProperty = ''.obs;
 
-  void getAddProperty() async {
-    var res = await AddPropertyServices.addPropertyAPI();
+  void getAddProperty(name,disp) async {
+    var res = await AddPropertyServices.addPropertyAPI(name, disp);
     if (res is AddPropertyModel) {
       addPropertyModel = res;
     } else {
