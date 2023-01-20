@@ -1,23 +1,22 @@
-import 'package:prologic_29/data/Models/addproperty_model.dart';
-import 'package:prologic_29/data/Models/postDataProperty_model.dart';
+import 'package:prologic_29/data/Models/addproperty_model/addproperty_model.dart';
+import 'package:prologic_29/data/Models/addproperty_model/postDataProperty_model.dart';
+import 'package:prologic_29/data/Models/addproperty_model/usermodel.dart';
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddPropertyServices {
-  static Future<dynamic> addPropertyAPI() async {
+  static Future<dynamic> addPropertyAPI(String name, String disp) async {
     PostDataProperty postDataProperty = PostDataProperty();
-    // print("=====postDAta=======>>>>${postDataProperty.name}");
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String? title = pref.getString("title");
-    print("=====title=======>>>>$title");
-    print("=====title=======>>>>$title");
+
+    print("=====title=======>>>>$name");
+    print("=====title=======>>>>$disp");
     Map data = {
       "plateform": "mobile",
       "assigner_id": 11,
-      "name": "$title",
-      "description": "description",
+      "name": name,
+      "description": disp,
       "content": "testing from mobile",
       "sector_and_block_name": "block ei",
       "street_number": "56",
