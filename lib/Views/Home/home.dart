@@ -396,7 +396,7 @@ class _HomeState extends State<Home> {
                                           ),
                                           child: Center(
                                             child: Text(
-                                              "Popular",
+                                              "Popularr",
                                               style: AppTextStyles.heading1
                                                   .copyWith(
                                                       fontSize: 11.sp,
