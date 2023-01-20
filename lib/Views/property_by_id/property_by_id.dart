@@ -31,7 +31,7 @@ class _PropertyByIDState extends State<PropertyByID> {
     print("**********************************************${widget.id}");
     return Scaffold(
         appBar: AppBar(
-          title: Text('Property ', style: AppTextStyles.heading1),
+          title: Text('Propertyy ', style: AppTextStyles.heading1),
           backgroundColor: AppColors.appthem,
         ),
         body: Obx(() => propertybyyidController.loadingPropertyByID.value
@@ -131,7 +131,7 @@ class _PropertyByIDState extends State<PropertyByID> {
                           Padding(
                             padding: EdgeInsets.only(top: 0.5.h, left: 4.0.w),
                             child: Text(
-                              "Description: ${propertybyyidController.propertybyIDmodel.data!.description ?? ""}",
+                              "Descriptionn: ${propertybyyidController.propertybyIDmodel.data!.description ?? ""}",
                               style: AppTextStyles.labelSmall.copyWith(
                                 color: AppColors.colorblack,
                               ),

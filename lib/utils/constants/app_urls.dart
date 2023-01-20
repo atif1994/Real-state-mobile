@@ -11,5 +11,7 @@ class AppUrls {
   static const String addProperty = "v1/add-property";
   static const String newsfeed = "v1/Properties";
   static const String contacusend = "v1/contact";
-
+  /////
+  ///
+  static const String postLikee = "v1/postlike";
 }
