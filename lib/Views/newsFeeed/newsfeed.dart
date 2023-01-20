@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
+import 'package:prologic_29/data/Controllers/NewsFeed_Controller/newsfeed_comment.dart';
 import 'package:prologic_29/data/Controllers/NewsFeed_Controller/newsfeed_controller.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,6 +19,7 @@ class NewsFeed extends StatelessWidget {
 
   var newsfeedController = Get.put(NewsFeedController());
 
+  
   NewsFeed({super.key});
   final commentController = TextEditingController();
 
@@ -103,30 +106,12 @@ class NewsFeed extends StatelessWidget {
                                                         AppColors.colorWhite),
                                           )),
                                         ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                                newsfeedController
-                                                        .newsfeedmodel
-                                                        .data!
-                                                        .data![index]
-                                                        .price ??
-                                                    "",
-                                                style: AppTextStyles.heading1
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .colorblack,
-                                                        fontSize: 10.sp)),
-                                            //         Text(
-                                            // newsfeedController.newsfeedmodel
-                                            //         .data!.data![index].price ??
-                                            //     "",
-                                            // style: AppTextStyles.heading1
-                                            //     .copyWith(
-                                            //         color: AppColors.colorblack,
-                                            //         fontSize: 10.sp)),
-                                          ],
-                                        )
+                                        Text(
+                                            "${newsfeedController.newsfeedmodel.data!.data![index].currency!.symbol.toString()} ${newsfeedController.newsfeedmodel.data!.data![index].price}  ${newsfeedController.newsfeedmodel.data!.data![index].currency!.title.toString()}",
+                                            style: AppTextStyles.heading1
+                                                .copyWith(
+                                                    color: AppColors.colorblack,
+                                                    fontSize: 10.sp))
                                       ],
                                     ),
                                   ),
