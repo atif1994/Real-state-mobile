@@ -12,6 +12,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/data/Controllers/property_controllers/my_property_controller.dart';
+import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:sizer/sizer.dart';
 
 // import '../../data/Controllers/my_property_controller.dart';
@@ -78,7 +79,7 @@ class _AllPropertyState extends State<AllProperty> {
                               left: 3.0.w,
                               right: 3.0.w,
                               top: index == 0 ? 1.0.h : 2.0.h),
-                          height: 65.0.h,
+                          height: 62.0.h,
                           width: 100.0.w,
                           decoration: CustomDecorations.mainCon,
                           child: Stack(
@@ -94,17 +95,14 @@ class _AllPropertyState extends State<AllProperty> {
                                       borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(10),
                                           topRight: Radius.circular(10)),
-                                      child:
-                                          // Image.network(
-                                          //     myPropertiseController
-                                          //         .myPropertiseResponse
-                                          //         .data![index]!
-                                          //         .images
-                                          //         .toString()),
-                                          Image.asset(
-                                        AppImageResources.property,
+                                      child: Image.network(
+                                        "${AppUrls.baseUrl2}${myPropertiseController.myPropertiseResponse.data![index].images![index]}",
                                         fit: BoxFit.cover,
                                       ),
+                                      //   Image.asset(
+                                      // AppImageResources.property,
+
+                                      // ),
                                     ),
                                   ),
                                   SizedBox(
@@ -127,7 +125,7 @@ class _AllPropertyState extends State<AllProperty> {
                                               child: Text(
                                             myPropertiseController
                                                     .myPropertiseResponse
-                                                    .data![index]!
+                                                    .data![index]
                                                     .type!
                                                     .name ??
                                                 '',
@@ -139,17 +137,48 @@ class _AllPropertyState extends State<AllProperty> {
                                                         FontWeight.w500),
                                           )),
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 6.0),
-                                          child: Text(
-                                              "Rs: "
-                                              "${myPropertiseController.myPropertiseResponse.data![index]!.price ?? ""} PKR",
-                                              style: AppTextStyles.heading1
-                                                  .copyWith(
-                                                      color:
-                                                          AppColors.colorblack,
-                                                      fontSize: 17)),
+                                        Row(
+                                          children: [
+                                            Text(
+                                                myPropertiseController
+                                                        .myPropertiseResponse
+                                                        .data![index]
+                                                        .currency
+                                                        ?.title ??
+                                                    "",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .colorblack,
+                                                        fontSize: 17)),
+                                            const Text(": "),
+                                            Text(
+                                                myPropertiseController
+                                                        .myPropertiseResponse
+                                                        .data![index]
+                                                        .price ??
+                                                    "",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .colorblack,
+                                                        fontSize: 17)),
+                                            Text(
+                                                myPropertiseController
+                                                        .myPropertiseResponse
+                                                        .data![index]
+                                                        .currency
+                                                        ?.symbol ??
+                                                    "",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .colorblack,
+                                                        fontSize: 16)),
+                                            SizedBox(
+                                              width: 1.0.w,
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -157,11 +186,12 @@ class _AllPropertyState extends State<AllProperty> {
                                   Padding(
                                     padding: EdgeInsets.only(
                                       left: 2.9.w,
+                                      top: 0.4.h,
                                     ),
                                     child: Text(
                                       myPropertiseController
                                               .myPropertiseResponse
-                                              .data![index]!
+                                              .data![index]
                                               .name ??
                                           "",
                                       style: AppTextStyles.heading1.copyWith(
@@ -169,102 +199,9 @@ class _AllPropertyState extends State<AllProperty> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 0.3.h,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 2.0.w),
-                                    child: Row(
-                                      // crossAxisAlignment: CrossAxisAlignment.end,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        SizedBox(
-                                          width: 2.0.w,
-                                        ),
-                                        Image.asset(
-                                          AppImageResources.bed,
-                                          height: 2.5.h,
-                                        ),
-                                        SizedBox(
-                                          width: 2.0.w,
-                                        ),
-                                        Text(
-                                          myPropertiseController
-                                                  .myPropertiseResponse
-                                                  .data![index]!
-                                                  .numberBedroom ??
-                                              "",
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  fontSize: 12.sp,
-                                                  color: Colors.black),
-                                        ),
-                                        SizedBox(
-                                          width: 2.0.w,
-                                        ),
-                                        Image.asset(
-                                          AppImageResources.bath,
-                                          height: 3.4.h,
-                                        ),
-                                        SizedBox(
-                                          width: 2.0.w,
-                                        ),
-                                        Text(
-                                          myPropertiseController
-                                                  .myPropertiseResponse
-                                                  .data![index]!
-                                                  .numberBathroom ??
-                                              "",
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  fontSize: 12.sp,
-                                                  color: Colors.black),
-                                        ),
-                                        SizedBox(
-                                          width: 2.0.w,
-                                        ),
-                                        Image.asset(
-                                          AppImageResources.plots,
-                                          height: 2.2.h,
-                                        ),
-                                        SizedBox(
-                                          width: 2.0.w,
-                                        ),
-                                        Text(
-                                          myPropertiseController
-                                                  .myPropertiseResponse
-                                                  .data![index]!
-                                                  .square ??
-                                              "",
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  fontSize: 12.sp,
-                                                  color: Colors.black),
-                                        ),
-                                        SizedBox(
-                                          width: 2.0.w,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const Divider(),
-                                  // Row(children: [
-                                  //   Padding(
-                                  //     padding: const EdgeInsets.only(
-                                  //         top: 2.0, left: 8.6),
-                                  //     child: Text(
-                                  //       myPropertiseController
-                                  //               .myPropertiseResponse
-                                  //               .data![index]!
-                                  //               .content ??
-                                  //           "",
-                                  //       style: AppTextStyles.heading1.copyWith(
-                                  //         color: AppColors.colorblack,
-                                  //         fontSize: 17,
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ]),
+                                  // SizedBox(
+                                  //   height: 0.0.h,
+                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 10.0),
                                     child: Container(
@@ -277,11 +214,10 @@ class _AllPropertyState extends State<AllProperty> {
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.only(
-                                                          top: 0.0, left: 0.6),
+                                                          top: 3.0, left: 0.6),
                                                   child: Text(
-                                                    "Description: ${myPropertiseController.myPropertiseResponse.data![index]!.description ?? ""}",
-                                                    style: AppTextStyles
-                                                        .heading1
+                                                    "Description: ${myPropertiseController.myPropertiseResponse.data![index].description ?? ""}",
+                                                    style: AppTextStyles.appbar
                                                         .copyWith(
                                                       color:
                                                           AppColors.colorblack,
@@ -313,27 +249,21 @@ class _AllPropertyState extends State<AllProperty> {
                                           //                 FontWeight.w500),
                                           //   )),
                                           // ),
-                                          SizedBox(
-                                            height: 4.0.h,
-                                          ),
                                         ],
                                       ),
                                     ),
                                   ),
                                   Column(
                                     children: [
-                                      SizedBox(
-                                        height: 0.6.h,
-                                      ),
                                       Row(children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 4.0, left: 8.9),
+                                              top: 2.0, left: 8.9),
                                           child: Text(
                                             "Sector and Block name: "
-                                            "${myPropertiseController.myPropertiseResponse.data![index]!.sectorAndBlockName ?? ""}",
-                                            style: AppTextStyles.labelSmall
-                                                .copyWith(
+                                            "${myPropertiseController.myPropertiseResponse.data![index].sectorAndBlockName ?? ""}",
+                                            style:
+                                                AppTextStyles.appbar.copyWith(
                                               color: AppColors.colorblack,
                                             ),
                                           ),
@@ -342,11 +272,11 @@ class _AllPropertyState extends State<AllProperty> {
                                       Row(children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 4.0, left: 8.9),
+                                              top: 2.0, left: 8.9),
                                           child: Text(
-                                            "Plot No:  ${myPropertiseController.myPropertiseResponse.data![index]!.plotNumber ?? ""}",
-                                            style: AppTextStyles.labelSmall
-                                                .copyWith(
+                                            "Plot No:  ${myPropertiseController.myPropertiseResponse.data![index].plotNumber ?? ""}",
+                                            style:
+                                                AppTextStyles.appbar.copyWith(
                                               color: AppColors.colorblack,
                                             ),
                                           ),
@@ -356,9 +286,9 @@ class _AllPropertyState extends State<AllProperty> {
                                       Row(children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 4.0, left: 8.9),
+                                              top: 2.0, left: 8.9),
                                           child: Text(
-                                            "Street No: ${myPropertiseController.myPropertiseResponse.data![index]!.streetNumber ?? ""}",
+                                            "Street No: ${myPropertiseController.myPropertiseResponse.data![index].streetNumber ?? ""}",
                                             style: AppTextStyles.labelSmall
                                                 .copyWith(
                                               color: AppColors.colorblack,
@@ -366,11 +296,88 @@ class _AllPropertyState extends State<AllProperty> {
                                           ),
                                         ),
                                       ]),
-
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 0.2.w, top: 0.6.h),
+                                        child: Row(
+                                          // crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: 2.9.w,
+                                            ),
+                                            Image.asset(
+                                              AppImageResources.bed,
+                                              height: 2.5.h,
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Text(
+                                              myPropertiseController
+                                                      .myPropertiseResponse
+                                                      .data![index]
+                                                      .numberBedroom ??
+                                                  "",
+                                              style: AppTextStyles.heading1
+                                                  .copyWith(
+                                                      fontSize: 12.sp,
+                                                      color: Colors.black),
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Image.asset(
+                                              AppImageResources.bath,
+                                              height: 3.4.h,
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Text(
+                                              myPropertiseController
+                                                      .myPropertiseResponse
+                                                      .data![index]
+                                                      .numberBathroom ??
+                                                  "",
+                                              style: AppTextStyles.heading1
+                                                  .copyWith(
+                                                      fontSize: 12.sp,
+                                                      color: Colors.black),
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Image.asset(
+                                              AppImageResources.plots,
+                                              height: 2.2.h,
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                            Text(
+                                              myPropertiseController
+                                                      .myPropertiseResponse
+                                                      .data![index]
+                                                      .square ??
+                                                  "",
+                                              style: AppTextStyles.heading1
+                                                  .copyWith(
+                                                      fontSize: 12.sp,
+                                                      color: Colors.black),
+                                            ),
+                                            SizedBox(
+                                              width: 2.0.w,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const Divider(),
                                       Row(children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 4.0, left: 8.9),
+                                              top: 2.0, left: 8.9),
                                           child: Text(
                                             'Date Posted:',
                                             style: AppTextStyles.labelSmall
@@ -387,7 +394,7 @@ class _AllPropertyState extends State<AllProperty> {
                                                 DateTime.parse(
                                                     myPropertiseController
                                                         .myPropertiseResponse
-                                                        .data![index]!
+                                                        .data![index]
                                                         .createdAt
                                                         .toString())),
                                             style: AppTextStyles.labelSmall
@@ -400,7 +407,7 @@ class _AllPropertyState extends State<AllProperty> {
 
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 8.9, top: 8.0),
+                                            left: 8.9, top: 4.0),
                                         child: Row(
                                           children: [
                                             Image.asset(
@@ -413,7 +420,7 @@ class _AllPropertyState extends State<AllProperty> {
                                             Text(
                                               myPropertiseController
                                                       .myPropertiseResponse
-                                                      .data![index]!
+                                                      .data![index]
                                                       .location ??
                                                   "",
                                               style: AppTextStyles.heading1
@@ -423,7 +430,7 @@ class _AllPropertyState extends State<AllProperty> {
                                                       fontSize: 17),
                                             ),
                                             Text(
-                                              " , ${myPropertiseController.myPropertiseResponse.data![index]!.city!.name ?? ""}",
+                                              " , ${myPropertiseController.myPropertiseResponse.data![index].city!.name ?? ""}",
                                               style: AppTextStyles.heading1
                                                   .copyWith(
                                                 color: AppColors.colorblack,
