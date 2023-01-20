@@ -6,12 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:prologic_29/data/Services/constants.dart';
 import 'package:prologic_29/data/Services/my_shared_preferences.dart';
 import '../../../data/Controllers/pick_image_controller.dart';
 import '../../../My Widgets/my_button.dart';
 import '../../../My Widgets/my_text_field_2.dart';
-import '../../profile/profile_screen.dart';
 
 class ProfileSettings extends StatefulWidget {
   const ProfileSettings({Key? key}) : super(key: key);

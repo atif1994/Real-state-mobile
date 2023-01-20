@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prologic_29/data/Controllers/pick_image_controller.dart';
 
-import '../../data/Controllers/profile_controller.dart';
-
 class ProfileImageEdit extends StatelessWidget {
   File? imageFile;
   ImagePicker imagePicker = ImagePicker();

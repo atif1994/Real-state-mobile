@@ -14,6 +14,7 @@ import '../../utils/styles/custom_decorations.dart';
 class NewsFeed extends StatelessWidget {
   final likeController = Get.put(PostLikeController());
   var newsfeedController = Get.put(NewsFeedController());
+
   NewsFeed({super.key});
   final commentController = TextEditingController();
 
@@ -101,30 +102,12 @@ class NewsFeed extends StatelessWidget {
                                                         AppColors.colorWhite),
                                           )),
                                         ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                                newsfeedController
-                                                        .newsfeedmodel
-                                                        .data!
-                                                        .data![index]
-                                                        .price ??
-                                                    "",
-                                                style: AppTextStyles.heading1
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .colorblack,
-                                                        fontSize: 10.sp)),
-                                            //         Text(
-                                            // newsfeedController.newsfeedmodel
-                                            //         .data!.data![index].price ??
-                                            //     "",
-                                            // style: AppTextStyles.heading1
-                                            //     .copyWith(
-                                            //         color: AppColors.colorblack,
-                                            //         fontSize: 10.sp)),
-                                          ],
-                                        )
+                                        Text(
+                                            "${newsfeedController.newsfeedmodel.data!.data![index].currency!.symbol.toString()} ${newsfeedController.newsfeedmodel.data!.data![index].price}  ${newsfeedController.newsfeedmodel.data!.data![index].currency!.title.toString()}",
+                                            style: AppTextStyles.heading1
+                                                .copyWith(
+                                                    color: AppColors.colorblack,
+                                                    fontSize: 10.sp))
                                       ],
                                     ),
                                   ),
