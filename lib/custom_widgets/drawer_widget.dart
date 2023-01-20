@@ -12,6 +12,7 @@ import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Views/AddProperty/add_property.dart';
+import '../Views/AgentProfile/profile_pages.dart';
 import '../Views/ContactUs/contact_us.dart';
 import '../Views/Notifications/notification_page.dart';
 import '../Views/Wishlist/favorites.dart';
@@ -152,7 +153,8 @@ class CustomDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => const Blog());
+                        // Get.to(() => ProfileImageEdit());
+                        Get.to(() => const ProfilePages());
                       },
                       leading: Image.asset(
                         AppImageResources.profilesetting,
