@@ -16,7 +16,7 @@ class MyPropertyController extends GetxController {
   void onInit() async {
     getUserId();
     await Future.delayed(const Duration(seconds: 2));
-    getMyPropertise(userId);
+    getMyPropertise(304);
     super.onInit();
   }
 
