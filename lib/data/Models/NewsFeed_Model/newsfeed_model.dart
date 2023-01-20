@@ -481,8 +481,8 @@ class Currency {
   });
 
   int? id;
-  Title? title;
-  Symbol? symbol;
+  String? title;
+  String? symbol;
   String? isPrefixSymbol;
   String? decimals;
   String? order;
@@ -493,8 +493,8 @@ class Currency {
 
   factory Currency.fromJson(Map<String, dynamic> json) => Currency(
         id: json["id"],
-        title: titleValues.map[json["title"]]!,
-        symbol: symbolValues.map[json["symbol"]]!,
+        title: json["title"],
+        symbol: json["symbol"]!,
         isPrefixSymbol: json["is_prefix_symbol"],
         decimals: json["decimals"],
         order: json["order"],

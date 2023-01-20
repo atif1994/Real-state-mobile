@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:prologic_29/data/Models/NewsFeed_Model/newsfeed_model.dart';
 import 'package:prologic_29/data/Services/NewsFeed_Services/newsfeedcomment_service.dart';
 
-class NewsFeedController extends GetxController {
+class NewsFeedCommentController extends GetxController {
   RxBool loadingnewspost = false.obs;
   var newsfeedmodel = NewsfeedModel();
   RxString errorLoadingnewsfeed = ''.obs;
