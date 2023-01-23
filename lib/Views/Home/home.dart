@@ -23,8 +23,8 @@ import 'package:intl/intl.dart';
 
 import '../../data/Controllers/Notification_Controller/Notification_Controller.dart';
 import '../../data/Controllers/property_controllers/cities_controller.dart';
+import '../../data/Services/local_notifications_service.dart';
 import 'home_screen.dart';
-import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -72,7 +72,6 @@ class _HomeState extends State<Home> {
     AppImageResources.img2,
     AppImageResources.img3,
     AppImageResources.img3,
-
   ];
   final bool _isContainerExpand = false;
   final int _navBarIndex = 0;
@@ -95,10 +94,18 @@ class _HomeState extends State<Home> {
   void initState() {
     dashboardController.getFilteredPropertiseWithoutPerm(cid: cid, catid: 0);
     getCityInfo();
+    LocalNotificationsApi.init();
+    listenNotification();
 
     super.initState();
   }
 
+  void listenNotification() => LocalNotificationsApi.onNotifications.stream
+      .listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) => Get.to(() => AllNotifications(
+        payload: payload,
+      ));
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -218,39 +225,47 @@ class _HomeState extends State<Home> {
                                 );
                               }),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: 18.0.h, left: 3.0.w, right: 3.0.w),
-                          height: 5.0.h,
-                          width: 100.0.w,
-                          decoration: CustomDecorations.con1,
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 3.0.w,
-                              ),
-                              const Icon(Icons.search),
-                              SizedBox(
-                                width: 3.0.w,
-                              ),
-                              AnimatedTextKit(
-                                animatedTexts: [
-                                  TyperAnimatedText(
-                                    'Search for shops',
-                                    textStyle: AppTextStyles.labelSmall
-                                        .copyWith(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              Text(
-                                "$cityName",
-                                style: AppTextStyles.labelSmall,
-                              ),
-                              SizedBox(
-                                width: 5.0.w,
-                              )
-                            ],
+                        InkWell(
+                          onTap: () {
+                            // LocalNotificationsApi.showNotifications(
+                            //     title: "Prologics Notification",
+                            //     body: "abc",
+                            //     payload: 'real.state a');
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                top: 18.0.h, left: 3.0.w, right: 3.0.w),
+                            height: 5.0.h,
+                            width: 100.0.w,
+                            decoration: CustomDecorations.con1,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 3.0.w,
+                                ),
+                                const Icon(Icons.search),
+                                SizedBox(
+                                  width: 3.0.w,
+                                ),
+                                AnimatedTextKit(
+                                  animatedTexts: [
+                                    TyperAnimatedText(
+                                      'Search for shops',
+                                      textStyle: AppTextStyles.labelSmall
+                                          .copyWith(color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                const Spacer(),
+                                Text(
+                                  "$cityName",
+                                  style: AppTextStyles.labelSmall,
+                                ),
+                                SizedBox(
+                                  width: 5.0.w,
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -1398,7 +1413,6 @@ class _HomeState extends State<Home> {
                                       padding: EdgeInsets.only(
                                           left: 3.0.w, top: 0.3.h),
                                       child: SizedBox(
-
                                         width: 40.0.w,
                                         child: Text(
                                             "Let us help you navigate the renting, buying, selling & investing experience",
@@ -1468,7 +1482,6 @@ class _HomeState extends State<Home> {
                                                         fit: BoxFit.cover,
                                                       ),
                                                     ),
-
                                                   ),
                                                   SizedBox(
                                                     height: 1.0.h,
@@ -1495,7 +1508,6 @@ class _HomeState extends State<Home> {
                                                                         index]!
                                                                     .createdAt
                                                                     .toString())),
-
                                                         style: AppTextStyles
                                                             .labelSmall
                                                             .copyWith(

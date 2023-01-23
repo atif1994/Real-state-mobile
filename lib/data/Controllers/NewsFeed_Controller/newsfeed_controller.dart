@@ -8,10 +8,9 @@ class NewsFeedController extends GetxController {
   RxBool loadingnewspost = false.obs;
   var newsfeedmodel = NewsfeedModel();
   RxString errorLoadingnewsfeed = ''.obs;
+
   @override
-  void onInit() {
-    getnewsfeedcomment();
-  }
+  void onInit() {}
 
   void getnewsfeedcomment() async {
     loadingnewspost.value = true;

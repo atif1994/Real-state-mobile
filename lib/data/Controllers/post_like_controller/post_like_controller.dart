@@ -1,16 +1,17 @@
 import 'package:get/get.dart';
+import 'package:prologic_29/data/Services/post_like_services/post_like_services.dart';
 
 import '../../Models/post_like_response/post_like_response.dart';
-import '../../Services/post_like_services/post_like_services.dart';
 
 class PostLikeController extends GetxController {
   RxBool loadingPostLike = false.obs;
   var postLikeModel = PostLikeResponse();
-  RxString errorLoadingPostLike = ''.obs;
 
+  RxString errorLoadingPostLike = ''.obs;
+  int propertyIndex = 0;
   RxBool isLikedPressed = false.obs;
 
-  void getPostLikeCon(id, uid) async {
+  getPostLikeCon(int index, id, uid) async {
     loadingPostLike.value = true;
     errorLoadingPostLike.value = '';
     var res = await PostLikeServices.getPostLikeServicee(id.toString(), uid);
@@ -23,4 +24,8 @@ class PostLikeController extends GetxController {
       errorLoadingPostLike.value = res.toString();
     }
   }
+}
+
+class CallMethod {
+  final List<Function> _methods = [];
 }

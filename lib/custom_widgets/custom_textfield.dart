@@ -10,8 +10,11 @@ class CustomTextField extends StatelessWidget {
   final Function? onChanged;
   TextEditingController editingController;
 
-  CustomTextField(
-      {this.hintText, this.onChanged, required this.editingController});
+  CustomTextField({
+    this.hintText,
+    this.onChanged,
+    required this.editingController,
+  });
 
   @override
   Widget build(BuildContext context) {
