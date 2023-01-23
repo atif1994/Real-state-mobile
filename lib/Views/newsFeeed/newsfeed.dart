@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/data/Controllers/NewsFeed_Controller/newsfeed_controller.dart';
+import 'package:prologic_29/data/Controllers/comments_controller/post_comments_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
@@ -11,12 +14,38 @@ import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/custom_decorations.dart';
 
-class NewsFeed extends StatelessWidget {
-  final likeController = Get.put(PostLikeController());
-  var newsfeedController = Get.put(NewsFeedController());
+class NewsFeed extends StatefulWidget {
+  const NewsFeed({super.key});
 
-  NewsFeed({super.key});
-  final commentController = TextEditingController();
+  @override
+  State<NewsFeed> createState() => _NewsFeedState();
+}
+
+class _NewsFeedState extends State<NewsFeed> {
+  int uid = 0;
+  final likeController = Get.put(PostLikeController());
+
+  var newsfeedController = Get.put(NewsFeedController());
+  var postCommentsController = Get.put(PostCommentsController());
+
+  final List<TextEditingController> _controllers = [];
+
+  @override
+  void initState() {
+    getUserId();
+    newsfeedController.getnewsfeedcomment();
+    //  assignController();
+
+    super.initState();
+  }
+
+  void getUserId() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    setState(() {
+      uid = pref.getInt("userid") ?? 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +71,10 @@ class NewsFeed extends StatelessWidget {
               : ListView.builder(
                   primary: false,
                   shrinkWrap: true,
-                  itemCount: 10,
+                  itemCount:
+                      newsfeedController.newsfeedmodel.data!.data!.length,
                   itemBuilder: (context, index) {
-                    var islike = likeController.postLikeModel.notdeleted;
+                    _controllers.add(TextEditingController());
                     return Column(
                       children: [
                         Container(
@@ -254,26 +284,32 @@ class NewsFeed extends StatelessWidget {
                                 //   AppImageResources.bed,
                                 //   height: 4.0.h,
                                 // ),
-                                IconButton(
-                                    onPressed: () {
-                                      likeController.getPostLikeCon(
-                                          newsfeedController
-                                              .newsfeedmodel
-                                              .data!
-                                              .data![index]
-                                              .features![index]
-                                              .pivot!
-                                              .propertyId,
-                                          273);
-                                    },
-                                    icon: islike == 0
-                                        ? const Icon(
-                                            Icons.favorite_border,
-                                          )
-                                        : const Icon(
-                                            Icons.favorite_outlined,
-                                            color: Colors.red,
-                                          )),
+                                Obx(
+                                  () => likeController.loadingPostLike.value
+                                      ? const SizedBox()
+                                      : IconButton(
+                                          onPressed: () async {
+                                            await Future.delayed(
+                                                const Duration(seconds: 1));
+
+                                            likeController.getPostLikeCon(
+                                                index,
+                                                newsfeedController.newsfeedmodel
+                                                    .data!.data![index].id
+                                                    .toString(),
+                                                uid);
+                                          },
+                                          icon: likeController.postLikeModel
+                                                      .likeCount ==
+                                                  1
+                                              ? const Icon(
+                                                  Icons.favorite_border,
+                                                )
+                                              : const Icon(
+                                                  Icons.favorite_outlined,
+                                                  color: Colors.red,
+                                                )),
+                                ),
                                 // const Icon(Icons.favorite_border_outlined),
                                 Text(
                                   "Like",
@@ -307,17 +343,70 @@ class NewsFeed extends StatelessWidget {
                                 )
                               ]),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              right: 5.0.w,
-                              left: 5.0.w,
-                              top: index == 0 ? 1.0.h : 2.0.h),
-                          height: 6.4.h,
-                          width: 100.w,
-                          decoration: CustomDecorations.mainCon,
-                          child: CustomTextField(
-                            editingController: commentController,
-                            hintText: 'Write Comment....',
+                        Padding(
+                          padding: EdgeInsets.only(
+                              right: 4.0.w, left: 4.0.w, top: 2.0.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                child: CustomTextField(
+                                  editingController: _controllers[index],
+                                  hintText: 'Write Comment....',
+                                ),
+                              ),
+                              SizedBox(
+                                width: 3.0.w,
+                              ),
+                              Container(
+                                  height: 12.0.w,
+                                  width: 12.0.w,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.appthem,
+                                      borderRadius: BorderRadius.circular(300)),
+                                  child: Obx(
+                                    () => postCommentsController
+                                            .loadingpostComments.value
+                                        ? const Center(
+                                            child: Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: CircularProgressIndicator(
+                                                  color: AppColors.colorWhite),
+                                            ),
+                                          )
+                                        : postCommentsController
+                                                    .errorLoadingPostComments
+                                                    .value !=
+                                                ""
+                                            ? showToast(postCommentsController
+                                                .errorLoadingPostComments.value)
+                                            : Center(
+                                                child: IconButton(
+                                                    color: AppColors.colorWhite,
+                                                    onPressed: () {
+                                                      postCommentsController
+                                                          .postComments(
+                                                              index,
+                                                              newsfeedController
+                                                                  .newsfeedmodel
+                                                                  .data!
+                                                                  .data![index]
+                                                                  .id,
+                                                              uid,
+                                                              _controllers[
+                                                                      index]
+                                                                  .text);
+
+                                                      _controllers[index]
+                                                          .clear();
+                                                    },
+                                                    icon: const Icon(
+                                                      Icons.send,
+                                                      size: 20,
+                                                    )),
+                                              ),
+                                  ))
+                            ],
                           ),
                         )
                       ],
@@ -328,6 +417,10 @@ class NewsFeed extends StatelessWidget {
         ],
       )),
     );
+  }
+
+  showToast(String message) {
+    return Fluttertoast.showToast(msg: message);
   }
 }
 

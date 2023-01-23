@@ -192,6 +192,7 @@ class Datum {
   City? city;
   List<dynamic>? country;
   State? state;
+
   Category? category;
   Type? type;
   Currency? currency;

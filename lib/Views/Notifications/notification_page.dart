@@ -8,9 +8,22 @@ import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
 import '../../utils/styles/custom_decorations.dart';
 
-class AllNotifications extends StatelessWidget {
+class AllNotifications extends StatefulWidget {
+  String? payload;
+  AllNotifications({super.key, this.payload});
+
+  @override
+  State<AllNotifications> createState() => _AllNotificationsState();
+}
+
+class _AllNotificationsState extends State<AllNotifications> {
   final notificationsController = Get.put(Notificationcontroller());
-  AllNotifications({super.key});
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
