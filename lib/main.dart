@@ -28,8 +28,7 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             )),
-        //////////////helooooooooooooooooooooooooooooooooooooooooooooooooooo
-        ////////Amnaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
         home:
             //Profile_Page()
             // const NewsFeed(),

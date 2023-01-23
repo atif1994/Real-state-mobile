@@ -6,7 +6,7 @@ class AddProperrtyController extends GetxController {
   @override
   void onInit() {
     print("add property???????????");
-   // getAddProperty();
+    // getAddProperty();
 
     super.onInit();
   }
@@ -17,12 +17,51 @@ class AddProperrtyController extends GetxController {
   var addPropertyModel = AddPropertyModel();
   RxString errorLoadingAddProperty = ''.obs;
 
-  void getAddProperty(name,disp) async {
-    var res = await AddPropertyServices.addPropertyAPI(name, disp);
+  void getAddProperty(
+    name,
+    disp,
+    content,
+    block,
+    streetNo,
+    plotNo,
+    location,
+    cityId,
+    stateId,
+    price,
+    currency,
+    square,
+    numberFloor,
+    bathNo,
+    bedroomNo,
+    categoryId,
+    typeId,
+    feature,
+    facilities,
+  ) async {
+    var res = await AddPropertyServices.addPropertyAPI(
+        name: name,
+        disp: disp,
+        content: content,
+        block: block,
+        streetNo: streetNo,
+        plotNo: plotNo,
+        location: location,
+        cityId: cityId,
+        stateId: stateId,
+        price: price,
+        currency: currency,
+        square: square,
+        numberFloor: numberFloor,
+        bathNo: bathNo,
+        bedroomNo: bedroomNo,
+        categoryId: categoryId,
+        typeId: typeId,
+        feature: feature,
+        facilities: facilities);
     if (res is AddPropertyModel) {
       addPropertyModel = res;
     } else {
-      errorLoadingAddProperty.value = res.toString();
+      errorLoadingAddProperty.value = res.to();
     }
   }
 }

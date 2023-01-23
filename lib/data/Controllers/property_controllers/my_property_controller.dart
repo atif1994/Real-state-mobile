@@ -25,7 +25,7 @@ class MyPropertyController extends GetxController {
 
     userId = pref.getInt('userid');
 
-    print("*****************$userId");
+    print("*************$userId");
   }
 
   void getMyPropertise(userId) async {

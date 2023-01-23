@@ -142,8 +142,6 @@ class _PropertyState extends State<Property>
   ];
 
   var addPropertyController = Get.put(AddProperrtyController());
-  final nameController = TextEditingController();
-  final dispController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +220,7 @@ class _PropertyState extends State<Property>
                         ],
                       ),
                       MyTextField2(
-                        controller: nameController,
+                        controller: titleController,
                       ),
                     ],
                   ),
@@ -263,7 +261,7 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      const MyTextField2(),
+                       MyTextField2(controller: contentController,),
                     ],
                   ),
                   Row(
@@ -457,7 +455,7 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      const MyTextField2(),
+                      MyTextField2(controller: locatController,),
                     ],
                   ),
                   Column(
@@ -476,7 +474,7 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      const MyTextField2(),
+                      MyTextField2(controller: sectorController,),
                     ],
                   ),
                   Column(
@@ -495,7 +493,7 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      const MyTextField2(),
+                     MyTextField2(controller: plotNoController,),
                     ],
                   ),
                   Column(
@@ -514,7 +512,7 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      const MyTextField2(),
+                      MyTextField2(controller: streetNoController,),
                     ],
                   ),
                   Column(
@@ -534,7 +532,7 @@ class _PropertyState extends State<Property>
                         ],
                       ),
                       MyTextField2(
-                        controller: minPriceRangeController,
+                        controller: priceController,
                         textInputType: TextInputType.number,
                         onChanged: (v) {
                           minPriceRange = double.parse(v);
@@ -560,7 +558,7 @@ class _PropertyState extends State<Property>
                         ],
                       ),
                       MyTextField2(
-                        controller: minAreaRangeController,
+                        controller: squareController,
                         textInputType: TextInputType.number,
                         onChanged: (v) {
                           minAreaRange = double.parse(v);
@@ -578,6 +576,7 @@ class _PropertyState extends State<Property>
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: horizontalPadding),
+                                  // define
                               child: Text('Currency',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
@@ -585,6 +584,7 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
+                      //define
                       Padding(
                         padding: const EdgeInsets.only(right: 180),
                         child: DropdownButton(
@@ -992,7 +992,25 @@ class _PropertyState extends State<Property>
                         onTap: () {
                           setState(() {
                             addPropertyController.getAddProperty(
-                                nameController.text, dispController.text);
+                                titleController.text,
+                                dispController.text,
+                                contentController.text,
+                                sectorController.text,
+                                streetNoController.text,
+                                plotNoController.text,
+                                locatController.text,
+                                cityController.text,
+                                stateController.text,
+                                priceController.text,
+                                currController.text,
+                                squareController.text,
+                                floorNoController.text,
+                                selectedBathroom,
+                                selectedBedroom,
+                                categoryController.text,
+                                typeController.text,
+                                features,
+                                facilities);
                           });
                         },
                         text: 'Add Property'),
@@ -1005,4 +1023,27 @@ class _PropertyState extends State<Property>
       ),
     );
   }
+
+  final titleController = TextEditingController();
+  final dispController = TextEditingController();
+  final contentController = TextEditingController();
+  final cityController = TextEditingController();
+  final typeController = TextEditingController();
+  final locatController = TextEditingController();
+  final sectorController = TextEditingController();
+  final plotNoController = TextEditingController();
+  final streetNoController = TextEditingController();
+  final priceController = TextEditingController();
+  final squareController = TextEditingController();
+  final currController = TextEditingController();
+  final bedroomController = TextEditingController();
+  final bathController = TextEditingController();
+  final floorNoController = TextEditingController();
+  final distanceController = TextEditingController();
+  final stateController = TextEditingController();
+
+  final categoryController = TextEditingController();
+  final imgpath = TextEditingController();
+
+  List<Feature> features = [];
 }

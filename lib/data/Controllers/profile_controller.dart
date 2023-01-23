@@ -18,7 +18,7 @@ class ProfileController extends GetxController {
           //get image url from api response
           imageURL = response.data['user']['image'];
 
-          Get.snackbar('Success', 'Image uploaded successfully',
+          Get.snackbar('Success', 'Image uploadedd successfully',
               margin: const EdgeInsets.only(top: 5, left: 10, right: 10));
         } else if (response.statusCode == 401) {
           Get.offAllNamed('/sign_up');
