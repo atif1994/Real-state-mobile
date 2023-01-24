@@ -202,7 +202,7 @@ class Datum {
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         name: json["name"]!,
-        description: json["description"]!,
+        description: json["description"],
         content: contentValues.map[json["content"]]!,
         location: json["location"],
         images: json["images"] == null
