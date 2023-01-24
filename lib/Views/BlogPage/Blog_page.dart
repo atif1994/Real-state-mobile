@@ -15,7 +15,7 @@ class Blogpage2 extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.appthem,
         centerTitle: true,
-        title: Text("Living in Prologic", style: AppTextStyles.heading1),
+        title: Text("Liviing in Prologic", style: AppTextStyles.heading1),
       ),
       body: SingleChildScrollView(
         child: Column(children: [
