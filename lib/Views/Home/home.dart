@@ -250,7 +250,7 @@ class _HomeState extends State<Home> {
                                 AnimatedTextKit(
                                   animatedTexts: [
                                     TyperAnimatedText(
-                                      'Search for shops',
+                                      'Search for shoops',
                                       textStyle: AppTextStyles.labelSmall
                                           .copyWith(color: Colors.grey),
                                     ),

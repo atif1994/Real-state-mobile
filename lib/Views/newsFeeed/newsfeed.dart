@@ -312,7 +312,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                 ),
                                 // const Icon(Icons.favorite_border_outlined),
                                 Text(
-                                  "Like",
+                                  "Likee",
                                   style: AppTextStyles.labelSmall.copyWith(
                                     fontSize: 13.sp,
                                   ),
