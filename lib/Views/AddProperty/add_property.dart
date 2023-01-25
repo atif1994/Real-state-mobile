@@ -32,7 +32,7 @@ class _PropertyState extends State<Property>
   bool checkBoxValue6 = false;
   String dropdownvalue = 'PKR';
   String dropdownvalue3 = 'Apartment';
-
+  final _formKey = GlobalKey<FormState>();
   // List of items in our dropdown menu
   var items = [
     'PKR',
@@ -69,7 +69,8 @@ class _PropertyState extends State<Property>
     'Other'
   ];
 
-  int selectedPropertyType = 0;
+  int selectedPropertyCategory = 0;
+  int selectedCategory = 0;
 
   double minPriceRange = 0.0;
   double maxPriceRange = 100.0;
@@ -112,7 +113,7 @@ class _PropertyState extends State<Property>
   int selectedBedroom = 0;
 
   List<String> bathroomList = ['Any', '1', '2', '3', '4', '5', '6+'];
-  String selectedBathroom = 'Any';
+  int selectedBathroom = 0;
   List<String> floorList = [
     'Any',
     '1',
@@ -122,7 +123,12 @@ class _PropertyState extends State<Property>
     '5',
     '6+',
   ];
-  String selectedFloor = 'Any';
+  int selectedFloor = 0;
+
+  List facilitiesList = [];
+  List kmList = [];
+  String? km;
+
   var postDataproperty = PostDataProperty();
   @override
   void initState() {
@@ -133,7 +139,6 @@ class _PropertyState extends State<Property>
 
     minPriceRangeController.text = minPriceRange.round().toString();
     maxPriceRangeController.text = maxPriceRange.round().toString();
-
     minAreaRangeController.text = minAreaRange.round().toString();
     maxAreaRangeController.text = maxAreaRange.round().toString();
   }
@@ -146,7 +151,15 @@ class _PropertyState extends State<Property>
     'Play Ground',
     'Park',
   ];
-
+  List<dynamic> featuresList = [
+    'Balcony',
+    'Security Staff',
+    'Parking Area',
+    'Electricity',
+    'Accessible by Road',
+    'Sui Gas'
+  ];
+  List<dynamic> addFeaturesList = [];
   var addPropertyController = Get.put(AddProperrtyController());
   var cityListController = Get.put(DashboardController());
   List citiese = [];
@@ -156,8 +169,6 @@ class _PropertyState extends State<Property>
       citiese.add(cityListController.citiesModel.data![i]?.name ?? "");
     }
   }
-
-  dynamic selectedValueCity = 'City';
 
   @override
   Widget build(BuildContext context) {
@@ -286,7 +297,7 @@ class _PropertyState extends State<Property>
                     children: [
                       Row(
                         children: const [
-                          Icon(Icons.location_city),
+                          Icon(Icons.location_on_outlined),
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.symmetric(
@@ -298,9 +309,12 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      MyTextField2(
-                        controller: cityController,
-                      ),
+                      Obx(() => ListTile(
+                            leading: const Icon(Icons.location_on_outlined),
+                            title: Text(
+                                addPropertyController.selectedValueCity.value),
+                            onTap: () => _showCityList(),
+                          ))
                     ],
                   ),
 
@@ -387,12 +401,12 @@ class _PropertyState extends State<Property>
                                   child: GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        selectedPropertyType = index;
+                                        selectedPropertyCategory = index;
                                       });
                                     },
                                     child: Chip(
                                       backgroundColor:
-                                          selectedPropertyType == index
+                                          selectedPropertyCategory == index
                                               ? primaryColor
                                               : Colors.grey[200],
                                       label: Padding(
@@ -401,10 +415,11 @@ class _PropertyState extends State<Property>
                                           child: Text(
                                               homePropertyTypeList[index],
                                               style: TextStyle(
-                                                  color: selectedPropertyType ==
-                                                          index
-                                                      ? Colors.white
-                                                      : Colors.black))),
+                                                  color:
+                                                      selectedPropertyCategory ==
+                                                              index
+                                                          ? Colors.white
+                                                          : Colors.black))),
                                     ),
                                   ),
                                 );
@@ -422,12 +437,12 @@ class _PropertyState extends State<Property>
                                   child: GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        selectedPropertyType = index;
+                                        selectedPropertyCategory = index;
                                       });
                                     },
                                     child: Chip(
                                       backgroundColor:
-                                          selectedPropertyType == index
+                                          selectedPropertyCategory == index
                                               ? primaryColor
                                               : Colors.grey[200],
                                       label: Padding(
@@ -435,10 +450,11 @@ class _PropertyState extends State<Property>
                                             horizontal: 5),
                                         child: Text(plotPropertyTypeList[index],
                                             style: TextStyle(
-                                                color: selectedPropertyType ==
-                                                        index
-                                                    ? Colors.white
-                                                    : Colors.black)),
+                                                color:
+                                                    selectedPropertyCategory ==
+                                                            index
+                                                        ? Colors.white
+                                                        : Colors.black)),
                                       ),
                                     ),
                                   ),
@@ -457,12 +473,12 @@ class _PropertyState extends State<Property>
                                   child: GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        selectedPropertyType = index;
+                                        selectedPropertyCategory = index;
                                       });
                                     },
                                     child: Chip(
                                       backgroundColor:
-                                          selectedPropertyType == index
+                                          selectedPropertyCategory == index
                                               ? primaryColor
                                               : Colors.grey[200],
                                       label: Padding(
@@ -471,10 +487,11 @@ class _PropertyState extends State<Property>
                                         child: Text(
                                             commercialPropertyTypeList[index],
                                             style: TextStyle(
-                                                color: selectedPropertyType ==
-                                                        index
-                                                    ? Colors.white
-                                                    : Colors.black)),
+                                                color:
+                                                    selectedPropertyCategory ==
+                                                            index
+                                                        ? Colors.white
+                                                        : Colors.black)),
                                       ),
                                     ),
                                   ),
@@ -734,36 +751,70 @@ class _PropertyState extends State<Property>
                           )),
                         ],
                       ),
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        children: bathroomList
-                            .map((e) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedBathroom = e;
-                                      });
-                                    },
-                                    child: Chip(
-                                      backgroundColor: selectedFloor == e
-                                          ? AppColors.appthem
-                                          : Colors.grey[200],
-                                      label: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 5),
-                                        child: Text(e,
-                                            style: TextStyle(
-                                                color: selectedFloor == e
-                                                    ? Colors.white
-                                                    : Colors.black)),
-                                      ),
-                                    ),
+                      SizedBox(
+                        height: 12.h,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: bathroomList.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedBathroom = index;
+                                  });
+                                },
+                                child: Chip(
+                                  backgroundColor: selectedBathroom == index
+                                      ? AppColors.appthem
+                                      : Colors.grey[200],
+                                  label: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Text(bathroomList[index],
+                                        style: TextStyle(
+                                            color: selectedBathroom == index
+                                                ? Colors.white
+                                                : Colors.black)),
                                   ),
-                                ))
-                            .toList(),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
+                      // Wrap(
+                      //   alignment: WrapAlignment.center,
+                      //   children: bathroomList
+                      //       .map((e) => Padding(
+                      //             padding:
+                      //                 const EdgeInsets.symmetric(horizontal: 5),
+                      //             child: GestureDetector(
+                      //               onTap: () {
+                      //                 setState(() {
+                      //                   selectedBathroom = e;
+                      //                 });
+                      //               },
+                      //               child: Chip(
+                      //                 backgroundColor: selectedFloor == e
+                      //                     ? AppColors.appthem
+                      //                     : Colors.grey[200],
+                      //                 label: Padding(
+                      //                   padding: const EdgeInsets.symmetric(
+                      //                       horizontal: 5),
+                      //                   child: Text(e,
+                      //                       style: TextStyle(
+                      //                           color: selectedFloor == e
+                      //                               ? Colors.white
+                      //                               : Colors.black)),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ))
+                      //       .toList(),
+                      // ),
                     ],
                   ),
                   myDivider(),
@@ -781,35 +832,69 @@ class _PropertyState extends State<Property>
                           )),
                         ],
                       ),
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        children: floorList
-                            .map((e) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedFloor = e;
-                                      });
-                                    },
-                                    child: Chip(
-                                      backgroundColor: selectedFloor == e
-                                          ? AppColors.appthem
-                                          : Colors.grey[200],
-                                      label: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 5),
-                                        child: Text(e,
-                                            style: TextStyle(
-                                                color: selectedFloor == e
-                                                    ? Colors.white
-                                                    : Colors.black)),
-                                      ),
-                                    ),
+                      // Wrap(
+                      //   alignment: WrapAlignment.center,
+                      //   children: floorList
+                      //       .map((e) => Padding(
+                      //             padding:
+                      //                 const EdgeInsets.symmetric(horizontal: 5),
+                      //             child: GestureDetector(
+                      //               onTap: () {
+                      //                 setState(() {
+                      //                   selectedFloor = e;
+                      //                 });
+                      //               },
+                      //               child: Chip(
+                      //                 backgroundColor: selectedFloor == e
+                      //                     ? AppColors.appthem
+                      //                     : Colors.grey[200],
+                      //                 label: Padding(
+                      //                   padding: const EdgeInsets.symmetric(
+                      //                       horizontal: 5),
+                      //                   child: Text(e,
+                      //                       style: TextStyle(
+                      //                           color: selectedFloor == e
+                      //                               ? Colors.white
+                      //                               : Colors.black)),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ))
+                      //       .toList(),
+                      // ),
+                      SizedBox(
+                        height: 12.h,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: floorList.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedFloor = index;
+                                  });
+                                },
+                                child: Chip(
+                                  backgroundColor: selectedFloor == index
+                                      ? AppColors.appthem
+                                      : Colors.grey[200],
+                                  label: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Text(floorList[index],
+                                        style: TextStyle(
+                                            color: selectedFloor == index
+                                                ? Colors.white
+                                                : Colors.black)),
                                   ),
-                                ))
-                            .toList(),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -826,6 +911,48 @@ class _PropertyState extends State<Property>
                 ],
               ),
               myDivider(),
+
+              SizedBox(
+                height: 15.h,
+                width: 120.w,
+                child: facilitiesList.isEmpty
+                    ? const Center(
+                        child: Text("Add Some Facilities"),
+                      )
+                    : ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: facilitiesList.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                child: ListTile(
+                                  title: Row(
+                                    children: [
+                                      Text(facilitiesList[index]),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      Text("KM: ${kmList[index]}"),
+                                    ],
+                                  ),
+                                  trailing: GestureDetector(
+                                    child: const Icon(Icons.delete),
+                                    onTap: () {
+                                      kmList.removeAt(index);
+                                      facilitiesList.removeAt(index);
+                                      setState(() {});
+                                    },
+                                  ),
+                                )),
+                          );
+                        },
+                      ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               Column(
                 children: [
                   DecoratedBox(
@@ -857,52 +984,76 @@ class _PropertyState extends State<Property>
                   SizedBox(
                     height: 1.5.h,
                   ),
-                  TextField(
-                    decoration: InputDecoration(
-                        hintText: 'Kilometer (km)',
-                        contentPadding: const EdgeInsets.all(10),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onChanged: (value) {
-                      // do something
-                    },
+                  Form(
+                    key: _formKey,
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Km';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          hintText: 'Kilometer (km)',
+                          contentPadding: const EdgeInsets.all(10),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      onChanged: (value) {
+                        km = value;
+                      },
+                    ),
                   ),
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 12),
-                child: MyButton(onTap: () {}, text: 'Add New'),
+                child: MyButton(
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          facilitiesList.add(dropdownvalue22);
+                          kmList.add(km);
+                          // facilitiesList.clear();
+                          // kmList.clear();
+                        });
+                      }
+                    },
+                    text: 'Add New'),
               ),
               SizedBox(
                 height: 2.0.h,
               ),
-              Row(
-                children: [
-                  const Text('Type',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  SizedBox(
-                    height: 3.0.h,
-                  ),
-                ],
-              ),
-              myDivider(),
-              Column(
-                children: [
-                  Row(
-                    children: const [
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: horizontalPadding),
-                          child: Text('Type',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                      )
-                    ],
-                  ),
-                  const MyTextField2(),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     const Text('Type',
+              //         style: TextStyle(fontWeight: FontWeight.bold)),
+              //     SizedBox(
+              //       height: 3.0.h,
+              //     ),
+              //   ],
+              // ),
+
+              //myDivider(),
+              // Column(
+              //   children: [
+              //     Row(
+              //       children: const [
+              //         Expanded(
+              //           child: Padding(
+              //             padding: EdgeInsets.symmetric(
+              //                 horizontal: horizontalPadding),
+              //             child: Text('Type',
+              //                 style: TextStyle(fontWeight: FontWeight.bold)),
+              //           ),
+              //         )
+              //       ],
+              //     ),
+              //     const MyTextField2(),
+              //   ],
+              // ),
+
               SizedBox(
                 height: 1.0.h,
               ),
@@ -914,9 +1065,13 @@ class _PropertyState extends State<Property>
                 Checkbox(
                     value: checkBoxValue1,
                     onChanged: (value) {
-                      print(value);
                       setState(() {
                         checkBoxValue1 = value!;
+                        if (checkBoxValue1 == true) {
+                          addFeaturesList.add(featuresList[0]);
+                        } else {
+                          addFeaturesList.remove("Balcony");
+                        }
                       });
                     }),
                 const Text('Balcony')
@@ -925,9 +1080,13 @@ class _PropertyState extends State<Property>
                 Checkbox(
                     value: checkBoxValue2,
                     onChanged: (value) {
-                      print(value);
                       setState(() {
                         checkBoxValue2 = value!;
+                        if (value == true) {
+                          addFeaturesList.add(featuresList[1]);
+                        } else {
+                          addFeaturesList.remove('Security Staff');
+                        }
                       });
                     }),
                 const Text('Security Staff')
@@ -936,9 +1095,13 @@ class _PropertyState extends State<Property>
                 Checkbox(
                     value: checkBoxValue3,
                     onChanged: (value) {
-                      print(value);
                       setState(() {
                         checkBoxValue3 = value!;
+                        if (value == true) {
+                          addFeaturesList.add(featuresList[2]);
+                        } else {
+                          addFeaturesList.remove('Parking Area');
+                        }
                       });
                     }),
                 const Text('Parking Area')
@@ -947,9 +1110,13 @@ class _PropertyState extends State<Property>
                 Checkbox(
                     value: checkBoxValue4,
                     onChanged: (value) {
-                      print(value);
                       setState(() {
                         checkBoxValue4 = value!;
+                        if (value == true) {
+                          addFeaturesList.add(featuresList[3]);
+                        } else {
+                          addFeaturesList.remove('Electricity');
+                        }
                       });
                     }),
                 const Text('Electricity')
@@ -958,9 +1125,13 @@ class _PropertyState extends State<Property>
                 Checkbox(
                     value: checkBoxValue5,
                     onChanged: (value) {
-                      print(value);
                       setState(() {
                         checkBoxValue5 = value!;
+                        if (value == true) {
+                          addFeaturesList.add(featuresList[4]);
+                        } else {
+                          addFeaturesList.remove('Accessible by Road');
+                        }
                       });
                     }),
                 const Text('Accessible by Road')
@@ -969,9 +1140,15 @@ class _PropertyState extends State<Property>
                 Checkbox(
                     value: checkBoxValue6,
                     onChanged: (value) {
-                      print(value);
                       setState(() {
                         checkBoxValue6 = value!;
+                        if (value == true) {
+                          addFeaturesList.add(featuresList[5]);
+                          print("Add Feature =====>>>$addFeaturesList");
+                        } else {
+                          addFeaturesList.remove('Sui Gas');
+                          print("remove Feature =====>>>$addFeaturesList");
+                        }
                       });
                     }),
                 const Text('Sui Gas'),
@@ -996,68 +1173,72 @@ class _PropertyState extends State<Property>
                 ],
               ),
               myDivider(),
-              Row(
-                children: const [
-                  Text('Category',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                ],
-              ),
-              SizedBox(
-                height: 1.5.h,
-              ),
+              // Row(
+              //   children: const [
+              //     Text('Category',
+              //         style: TextStyle(fontWeight: FontWeight.bold)),
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: 1.5.h,
+              // ),
               Column(
                 children: [
-                  DecoratedBox(
-                    // decoration: CustomDecorations.mainCon,
-                    decoration: BoxDecoration(
+                  // DecoratedBox(
+                  //   // decoration: CustomDecorations.mainCon,
+                  //   decoration: BoxDecoration(
 
-                        // borderRadius: BorderRadius.circular(5),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        color: const Color.fromARGB(255, 241, 239, 239),
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 168, 166, 166),
-                            width: 1)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: DropdownButton(
-                        isExpanded: true,
-                        // Initial Value
-                        value: dropdownvalue3,
+                  //       // borderRadius: BorderRadius.circular(5),
+                  //       borderRadius:
+                  //           const BorderRadius.all(Radius.circular(10)),
+                  //       color: const Color.fromARGB(255, 241, 239, 239),
+                  //       border: Border.all(
+                  //           color: const Color.fromARGB(255, 168, 166, 166),
+                  //           width: 1)),
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     child: DropdownButton(
+                  //       isExpanded: true,
+                  //       // Initial Value
+                  //       value: dropdownvalue3,
 
-                        // Down Arrow Icon
-                        icon: const Icon(Icons.keyboard_arrow_down),
+                  //       // Down Arrow Icon
+                  //       icon: const Icon(Icons.keyboard_arrow_down),
 
-                        // Array list of items
-                        items: newitems.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
-                        // After selecting the desired option,it will
-                        // change button value to selected value
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownvalue3 = newValue!;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  myDivider(),
+                  //       // Array list of items
+                  //       items: newitems.map((String items) {
+                  //         return DropdownMenuItem(
+                  //           value: items,
+                  //           child: Text(items),
+                  //         );
+                  //       }).toList(),
+                  //       // After selecting the desired option,it will
+                  //       // change button value to selected value
+                  //       onChanged: (String? newValue) {
+                  //         setState(() {
+                  //           dropdownvalue3 = newValue!;
+                  //         });
+                  //       },
+                  //     ),
+                  //   ),
+                  // ),
+
+                  //  myDivider(),
                   Padding(
                     padding: const EdgeInsets.only(top: 1),
                     child: MyButton(
                         onTap: () {
-                          print(titleController.text);
                           setState(() {
                             AddPropertyServices.addPropertyAPI(
                               name: titleController.text,
                               disp: dispController.text,
                               content: contentController.text,
-                              cityId: cityController.text,
-                              categoryId: selectedPropertyType,
+                              cityId: addPropertyController
+                                  .selectedValueCityId.value
+                                  .toString(),
+                              //type sell or rent
+                              typeId: iWantTo,
+                              categoryId: selectedPropertyCategory,
                               location: locatController.text,
                               block: sectorController.text,
                               plotNo: plotNoController.text,
@@ -1065,6 +1246,9 @@ class _PropertyState extends State<Property>
                               price: priceController.text,
                               square: squareController.text,
                               bedroomNo: selectedBedroom,
+                              bathNo: selectedBathroom,
+                              numberFloor: selectedFloor.toString(),
+                              feature: addFeaturesList,
 
                               // titleController.text,
                               // dispController.text,
@@ -1111,14 +1295,80 @@ class _PropertyState extends State<Property>
   final priceController = TextEditingController();
   final squareController = TextEditingController();
   final currController = TextEditingController();
-  final bedroomController = TextEditingController();
-  final bathController = TextEditingController();
-  final floorNoController = TextEditingController();
   final distanceController = TextEditingController();
   final stateController = TextEditingController();
-
-  final categoryController = TextEditingController();
   final imgpath = TextEditingController();
-
   List<Feature> features = [];
+
+  //City Alert Dialog Box
+  Future<void> _showCityList() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Select City'),
+          content: SizedBox(
+              height: Get.height * .3,
+              width: 100,
+              child: ListView.builder(
+                //scrollDirection: Axis.horizontal,
+                itemCount: citiese.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: GestureDetector(
+                      onTap: () {
+                        addPropertyController.selectedValueCityId.value = index;
+                        addPropertyController.selectedValueCity.value =
+                            citiese[index];
+                      },
+                      child: Obx(() => Chip(
+                            backgroundColor: addPropertyController
+                                        .selectedValueCityId.value ==
+                                    index
+                                ? AppColors.appthem
+                                : Colors.grey[200],
+                            label: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(citiese[index].toString(),
+                                  style: TextStyle(
+                                      color: addPropertyController
+                                                  .selectedValueCityId.value ==
+                                              index
+                                          ? Colors.white
+                                          : Colors.black)),
+                            ),
+                          )),
+                    ),
+                  );
+                },
+              )),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: const BorderSide(color: Colors.black))),
+              ),
+              child: const Text(
+                'Submit',
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
