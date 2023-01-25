@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field_2.dart';
 import 'package:prologic_29/data/Controllers/addProperty_Controller.dart';
+import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
 import 'package:prologic_29/data/Models/addproperty_model/postDataProperty_model.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Services/constants.dart';
+import '../../data/Services/property_services/addproperty_services.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
 
@@ -37,6 +39,7 @@ class _PropertyState extends State<Property>
     'USD',
   ];
   String? selectedValue;
+
   int iWantTo = 0;
 
   late TabController tabController;
@@ -65,7 +68,8 @@ class _PropertyState extends State<Property>
     'Building',
     'Other'
   ];
-  String selectedPropertyType = '';
+
+  int selectedPropertyType = 0;
 
   double minPriceRange = 0.0;
   double maxPriceRange = 100.0;
@@ -105,7 +109,7 @@ class _PropertyState extends State<Property>
     '9',
     '10+'
   ];
-  String selectedBedroom = 'Any';
+  int selectedBedroom = 0;
 
   List<String> bathroomList = ['Any', '1', '2', '3', '4', '5', '6+'];
   String selectedBathroom = 'Any';
@@ -123,6 +127,7 @@ class _PropertyState extends State<Property>
   @override
   void initState() {
     // TODO: implement onInit
+    getCitiese();
     super.initState();
     tabController = TabController(length: 3, vsync: this);
 
@@ -133,7 +138,8 @@ class _PropertyState extends State<Property>
     maxAreaRangeController.text = maxAreaRange.round().toString();
   }
 
-  String dropdownvalue2 = 'Select Facility';
+  String dropdownvalue22 = 'Select Facility';
+
   var facilities = [
     'Select Facility',
     'Mosque Nearby',
@@ -142,6 +148,16 @@ class _PropertyState extends State<Property>
   ];
 
   var addPropertyController = Get.put(AddProperrtyController());
+  var cityListController = Get.put(DashboardController());
+  List citiese = [];
+
+  void getCitiese() {
+    for (int i = 0; i < cityListController.citiesModel.data!.length; i++) {
+      citiese.add(cityListController.citiesModel.data![i]?.name ?? "");
+    }
+  }
+
+  dynamic selectedValueCity = 'City';
 
   @override
   Widget build(BuildContext context) {
@@ -261,34 +277,72 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                       MyTextField2(controller: contentController,),
+                      MyTextField2(
+                        controller: contentController,
+                      ),
                     ],
                   ),
-                  Row(
+                  Column(
                     children: [
-                      const Icon(Icons.location_on_outlined),
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: horizontalPadding),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 5),
+                      Row(
+                        children: const [
+                          Icon(Icons.location_city),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: horizontalPadding),
                               child: Text('City',
-                                  textScaleFactor: 1.25,
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ),
-                            Text('Islamabad',
-                                style: TextStyle(color: AppColors.appthem)),
-                          ],
-                        ),
-                      )),
-                      const Icon(Icons.arrow_forward_ios),
+                          )
+                        ],
+                      ),
+                      MyTextField2(
+                        controller: cityController,
+                      ),
                     ],
                   ),
+
+                  // Row(
+                  //   children: [
+                  //     const Icon(Icons.location_on_outlined),
+                  //     Expanded(
+                  //         child: Padding(
+                  //       padding: const EdgeInsets.symmetric(
+                  //           horizontal: horizontalPadding),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: [
+                  //           const Text('City',
+                  //               textScaleFactor: 1.25,
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //           //   Text('Islamabad',
+                  //           //       style: TextStyle(color: AppColors.appthem)),
+                  //           // Padding(
+                  //           //   padding: const EdgeInsets.all(10),
+                  //           //   child: DropdownButton(
+                  //           //       isExpanded: true,
+                  //           //       value: dropdownvalue,
+                  //           //       items: items.map((String items) {
+                  //           //         return DropdownMenuItem(
+                  //           //           value: items,
+                  //           //           child: Text(items.toString()),
+                  //           //         );
+                  //           //       }).toList(),
+                  //           //       onChanged: (String? newValue) {
+                  //           //         setState(() {
+                  //           //           selectedValueCity = newValue!;
+                  //           //         });
+                  //           //       }),
+                  //           // ),
+
+                  //         ],
+                  //       ),
+                  //     )),
+                  //     const Icon(Icons.arrow_forward_ios),
+                  //   ],
+                  // ),
                   myDivider(),
                   SizedBox(
                     height: 120,
@@ -333,15 +387,14 @@ class _PropertyState extends State<Property>
                                   child: GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        selectedPropertyType =
-                                            homePropertyTypeList[index];
+                                        selectedPropertyType = index;
                                       });
                                     },
                                     child: Chip(
-                                      backgroundColor: selectedPropertyType ==
-                                              homePropertyTypeList[index]
-                                          ? primaryColor
-                                          : Colors.grey[200],
+                                      backgroundColor:
+                                          selectedPropertyType == index
+                                              ? primaryColor
+                                              : Colors.grey[200],
                                       label: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 5),
@@ -349,8 +402,7 @@ class _PropertyState extends State<Property>
                                               homePropertyTypeList[index],
                                               style: TextStyle(
                                                   color: selectedPropertyType ==
-                                                          homePropertyTypeList[
-                                                              index]
+                                                          index
                                                       ? Colors.white
                                                       : Colors.black))),
                                     ),
@@ -370,23 +422,21 @@ class _PropertyState extends State<Property>
                                   child: GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        selectedPropertyType =
-                                            plotPropertyTypeList[index];
+                                        selectedPropertyType = index;
                                       });
                                     },
                                     child: Chip(
-                                      backgroundColor: selectedPropertyType ==
-                                              plotPropertyTypeList[index]
-                                          ? primaryColor
-                                          : Colors.grey[200],
+                                      backgroundColor:
+                                          selectedPropertyType == index
+                                              ? primaryColor
+                                              : Colors.grey[200],
                                       label: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 5),
                                         child: Text(plotPropertyTypeList[index],
                                             style: TextStyle(
                                                 color: selectedPropertyType ==
-                                                        plotPropertyTypeList[
-                                                            index]
+                                                        index
                                                     ? Colors.white
                                                     : Colors.black)),
                                       ),
@@ -407,15 +457,14 @@ class _PropertyState extends State<Property>
                                   child: GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        selectedPropertyType =
-                                            commercialPropertyTypeList[index];
+                                        selectedPropertyType = index;
                                       });
                                     },
                                     child: Chip(
-                                      backgroundColor: selectedPropertyType ==
-                                              commercialPropertyTypeList[index]
-                                          ? primaryColor
-                                          : Colors.grey[200],
+                                      backgroundColor:
+                                          selectedPropertyType == index
+                                              ? primaryColor
+                                              : Colors.grey[200],
                                       label: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 5),
@@ -423,8 +472,7 @@ class _PropertyState extends State<Property>
                                             commercialPropertyTypeList[index],
                                             style: TextStyle(
                                                 color: selectedPropertyType ==
-                                                        commercialPropertyTypeList[
-                                                            index]
+                                                        index
                                                     ? Colors.white
                                                     : Colors.black)),
                                       ),
@@ -455,7 +503,9 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      MyTextField2(controller: locatController,),
+                      MyTextField2(
+                        controller: locatController,
+                      ),
                     ],
                   ),
                   Column(
@@ -474,7 +524,9 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      MyTextField2(controller: sectorController,),
+                      MyTextField2(
+                        controller: sectorController,
+                      ),
                     ],
                   ),
                   Column(
@@ -493,7 +545,9 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                     MyTextField2(controller: plotNoController,),
+                      MyTextField2(
+                        controller: plotNoController,
+                      ),
                     ],
                   ),
                   Column(
@@ -512,7 +566,9 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      MyTextField2(controller: streetNoController,),
+                      MyTextField2(
+                        controller: streetNoController,
+                      ),
                     ],
                   ),
                   Column(
@@ -576,7 +632,7 @@ class _PropertyState extends State<Property>
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: horizontalPadding),
-                                  // define
+                              // define
                               child: Text('Currency',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
@@ -627,35 +683,39 @@ class _PropertyState extends State<Property>
                           )),
                         ],
                       ),
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        children: bedroomList
-                            .map((e) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedBedroom = e;
-                                      });
-                                    },
-                                    child: Chip(
-                                      backgroundColor: selectedBedroom == e
-                                          ? AppColors.appthem
-                                          : Colors.grey[200],
-                                      label: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 5),
-                                        child: Text(e,
-                                            style: TextStyle(
-                                                color: selectedBedroom == e
-                                                    ? Colors.white
-                                                    : Colors.black)),
-                                      ),
-                                    ),
+                      SizedBox(
+                        height: 12.h,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: bedroomList.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedBedroom = index;
+                                  });
+                                },
+                                child: Chip(
+                                  backgroundColor: selectedBedroom == index
+                                      ? AppColors.appthem
+                                      : Colors.grey[200],
+                                  label: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Text(bedroomList[index],
+                                        style: TextStyle(
+                                            color: selectedBedroom == index
+                                                ? Colors.white
+                                                : Colors.black)),
                                   ),
-                                ))
-                            .toList(),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -780,7 +840,7 @@ class _PropertyState extends State<Property>
                       padding: const EdgeInsets.all(10),
                       child: DropdownButton(
                           isExpanded: true,
-                          value: dropdownvalue2,
+                          value: dropdownvalue22,
                           items: facilities.map((String items) {
                             return DropdownMenuItem(
                               value: items,
@@ -789,7 +849,7 @@ class _PropertyState extends State<Property>
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                              dropdownvalue2 = newValue!;
+                              dropdownvalue22 = newValue!;
                             });
                           }),
                     ),
@@ -990,27 +1050,42 @@ class _PropertyState extends State<Property>
                     padding: const EdgeInsets.only(top: 1),
                     child: MyButton(
                         onTap: () {
+                          print(titleController.text);
                           setState(() {
-                            addPropertyController.getAddProperty(
-                                titleController.text,
-                                dispController.text,
-                                contentController.text,
-                                sectorController.text,
-                                streetNoController.text,
-                                plotNoController.text,
-                                locatController.text,
-                                cityController.text,
-                                stateController.text,
-                                priceController.text,
-                                currController.text,
-                                squareController.text,
-                                floorNoController.text,
-                                selectedBathroom,
-                                selectedBedroom,
-                                categoryController.text,
-                                typeController.text,
-                                features,
-                                facilities);
+                            AddPropertyServices.addPropertyAPI(
+                              name: titleController.text,
+                              disp: dispController.text,
+                              content: contentController.text,
+                              cityId: cityController.text,
+                              categoryId: selectedPropertyType,
+                              location: locatController.text,
+                              block: sectorController.text,
+                              plotNo: plotNoController.text,
+                              streetNo: streetNoController.text,
+                              price: priceController.text,
+                              square: squareController.text,
+                              bedroomNo: selectedBedroom,
+
+                              // titleController.text,
+                              // dispController.text,
+                              // contentController.text,
+                              // sectorController.text,
+                              // streetNoController.text,
+                              // plotNoController.text,
+                              // locatController.text,
+                              // cityController.text,
+                              // stateController.text,
+                              // priceController.text,
+                              // currController.text,
+                              // squareController.text,
+                              // floorNoController.text,
+                              // selectedBathroom,
+                              // selectedBedroom,
+                              // categoryController.text,
+                              // typeController.text,
+                              // features,
+                              // facilities
+                            );
                           });
                         },
                         text: 'Add Property'),
@@ -1027,9 +1102,9 @@ class _PropertyState extends State<Property>
   final titleController = TextEditingController();
   final dispController = TextEditingController();
   final contentController = TextEditingController();
-  final cityController = TextEditingController();
   final typeController = TextEditingController();
   final locatController = TextEditingController();
+  final cityController = TextEditingController();
   final sectorController = TextEditingController();
   final plotNoController = TextEditingController();
   final streetNoController = TextEditingController();
