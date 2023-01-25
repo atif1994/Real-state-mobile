@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
 import 'package:prologic_29/data/Models/addproperty_model/addproperty_model.dart';
 import 'package:prologic_29/data/Services/property_services/addproperty_services.dart';
 
@@ -65,15 +64,13 @@ class AddProperrtyController extends GetxController {
     }
   }
 
-  //city drowp Down
-  var dropdownvalue = 'select City'.obs;
-
-  // List of items in our dropdown menu
-  var cityListController = Get.put(DashboardController());
-
-
-
-  void drowpDownSelects(newValue) {
-    dropdownvalue.value = newValue;
+  //city List
+  RxInt selectedValueCityId = 0.obs;
+  RxString selectedValueCity = 'Select City'.obs;
+  void selectCityFun(newValue) {
+    selectedValueCityId.value = newValue;
   }
+
+// Features List
+
 }
