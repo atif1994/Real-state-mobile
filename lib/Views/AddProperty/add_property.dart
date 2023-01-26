@@ -125,10 +125,6 @@ class _PropertyState extends State<Property>
   ];
   int selectedFloor = 0;
 
-  List facilitiesList = [];
-  List kmList = [];
-  String? km;
-
   var postDataproperty = PostDataProperty();
   @override
   void initState() {
@@ -160,6 +156,13 @@ class _PropertyState extends State<Property>
     'Sui Gas'
   ];
   List<dynamic> addFeaturesList = [];
+  List facilitiesList = [];
+  List kmList = [];
+  String? km;
+
+  var obj = {};
+  List featureOBJ = [];
+
   var addPropertyController = Get.put(AddProperrtyController());
   var cityListController = Get.put(DashboardController());
   List citiese = [];

@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:get/state_manager.dart';
+
 NewsfeedModel newsfeedModelFromJson(String str) =>
     NewsfeedModel.fromJson(json.decode(str));
 
@@ -166,6 +168,7 @@ class Datum {
   String? price;
   String? currencyId;
   String? cityId;
+
   String? stateId;
   dynamic countryId;
   Period? period;
@@ -198,6 +201,7 @@ class Datum {
   Currency? currency;
   List<Feature>? features;
   List<Facility>? facilities;
+  RxBool istaped = false.obs;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
