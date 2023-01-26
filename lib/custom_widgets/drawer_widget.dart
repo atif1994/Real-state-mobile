@@ -14,7 +14,7 @@ import 'package:sizer/sizer.dart';
 import '../Views/AddProperty/add_property.dart';
 import '../Views/ContactUs/contact_us.dart';
 import '../Views/Notifications/notification_page.dart';
-import '../Views/UserProfile/profile_pages.dart';
+import '../Views/user_profile/profile_pages.dart';
 import '../Views/Wishlist/favorites.dart';
 
 class CustomDrawer extends StatelessWidget {
