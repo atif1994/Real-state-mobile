@@ -27,7 +27,7 @@ class DashboardController extends GetxController {
     getnewspost();
     getFeaturedPropertise();
     getPrpertyCitis();
-    getFilteredPropertiseWithoutPerm(cid: cid, catid: catid);
+    getFilteredPropertise(cid: cid, catid: catid);
     super.onInit();
     getuserId(userid);
     getMyProperty(userid);
@@ -75,8 +75,9 @@ class DashboardController extends GetxController {
   var filteredPropertyModel = PropertyFilterModel();
   RxBool loadingfilteredPropertise = false.obs;
   RxString errorLoadingFilteredPropertise = ''.obs;
-  void getFilteredPropertiseWithoutPerm({cid, required catid}) async {
+  void getFilteredPropertise({cid, required catid}) async {
     loadingfilteredPropertise.value = true;
+    errorLoadingFilteredPropertise.value = '';
     var res = await FeaturedPropertyService.propertyfilterService(cid, catid);
 
     loadingfilteredPropertise.value = false;

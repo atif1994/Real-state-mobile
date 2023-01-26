@@ -1,31 +1,31 @@
 import 'package:get/get.dart';
+import 'package:prologic_29/data/Models/NewsFeed_Model/newsfeed_model.dart';
+import 'package:prologic_29/data/Models/like_model.dart';
 import 'package:prologic_29/data/Services/post_like_services/post_like_services.dart';
-
-import '../../Models/post_like_response/post_like_response.dart';
 
 class PostLikeController extends GetxController {
   RxBool loadingPostLike = false.obs;
-  var postLikeModel = PostLikeResponse();
-
+  var likeModel = LikeModel();
+  var newsfeedModel = NewsfeedModel();
   RxString errorLoadingPostLike = ''.obs;
-  int propertyIndex = 0;
-  RxBool isLikedPressed = false.obs;
 
-  getPostLikeCon(int index, id, uid) async {
-    loadingPostLike.value = true;
-    errorLoadingPostLike.value = '';
-    var res = await PostLikeServices.getPostLikeServicee(id.toString(), uid);
+  getPostLikeCon(propertyId, uid) async {
     loadingPostLike.value = false;
-    if (res is PostLikeResponse) {
-      postLikeModel = res;
-      print(res);
+    errorLoadingPostLike.value = '';
+    var res = await PostLikeServices.getPostLikeServicee(propertyId, uid);
+    loadingPostLike.value = true;
+    if (res is LikeModel) {
+      loadingPostLike.value = false;
+      likeModel = res;
     } else {
       loadingPostLike.value = false;
       errorLoadingPostLike.value = res.toString();
     }
   }
-}
 
-class CallMethod {
-  final List<Function> _methods = [];
+  RxBool isLike = false.obs;
+  void isliked() {
+    isLike.toggle();
+    print(isLike);
+  }
 }

@@ -22,26 +22,22 @@ class NewsFeed extends StatefulWidget {
 }
 
 class _NewsFeedState extends State<NewsFeed> {
-  int uid = 0;
+  int? uid;
   final likeController = Get.put(PostLikeController());
 
   var newsfeedController = Get.put(NewsFeedController());
   var postCommentsController = Get.put(PostCommentsController());
-
   final List<TextEditingController> _controllers = [];
 
   @override
   void initState() {
     getUserId();
     newsfeedController.getnewsfeedcomment();
-    //  assignController();
-
     super.initState();
   }
 
   void getUserId() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-
     setState(() {
       uid = pref.getInt("userid") ?? 0;
     });
@@ -74,6 +70,9 @@ class _NewsFeedState extends State<NewsFeed> {
                   itemCount:
                       newsfeedController.newsfeedmodel.data!.data!.length,
                   itemBuilder: (context, index) {
+                    // var isliked = likeController
+                    //     .likeModel.property?[0].likesOnProperties![0].isliked;
+                    //     print("likeeeddd===>>>>>> $isliked");
                     _controllers.add(TextEditingController());
                     return Column(
                       children: [
@@ -284,32 +283,37 @@ class _NewsFeedState extends State<NewsFeed> {
                                 //   AppImageResources.bed,
                                 //   height: 4.0.h,
                                 // ),
-                                Obx(
-                                  () => likeController.loadingPostLike.value
-                                      ? const SizedBox()
-                                      : IconButton(
-                                          onPressed: () async {
-                                            await Future.delayed(
-                                                const Duration(seconds: 1));
+                                Obx(() => likeController.loadingPostLike.value
+                                    ? const Center(
+                                        child: CircularProgressIndicator(),
+                                      )
+                                    : IconButton(
+                                        onPressed: () async {
+                                          await Future.delayed(
+                                              const Duration(seconds: 1));
+                                          likeController.getPostLikeCon(
+                                              newsfeedController.newsfeedmodel
+                                                  .data!.data![index].id
+                                                  .toString(),
+                                              uid!);
+                                          //    setState(() {});
 
-                                            likeController.getPostLikeCon(
-                                                index,
-                                                newsfeedController.newsfeedmodel
-                                                    .data!.data![index].id
-                                                    .toString(),
-                                                uid);
-                                          },
-                                          icon: likeController.postLikeModel
-                                                      .likeCount ==
-                                                  1
-                                              ? const Icon(
-                                                  Icons.favorite_border,
-                                                )
-                                              : const Icon(
-                                                  Icons.favorite_outlined,
-                                                  color: Colors.red,
-                                                )),
-                                ),
+                                          print("func call on index  $index");
+                                        },
+                                        icon: likeController
+                                                    .likeModel
+                                                    .property![0]
+                                                    .likesOnProperties![0]
+                                                    .isliked ==
+                                                false
+                                            ? const Icon(
+                                                Icons.favorite_border,
+                                              )
+                                            : const Icon(
+                                                Icons.favorite_outlined,
+                                                color: Colors.red,
+                                              ))),
+
                                 // const Icon(Icons.favorite_border_outlined),
                                 Text(
                                   "Likee",

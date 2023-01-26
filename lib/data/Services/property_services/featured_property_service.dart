@@ -88,6 +88,8 @@ class FeaturedPropertyService {
       var res = await BaseClientClass.post(url, data);
       if (res is http.Response) {
         return propertyFilterModelFromJson(res.body);
+      } else {
+        return res;
       }
     } catch (e) {
       return e;
