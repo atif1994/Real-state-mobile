@@ -36,9 +36,7 @@ class SignInController extends GetxController {
         firstname: user['first_name'],
         lastname: user['last_name'],
         email: user['email'],
-        // city: user['city'],
-        // country: user['country'],
-        // state: user['state'],
+        
       ));
 
       var userid = data['data']['id'];
@@ -46,9 +44,11 @@ class SignInController extends GetxController {
 
       var cId = data['data']['city']['id'];
       var cName = data['data']['city']['name'];
+
       Get.find<AuthController>().isUserSignedIn();
-      _saveCountryData(cId, cName);
-      // Get.snackbar('Signed In', 'User is signed in');
+      _saveCountryData(cId, cName, user['first_name'], user['last_name'],
+          user['email'], user['phone']);
+     
       isLoading(false);
     } else {
       Fluttertoast.showToast(msg: 'Unauthorised');
@@ -77,20 +77,21 @@ class SignInController extends GetxController {
     }
   }
 
-
-
-
   void setUserid(int userid) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setInt("userid", userid);
   }
 
-
-  _saveCountryData(int cID, String cName) async {
+  _saveCountryData(int cID, String cName, String fname, String lname,
+      String email, String phone) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     pref.setInt("cityId", cID);
     pref.setString("cityName", cName);
+    pref.setString("fname", fname);
+    pref.setString("lname", lname);
+    pref.setString("email", email);
+    pref.setString("phone", phone);
   }
 
   void getUserid(int id) async {

@@ -154,7 +154,7 @@ class CustomDrawer extends StatelessWidget {
                     child: ListTile(
                       onTap: () {
                         // Get.to(() => ProfileImageEdit());
-                        Get.to(() => const ProfilePages());
+                        Get.to(() => ProfilePages());
                       },
                       leading: Image.asset(
                         AppImageResources.profilesetting,
@@ -276,7 +276,7 @@ class CustomDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: (() {
-                        Get.to(() => NewsFeed());
+                        Get.to(() => const NewsFeed());
                       }),
                       leading: Image.asset(
                         color: AppColors.colorWhite,

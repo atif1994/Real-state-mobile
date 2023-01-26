@@ -1,266 +1,305 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/Views/Auth/sign_in.dart';
+import 'package:prologic_29/data/Controllers/profile_controller/profile_controller.dart';
+import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
-import '../../utils/styles/custom_decorations.dart';
-import '../Wishlist/favorites.dart';
 
 class ProfilePages extends StatelessWidget {
-  const ProfilePages({super.key});
+  var profileController = Get.put(ProfileController());
+  ProfilePages({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile', style: AppTextStyles.heading1),
-        backgroundColor: AppColors.appthem,
-      ),
-      body: SingleChildScrollView(
+        // appBar: AppBar(
+        //   title: Text('Profile', style: AppTextStyles.heading1),
+        //   backgroundColor: AppColors.appthem,
+        // ),
+        body: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 39.0.h,
+          width: 100.0.w,
+          color: AppColors.appthem,
           child: Column(
-        children: [
-          Container(
-            height: 29.0.h,
-            decoration: const BoxDecoration(
-              color: AppColors.appthem,
-              // gradient: LinearGradient(
-              //   colors: [Colors.red, Colors.deepOrange.shade300],
-              //   begin: Alignment.centerLeft,
-              //   end: Alignment.centerRight,
-              //   stops: const [0.5, 0.9],
-              // ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    // CircleAvatar(
-                    //   backgroundColor: Colors.red.shade300,
-                    //   minRadius: 35.0,
-                    //   child: Icon(
-                    //     Icons.call,
-                    //     size: 30.0,
-                    //   ),
-                    // ),
-                    CircleAvatar(
-                      backgroundColor: Colors.white70,
-                      minRadius: 66.0,
-                      child: CircleAvatar(
-                        radius: 64.0,
-                        backgroundImage: NetworkImage(
-                            'https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4'),
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      )),
+                  SizedBox(
+                    width: 30.0.w,
+                  ),
+                  Text('Profile',
+                      style: AppTextStyles.heading1.copyWith(fontSize: 14.sp)),
+                  const SizedBox()
+                ],
+              ),
+              Container(
+                height: 35.0.w,
+                width: 35.0.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(300),
+                    border: Border.all(color: Colors.white, width: 4)),
+                child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    child: ClipOval(
+                      child: Image.network(
+                        "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4",
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 4.0.h,
-                ),
-                Row(
+                    )),
+              ),
+              SizedBox(
+                height: 2.0.h,
+              ),
+              Obx(() => Text(
+                  "${profileController.fname} ${profileController.lname}",
+                  style: AppTextStyles.heading1.copyWith(fontSize: 20.sp))),
+              SizedBox(
+                height: 1.0.h,
+              ),
+              Obx(() => Text(profileController.phone.value,
+                  style: AppTextStyles.heading1.copyWith(fontSize: 12.sp))),
+              SizedBox(
+                height: 1.0.h,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 6.0.w, right: 6.0.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                    const Icon(
+                      Icons.email,
+                      color: Colors.white,
+                      size: 20,
+                    ),
                     SizedBox(
-                      width: 34.0.w,
+                      width: 3.0.w,
                     ),
-                    Column(
-                      children: [
-                        Text('Ali Khan',
-                            style:
-                                AppTextStyles.heading1.copyWith(fontSize: 30)),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          'Flutter Developer',
-                          style: AppTextStyles.heading1.copyWith(fontSize: 20),
-                        ),
-                      ],
+                    Obx(() => Text(profileController.email.value,
+                        style:
+                            AppTextStyles.heading1.copyWith(fontSize: 12.sp))),
+                    const Icon(
+                      Icons.location_city,
+                      color: Colors.white,
+                      size: 20,
                     ),
-                    // SizedBox(
-                    //   width: 44.0.w,
-                    // ),
-                    // InkWell(
-                    //   onTap: () {
-                    //     Get.to(ProfileImageEdit());
-                    //   },
-                    //   child: const CircleAvatar(
-                    //     backgroundColor: Colors.white,
-                    //     minRadius: 23.0,
-                    //     child: Icon(
-                    //       Icons.edit,
-                    //       size: 23.0,
-                    //     ),
-                    //   ),
-                    // ),
+                    SizedBox(
+                      width: 3.0.w,
+                    ),
+                    Obx(() => Text(profileController.city.value,
+                        style:
+                            AppTextStyles.heading1.copyWith(fontSize: 12.sp))),
                   ],
                 ),
-              ],
-            ),
+              )
+            ],
           ),
-          SizedBox(
-            height: 2.5.h,
-          ),
-          Container(
-            height: 7.3.h,
-            // width: 2.0.w,
-            decoration: CustomDecorations.mainCon.copyWith(
-              color: AppColors.colorWhite,
-            ),
-            child: ListTile(
-              onTap: (() {
-                Get.to(const WishlistPage());
-              }),
-              leading: const Icon(Icons.settings),
-              title: Text(
-                'Settings',
-                style: AppTextStyles.heading1.copyWith(
-                  color: AppColors.colorblack,
-                  fontSize: 20,
-                ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 1.0.h, left: 2.0.w, right: 2.0.w),
+          height: 60.0.h,
+          width: 100.0.w,
+          //  color: Colors.red,
+          child: Column(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(top: 1.0.h),
+                  height: 6.0.h,
+                  width: 100.0.w,
+                  decoration: CustomDecorations.mainCon,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 3.0.w,
+                      ),
+                      const Icon(
+                        Icons.dashboard,
+                        color: AppColors.appthem,
+                      ),
+                      SizedBox(
+                        width: 6.0.w,
+                      ),
+                      Text("Dashboard",
+                          style: AppTextStyles.heading1.copyWith(
+                              fontSize: 12.sp, color: AppColors.appthem)),
+                    ],
+                  )),
+
+              ////////////////////////////////////////////
+
+              Container(
+                  margin: EdgeInsets.only(top: 2.0.h),
+                  height: 6.0.h,
+                  width: 100.0.w,
+                  decoration: CustomDecorations.mainCon,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 3.0.w,
+                      ),
+                      const Icon(
+                        Icons.settings,
+                        color: AppColors.appthem,
+                      ),
+                      SizedBox(
+                        width: 6.0.w,
+                      ),
+                      Text("Settings",
+                          style: AppTextStyles.heading1.copyWith(
+                              fontSize: 12.sp, color: AppColors.appthem)),
+                    ],
+                  )),
+
+              ////////////////////////////////////////////
+
+              Container(
+                  margin: EdgeInsets.only(top: 2.0.h),
+                  height: 6.0.h,
+                  width: 100.0.w,
+                  decoration: CustomDecorations.mainCon,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 3.0.w,
+                      ),
+                      const Icon(
+                        Icons.landslide,
+                        color: AppColors.appthem,
+                      ),
+                      SizedBox(
+                        width: 6.0.w,
+                      ),
+                      Text("Propertise",
+                          style: AppTextStyles.heading1.copyWith(
+                              fontSize: 12.sp, color: AppColors.appthem)),
+                    ],
+                  )),
+
+              ////////////////////////////////////////////
+
+              Container(
+                  margin: EdgeInsets.only(top: 2.0.h),
+                  height: 6.0.h,
+                  width: 100.0.w,
+                  decoration: CustomDecorations.mainCon,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 3.0.w,
+                      ),
+                      const Icon(
+                        Icons.note_add,
+                        color: AppColors.appthem,
+                      ),
+                      SizedBox(
+                        width: 6.0.w,
+                      ),
+                      Text("Add Property",
+                          style: AppTextStyles.heading1.copyWith(
+                              fontSize: 12.sp, color: AppColors.appthem)),
+                    ],
+                  )),
+
+              ////////////////////////////////////////////
+
+              Container(
+                  margin: EdgeInsets.only(top: 2.0.h),
+                  height: 6.0.h,
+                  width: 100.0.w,
+                  decoration: CustomDecorations.mainCon,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 3.0.w,
+                      ),
+                      const Icon(
+                        Icons.lock,
+                        color: AppColors.appthem,
+                      ),
+                      SizedBox(
+                        width: 6.0.w,
+                      ),
+                      Text("Security",
+                          style: AppTextStyles.heading1.copyWith(
+                              fontSize: 12.sp, color: AppColors.appthem)),
+                    ],
+                  )),
+
+              ////////////////////////////////////////////
+
+              Container(
+                  margin: EdgeInsets.only(top: 2.0.h),
+                  height: 6.0.h,
+                  width: 100.0.w,
+                  decoration: CustomDecorations.mainCon,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 3.0.w,
+                      ),
+                      const Icon(
+                        Icons.chat,
+                        color: AppColors.appthem,
+                      ),
+                      SizedBox(
+                        width: 6.0.w,
+                      ),
+                      Text("Chat",
+                          style: AppTextStyles.heading1.copyWith(
+                              fontSize: 12.sp, color: AppColors.appthem)),
+                    ],
+                  )),
+
+              ////////////////////////////////////////////
+
+              InkWell(
+                onTap: () {
+                  Get.off(SignIn());
+                },
+                child: Container(
+                    margin: EdgeInsets.only(top: 2.0.h),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    decoration: CustomDecorations.mainCon,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 3.0.w,
+                        ),
+                        const Icon(
+                          Icons.logout,
+                          color: AppColors.appthem,
+                        ),
+                        SizedBox(
+                          width: 6.0.w,
+                        ),
+                        Text("Logout",
+                            style: AppTextStyles.heading1.copyWith(
+                                fontSize: 12.sp, color: AppColors.appthem)),
+                      ],
+                    )),
               ),
-            ),
+            ],
           ),
-          SizedBox(
-            height: 1.9.h,
-          ),
-          Container(
-            height: 7.3.h,
-            decoration: CustomDecorations.mainCon.copyWith(
-              color: AppColors.colorWhite,
-            ),
-            child: ListTile(
-              onTap: (() {
-                Get.to(const WishlistPage());
-              }),
-              leading: const Icon(Icons.propane_rounded),
-              title: Text(
-                'Properties',
-                style: AppTextStyles.heading1.copyWith(
-                  color: AppColors.colorblack,
-                  fontSize: 21,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 1.3.h,
-          ),
-          Container(
-            height: 7.0.h,
-            decoration: CustomDecorations.mainCon.copyWith(
-              color: AppColors.colorWhite,
-            ),
-            child: ListTile(
-              onTap: (() {
-                Get.to(const WishlistPage());
-              }),
-              leading: const Icon(Icons.mark_chat_read),
-              title: Text(
-                'Add Property',
-                style: AppTextStyles.heading1.copyWith(
-                  color: AppColors.colorblack,
-                  fontSize: 21,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 1.9.h,
-          ),
-          Container(
-            height: 7.3.h,
-            decoration: CustomDecorations.mainCon.copyWith(
-              color: AppColors.colorWhite,
-            ),
-            child: ListTile(
-              onTap: (() {
-                Get.to(const WishlistPage());
-              }),
-              leading: const Icon(Icons.lock),
-              title: Text(
-                'Security',
-                style: AppTextStyles.heading1.copyWith(
-                  color: AppColors.colorblack,
-                  fontSize: 21,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 1.9.h,
-          ),
-          Container(
-            height: 7.3.h,
-            decoration: CustomDecorations.mainCon.copyWith(
-              color: AppColors.colorWhite,
-            ),
-            child: ListTile(
-              onTap: (() {
-                Get.to(const WishlistPage());
-              }),
-              leading: const Icon(Icons.chat),
-              title: Text(
-                'Chat',
-                style: AppTextStyles.heading1.copyWith(
-                  color: AppColors.colorblack,
-                  fontSize: 21,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 1.9.h,
-          ),
-          Container(
-            height: 7.3.h,
-            decoration: CustomDecorations.mainCon.copyWith(
-              color: AppColors.colorWhite,
-            ),
-            child: ListTile(
-              onTap: (() {
-                Get.to(const WishlistPage());
-              }),
-              leading: const Icon(Icons.logout_outlined),
-              title: Text(
-                'Logout',
-                style: AppTextStyles.heading1.copyWith(
-                  color: AppColors.colorblack,
-                  fontSize: 21,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 1.9.h,
-          ),
-          Container(
-            height: 7.3.h,
-            decoration: CustomDecorations.mainCon.copyWith(
-              color: AppColors.colorWhite,
-            ),
-            child: ListTile(
-              onTap: (() {
-                Get.to(const WishlistPage());
-              }),
-              leading: const Icon(Icons.logout_outlined),
-              title: Text(
-                'jsxnn',
-                style: AppTextStyles.heading1.copyWith(
-                  color: AppColors.colorblack,
-                  fontSize: 21,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 1.9.h,
-          ),
-          // const Text('asjxdbxasjkb'),
-        ],
-      )),
-    );
+        )
+      ],
+    ));
   }
 }
