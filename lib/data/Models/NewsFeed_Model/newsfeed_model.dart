@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:get/state_manager.dart';
-
 NewsfeedModel newsfeedModelFromJson(String str) =>
     NewsfeedModel.fromJson(json.decode(str));
 
@@ -145,6 +143,7 @@ class Datum {
     this.assignedAgent,
     this.assignerId,
     this.isDeleted,
+    this.likesOnProperties,
     this.city,
     this.country,
     this.state,
@@ -168,7 +167,6 @@ class Datum {
   String? price;
   String? currencyId;
   String? cityId;
-
   String? stateId;
   dynamic countryId;
   Period? period;
@@ -192,23 +190,22 @@ class Datum {
   dynamic assignedAgent;
   String? assignerId;
   String? isDeleted;
+  List<LikesOnProperty>? likesOnProperties;
   City? city;
   List<dynamic>? country;
   State? state;
-
   Category? category;
   Type? type;
   Currency? currency;
   List<Feature>? features;
   List<Facility>? facilities;
-  RxBool istaped = false.obs;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         name: json["name"]!,
         description: json["description"],
         content: contentValues.map[json["content"]]!,
-        location: json["location"],
+        location: json["location"]!,
         images: json["images"] == null
             ? []
             : List<dynamic>.from(json["images"]!.map((x) => x)),
@@ -250,6 +247,10 @@ class Datum {
         assignedAgent: json["assigned_agent"],
         assignerId: json["assigner_id"],
         isDeleted: json["is_deleted"],
+        likesOnProperties: json["likes_on_properties"] == null
+            ? []
+            : List<LikesOnProperty>.from(json["likes_on_properties"]!
+                .map((x) => LikesOnProperty.fromJson(x))),
         city: json["city"] == null ? null : City.fromJson(json["city"]),
         country: json["country"] == null
             ? []
@@ -274,8 +275,8 @@ class Datum {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": datumNameValues.reverse[name],
-        "description": descriptionValues.reverse[description],
+        "name": contentValues.reverse[name],
+        "description": description,
         "content": contentValues.reverse[content],
         "location": locationValues.reverse[location],
         "images":
@@ -311,6 +312,9 @@ class Datum {
         "assigned_agent": assignedAgent,
         "assigner_id": assignerId,
         "is_deleted": isDeleted,
+        "likes_on_properties": likesOnProperties == null
+            ? []
+            : List<dynamic>.from(likesOnProperties!.map((x) => x.toJson())),
         "city": city?.toJson(),
         "country":
             country == null ? [] : List<dynamic>.from(country!.map((x) => x)),
@@ -466,10 +470,13 @@ enum CitySlug { LSB }
 
 final citySlugValues = EnumValues({"lsb": CitySlug.LSB});
 
-enum Content { TESTING_FROM_MOBILE }
+enum Content { NULL, TESTING_FROM_MOBILE, DE }
 
-final contentValues =
-    EnumValues({"testing from mobile": Content.TESTING_FROM_MOBILE});
+final contentValues = EnumValues({
+  "de": Content.DE,
+  "null": Content.NULL,
+  "testing from mobile": Content.TESTING_FROM_MOBILE
+});
 
 class Currency {
   Currency({
@@ -486,8 +493,8 @@ class Currency {
   });
 
   int? id;
-  String? title;
-  String? symbol;
+  Title? title;
+  Symbol? symbol;
   String? isPrefixSymbol;
   String? decimals;
   String? order;
@@ -498,8 +505,8 @@ class Currency {
 
   factory Currency.fromJson(Map<String, dynamic> json) => Currency(
         id: json["id"],
-        title: json["title"],
-        symbol: json["symbol"]!,
+        title: titleValues.map[json["title"]]!,
+        symbol: symbolValues.map[json["symbol"]]!,
         isPrefixSymbol: json["is_prefix_symbol"],
         decimals: json["decimals"],
         order: json["order"],
@@ -534,10 +541,6 @@ final symbolValues = EnumValues({"Rs": Symbol.RS});
 enum Title { PKR }
 
 final titleValues = EnumValues({"PKR": Title.PKR});
-
-enum Description { DESCRIPTION }
-
-final descriptionValues = EnumValues({"description": Description.DESCRIPTION});
 
 class Facility {
   Facility({
@@ -697,6 +700,23 @@ class FeaturePivot {
       };
 }
 
+class LikesOnProperty {
+  LikesOnProperty({
+    this.isliked,
+  });
+
+  bool? isliked;
+
+  factory LikesOnProperty.fromJson(Map<String, dynamic> json) =>
+      LikesOnProperty(
+        isliked: json["isliked"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "isliked": isliked,
+      };
+}
+
 enum Location { RAWALPINDI }
 
 final locationValues = EnumValues({"rawalpindi": Location.RAWALPINDI});
@@ -705,10 +725,6 @@ enum ModerationStatus { PENDING }
 
 final moderationStatusValues =
     EnumValues({"pending": ModerationStatus.PENDING});
-
-enum DatumName { NULL }
-
-final datumNameValues = EnumValues({"null": DatumName.NULL});
 
 enum Period { MONTH }
 

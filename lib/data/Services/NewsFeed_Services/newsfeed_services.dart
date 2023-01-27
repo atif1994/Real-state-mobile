@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class NewsFeedService {
   static Future<dynamic> getNewsFeedAPI() async {
-    var url = "${AppUrls.baseUrl}${AppUrls.newsfeed}";
+    var url = AppUrls.newsfeed;
     var res = await BaseClientClass.get(url, '');
 
     try {

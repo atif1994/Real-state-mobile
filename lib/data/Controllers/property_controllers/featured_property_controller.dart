@@ -13,7 +13,7 @@ class DashboardController extends GetxController {
   // List<Datum>? data;
   RxString errorLoadingFeaturedPropertise = ''.obs;
   int userid = 273;
-  int? cid = 0;
+  int? cid = 1;
   String? cityName;
   int catid = 0;
   @override
@@ -78,7 +78,7 @@ class DashboardController extends GetxController {
   void getFilteredPropertise({cid, required catid}) async {
     loadingfilteredPropertise.value = true;
     errorLoadingFilteredPropertise.value = '';
-    var res = await FeaturedPropertyService.propertyfilterService(cid, catid);
+    var res = await FeaturedPropertyService.propertyfilterService(cid!, catid);
 
     loadingfilteredPropertise.value = false;
 

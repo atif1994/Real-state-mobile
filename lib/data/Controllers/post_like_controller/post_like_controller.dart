@@ -3,6 +3,8 @@ import 'package:prologic_29/data/Models/NewsFeed_Model/newsfeed_model.dart';
 import 'package:prologic_29/data/Models/like_model.dart';
 import 'package:prologic_29/data/Services/post_like_services/post_like_services.dart';
 
+import '../../Services/NewsFeed_Services/newsfeed_services.dart';
+
 class PostLikeController extends GetxController {
   RxBool loadingPostLike = false.obs;
   var likeModel = LikeModel();
@@ -27,5 +29,25 @@ class PostLikeController extends GetxController {
   void isliked() {
     isLike.toggle();
     print(isLike);
+  }
+
+//like
+  RxBool loadingnewspost = false.obs;
+  var newsfeedmodel = NewsfeedModel();
+  RxString errorLoadingnewsfeed = ''.obs;
+
+  @override
+  void onInit() {
+    getnewsfeedcomment();
+  }
+
+  void getnewsfeedcomment() async {
+    errorLoadingnewsfeed.value = '';
+    var res = await NewsFeedService.getNewsFeedAPI();
+    if (res is NewsfeedModel) {
+      newsfeedmodel = res;
+    } else {
+      errorLoadingnewsfeed.value = res.toString();
+    }
   }
 }

@@ -13,16 +13,35 @@ class NewsFeedController extends GetxController {
   void onInit() {}
 
   void getnewsfeedcomment() async {
-    loadingnewspost.value = true;
     errorLoadingnewsfeed.value = '';
+    loadingnewspost.value = true;
     var res = await NewsFeedService.getNewsFeedAPI();
-
-    loadingnewspost.value = false;
     if (res is NewsfeedModel) {
+      loadingnewspost.value = false;
       newsfeedmodel = res;
     } else {
       loadingnewspost.value = false;
       errorLoadingnewsfeed.value = res.toString();
     }
   }
+
+  ////like loading
+
+  // var likenewsfeedmodel = NewsfeedModel();
+  // RxString likeerrorLoadingnewsfeed = ''.obs;
+  // RxBool likeLoading = false.obs;
+
+  // void getlikenewsfeedcomment() async {
+  //   likeerrorLoadingnewsfeed.value = '';
+  //   likeLoading.value = true;
+  //   var res = await NewsFeedService.getNewsFeedAPI();
+  //   if (res is NewsfeedModel) {
+  //     likeLoading.value = false;
+  //     likenewsfeedmodel = res;
+  //   } else {
+  //     loadingnewspost.value = false;
+  //     likeLoading.value = false;
+  //     likeerrorLoadingnewsfeed.value = res.toString();
+  //   }
+  // }
 }
