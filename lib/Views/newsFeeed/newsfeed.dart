@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/data/Controllers/NewsFeed_Controller/newsfeed_controller.dart';
 import 'package:prologic_29/data/Controllers/comments_controller/post_comments_controller.dart';
-import 'package:prologic_29/data/Services/NewsFeed_Services/newsfeed_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 
 import '../../data/Controllers/post_like_controller/post_like_controller.dart';
+import '../../data/Services/NewsFeed_Services/newsfeed_services.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/custom_decorations.dart';
@@ -33,7 +33,7 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   void initState() {
     getUserId();
-    newsfeedController.getnewsfeedcomment();
+    newsfeedController.getnewsfeed();
     likeController.getnewsfeedcomment();
     super.initState();
   }
@@ -61,428 +61,395 @@ class _NewsFeedState extends State<NewsFeed> {
 
           // ListView.builder(itemBuilder: itemBuilder)
 
-          Obx(() => newsfeedController.loadingnewspost.value
+          Obx(() => newsfeedController.newsfeedApiLoading.value
               ? const Center(
                   child: CircularProgressIndicator(
                   color: AppColors.appthem,
                 ))
-              : newsfeedController.errorLoadingnewsfeed.value != ''
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                newsfeedController.getnewsfeedcomment();
-                              },
-                              icon: const Icon(
-                                Icons.refresh,
-                                color: AppColors.appthem,
-                              )),
-                          SizedBox(
-                            height: 1.0.h,
-                          ),
-                          const Text("No Internet Connection"),
-                        ],
-                      ),
-                    )
-                  : ListView.builder(
-                      primary: false,
-                      shrinkWrap: true,
-                      itemCount:
-                          newsfeedController.newsfeedmodel.data!.data!.length,
-                      itemBuilder: (context, index) {
-                        bool like = false;
-                        // var isliked = likeController
-                        //     .likeModel.property?[0].likesOnProperties![0].isliked;
-                        //     print("likeeeddd===>>>>>> $isliked");
-                        _controllers.add(TextEditingController());
-                        return Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: 5.0.w,
-                                  right: 5.0.w,
-                                  top: index == 0 ? 1.0.h : 2.0.h),
-                              height: 45.0.h,
-                              width: 100.0.w,
-                              decoration: CustomDecorations.mainCon,
-                              child: Stack(
+              // : newsfeedController.errorLoadingnewsfeed.value != ''
+              //     ? Center(
+              //         child: Column(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: [
+              //             IconButton(
+              //                 onPressed: () {
+              //                   newsfeedController.getnewsfeedcomment();
+              //                 },
+              //                 icon: const Icon(
+              //                   Icons.refresh,
+              //                   color: AppColors.appthem,
+              //                 )),
+              //             SizedBox(
+              //               height: 1.0.h,
+              //             ),
+              //             const Text("No Internet Connection"),
+              //           ],
+              //         ),
+              //       )
+              : ListView.builder(
+                  primary: false,
+                  shrinkWrap: true,
+                  itemCount:
+                      newsfeedController.newsfeedmodel.data!.data!.length,
+                  itemBuilder: (context, index) {
+                    bool like = false;
+                    // var isliked = likeController
+                    //     .likeModel.property?[0].likesOnProperties![0].isliked;
+                    //     print("likeeeddd===>>>>>> $isliked");
+                    _controllers.add(TextEditingController());
+                    return Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: 5.0.w,
+                              right: 5.0.w,
+                              top: index == 0 ? 1.0.h : 2.0.h),
+                          height: 45.0.h,
+                          width: 100.0.w,
+                          decoration: CustomDecorations.mainCon,
+                          child: Stack(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 200,
-                                        width: 100.w,
+                                  SizedBox(
+                                    height: 200,
+                                    width: 100.w,
 
-                                        // ignore: prefer_const_constructors
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10)),
-                                          child: Image.asset(
-                                            AppImageResources.property,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
+                                    // ignore: prefer_const_constructors
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10)),
+                                      child: Image.asset(
+                                        AppImageResources.property,
+                                        fit: BoxFit.cover,
                                       ),
-                                      SizedBox(
-                                        width: 2.0.h,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(6.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              height: 3.5.h,
-                                              width: 22.0.w,
-                                              decoration: BoxDecoration(
-                                                  color: AppColors.appthem,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          300)),
-                                              child: Center(
-                                                  child: Text(
-                                                newsfeedController
-                                                        .newsfeedmodel
-                                                        .data!
-                                                        .data![index]
-                                                        .name ??
-                                                    "",
-                                                style: AppTextStyles.labelSmall
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .colorWhite),
-                                              )),
-                                            ),
-                                            Text(
-                                                " ${newsfeedController.newsfeedmodel.data!.data![index].price}  }",
-                                                style: AppTextStyles.heading1
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .colorblack,
-                                                        fontSize: 10.sp))
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 2.0.w,
-                                        ),
-                                        child: Text(
-                                          newsfeedController.newsfeedmodel.data!
-                                                  .data![index].description ??
-                                              "",
-                                          style:
-                                              AppTextStyles.heading1.copyWith(
-                                            color: AppColors.colorblack,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 1.0.h,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 2.0.w),
-                                        child: Row(
-                                          // crossAxisAlignment: CrossAxisAlignment.end,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.bed,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text(
-                                              newsfeedController
-                                                      .newsfeedmodel
-                                                      .data!
-                                                      .data![index]
-                                                      .numberBedroom ??
-                                                  "",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp),
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.bath,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text(
-                                              newsfeedController
-                                                      .newsfeedmodel
-                                                      .data!
-                                                      .data![index]
-                                                      .numberBathroom ??
-                                                  "",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp),
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.plots,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text(
-                                              newsfeedController
-                                                      .newsfeedmodel
-                                                      .data!
-                                                      .data![index]
-                                                      .square ??
-                                                  "",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const Divider(),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Image.asset(
-                                              AppImageResources.loc,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text(
-                                              newsfeedController
-                                                      .newsfeedmodel
-                                                      .data!
-                                                      .data![index]
-                                                      .location ??
-                                                  "",
-                                              style: AppTextStyles.labelSmall,
-                                            ),
-                                            SizedBox(
-                                              width: 24.0.w,
-                                            ),
-                                            Container(
-                                              height: 3.5.h,
-                                              width: 22.0.w,
-                                              decoration: BoxDecoration(
-                                                  color: AppColors.appthem,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          300)),
-                                              child: Center(
-                                                  child: Text(
-                                                "View ",
-                                                style: AppTextStyles.labelSmall
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .colorWhite),
-                                              )),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 24.0.w,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  right: 5.0.w,
-                                  left: 5.0.w,
-                                  top: index == 0 ? 1.0.h : 2.0.h),
-                              height: 6.0.h,
-                              width: 100.w,
-                              decoration: CustomDecorations.mainCon,
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    // Image.asset(
-                                    //   AppImageResources.bed,
-                                    //   height: 4.0.h,
-                                    // ),
-                                    Obx(() => likeController
-                                            .loadingPostLike.value
-                                        ? const Center(
-                                            child: CircularProgressIndicator(),
-                                          )
-                                        : IconButton(
-                                            onPressed: () async {
-                                              await likeController
-                                                  .getPostLikeCon(
-                                                      newsfeedController
-                                                          .newsfeedmodel
-                                                          .data!
-                                                          .data![index]
-                                                          .id
-                                                          .toString(),
-                                                      uid!);
-                                              await NewsFeedService
-                                                  .getNewsFeedAPI();
-                                              Future.delayed(
-                                                  const Duration(seconds: 2));
-                                              newsfeedController
-                                                  .getnewsfeedcomment();
-
-                                              //    setState(() {});
-                                              print(
-                                                  "Like API=======??????  ${newsfeedController.newsfeedmodel.data!.data![index].id ?? ''}");
-                                              // print(
-                                              //     "Like API=======??????  ${likeController.likeModel.property![index].likesOnProperties![index].isliked ?? ''}");
-                                              // // debugPrint(
-                                              //     "News API===>>>>${newsfeedController.newsfeedmodel.data!.data![index].likesOnProperties![index].isliked}");
-                                            },
-                                            icon: newsfeedController
-                                                        .newsfeedmodel
-                                                        .data!
-                                                        .data![index]
-                                                        .likesOnProperties![0]
-                                                        .isliked ==
-                                                    false
-                                                ? const Icon(
-                                                    Icons.favorite_border,
-                                                  )
-                                                : const Icon(
-                                                    Icons.favorite_outlined,
-                                                    color: Colors.red,
-                                                  ))),
-
-                                    // const Icon(Icons.favorite_border_outlined),
-                                    Text(
-                                      "Likee",
-                                      style: AppTextStyles.labelSmall.copyWith(
-                                        fontSize: 13.sp,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 3.0.w,
-                                    ),
-                                    const Icon(Icons.comment_outlined),
-                                    // Image.asset(
-                                    //   AppImageResources.bed,
-                                    //   height: 4.0.h,
-                                    // ),
-                                    Text(
-                                      "Comment",
-                                      style: AppTextStyles.labelSmall,
-                                    ),
-                                    SizedBox(
-                                      width: 3.0.w,
-                                    ),
-                                    const Icon(Icons.share),
-                                    // Image.asset(
-                                    //   AppImageResources.bed,
-                                    //   height: 3.0.h,
-                                    // ),
-                                    Text(
-                                      "Share",
-                                      style: AppTextStyles.labelSmall,
-                                    )
-                                  ]),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  right: 4.0.w, left: 4.0.w, top: 2.0.h),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Expanded(
-                                    child: CustomTextField(
-                                      editingController: _controllers[index],
-                                      hintText: 'Write Comment....',
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 3.0.w,
+                                    width: 2.0.h,
                                   ),
-                                  Container(
-                                      height: 12.0.w,
-                                      width: 12.0.w,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.appthem,
-                                          borderRadius:
-                                              BorderRadius.circular(300)),
-                                      child: Obx(
-                                        () => postCommentsController
-                                                .loadingpostComments.value
-                                            ? const Center(
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(8.0),
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                          color: AppColors
-                                                              .colorWhite),
-                                                ),
-                                              )
-                                            : postCommentsController
-                                                        .errorLoadingPostComments
-                                                        .value !=
-                                                    ""
-                                                ? showToast(
-                                                    postCommentsController
-                                                        .errorLoadingPostComments
-                                                        .value)
-                                                : Center(
-                                                    child: IconButton(
-                                                        color: AppColors
-                                                            .colorWhite,
-                                                        onPressed: () {
-                                                          postCommentsController
-                                                              .postComments(
-                                                                  index,
-                                                                  newsfeedController
-                                                                      .newsfeedmodel
-                                                                      .data!
-                                                                      .data![
-                                                                          index]
-                                                                      .id,
-                                                                  uid,
-                                                                  _controllers[
-                                                                          index]
-                                                                      .text);
-
-                                                          _controllers[index]
-                                                              .clear();
-                                                        },
-                                                        icon: const Icon(
-                                                          Icons.send,
-                                                          size: 20,
-                                                        )),
-                                                  ),
-                                      ))
+                                  Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          height: 3.5.h,
+                                          width: 22.0.w,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.appthem,
+                                              borderRadius:
+                                                  BorderRadius.circular(300)),
+                                          child: Center(
+                                              child: Text(
+                                            newsfeedController.newsfeedmodel
+                                                    .data!.data![index].name ??
+                                                "",
+                                            style: AppTextStyles.labelSmall
+                                                .copyWith(
+                                                    color:
+                                                        AppColors.colorWhite),
+                                          )),
+                                        ),
+                                        Text(
+                                            " ${newsfeedController.newsfeedmodel.data!.data![index].price}  }",
+                                            style: AppTextStyles.heading1
+                                                .copyWith(
+                                                    color: AppColors.colorblack,
+                                                    fontSize: 10.sp))
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 2.0.w,
+                                    ),
+                                    child: Text(
+                                      newsfeedController.newsfeedmodel.data!
+                                              .data![index].description ??
+                                          "",
+                                      style: AppTextStyles.heading1.copyWith(
+                                        color: AppColors.colorblack,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 1.0.h,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 2.0.w),
+                                    child: Row(
+                                      // crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        SizedBox(
+                                          width: 2.0.w,
+                                        ),
+                                        Image.asset(
+                                          AppImageResources.bed,
+                                          height: 2.0.h,
+                                        ),
+                                        SizedBox(
+                                          width: 2.0.w,
+                                        ),
+                                        Text(
+                                          newsfeedController.newsfeedmodel.data!
+                                                  .data![index].numberBedroom ??
+                                              "",
+                                          style: AppTextStyles.labelSmall
+                                              .copyWith(fontSize: 9.sp),
+                                        ),
+                                        SizedBox(
+                                          width: 2.0.w,
+                                        ),
+                                        Image.asset(
+                                          AppImageResources.bath,
+                                          height: 2.0.h,
+                                        ),
+                                        SizedBox(
+                                          width: 2.0.w,
+                                        ),
+                                        Text(
+                                          newsfeedController
+                                                  .newsfeedmodel
+                                                  .data!
+                                                  .data![index]
+                                                  .numberBathroom ??
+                                              "",
+                                          style: AppTextStyles.labelSmall
+                                              .copyWith(fontSize: 9.sp),
+                                        ),
+                                        SizedBox(
+                                          width: 2.0.w,
+                                        ),
+                                        Image.asset(
+                                          AppImageResources.plots,
+                                          height: 2.0.h,
+                                        ),
+                                        SizedBox(
+                                          width: 2.0.w,
+                                        ),
+                                        Text(
+                                          newsfeedController.newsfeedmodel.data!
+                                                  .data![index].square ??
+                                              "",
+                                          style: AppTextStyles.labelSmall
+                                              .copyWith(fontSize: 9.sp),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  const Divider(),
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Row(
+                                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Image.asset(
+                                          AppImageResources.loc,
+                                          height: 2.0.h,
+                                        ),
+                                        SizedBox(
+                                          width: 2.0.w,
+                                        ),
+                                        Text(
+                                          newsfeedController.newsfeedmodel.data!
+                                                  .data![index].location ??
+                                              "",
+                                          style: AppTextStyles.labelSmall,
+                                        ),
+                                        SizedBox(
+                                          width: 24.0.w,
+                                        ),
+                                        Container(
+                                          height: 3.5.h,
+                                          width: 22.0.w,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.appthem,
+                                              borderRadius:
+                                                  BorderRadius.circular(300)),
+                                          child: Center(
+                                              child: Text(
+                                            "View ",
+                                            style: AppTextStyles.labelSmall
+                                                .copyWith(
+                                                    color:
+                                                        AppColors.colorWhite),
+                                          )),
+                                        ),
+                                      ],
+                                    ),
+                                  )
                                 ],
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: 24.0.w,
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              right: 5.0.w,
+                              left: 5.0.w,
+                              top: index == 0 ? 1.0.h : 2.0.h),
+                          height: 6.0.h,
+                          width: 100.w,
+                          decoration: CustomDecorations.mainCon,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                // Image.asset(
+                                //   AppImageResources.bed,
+                                //   height: 4.0.h,
+                                // ),
+                                Obx(() => likeController.loadingPostLike.value
+                                    ? const Center(
+                                        child: CircularProgressIndicator(),
+                                      )
+                                    : IconButton(
+                                        onPressed: () async {
+                                          await likeController.getPostLikeCon(
+                                              newsfeedController.newsfeedmodel
+                                                  .data!.data![index].id
+                                                  .toString(),
+                                              uid!);
+
+                                          await NewsFeedService
+                                              .getNewsFeedAPI();
+
+                                          //newsfeedController.getnewsfeed();
+
+                                          //    setState(() {});
+                                          // print(
+                                          //     "Like API=======??????  ${likeController.likeModel.property![index].likesOnProperties![index].isliked ?? ''}");
+                                          // // debugPrint(
+                                          //     "News API===>>>>${newsfeedController.newsfeedmodel.data!.data![index].likesOnProperties![index].isliked}");
+                                          print(
+                                              "Like to user Id=======>>>  ${newsfeedController.newsfeedmodel.data!.data![index].id ?? ''} ${newsfeedController.newsfeedmodel.data!.data![index].likesOnProperties![0].isliked}");
+                                        },
+                                        icon: newsfeedController
+                                                    .newsfeedmodel
+                                                    .data!
+                                                    .data![index]
+                                                    .likesOnProperties![0]
+                                                    .isliked ==
+                                                false
+                                            ? const Icon(
+                                                Icons.favorite_border,
+                                              )
+                                            : const Icon(
+                                                Icons.favorite_outlined,
+                                                color: Colors.red,
+                                              ))),
+
+                                // const Icon(Icons.favorite_border_outlined),
+                                Text(
+                                  "Likee",
+                                  style: AppTextStyles.labelSmall.copyWith(
+                                    fontSize: 13.sp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3.0.w,
+                                ),
+                                const Icon(Icons.comment_outlined),
+                                // Image.asset(
+                                //   AppImageResources.bed,
+                                //   height: 4.0.h,
+                                // ),
+                                Text(
+                                  "Comment",
+                                  style: AppTextStyles.labelSmall,
+                                ),
+                                SizedBox(
+                                  width: 3.0.w,
+                                ),
+                                const Icon(Icons.share),
+                                // Image.asset(
+                                //   AppImageResources.bed,
+                                //   height: 3.0.h,
+                                // ),
+                                Text(
+                                  "Share",
+                                  style: AppTextStyles.labelSmall,
+                                )
+                              ]),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              right: 4.0.w, left: 4.0.w, top: 2.0.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                child: CustomTextField(
+                                  editingController: _controllers[index],
+                                  hintText: 'Write Comment....',
+                                ),
                               ),
-                            )
-                          ],
-                        );
-                        ///////////
-                      },
-                    ))
+                              SizedBox(
+                                width: 3.0.w,
+                              ),
+                              Container(
+                                  height: 12.0.w,
+                                  width: 12.0.w,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.appthem,
+                                      borderRadius: BorderRadius.circular(300)),
+                                  child: Obx(
+                                    () => postCommentsController
+                                            .loadingpostComments.value
+                                        ? const Center(
+                                            child: Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: CircularProgressIndicator(
+                                                  color: AppColors.colorWhite),
+                                            ),
+                                          )
+                                        : postCommentsController
+                                                    .errorLoadingPostComments
+                                                    .value !=
+                                                ""
+                                            ? showToast(postCommentsController
+                                                .errorLoadingPostComments.value)
+                                            : Center(
+                                                child: IconButton(
+                                                    color: AppColors.colorWhite,
+                                                    onPressed: () {
+                                                      postCommentsController
+                                                          .postComments(
+                                                              index,
+                                                              newsfeedController
+                                                                  .newsfeedmodel
+                                                                  .data!
+                                                                  .data![index]
+                                                                  .id,
+                                                              uid,
+                                                              _controllers[
+                                                                      index]
+                                                                  .text);
+
+                                                      _controllers[index]
+                                                          .clear();
+                                                    },
+                                                    icon: const Icon(
+                                                      Icons.send,
+                                                      size: 20,
+                                                    )),
+                                              ),
+                                  ))
+                            ],
+                          ),
+                        )
+                      ],
+                    );
+                    ///////////
+                  },
+                ))
         ],
       )),
     );
