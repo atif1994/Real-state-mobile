@@ -356,7 +356,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                                     .toString(),
                                                 uid!);
                                             print(
-                                                "detector call ============${newsfeedController.newsfeedmodel.data!.data![index].likesOnProperties?[0].isliked}");
+                                                "detector call ==========${newsfeedController.newsfeedmodel.data!.data![index].likesOnProperties?[0].isliked}");
                                             setState(() {
                                               newsfeedController
                                                   .getnewsfeed(pagekey);

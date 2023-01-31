@@ -4,7 +4,7 @@ import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/Views/user_profile/chat/chat_screen.dart';
 import 'package:prologic_29/Views/user_profile/security/security_screen.dart';
 import 'package:prologic_29/Views/user_profile/setting/settings_screen.dart';
-import 'package:prologic_29/data/Controllers/profile_controller/profile_controller.dart';
+import 'package:prologic_29/data/Controllers/user_profile_section_controller/user_profile_controller.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
@@ -13,7 +13,7 @@ import '../../utils/styles/app_textstyles.dart';
 import 'propertise/propertise_section.dart';
 
 class ProfilePages extends StatelessWidget {
-  var profileController = Get.put(ProfileController());
+  var profileController = Get.put(UserProfileController());
   ProfilePages({super.key});
 
   @override
@@ -65,14 +65,14 @@ class ProfilePages extends StatelessWidget {
               SizedBox(
                 height: 2.0.h,
               ),
-              Obx(() => Text(
-                  "${profileController.fname} ${profileController.lname}",
-                  style: AppTextStyles.heading1.copyWith(fontSize: 20.sp))),
-              SizedBox(
-                height: 1.0.h,
-              ),
-              Obx(() => Text(profileController.phone.value,
-                  style: AppTextStyles.heading1.copyWith(fontSize: 12.sp))),
+              // Obx(() => Text(
+              //     "${profileController.fname} ${profileController.lname}",
+              //     style: AppTextStyles.heading1.copyWith(fontSize: 20.sp))),
+              // SizedBox(
+              //   height: 1.0.h,
+              // ),
+              // Obx(() => Text(profileController.phone.value,
+              //     style: AppTextStyles.heading1.copyWith(fontSize: 12.sp))),
               SizedBox(
                 height: 1.0.h,
               ),
@@ -89,20 +89,20 @@ class ProfilePages extends StatelessWidget {
                     SizedBox(
                       width: 3.0.w,
                     ),
-                    Obx(() => Text(profileController.email.value,
-                        style:
-                            AppTextStyles.heading1.copyWith(fontSize: 12.sp))),
-                    const Icon(
-                      Icons.location_city,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: 3.0.w,
-                    ),
-                    Obx(() => Text(profileController.city.value,
-                        style:
-                            AppTextStyles.heading1.copyWith(fontSize: 12.sp))),
+                    // Obx(() => Text(profileController.email.value,
+                    //     style:
+                    //         AppTextStyles.heading1.copyWith(fontSize: 12.sp))),
+                    // const Icon(
+                    //   Icons.location_city,
+                    //   color: Colors.white,
+                    //   size: 20,
+                    // ),
+                    // SizedBox(
+                    //   width: 3.0.w,
+                    // ),
+                    // Obx(() => Text(profileController.city.value,
+                    //     style:
+                    //         AppTextStyles.heading1.copyWith(fontSize: 12.sp))),
                   ],
                 ),
               )
