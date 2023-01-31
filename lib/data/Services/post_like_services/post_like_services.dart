@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class PostLikeServices {
   static Future<dynamic> getPostLikeServicee(
       String propertyId, int userId) async {
-    Map data = {"property_id": propertyId.toString(), "user_id": userId};
+    Map data = {"property_id": propertyId, "user_id": userId};
 
     var url = "${AppUrls.baseUrl}${AppUrls.postLikee}";
     var res = await BaseClientClass.post(url, data);

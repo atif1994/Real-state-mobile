@@ -3,15 +3,13 @@ import 'package:prologic_29/data/Models/NewsFeed_Model/newsfeed_model.dart';
 import 'package:prologic_29/data/Models/like_model.dart';
 import 'package:prologic_29/data/Services/post_like_services/post_like_services.dart';
 
-import '../../Services/NewsFeed_Services/newsfeed_services.dart';
-
 class PostLikeController extends GetxController {
   RxBool loadingPostLike = false.obs;
   var likeModel = LikeModel();
   var newsfeedModel = NewsfeedModel();
   RxString errorLoadingPostLike = ''.obs;
 
-  getPostLikeCon(propertyId, uid) async {
+  getPostLike(propertyId, uid) async {
     loadingPostLike.value = false;
     errorLoadingPostLike.value = '';
     var res = await PostLikeServices.getPostLikeServicee(propertyId, uid);
@@ -38,16 +36,16 @@ class PostLikeController extends GetxController {
 
   @override
   void onInit() {
-    getnewsfeedcomment();
+    // getnewsfeedcomment();
   }
 
-  void getnewsfeedcomment() async {
-    errorLoadingnewsfeed.value = '';
-    var res = await NewsFeedService.getNewsFeedAPI();
-    if (res is NewsfeedModel) {
-      newsfeedmodel = res;
-    } else {
-      errorLoadingnewsfeed.value = res.toString();
-    }
-  }
+  // void getnewsfeedcomment() async {
+  //   errorLoadingnewsfeed.value = '';
+  //   var res = await NewsFeedService.getNewsFeedAPI();
+  //   if (res is NewsfeedModel) {
+  //     newsfeedmodel = res;
+  //   } else {
+  //     errorLoadingnewsfeed.value = res.toString();
+  //   }
+  // }
 }

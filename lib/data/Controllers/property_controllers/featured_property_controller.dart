@@ -13,7 +13,7 @@ class DashboardController extends GetxController {
   // List<Datum>? data;
   RxString errorLoadingFeaturedPropertise = ''.obs;
   int userid = 273;
-  int? cid = 1;
+  int? cid;
   String? cityName;
   int catid = 0;
   @override
