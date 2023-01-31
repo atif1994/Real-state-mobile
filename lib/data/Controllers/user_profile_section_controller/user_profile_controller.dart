@@ -19,7 +19,7 @@ class UserProfileController extends GetxController {
   void load() async {
     getUserId();
     await Future.delayed(const Duration(seconds: 2));
-    getUserProfile(uid);
+    getUserProfile(11);
   }
 
 ///////////////////////////////////////////////////

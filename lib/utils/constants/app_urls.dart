@@ -21,4 +21,5 @@ class AppUrls {
   //////////////////////user profile sec
 
   static const String getUserProfile = "v1/me/";
+  static const String updateUserProfile = "v1/me/";
 }
