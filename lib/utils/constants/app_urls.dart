@@ -11,12 +11,9 @@ class AppUrls {
   static const String notificationend = "v1/notifications/1";
   static const String newspost = "v1/posts";
   static const String addProperty = "v1/add-property";
-<<<<<<< HEAD
+
   static const String newsfeed = "v1/Properties";
-=======
-  static const String newsfeed =
-      "http://realestate.tecrux.net/api/v1/Properties";
->>>>>>> 32d1dabb369d26b3e023528281b8aa1c1ee8287e
+
   static const String contacusend = "v1/contact";
   static const String postLikee = "v1/postlike";
   static const String postComments = "v1/postcomment";
