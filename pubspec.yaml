@@ -52,6 +52,8 @@ dependencies:
   flutter_local_notifications: ^ 7.0.0
   sizer: ^2.0.15
   shimmer: ^2.0.0
+  jumping_dot: ^0.0.4
+  infinite_scroll_pagination: ^3.2.0
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
