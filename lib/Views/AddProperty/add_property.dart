@@ -312,12 +312,44 @@ class _PropertyState extends State<Property>
                           )
                         ],
                       ),
-                      Obx(() => ListTile(
-                            leading: const Icon(Icons.location_on_outlined),
-                            title: Text(
-                                addPropertyController.selectedValueCity.value),
-                            onTap: () => _showCityList(),
-                          ))
+                      Obx(() => addPropertyController.loadingAddProperty.value
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                              color: AppColors.appthem,
+                            ))
+                          : addPropertyController
+                                      .errorLoadingAddProperty.value !=
+                                  ''
+                              ? Center(
+                                  child: Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              getCitiese();
+                                            },
+                                            icon: const Icon(
+                                              Icons.refresh,
+                                              color: AppColors.appthem,
+                                            )),
+                                        SizedBox(
+                                          height: 1.0.h,
+                                        ),
+                                        Text(addPropertyController
+                                            .errorLoadingAddProperty.value),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              : ListTile(
+                                  leading:
+                                      const Icon(Icons.location_on_outlined),
+                                  title: Text(addPropertyController
+                                      .selectedValueCity.value),
+                                  onTap: () => _showCityList(),
+                                ))
                     ],
                   ),
 
