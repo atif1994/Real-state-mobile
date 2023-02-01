@@ -27,4 +27,11 @@ class AppUrls {
   //////////////////////user profile sec
 
   static const String updateUserProfile = "v1/me/";
+
+
+  static const String profileAllPropertise = "v1/my-properties/";
+  static const String getAllAgents = "v1/get-agents/";
+  static const String assignAgents = "v1/assign-agents";
+
+
 }
