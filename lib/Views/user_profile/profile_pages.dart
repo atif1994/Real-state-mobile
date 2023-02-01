@@ -285,10 +285,9 @@ class ProfilePages extends StatelessWidget {
 
                           ////////////////////////////////////////////
 
-
                 InkWell(
                   onTap: () {
-                    Get.to(() => const ChatScreen(),
+                    Get.to(() => ChatScreen(),
                         duration: const Duration(milliseconds: 600),
                         transition: Transition.rightToLeft);
                   },
@@ -311,7 +310,6 @@ class ProfilePages extends StatelessWidget {
                             width: 6.0.w,
 
                           ),
-
 
 
                 ////////////////////////////////////////////
