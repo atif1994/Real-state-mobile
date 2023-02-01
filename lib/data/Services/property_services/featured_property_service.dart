@@ -1,4 +1,3 @@
-import 'package:prologic_29/data/Models/propertyfilter_model.dart';
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
@@ -87,7 +86,7 @@ class FeaturedPropertyService {
     try {
       var res = await BaseClientClass.post(url, data);
       if (res is http.Response) {
-        return propertyFilterModelFromJson(res.body);
+        return propertiseFiltersResponseFromJson(res.body);
       } else {
         return res;
       }

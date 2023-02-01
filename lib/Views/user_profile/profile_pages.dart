@@ -285,39 +285,37 @@ class ProfilePages extends StatelessWidget {
 
                           ////////////////////////////////////////////
 
-                          InkWell(
-                            onTap: () {
-                              Get.to(() => const ChatScreen(),
-                                  duration: const Duration(milliseconds: 600),
-                                  transition: Transition.rightToLeft);
-                            },
-                            child: Container(
-                                margin: EdgeInsets.only(top: 2.0.h),
-                                height: 6.0.h,
-                                width: 100.0.w,
-                                decoration: CustomDecorations.mainCon,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 3.0.w,
-                                    ),
-                                    const Icon(
-                                      Icons.chat,
-                                      color: AppColors.appthem,
-                                    ),
-                                    SizedBox(
-                                      width: 6.0.w,
-                                    ),
-                                    Text("Chat",
-                                        style: AppTextStyles.heading1.copyWith(
-                                            fontSize: 12.sp,
-                                            color: AppColors.appthem)),
-                                  ],
-                                )),
+
+                InkWell(
+                  onTap: () {
+                    Get.to(() => const ChatScreen(),
+                        duration: const Duration(milliseconds: 600),
+                        transition: Transition.rightToLeft);
+                  },
+                  child: Container(
+                      margin: EdgeInsets.only(top: 2.0.h),
+                      height: 6.0.h,
+                      width: 100.0.w,
+                      decoration: CustomDecorations.mainCon,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 3.0.w,
+                          ),
+                          const Icon(
+                            Icons.chat,
+                            color: AppColors.appthem,
+                          ),
+                          SizedBox(
+                            width: 6.0.w,
+
                           ),
 
-                          ////////////////////////////////////////////
+
+
+                ////////////////////////////////////////////
+
 
                           InkWell(
                             onTap: () {
