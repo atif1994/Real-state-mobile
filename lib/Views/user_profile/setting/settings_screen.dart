@@ -1,20 +1,31 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
+import 'package:prologic_29/data/Controllers/user_profile_section_controller/profile_updated_controller.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../data/Controllers/user_profile_section_controller/user_profile_controller.dart';
+import '../../../data/Models/user_profile_section_model/get_user_profile.dart';
+
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  final GetUserProfileResponse? getUserProfileResponse;
+  const SettingsScreen({super.key, this.getUserProfileResponse});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  var firstNameController = TextEditingController();
+  var profileController = Get.put(UserProfileController());
+  var updateprofileController = Get.put(UpdateProfileController());
+
+  var fullNameController = TextEditingController();
 
   var lastNameController = TextEditingController();
 
@@ -28,8 +39,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   var dobController = TextEditingController();
 
+  var genderController = TextEditingController();
+
   String dob = 'Select Dob';
   String gender = 'Select Gender';
+
+  @override
+  void initState() {
+    userNameController.text =
+        profileController.userProfileData.data!.username.toString();
+    fullNameController.text =
+        "${profileController.userProfileData.data!.firstName} ${profileController.userProfileData.data!.lastName}"
+            .toString();
+    lastNameController.text =
+        profileController.userProfileData.data!.lastName.toString();
+    phoneController.text =
+        profileController.userProfileData.data!.phone.toString();
+    userDescController.text =
+        profileController.userProfileData.data!.description.toString();
+    emailController.text =
+        profileController.userProfileData.data!.email.toString();
+    phoneController.text =
+        profileController.userProfileData.data!.phone.toString();
+    dob = DateFormat("dd-MM-yyyy")
+        .format(profileController.userProfileData.data!.dob!);
+    profileController.userProfileData.data!.dob.toString();
+    gender = profileController.userProfileData.data!.gender.toString();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,15 +104,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             border:
                                 Border.all(color: AppColors.appthem, width: 4)),
                         child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              child: ClipOval(
-                                child: Image.network(
-                                  "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4",
-                                ),
-                              )),
-                        ),
+                            padding: const EdgeInsets.all(4.0),
+                            child: CircleAvatar(
+                                // backgroundColor: Colors.transparent,
+                                backgroundImage: CachedNetworkImageProvider(
+                                    profileController
+                                                .userProfileData.data!.avatar ==
+                                            ''
+                                        ? "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4"
+                                        : profileController
+                                            .userProfileData.data!.avatar!))),
                       ),
                     ),
                     /////////////////////////////////////////////////////////
@@ -93,26 +132,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 3.0.w, top: 2.0.h),
                       child: Text(
-                        "First Name",
+                        "Full Name",
                         style: AppTextStyles.heading1.copyWith(
                             color: AppColors.appthem, fontSize: 12.sp),
                       ),
                     ),
 
-                    CustomTextField(editingController: firstNameController),
+                    CustomTextField(editingController: fullNameController),
 
                     ////////////////////////////////////////////////////////////
 
-                    Padding(
-                      padding: EdgeInsets.only(left: 3.0.w, top: 2.0.h),
-                      child: Text(
-                        "Last Name",
-                        style: AppTextStyles.heading1.copyWith(
-                            color: AppColors.appthem, fontSize: 12.sp),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 3.0.w, top: 2.0.h),
+                    //   child: Text(
+                    //     "Last Name",
+                    //     style: AppTextStyles.heading1.copyWith(
+                    //         color: AppColors.appthem, fontSize: 12.sp),
+                    //   ),
+                    // ),
 
-                    CustomTextField(editingController: lastNameController),
+                    // CustomTextField(editingController: lastNameController),
 
                     ////////////////////////////////////////////////////////////
 
@@ -151,7 +190,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
 
-                    CustomTextField(editingController: phoneController),
+                    CustomTextField(editingController: userDescController),
 
                     ////////////////////////////////////////////////////////////
 
@@ -188,9 +227,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             border: Border.all(color: AppColors.appthem),
                             borderRadius: BorderRadius.circular(10)),
                         child: Padding(
-                          padding: EdgeInsets.only(top: 1.5.h, left: 2.0.w),
-                          child: Text(dob),
-                        ),
+                            padding: EdgeInsets.only(top: 1.5.h, left: 2.0.w),
+                            child: Text(dob)),
                       ),
                     ),
 
@@ -234,7 +272,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Padding(
             padding: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
             child: CustomButton(
-              onPressed: () {},
+              onPressed: () {
+                updateprofileController.updateUserProfile(
+                    fullNameController.text.split(' ')[0],
+                    fullNameController.text.split(' ')[1],
+                    phoneController.text,
+                    userDescController.text,
+                    emailController.text,
+                    dob,
+                    gender);
+              },
               text: "Save",
             ),
           )
@@ -252,7 +299,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         lastDate: DateTime(2101));
     if (picked != null) {
       setState(() {
-        dob = picked.toString();
+        dob = picked.toString().split(" ")[0];
       });
     }
   }
