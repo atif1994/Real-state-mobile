@@ -75,10 +75,10 @@ class DashboardController extends GetxController {
   var filteredPropertyModel = PropertiseFiltersResponse();
   RxBool loadingfilteredPropertise = false.obs;
   RxString errorLoadingFilteredPropertise = ''.obs;
-  void getFilteredPropertise(cid, catid) async {
+  void getFilteredPropertise(int? cid, catid) async {
     loadingfilteredPropertise.value = true;
     errorLoadingFilteredPropertise.value = '';
-    var res = await FeaturedPropertyService.propertyfilterService(cid, catid);
+    var res = await FeaturedPropertyService.propertyfilterService(cid!, catid);
     loadingfilteredPropertise.value = false;
     if (res is PropertiseFiltersResponse) {
       filteredPropertyModel = res;

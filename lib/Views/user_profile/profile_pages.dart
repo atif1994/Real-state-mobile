@@ -13,9 +13,9 @@ import '../../utils/styles/app_textstyles.dart';
 import 'propertise/propertise_section.dart';
 
 class ProfilePages extends StatelessWidget {
-  var profileController = Get.put(UserProfileController());
   ProfilePages({super.key});
 
+  var profileController = Get.put(UserProfileController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(

@@ -41,8 +41,8 @@ class UserProfileController extends GetxController {
     if (res is GetUserProfileResponse) {
       userProfileData = res;
     } else {
-      errorLoadingUserProfile.value = res;
       loadingUserProfile.value = false;
+      errorLoadingUserProfile.value = res;
     }
   }
 }

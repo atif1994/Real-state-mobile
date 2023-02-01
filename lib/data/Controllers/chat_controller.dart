@@ -1,16 +1,27 @@
 import 'package:get/state_manager.dart';
 import 'package:prologic_29/data/Models/Chat_Model/chat_model.dart';
 import 'package:prologic_29/data/Models/Chat_Model/conversation_model.dart';
+import 'package:prologic_29/data/Models/Chat_Model/sendchat_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Services/chat_services.dart';
 
 class ChatController extends GetxController {
+  int? conversationId;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    loadData();
+
+    print("conversational Id =======????$conversationId ");
+  }
+
+  void loadData() async {
     getConversation();
-    getChat();
+    getConversationId();
+    await Future.delayed(const Duration(seconds: 2));
+    getChat(conversationId);
   }
 
   RxBool loadingConversation = false.obs;
@@ -23,7 +34,6 @@ class ChatController extends GetxController {
     var res = await ChatServices.getConversationService();
     loadingConversation.value = false;
     if (res is Conversation) {
-      loadingConversation.value = false;
       conversationModel = res;
     } else {
       loadingConversation.value = false;
@@ -37,10 +47,10 @@ class ChatController extends GetxController {
   var chatModel = ChatModel();
   RxString errChatload = ''.obs;
 
-  void getChat() async {
+  void getChat(int? conversationId) async {
     loadingChat.value = true;
     errChatload.value = '';
-    var res = await ChatServices.getChatServiceAPI();
+    var res = await ChatServices.getChatServiceAPI(conversationId!);
     loadingChat.value = false;
     if (res is ChatModel) {
       loadingChat.value = false;
@@ -48,6 +58,32 @@ class ChatController extends GetxController {
     } else {
       loadingChat.value = false;
       errChatload.value = res.toString();
+    }
+  }
+
+//get convesationId from sharedPref had store from chat room
+
+  void getConversationId() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    conversationId = pref.getInt("conversatinId");
+  }
+
+// send msg Controller
+
+  RxBool loadingsend = false.obs;
+  var sendMsgModel = SendChatModel();
+  RxString errSendMsg = ''.obs;
+
+  void sendMsgMethod() async {
+    loadingsend.value = true;
+    errSendMsg.value = '';
+    var res = await ChatServices.sendMsgService();
+    loadingsend.value = false;
+    if (res is SendChatModel) {
+      sendMsgModel = res;
+    } else {
+      loadingsend.value = false;
+      errSendMsg.value = res.toString();
     }
   }
 }

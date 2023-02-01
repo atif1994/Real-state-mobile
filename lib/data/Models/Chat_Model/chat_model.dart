@@ -131,12 +131,12 @@ class Customer {
   dynamic avatarId;
   dynamic dob;
   String? phone;
-  int? credits;
+  String? credits;
   dynamic confirmedAt;
   dynamic emailVerifyToken;
   String? isFeatured;
   DateTime? createdAt;
-  DateTime? updatedAt;
+  String? updatedAt;
   String? profileImage;
   String? addressId;
   String? roleId;
@@ -161,9 +161,7 @@ class Customer {
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        updatedAt: json["updated_at"],
         profileImage: json["profile_image"],
         addressId: json["address_id"],
         roleId: json["role_id"],
@@ -187,7 +185,7 @@ class Customer {
         "email_verify_token": emailVerifyToken,
         "is_featured": isFeatured,
         "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "updated_at": updatedAt,
         "profile_image": profileImage,
         "address_id": addressId,
         "role_id": roleId,
