@@ -8,7 +8,7 @@ class UserProfileController extends GetxController {
   RxBool loadingUserProfile = false.obs;
   RxString errorLoadingUserProfile = ''.obs;
   var userProfileData = GetUserProfileResponse();
-  int uid = 0;
+  int? uid;
 
   @override
   void onInit() {
@@ -25,7 +25,7 @@ class UserProfileController extends GetxController {
 ///////////////////////////////////////////////////
   void getUserId() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    uid = pref.getInt("userid")!;
+    uid = pref.getInt("userid");
     if (kDebugMode) {
       print("__________________________$uid");
     }
@@ -39,6 +39,7 @@ class UserProfileController extends GetxController {
     var res = await USerProfileServices.getUserProfile(uid);
 
     if (res is GetUserProfileResponse) {
+      loadingUserProfile.value = false;
       userProfileData = res;
     } else {
       errorLoadingUserProfile.value = res;
