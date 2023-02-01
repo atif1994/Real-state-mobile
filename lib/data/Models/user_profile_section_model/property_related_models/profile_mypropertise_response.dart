@@ -1,17 +1,17 @@
 // To parse this JSON data, do
 //
-//     final propertyAgaistUserIdResponse = propertyAgaistUserIdResponseFromJson(jsonString);
+//     final profileMyPropertiseResponse = profileMyPropertiseResponseFromJson(jsonString);
 
 import 'dart:convert';
 
-PropertyAgaistUserIdResponse propertyAgaistUserIdResponseFromJson(String str) =>
-    PropertyAgaistUserIdResponse.fromJson(json.decode(str));
+ProfileMyPropertiseResponse profileMyPropertiseResponseFromJson(String str) =>
+    ProfileMyPropertiseResponse.fromJson(json.decode(str));
 
-String propertyAgaistUserIdResponseToJson(PropertyAgaistUserIdResponse data) =>
+String profileMyPropertiseResponseToJson(ProfileMyPropertiseResponse data) =>
     json.encode(data.toJson());
 
-class PropertyAgaistUserIdResponse {
-  PropertyAgaistUserIdResponse({
+class ProfileMyPropertiseResponse {
+  ProfileMyPropertiseResponse({
     this.error,
     this.data,
     this.message,
@@ -21,8 +21,8 @@ class PropertyAgaistUserIdResponse {
   List<Datum>? data;
   dynamic message;
 
-  factory PropertyAgaistUserIdResponse.fromJson(Map<String, dynamic> json) =>
-      PropertyAgaistUserIdResponse(
+  factory ProfileMyPropertiseResponse.fromJson(Map<String, dynamic> json) =>
+      ProfileMyPropertiseResponse(
         error: json["error"],
         data: json["data"] == null
             ? []
@@ -91,7 +91,7 @@ class Datum {
   String? description;
   String? content;
   String? location;
-  List<String>? images;
+  dynamic images;
   String? numberBedroom;
   String? numberBathroom;
   String? numberFloor;
@@ -119,7 +119,7 @@ class Datum {
   String? plotNumber;
   String? streetNumber;
   String? sectorAndBlockName;
-  String? assignedAgent;
+  dynamic assignedAgent;
   String? assignerId;
   String? isDeleted;
   City? city;
@@ -127,8 +127,8 @@ class Datum {
   Category? category;
   Type? type;
   Currency? currency;
-  List<dynamic>? features;
-  List<dynamic>? facilities;
+  List<Feature>? features;
+  List<Facility>? facilities;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
@@ -136,9 +136,7 @@ class Datum {
         description: json["description"],
         content: json["content"],
         location: json["location"],
-        images: json["images"] == null
-            ? []
-            : List<String>.from(json["images"]!.map((x) => x)),
+        images: json["images"],
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         numberFloor: json["number_floor"],
@@ -188,10 +186,12 @@ class Datum {
             : Currency.fromJson(json["currency"]),
         features: json["features"] == null
             ? []
-            : List<dynamic>.from(json["features"]!.map((x) => x)),
+            : List<Feature>.from(
+                json["features"]!.map((x) => Feature.fromJson(x))),
         facilities: json["facilities"] == null
             ? []
-            : List<dynamic>.from(json["facilities"]!.map((x) => x)),
+            : List<Facility>.from(
+                json["facilities"]!.map((x) => Facility.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -200,8 +200,7 @@ class Datum {
         "description": description,
         "content": content,
         "location": location,
-        "images":
-            images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
+        "images": images,
         "number_bedroom": numberBedroom,
         "number_bathroom": numberBathroom,
         "number_floor": numberFloor,
@@ -237,11 +236,12 @@ class Datum {
         "category": category?.toJson(),
         "type": type?.toJson(),
         "currency": currency?.toJson(),
-        "features":
-            features == null ? [] : List<dynamic>.from(features!.map((x) => x)),
+        "features": features == null
+            ? []
+            : List<dynamic>.from(features!.map((x) => x.toJson())),
         "facilities": facilities == null
             ? []
-            : List<dynamic>.from(facilities!.map((x) => x)),
+            : List<dynamic>.from(facilities!.map((x) => x.toJson())),
       };
 }
 
@@ -414,6 +414,149 @@ class Currency {
         "exchange_rate": exchangeRate,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+      };
+}
+
+class Facility {
+  Facility({
+    this.id,
+    this.name,
+    this.icon,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+    this.pivot,
+  });
+
+  int? id;
+  String? name;
+  String? icon;
+  String? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  FacilityPivot? pivot;
+
+  factory Facility.fromJson(Map<String, dynamic> json) => Facility(
+        id: json["id"],
+        name: json["name"],
+        icon: json["icon"],
+        status: json["status"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        pivot: json["pivot"] == null
+            ? null
+            : FacilityPivot.fromJson(json["pivot"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "icon": icon,
+        "status": status,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "pivot": pivot?.toJson(),
+      };
+}
+
+class FacilityPivot {
+  FacilityPivot({
+    this.referenceId,
+    this.facilityId,
+    this.referenceType,
+    this.distance,
+  });
+
+  String? referenceId;
+  String? facilityId;
+  String? referenceType;
+  String? distance;
+
+  factory FacilityPivot.fromJson(Map<String, dynamic> json) => FacilityPivot(
+        referenceId: json["reference_id"],
+        facilityId: json["facility_id"],
+        referenceType: json["reference_type"],
+        distance: json["distance"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "reference_id": referenceId,
+        "facility_id": facilityId,
+        "reference_type": referenceType,
+        "distance": distance,
+      };
+}
+
+class Feature {
+  Feature({
+    this.id,
+    this.name,
+    this.icon,
+    this.status,
+    this.pivot,
+  });
+
+  int? id;
+  String? name;
+  String? icon;
+  String? status;
+  FeaturePivot? pivot;
+
+  factory Feature.fromJson(Map<String, dynamic> json) => Feature(
+        id: json["id"],
+        name: json["name"],
+        icon: json["icon"],
+        status: json["status"],
+        pivot:
+            json["pivot"] == null ? null : FeaturePivot.fromJson(json["pivot"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "icon": icon,
+        "status": status,
+        "pivot": pivot?.toJson(),
+      };
+}
+
+class FeaturePivot {
+  FeaturePivot({
+    this.propertyId,
+    this.featureId,
+  });
+
+  String? propertyId;
+  String? featureId;
+
+  factory FeaturePivot.fromJson(Map<String, dynamic> json) => FeaturePivot(
+        propertyId: json["property_id"],
+        featureId: json["feature_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "property_id": propertyId,
+        "feature_id": featureId,
+      };
+}
+
+class ImagesClass {
+  ImagesClass({
+    this.the1,
+  });
+
+  String? the1;
+
+  factory ImagesClass.fromJson(Map<String, dynamic> json) => ImagesClass(
+        the1: json["1"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "1": the1,
       };
 }
 
