@@ -59,7 +59,7 @@ class Datum {
   String? status;
   dynamic image;
   dynamic senderId;
-  DateTime? createdAt;
+  String? createdAt;
   DateTime? updatedAt;
   User? user;
 
@@ -74,9 +74,7 @@ class Datum {
         status: json["status"],
         image: json["image"],
         senderId: json["sender_id"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
+        createdAt: json["created_at"],
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
@@ -92,7 +90,7 @@ class Datum {
         "status": status,
         "image": image,
         "sender_id": senderId,
-        "created_at": createdAt?.toIso8601String(),
+        "created_at": createdAt,
         "updated_at": updatedAt?.toIso8601String(),
         "user": user?.toJson(),
       };
