@@ -1,6 +1,6 @@
 import 'package:get/state_manager.dart';
 import 'package:prologic_29/data/Models/myproperty_model.dart';
-import 'package:prologic_29/data/Models/propertyfilter_model.dart';
+import 'package:prologic_29/data/Models/property_filters_model/property_filters_response.dart';
 import 'package:prologic_29/data/Services/property_services/featured_property_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Models/newspost_model.dart';
@@ -16,29 +16,29 @@ class DashboardController extends GetxController {
   int? cid;
   String? cityName;
   int catid = 0;
+
   @override
   void onInit() {
-    void getCityInfo() async {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      cid = pref.getInt("cityId");
-      cityName = pref.getString("cityName");
-    }
+    loadData();
+    super.onInit();
+  }
 
+  void loadData() async {
+    getCityInfo();
+    getMyProperty(userid);
+    await Future.delayed(const Duration(milliseconds: 400));
     getnewspost();
     getFeaturedPropertise();
     getPrpertyCitis();
-    getFilteredPropertise(cid: cid, catid: catid);
-    super.onInit();
-    getuserId(userid);
-    getMyProperty(userid);
+    getFilteredPropertise(cid, catid);
   }
 
   void getFeaturedPropertise() async {
     loadingFeaturedPropertise.value = true;
     errorLoadingFeaturedPropertise.value = '';
     var res = await FeaturedPropertyService.getFeaturedPropertiser();
-    loadingFeaturedPropertise.value = false;
     if (res is FeaturedPropertiseModel) {
+      loadingFeaturedPropertise.value = false;
       featuredPropertyModel = res;
     } else {
       loadingFeaturedPropertise.value = false;
@@ -72,22 +72,18 @@ class DashboardController extends GetxController {
     cityName = pref.getString("cityName");
   }
 
-  var filteredPropertyModel = PropertyFilterModel();
+  var filteredPropertyModel = PropertiseFiltersResponse();
   RxBool loadingfilteredPropertise = false.obs;
   RxString errorLoadingFilteredPropertise = ''.obs;
-  void getFilteredPropertise({cid, required catid}) async {
+  void getFilteredPropertise(cid, catid) async {
     loadingfilteredPropertise.value = true;
     errorLoadingFilteredPropertise.value = '';
-    var res = await FeaturedPropertyService.propertyfilterService(cid!, catid);
-
+    var res = await FeaturedPropertyService.propertyfilterService(cid, catid);
     loadingfilteredPropertise.value = false;
-
-    if (res is PropertyFilterModel) {
-      loadingfilteredPropertise.value = false;
+    if (res is PropertiseFiltersResponse) {
       filteredPropertyModel = res;
     } else {
       loadingfilteredPropertise.value = false;
-
       errorLoadingFilteredPropertise.value = res.toString();
     }
   }

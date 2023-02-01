@@ -92,7 +92,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    dashboardController.getFilteredPropertise(cid: cid, catid: 0);
+    dashboardController.getFilteredPropertise(cid, 0);
     getCityInfo();
     LocalNotificationsApi.init();
     listenNotification();
@@ -303,8 +303,7 @@ class _HomeState extends State<Home> {
                                       IconButton(
                                           onPressed: () {
                                             dashboardController
-                                                .getFilteredPropertise(
-                                                    cid: cid, catid: 0);
+                                                .getFilteredPropertise(cid, 0);
                                           },
                                           icon: const Icon(
                                             Icons.refresh,
@@ -371,8 +370,7 @@ class _HomeState extends State<Home> {
                                                             index;
                                                         dashboardController
                                                             .getFilteredPropertise(
-                                                                cid: cid,
-                                                                catid: index);
+                                                                cid, index);
                                                       });
                                                     },
                                                     child: Row(
@@ -606,9 +604,8 @@ class _HomeState extends State<Home> {
                                                     onPressed: () {
                                                       dashboardController
                                                           .getFilteredPropertise(
-                                                              cid: cid,
-                                                              catid:
-                                                                  _browsPropertyIndex1);
+                                                              cid,
+                                                              _browsPropertyIndex1);
 
                                                       //  dashboardController
                                                       // .getFilteredPropertise(
@@ -674,7 +671,7 @@ class _HomeState extends State<Home> {
                                                               child: Text(dashboardController
                                                                       .filteredPropertyModel
                                                                       .popular![
-                                                                          index]!
+                                                                          index]
                                                                       .name ??
                                                                   ''),
                                                             ),
@@ -731,7 +728,7 @@ class _HomeState extends State<Home> {
                                                                   child: Text(dashboardController
                                                                           .filteredPropertyModel
                                                                           .types![
-                                                                              index]!
+                                                                              index]
                                                                           .name ??
                                                                       ''),
                                                                 ),
@@ -783,7 +780,7 @@ class _HomeState extends State<Home> {
                                                                         child:
                                                                             Center(
                                                                           child:
-                                                                              Text(dashboardController.filteredPropertyModel.locations![index]!.sectorAndBlockName ?? ''),
+                                                                              Text(dashboardController.filteredPropertyModel.locations![index].sectorAndBlockName ?? ''),
                                                                         ),
                                                                       );
                                                                     }),
@@ -829,7 +826,7 @@ class _HomeState extends State<Home> {
                                                                                 borderRadius: BorderRadius.circular(10)),
                                                                             child:
                                                                                 Center(
-                                                                              child: Text(dashboardController.filteredPropertyModel.areas![index]!.square ?? ''),
+                                                                              child: Text(dashboardController.filteredPropertyModel.areas![index].square ?? ''),
                                                                             ),
                                                                           );
                                                                         }),

@@ -4,11 +4,11 @@
 
 import 'dart:convert';
 
-PropertyFilterModel? propertyFilterModelFromJson(String str) =>
+PropertyFilterModel propertyFilterModelFromJson(String str) =>
     PropertyFilterModel.fromJson(json.decode(str));
 
-String propertyFilterModelToJson(PropertyFilterModel? data) =>
-    json.encode(data!.toJson());
+String propertyFilterModelToJson(PropertyFilterModel data) =>
+    json.encode(data.toJson());
 
 class PropertyFilterModel {
   PropertyFilterModel({
@@ -18,43 +18,43 @@ class PropertyFilterModel {
     this.areas,
   });
 
-  List<Popular?>? popular;
-  List<Popular?>? types;
-  List<Location?>? locations;
-  List<Area?>? areas;
+  List<Popular>? popular;
+  List<Popular>? types;
+  List<Location>? locations;
+  List<Area>? areas;
 
   factory PropertyFilterModel.fromJson(Map<String, dynamic> json) =>
       PropertyFilterModel(
         popular: json["popular"] == null
             ? []
-            : List<Popular?>.from(
+            : List<Popular>.from(
                 json["popular"]!.map((x) => Popular.fromJson(x))),
         types: json["types"] == null
             ? []
-            : List<Popular?>.from(
+            : List<Popular>.from(
                 json["types"]!.map((x) => Popular.fromJson(x))),
         locations: json["locations"] == null
             ? []
-            : List<Location?>.from(
+            : List<Location>.from(
                 json["locations"]!.map((x) => Location.fromJson(x))),
         areas: json["areas"] == null
             ? []
-            : List<Area?>.from(json["areas"]!.map((x) => Area.fromJson(x))),
+            : List<Area>.from(json["areas"]!.map((x) => Area.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "popular": popular == null
             ? []
-            : List<dynamic>.from(popular!.map((x) => x!.toJson())),
+            : List<dynamic>.from(popular!.map((x) => x.toJson())),
         "types": types == null
             ? []
-            : List<dynamic>.from(types!.map((x) => x!.toJson())),
+            : List<dynamic>.from(types!.map((x) => x.toJson())),
         "locations": locations == null
             ? []
-            : List<dynamic>.from(locations!.map((x) => x!.toJson())),
+            : List<dynamic>.from(locations!.map((x) => x.toJson())),
         "areas": areas == null
             ? []
-            : List<dynamic>.from(areas!.map((x) => x!.toJson())),
+            : List<dynamic>.from(areas!.map((x) => x.toJson())),
       };
 }
 
@@ -107,7 +107,7 @@ class Popular {
   int? id;
   String? name;
   String? description;
-  String? status;
+  Status? status;
   String? order;
   String? isDefault;
   DateTime? createdAt;
@@ -119,11 +119,15 @@ class Popular {
         id: json["id"],
         name: json["name"],
         description: json["description"],
-        status: json["status"],
+        status: statusValues.map[json["status"]]!,
         order: json["order"],
         isDefault: json["is_default"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
         parentId: json["parent_id"],
         parentclass: json["parentclass"],
       );
@@ -132,7 +136,7 @@ class Popular {
         "id": id,
         "name": name,
         "description": description,
-        "status": statusValues.reverse![status],
+        "status": statusValues.reverse[status],
         "order": order,
         "is_default": isDefault,
         "created_at": createdAt?.toIso8601String(),
@@ -148,12 +152,12 @@ final statusValues = EnumValues({"published": Status.PUBLISHED});
 
 class EnumValues<T> {
   Map<String, T> map;
-  Map<T, String>? reverseMap;
+  late Map<T, String> reverseMap;
 
   EnumValues(this.map);
 
-  Map<T, String>? get reverse {
-    reverseMap ??= map.map((k, v) => MapEntry(v, k));
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }
 }
