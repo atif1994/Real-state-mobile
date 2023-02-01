@@ -37,9 +37,8 @@ class UserProfileController extends GetxController {
     errorLoadingUserProfile.value = "";
 
     var res = await USerProfileServices.getUserProfile(uid);
-
+    loadingUserProfile.value = false;
     if (res is GetUserProfileResponse) {
-      loadingUserProfile.value = false;
       userProfileData = res;
     } else {
       errorLoadingUserProfile.value = res;
