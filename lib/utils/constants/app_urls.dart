@@ -18,11 +18,14 @@ class AppUrls {
   static const String postLikee = "v1/postlike";
   static const String postComments = "v1/postcomment";
   static const String newsfeedcomment = "v1/coment-property";
+  static const String sendChat = "v1/send-chat";
 
   //////////////////////user profile
   static const String getUserProfile = "v1/me/";
   static const String convesationList = "v1/conversations/11";
-  static const String chatList = "v1/chat/1";
+
+  static const String chatList = "v1/chat/";
+
 
   //////////////////////user profile sec
 
@@ -31,5 +34,7 @@ class AppUrls {
 
   static const String profileAllPropertise = "v1/my-properties/";
   static const String getAllAgents = "v1/get-agents/";
+
   static const String assignAgents = "v1/assign-agents/";
+
 }

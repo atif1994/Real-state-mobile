@@ -9,7 +9,8 @@ import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 class Chating extends StatefulWidget {
-  const Chating({super.key});
+  String? name;
+  Chating({super.key, this.name});
 
   @override
   State<Chating> createState() => _ChatingState();
@@ -30,7 +31,7 @@ class _ChatingState extends State<Chating> {
         title: Obx(() => chattController.loadingChat.value
             ? const Center(child: CircularProgressIndicator())
             : Text(
-                chattController.chatModel.data![0].user!.username ?? '',
+                widget.name ?? '',
                 style: AppTextStyles.heading1,
               )),
       ),
@@ -47,78 +48,161 @@ class _ChatingState extends State<Chating> {
                         child: CircularProgressIndicator(),
                       )
                     : ListView.builder(
-                        itemCount: chattController.chatModel.data!.length,
+                        itemCount: chattController.chatModel.data?.length,
                         itemBuilder: (context, index) {
-                          var agentName =
-                              chattController.chatModel.data![index].message;
-
-                          return InkWell(
-                            onTap: () {},
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                  top: index == 0 ? 1.0.h : 2.0.h,
-                                  bottom: index == 9 ? 1.0.h : 0.0.h),
-                              height: 8.0.h,
-                              width: 100.0.w,
-                              decoration: CustomDecorations.mainCon,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: 2.0.w,
-                                  ),
-                                  Container(
-                                    height: 12.0.w,
-                                    width: 12.0.w,
-                                    decoration: BoxDecoration(
-                                        color: Colors.orange,
-                                        borderRadius:
-                                            BorderRadius.circular(300)),
-                                    child: Center(
-                                        child: Text(
-                                      'Me',
-                                      style: AppTextStyles.heading1.copyWith(
-                                          fontWeight: FontWeight.w800),
-                                    )),
-                                  ),
-                                  SizedBox(
-                                    width: 3.0.w,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Me ",
+                          // var agentName = chattController
+                          //     .chatModel.data![index].user!.username;
+                          // String? firstChar;
+                          // if (agentName!.isNotEmpty) {
+                          //   firstChar = agentName[0];
+                          // }
+                          return Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: index == 0 ? 1.0.h : 2.0.h,
+                                    bottom: index == 9 ? 1.0.h : 0.0.h),
+                                height: 8.0.h,
+                                width: 100.0.w,
+                                decoration: CustomDecorations.mainCon,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: 2.0.w,
+                                    ),
+                                    Container(
+                                      height: 12.0.w,
+                                      width: 12.0.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.orange,
+                                          borderRadius:
+                                              BorderRadius.circular(300)),
+                                      child: Center(
+                                          child: Text(
+                                        "dddd",
                                         style: AppTextStyles.heading1.copyWith(
-                                            color: AppColors.appthem,
                                             fontWeight: FontWeight.w800),
-                                      ),
-                                      Text(
-                                        chattController.chatModel.data![index]
-                                                .message ??
-                                            '',
-                                        style: AppTextStyles.heading1
-                                            .copyWith(color: AppColors.appthem),
-                                      )
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    DateFormat('dd.MM.yyyy').format(
-                                        DateTime.parse(chattController.chatModel
-                                            .data![index].customer!.updatedAt
-                                            .toString())),
-                                    style: AppTextStyles.heading1
-                                        .copyWith(color: AppColors.appthem),
-                                  ),
-                                  SizedBox(
-                                    width: 2.0.w,
-                                  )
-                                ],
+                                      )),
+                                    ),
+                                    SizedBox(
+                                      width: 3.0.w,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          chattController.chatModel.data?[index]
+                                                  .user!.username ??
+                                              '',
+                                          style: AppTextStyles.heading1
+                                              .copyWith(
+                                                  color: AppColors.appthem,
+                                                  fontWeight: FontWeight.w800),
+                                        ),
+                                        Text(
+                                          chattController.chatModel.data?[index]
+                                                  .message ??
+                                              '',
+                                          style: AppTextStyles.heading1
+                                              .copyWith(
+                                                  color: AppColors.appthem),
+                                        )
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      DateFormat('dd.MM.yyyy').format(
+                                          DateTime.parse(chattController
+                                              .chatModel
+                                              .data![index]
+                                              .customer!
+                                              .updatedAt
+                                              ??"")),
+                                      style: AppTextStyles.heading1
+                                          .copyWith(color: AppColors.appthem),
+                                    ),
+                                    SizedBox(
+                                      width: 2.0.w,
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: index == 0 ? 1.0.h : 2.0.h,
+                                    bottom: index == 9 ? 1.0.h : 0.0.h),
+                                height: 8.0.h,
+                                width: 100.0.w,
+                                decoration: CustomDecorations.mainCon,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: 2.0.w,
+                                    ),
+                                    Container(
+                                      height: 12.0.w,
+                                      width: 12.0.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.orange,
+                                          borderRadius:
+                                              BorderRadius.circular(300)),
+                                      child: Center(
+                                          child: Text(
+                                        'Me',
+                                        style: AppTextStyles.heading1.copyWith(
+                                            fontWeight: FontWeight.w800),
+                                      )),
+                                    ),
+                                    SizedBox(
+                                      width: 3.0.w,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Me',
+                                          style: AppTextStyles.heading1
+                                              .copyWith(
+                                                  color: AppColors.appthem,
+                                                  fontWeight: FontWeight.w800),
+                                        ),
+                                        Text(
+                                          chattController
+                                                  .sendMsgModel.data!.message ??
+                                              '',
+                                          style: AppTextStyles.heading1
+                                              .copyWith(
+                                                  color: AppColors.appthem),
+                                        )
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      DateFormat('dd.MM.yyyy').format(
+                                          DateTime.parse(chattController
+                                              .chatModel
+                                              .data![index]
+                                              .customer!
+                                              .updatedAt
+                                              .toString())),
+                                      style: AppTextStyles.heading1
+                                          .copyWith(color: AppColors.appthem),
+                                    ),
+                                    SizedBox(
+                                      width: 2.0.w,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
                           );
                         }),
               ),
@@ -144,10 +228,7 @@ class _ChatingState extends State<Chating> {
                   IconButton(
                       onPressed: () {
                         setState(() {
-                          chats.add(ChatModel(
-                              chat: chatController.text,
-                              logo: "T",
-                              userName: "Tahir Ahmad"));
+                          chattController.sendMsgMethod();
                         });
 
                         chatController.clear();
