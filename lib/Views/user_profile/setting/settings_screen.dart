@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:prologic_29/Views/user_profile/setting/profile_image.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/data/Controllers/user_profile_section_controller/profile_updated_controller.dart';
@@ -105,15 +106,42 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Border.all(color: AppColors.appthem, width: 4)),
                         child: Padding(
                             padding: const EdgeInsets.all(4.0),
-                            child: CircleAvatar(
-                                // backgroundColor: Colors.transparent,
-                                backgroundImage: CachedNetworkImageProvider(
-                                    profileController
-                                                .userProfileData.data!.avatar ==
-                                            ''
-                                        ? "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4"
-                                        : profileController
-                                            .userProfileData.data!.avatar!))),
+                            child: Stack(children: <Widget>[
+                              CircleAvatar(
+                                  radius: 90,
+                                  // backgroundColor: Colors.transparent,
+                                  backgroundImage: CachedNetworkImageProvider(
+                                      profileController.userProfileData.data!
+                                                  .avatar ==
+                                              ''
+                                          ? "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4"
+                                          : profileController
+                                              .userProfileData.data!.avatar!)),
+                              Positioned(
+                                  bottom: 0.0,
+                                  right: 0.0,
+                                  child: ClipOval(
+                                      child: InkWell(
+                                    onTap: () {
+                                      Get.to(const profileImage());
+                                    },
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border.all(
+                                                width: 2, color: Colors.grey),
+                                            borderRadius:
+                                                BorderRadius.circular(90)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Icon(
+                                            Icons.camera_alt,
+                                            color: Colors.grey.shade600,
+                                            size: 21,
+                                          ),
+                                        )),
+                                  )))
+                            ])),
                       ),
                     ),
                     /////////////////////////////////////////////////////////

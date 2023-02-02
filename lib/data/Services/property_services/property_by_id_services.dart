@@ -1,7 +1,6 @@
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
-
 import '../../Models/property_model/property_by_id_model.dart';
 
 class PropertyByIDService {

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:prologic_29/Views/Drawer/about_us.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
+import 'package:prologic_29/Views/Home/more_places.dart';
 
 import 'package:prologic_29/Views/Notifications/notification_page.dart';
 import 'package:prologic_29/Views/Property_by_id/property_by_id.dart';
@@ -24,6 +25,7 @@ import 'package:intl/intl.dart';
 import '../../data/Controllers/Notification_Controller/Notification_Controller.dart';
 import '../../data/Controllers/property_controllers/cities_controller.dart';
 import '../../data/Services/local_notifications_service.dart';
+import '../../utils/constants/app_urls.dart';
 import 'home_screen.dart';
 
 class Home extends StatefulWidget {
@@ -899,7 +901,7 @@ class _HomeState extends State<Home> {
                                         child: SizedBox(
                                           width: 80.0.w,
                                           child: Text(
-                                              "Find your dream home from our Newly added propertiess",
+                                              "Find your dream home from our Newly added properties",
                                               style: AppTextStyles.labelSmall
                                                   .copyWith(fontSize: 9.sp)),
                                         ),
@@ -970,16 +972,16 @@ class _HomeState extends State<Home> {
                                                                     .circular(
                                                                         10)),
                                                             child:
-                                                                //     Image.network(
-                                                                //   "${AppUrls.baseUrl2}${dashboardController.featuredPropertyModel.data!.data![index]!.images[0] ?? ''}",
-                                                                //   fit: BoxFit.cover,
-                                                                // ),
-
-                                                                Image.asset(
-                                                              AppImageResources
-                                                                  .property,
+                                                                Image.network(
+                                                              "${AppUrls.baseUrl2}${dashboardController.featuredPropertyModel.data!.data![index]!.images[0] ?? ''}",
                                                               fit: BoxFit.cover,
                                                             ),
+
+                                                            //     Image.asset(
+                                                            //   AppImageResources
+                                                            //       .property,
+                                                            //   fit: BoxFit.cover,
+                                                            // ),
                                                           ),
                                                         ),
                                                         SizedBox(
@@ -1171,7 +1173,10 @@ class _HomeState extends State<Home> {
                                             left: 3.0.w,
                                             right: 3.0.w,
                                             top: 1.0.h),
-                                        child: const CustomButton(
+                                        child: CustomButton(
+                                          onPressed: () {
+                                            Get.to(const Moreplaces());
+                                          },
                                           text: "More Places",
                                         ),
                                       )
@@ -1353,19 +1358,16 @@ class _HomeState extends State<Home> {
                                                                 Radius.circular(
                                                                     10),
                                                           ),
-                                                          child: Image.asset(
-                                                              citieseImages[
-                                                                      index]
-                                                                  .toString()),
-                                                          //  Image(
-                                                          //   image: NetworkImage(
-                                                          //       citiesController
-                                                          //               .citiesModel
-                                                          //               .data![0]!
-                                                          //               .metadata![0]!
-                                                          //               .metaValue![0] ??
-                                                          //           ''),
-                                                          // )),
+                                                          child:
+                                                              // Image.asset(
+                                                              //     citieseImages[
+                                                              //             index]
+                                                              //         .toString()),
+
+                                                              Image(
+                                                            image: NetworkImage(
+                                                                '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index]!.metadata![0]!.metaValue![0] ?? ''}'),
+                                                          ),
                                                         )),
                                                     SizedBox(
                                                       height: 2.0.h,
@@ -1560,21 +1562,26 @@ class _HomeState extends State<Home> {
                                                                     .circular(
                                                                         10))),
                                                         child: ClipRRect(
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                      .only(
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          10),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          10)),
-                                                          child: Image.asset(
-                                                            testimonialImages[
-                                                                index],
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ),
+                                                            borderRadius: const BorderRadius
+                                                                    .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        10),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        10)),
+                                                            child:
+                                                                // Image.asset(
+                                                                //   testimonialImages[
+                                                                //       index],
+                                                                //   fit: BoxFit.cover,
+                                                                // ),
+                                                                Image.network(newspostController
+                                                                        .newspostModel
+                                                                        .data![
+                                                                            index]!
+                                                                        .image ??
+                                                                    '')),
                                                       ),
                                                       SizedBox(
                                                         height: 1.0.h,

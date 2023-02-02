@@ -20,20 +20,16 @@ class AppUrls {
   static const String newsfeedcomment = "v1/coment-property";
 
   //////////////////////user profile
-  static const String getUserProfile = "v1/me/11";
+  static const String getUserProfile = "v1/me/";
   static const String convesationList = "v1/conversations/11";
   static const String chatList = "v1/chat/1";
 
-
   //////////////////////user profile sec
 
-  static const String getUserProfile = "v1/me/";
   static const String updateUserProfile = "v1/me/";
+  static const String changePassword = "v1/change-password/";
 
   static const String profileAllPropertise = "v1/my-properties/";
   static const String getAllAgents = "v1/get-agents/";
-  static const String assignAgents = "v1/assign-agents";
-
-
-
+  static const String assignAgents = "v1/assign-agents/";
 }

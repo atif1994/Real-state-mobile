@@ -20,21 +20,22 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 6.0.h,
-      child: TextField(
+      child: TextFormField(
         controller: editingController,
         decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: const TextStyle(fontFamily: AppFonts.nexaBook),
-            contentPadding: EdgeInsets.only(top: 1.0.h, left: 3.0.w),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(width: 1, color: AppColors.appthem),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                  width: 1, color: Color.fromARGB(255, 132, 160, 216)),
-              borderRadius: BorderRadius.circular(10),
-            )),
+          hintText: hintText,
+          hintStyle: const TextStyle(fontFamily: AppFonts.nexaBook),
+          contentPadding: EdgeInsets.only(top: 1.0.h, left: 3.0.w),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(width: 1, color: AppColors.appthem),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+                width: 1, color: Color.fromARGB(255, 132, 160, 216)),
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
         onChanged: (val) {
           onChanged;
         },
