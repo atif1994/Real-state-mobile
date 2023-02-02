@@ -8,6 +8,7 @@ class PropertyByIDController extends GetxController {
   RxString errorLoadingPropertyByID = ''.obs;
 
   void getPropertyById(int pid) async {
+    print(pid);
     loadingPropertyByID.value = true;
     errorLoadingPropertyByID.value = '';
     var res = await PropertyByIDService.getPropertyById(pid);
