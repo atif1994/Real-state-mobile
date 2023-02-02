@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
-import 'package:prologic_29/Views/user_profile/chat/chat_screen.dart';
+import 'package:prologic_29/Views/user_profile/chat/convesation_screen.dart';
 import 'package:prologic_29/Views/user_profile/security/security_screen.dart';
 import 'package:prologic_29/Views/user_profile/setting/settings_screen.dart';
 import 'package:prologic_29/data/Controllers/user_profile_section_controller/user_profile_controller.dart';

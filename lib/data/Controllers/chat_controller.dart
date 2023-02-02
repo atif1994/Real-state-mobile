@@ -13,8 +13,6 @@ class ChatController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     loadData();
-
-    print("conversational Id =======????$conversationId ");
   }
 
   void loadData() async {
@@ -22,6 +20,7 @@ class ChatController extends GetxController {
     getConversationId();
     await Future.delayed(const Duration(seconds: 2));
     getChat(conversationId);
+    print("conversational Id =======????$conversationId ");
   }
 
   RxBool loadingConversation = false.obs;
@@ -49,9 +48,7 @@ class ChatController extends GetxController {
 
   void getChat(int? conversationId) async {
     loadingChat.value = true;
-    errChatload.value = '';
     var res = await ChatServices.getChatServiceAPI(conversationId!);
-    loadingChat.value = false;
     if (res is ChatModel) {
       loadingChat.value = false;
       chatModel = res;
@@ -74,10 +71,11 @@ class ChatController extends GetxController {
   var sendMsgModel = SendChatModel();
   RxString errSendMsg = ''.obs;
 
-  void sendMsgMethod() async {
+  void sendMsgMethod(custId, agentId, msg, convId) async {
     loadingsend.value = true;
     errSendMsg.value = '';
-    var res = await ChatServices.sendMsgService();
+    var res = await ChatServices.sendMsgService(
+       custId, agentId, msg, convId);
     loadingsend.value = false;
     if (res is SendChatModel) {
       sendMsgModel = res;

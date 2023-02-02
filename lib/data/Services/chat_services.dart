@@ -24,7 +24,7 @@ class ChatServices {
 
   //chat Screen API
 
-  static Future<dynamic> getChatServiceAPI(int conversationId) async {
+  static Future<dynamic> getChatServiceAPI(int? conversationId) async {
     var url = "${AppUrls.baseUrl}${AppUrls.chatList}$conversationId";
     var res = await BaseClientClass.get(url, '');
     try {
@@ -40,13 +40,21 @@ class ChatServices {
 
   //Send msg API
 
-  static Future<dynamic> sendMsgService() async {
+  static Future<dynamic> sendMsgService(
+      int? custId, int? agentId, String? msg, int? convId) async {
     Map chat = {
-      "customer": 11,
-      "agent": 2,
-      "message": "hdsdff",
-      "conversation_id": 1
+      "customer": custId,
+      "agent": agentId,
+      "message": msg.toString(),
+      "conversation_id": convId
     };
+
+    //  {
+    //   "customer": 11,
+    //   "agent": 2,
+    //   "message": "hdsdff",
+    //   "conversation_id": 1
+    // };
     var url = "${AppUrls.baseUrl}${AppUrls.sendChat}";
     var res = await BaseClientClass.post(url, chat);
     try {

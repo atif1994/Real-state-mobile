@@ -22,6 +22,7 @@ class _ChatingState extends State<Chating> {
 
   List<ChatModel> chats = [];
   bool isTextFieldClicked = false;
+  int? customerId, agentid, convid;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,15 +48,35 @@ class _ChatingState extends State<Chating> {
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
+                    //  chattController.chatModel.data?.length
                     : ListView.builder(
-                        itemCount: chattController.chatModel.data?.length,
+                        itemCount: 1,
                         itemBuilder: (context, index) {
-                          // var agentName = chattController
-                          //     .chatModel.data![index].user!.username;
-                          // String? firstChar;
-                          // if (agentName!.isNotEmpty) {
-                          //   firstChar = agentName[0];
-                          // }
+                          String? agentName = chattController
+                                  .chatModel.data?[index].user?.username ??
+                              '';
+                          String? firstChar;
+                          if (agentName.isNotEmpty) {
+                            firstChar = agentName[0];
+                          }
+                          //check value in comment for send msg
+                          int? custId = chattController
+                                  .chatModel.data![index].customer?.id ??
+                              0;
+                          int? agentId = int.parse(chattController
+                              .chatModel.data![index].agent
+                              .toString());
+                          int? convId = int.parse(chattController
+                              .chatModel.data![index].id
+                              .toString());
+
+                          print("firs char======$firstChar");
+                          print(
+                              "mesg======${chattController.chatModel.data?[index].message}= $custId =$agentId =$convId");
+                          customerId = custId;
+                          agentid = agentId;
+                          convid = convId;
+
                           return Column(
                             children: [
                               Container(
@@ -80,7 +101,7 @@ class _ChatingState extends State<Chating> {
                                               BorderRadius.circular(300)),
                                       child: Center(
                                           child: Text(
-                                        "dddd",
+                                        firstChar ?? '',
                                         style: AppTextStyles.heading1.copyWith(
                                             fontWeight: FontWeight.w800),
                                       )),
@@ -94,6 +115,8 @@ class _ChatingState extends State<Chating> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
+                                        // chattController.chatModel.data?[index]
+                                        //           .user!.username ??
                                         Text(
                                           chattController.chatModel.data?[index]
                                                   .user!.username ??
@@ -103,10 +126,12 @@ class _ChatingState extends State<Chating> {
                                                   color: AppColors.appthem,
                                                   fontWeight: FontWeight.w800),
                                         ),
+                                        //  chattController.chatModel.data?[index]
+                                        //         .message ??
                                         Text(
-                                          chattController.chatModel.data?[index]
+                                          chattController.chatModel.data![index]
                                                   .message ??
-                                              '',
+                                              "no msg",
                                           style: AppTextStyles.heading1
                                               .copyWith(
                                                   color: AppColors.appthem),
@@ -117,11 +142,11 @@ class _ChatingState extends State<Chating> {
                                     Text(
                                       DateFormat('dd.MM.yyyy').format(
                                           DateTime.parse(chattController
-                                              .chatModel
-                                              .data![index]
-                                              .customer!
-                                              .updatedAt
-                                              ??"")),
+                                                  .chatModel
+                                                  .data![index]
+                                                  .user
+                                                  ?.updatedAt ??
+                                              " ")),
                                       style: AppTextStyles.heading1
                                           .copyWith(color: AppColors.appthem),
                                     ),
@@ -176,8 +201,8 @@ class _ChatingState extends State<Chating> {
                                         ),
                                         Text(
                                           chattController
-                                                  .sendMsgModel.data!.message ??
-                                              '',
+                                                  .sendMsgModel.data?.message ??
+                                              "null msg",
                                           style: AppTextStyles.heading1
                                               .copyWith(
                                                   color: AppColors.appthem),
@@ -188,11 +213,11 @@ class _ChatingState extends State<Chating> {
                                     Text(
                                       DateFormat('dd.MM.yyyy').format(
                                           DateTime.parse(chattController
-                                              .chatModel
-                                              .data![index]
-                                              .customer!
-                                              .updatedAt
-                                              .toString())),
+                                                  .chatModel
+                                                  .data![index]
+                                                  .customer!
+                                                  .updatedAt ??
+                                              "")),
                                       style: AppTextStyles.heading1
                                           .copyWith(color: AppColors.appthem),
                                     ),
@@ -228,9 +253,11 @@ class _ChatingState extends State<Chating> {
                   IconButton(
                       onPressed: () {
                         setState(() {
-                          chattController.sendMsgMethod();
+                          chattController.sendMsgMethod(
+                              customerId, agentid, chatController.text, convid);
                         });
-
+                        print(
+                            "mesg====== parameters Send==$customerId =$agentid =$convid");
                         chatController.clear();
                       },
                       icon: const Icon(
