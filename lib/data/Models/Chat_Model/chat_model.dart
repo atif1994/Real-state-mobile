@@ -58,8 +58,8 @@ class Datum {
   String? conversationId;
   String? status;
   dynamic image;
-  dynamic senderId;
-  String? createdAt;
+  String? senderId;
+  DateTime? createdAt;
   DateTime? updatedAt;
   User? user;
 
@@ -74,7 +74,9 @@ class Datum {
         status: json["status"],
         image: json["image"],
         senderId: json["sender_id"],
-        createdAt: json["created_at"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
@@ -90,7 +92,7 @@ class Datum {
         "status": status,
         "image": image,
         "sender_id": senderId,
-        "created_at": createdAt,
+        "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "user": user?.toJson(),
       };
@@ -125,14 +127,14 @@ class Customer {
   String? firstName;
   String? lastName;
   String? username;
-  dynamic description;
-  dynamic gender;
+  String? description;
+  String? gender;
   String? email;
-  dynamic avatarId;
-  dynamic dob;
+  String? avatarId;
+  DateTime? dob;
   String? phone;
-  String? credits;
-  dynamic confirmedAt;
+  dynamic credits;
+  DateTime? confirmedAt;
   dynamic emailVerifyToken;
   String? isFeatured;
   DateTime? createdAt;
@@ -152,10 +154,12 @@ class Customer {
         gender: json["gender"],
         email: json["email"],
         avatarId: json["avatar_id"],
-        dob: json["dob"],
+        dob: json["dob"] == null ? null : DateTime.parse(json["dob"]),
         phone: json["phone"],
         credits: json["credits"],
-        confirmedAt: json["confirmed_at"],
+        confirmedAt: json["confirmed_at"] == null
+            ? null
+            : DateTime.parse(json["confirmed_at"]),
         emailVerifyToken: json["email_verify_token"],
         isFeatured: json["is_featured"],
         createdAt: json["created_at"] == null
@@ -178,10 +182,10 @@ class Customer {
         "gender": gender,
         "email": email,
         "avatar_id": avatarId,
-        "dob": dob,
+        "dob": dob?.toIso8601String(),
         "phone": phone,
         "credits": credits,
-        "confirmed_at": confirmedAt,
+        "confirmed_at": confirmedAt?.toIso8601String(),
         "email_verify_token": emailVerifyToken,
         "is_featured": isFeatured,
         "created_at": createdAt?.toIso8601String(),
@@ -235,7 +239,7 @@ class User {
   String? activeStatus;
   dynamic deletedAt;
   DateTime? createdAt;
-  DateTime? updatedAt;
+  String? updatedAt;
   String? firstName;
   String? lastName;
   String? username;
@@ -267,9 +271,7 @@ class User {
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        updatedAt: json["updated_at"],
         firstName: json["first_name"],
         lastName: json["last_name"],
         username: json["username"],
@@ -302,7 +304,7 @@ class User {
         "active_status": activeStatus,
         "deleted_at": deletedAt,
         "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "updated_at": updatedAt,
         "first_name": firstName,
         "last_name": lastName,
         "username": username,
