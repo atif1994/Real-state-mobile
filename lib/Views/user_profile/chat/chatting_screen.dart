@@ -249,7 +249,7 @@ class _ChatingState extends State<Chating> {
       print("error: ${error!.message}");
     });
 
-    Channel channel = pusher.subscribe('message_${273}');
+    Channel channel = pusher.subscribe('message_${11}');
 
     channel.bind('App\\Events\\MessageSent', (PusherEvent? event) {
       // print('event data: ' + event!.data.toString());
