@@ -917,11 +917,12 @@ class _HomeState extends State<Home> {
                                         child: ListView.builder(
                                             padding:
                                                 EdgeInsets.only(bottom: 1.0.h),
-                                            itemCount: dashboardController
-                                                .featuredPropertyModel
-                                                .data!
-                                                .data!
-                                                .length,
+                                            itemCount: 3,
+                                            // dashboardController
+                                            //     .featuredPropertyModel
+                                            //     .data!
+                                            //     .data!
+                                            //     .length,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
                                               return GestureDetector(
@@ -973,7 +974,7 @@ class _HomeState extends State<Home> {
                                                                         10)),
                                                             child:
                                                                 Image.network(
-                                                              "${AppUrls.baseUrl2}${dashboardController.featuredPropertyModel.data!.data![index]!.images[0] ?? ''}",
+                                                              "${AppUrls.baseUrl2}${dashboardController.featuredPropertyModel.data!.data![index]!.images[index] ?? ''}",
                                                               fit: BoxFit.cover,
                                                             ),
 
@@ -1175,7 +1176,7 @@ class _HomeState extends State<Home> {
                                             top: 1.0.h),
                                         child: CustomButton(
                                           onPressed: () {
-                                            Get.to(const Moreplaces());
+                                            Get.to(() => Moreplaces());
                                           },
                                           text: "More Places",
                                         ),
