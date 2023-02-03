@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -6,7 +8,10 @@ import 'package:prologic_29/data/Controllers/chat_controller.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
+import 'package:pusher_client/pusher_client.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../data/Models/Chat_Model/chat_model.dart';
 
 class Chating extends StatefulWidget {
   String? name;
@@ -23,6 +28,7 @@ class _ChatingState extends State<Chating> {
   List<ChatModel> chats = [];
   bool isTextFieldClicked = false;
   int? customerId, agentid, convid;
+  late PusherClient pusher;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -272,12 +278,14 @@ class _ChatingState extends State<Chating> {
       ),
     );
   }
-}
 
-class ChatModel {
-  String? chat;
-  String? userName;
-  String? logo;
+ }
 
-  ChatModel({this.chat, this.userName, this.logo});
-}
+// class ChatModel {
+//   String? chat;
+//   String? userName;
+//   String? logo;
+
+//   ChatModel({this.chat, this.userName, this.logo});
+  
+// }
