@@ -99,6 +99,21 @@ class ChatScreen extends StatelessWidget {
                                                   .data![index]
                                                   .recieveragent!
                                                   .username,
+                                              conId: chatController
+                                                  .conversationModel
+                                                  .data![index]
+                                                  .chats![index]
+                                                  .conversationId,
+                                              customerId: chatController
+                                                  .conversationModel
+                                                  .data![index]
+                                                  .chats![index]
+                                                  .customer,
+                                              agentId: chatController
+                                                  .conversationModel
+                                                  .data![index]
+                                                  .chats![index]
+                                                  .agent,
                                             ),
                                         duration:
                                             const Duration(milliseconds: 600),
