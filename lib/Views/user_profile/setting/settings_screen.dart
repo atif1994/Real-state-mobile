@@ -123,7 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   child: ClipOval(
                                       child: InkWell(
                                     onTap: () {
-                                      Get.to(const profileImage());
+                                      Get.to(profileImage());
                                     },
                                     child: Container(
                                         decoration: BoxDecoration(
@@ -299,19 +299,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           Padding(
             padding: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
-            child: CustomButton(
-              onPressed: () {
-                updateprofileController.updateUserProfile(
-                    fullNameController.text.split(' ')[0],
-                    fullNameController.text.split(' ')[1],
-                    phoneController.text,
-                    userDescController.text,
-                    emailController.text,
-                    dob,
-                    gender);
-              },
-              text: "Save",
-            ),
+            child: Obx(() => CustomButton(
+                  onPressed: () {
+                    updateprofileController.updateUserProfile(
+                        fullNameController.text.split(' ')[0],
+                        fullNameController.text.split(' ')[1],
+                        phoneController.text,
+                        userDescController.text,
+                        emailController.text,
+                        dob,
+                        gender);
+                  },
+                  isloading: updateprofileController.loadingUpdateProfile.value,
+                  text: "Save",
+                )),
           )
         ],
       ),
