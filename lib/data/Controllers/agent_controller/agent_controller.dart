@@ -10,7 +10,7 @@ class AgentController extends GetxController {
   int propId = 0;
   var agentModel = GetAgentResponse();
 
-  List<Agents> agents = [];
+  List<dynamic> agents = [];
 
   void getAgent(int pid) async {
     errorLoadingAgent.value = '';

@@ -8,8 +8,8 @@ import '../../../utils/constants/app_urls.dart';
 import 'package:http/http.dart' as http;
 
 class ChatServices {
-  static Future<dynamic> getConversationService() async {
-    var url = "${AppUrls.baseUrl}${AppUrls.convesationList}";
+  static Future<dynamic> getConversationService(int uid) async {
+    var url = "${AppUrls.baseUrl}${AppUrls.convesationList}$uid";
     var res = await BaseClientClass.get(url, '');
     try {
       if (res is http.Response) {

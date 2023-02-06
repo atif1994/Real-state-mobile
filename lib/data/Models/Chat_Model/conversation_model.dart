@@ -299,8 +299,8 @@ class Permissions {
     this.propertyFeatureIndex,
     this.propertyFeatureCreate,
     this.propertyFeatureEdit,
-    this.superuser,
-    this.manageSupers,
+    // this.superuser,
+    // this.manageSupers,
   });
 
   bool? consultIndex;
@@ -318,8 +318,8 @@ class Permissions {
   bool? propertyFeatureIndex;
   bool? propertyFeatureCreate;
   bool? propertyFeatureEdit;
-  String? superuser;
-  String? manageSupers;
+  //Int? superuser;
+  // int? manageSupers;
 
   factory Permissions.fromJson(Map<String, dynamic> json) => Permissions(
         consultIndex: json["consult.index"],
@@ -337,8 +337,8 @@ class Permissions {
         propertyFeatureIndex: json["property_feature.index"],
         propertyFeatureCreate: json["property_feature.create"],
         propertyFeatureEdit: json["property_feature.edit"],
-        superuser: json["superuser"],
-        manageSupers: json["manage_supers"],
+        // superuser: json["superuser"],
+        // manageSupers: json["manage_supers"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -357,8 +357,8 @@ class Permissions {
         "property_feature.index": propertyFeatureIndex,
         "property_feature.create": propertyFeatureCreate,
         "property_feature.edit": propertyFeatureEdit,
-        "superuser": superuser,
-        "manage_supers": manageSupers,
+        // "superuser": superuser,
+        // "manage_supers": manageSupers,
       };
 }
 
