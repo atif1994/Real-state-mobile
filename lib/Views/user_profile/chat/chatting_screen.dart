@@ -9,7 +9,6 @@ import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:pusher_client/pusher_client.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class Chating extends StatefulWidget {
@@ -33,16 +32,10 @@ class _ChatingState extends State<Chating> {
 
   late PusherClient pusher;
 
-  getUserId() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-
-    uid = pref.getInt("userid") ?? 0;
-  }
-
   @override
   void initState() {
     super.initState();
-    getUserId();
+
     _initiatePusherSocketForMessaging();
 
     chattController.getChat(int.parse(widget.conId.toString()));
@@ -50,8 +43,6 @@ class _ChatingState extends State<Chating> {
 
   @override
   Widget build(BuildContext context) {
-    // final me = uid == widget.customerId;
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -81,11 +72,15 @@ class _ChatingState extends State<Chating> {
                               bottom: 1.0.h,
                               left: 4.0.w,
                               right: 4.0.w),
-                          decoration: const BoxDecoration(
-                              color: AppColors.appthem,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10))),
+                          decoration: BoxDecoration(
+                              color: chattController.uid ==
+                                      chattController
+                                          .chatModel.data![index].senderId
+                                  ? Colors.red
+                                  : AppColors.appthem,
+                              borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10))),
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
@@ -164,7 +159,7 @@ class _ChatingState extends State<Chating> {
       print("error: ${error!.message}");
     });
 
-    Channel channel = pusher.subscribe('message_${11}');
+    Channel channel = pusher.subscribe('message_${chattController.uid}');
 
     channel.bind('App\\Events\\MessageSent', (PusherEvent? event) {
       // print('event data: ' + event!.data.toString());

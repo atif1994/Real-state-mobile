@@ -22,7 +22,7 @@ class AppUrls {
 
   //////////////////////user profile
   static const String getUserProfile = "v1/me/";
-  static const String convesationList = "v1/conversations/11";
+  static const String convesationList = "v1/conversations/";
 
   static const String chatList = "v1/chat/";
 
