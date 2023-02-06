@@ -17,10 +17,11 @@ class UpdateProfileController extends GetxController {
         fname, lname, pno, desc, email, bday, gender);
 
     if (res is Updateprofile) {
+      loadingUpdateProfile.value = false;
       updateProfileData = res;
     } else {
-      errorLoadingUpdateProfile.value = res;
       loadingUpdateProfile.value = false;
+      errorLoadingUpdateProfile.value = res;
     }
   }
 }

@@ -26,15 +26,14 @@ class AppUrls {
 
   static const String chatList = "v1/chat/";
 
-
   //////////////////////user profile sec
 
   static const String updateUserProfile = "v1/me/";
+  static const String updateUserImage = "v1/update-avatar/";
   static const String changePassword = "v1/change-password/";
 
   static const String profileAllPropertise = "v1/my-properties/";
   static const String getAllAgents = "v1/get-agents/";
 
   static const String assignAgents = "v1/assign-agents/";
-
 }
