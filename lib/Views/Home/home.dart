@@ -94,11 +94,11 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    dashboardController.getFilteredPropertise(cid, 0);
     getCityInfo();
+    dashboardController.getFilteredPropertise(cid, 0);
+    dashboardController.getFeaturedPropertise();
     LocalNotificationsApi.init();
     listenNotification();
-
     super.initState();
   }
 
@@ -1452,7 +1452,7 @@ class _HomeState extends State<Home> {
                   Container(
                     margin:
                         EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 2.0.h),
-                    height: 55.0.h,
+                    height: 50.0.h,
                     width: 120.0.w,
                     decoration: CustomDecorations.mainCon,
                     child: Obx(
@@ -1521,7 +1521,7 @@ class _HomeState extends State<Home> {
                                             right: 2.0.w,
                                             top: 1.0.h,
                                           ),
-                                          height: 40.0.h,
+                                          height: 35.0.h,
                                           width: 100.0.w,
                                           //color: Colors.red,
                                           child: ListView.builder(

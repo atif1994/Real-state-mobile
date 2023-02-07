@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:prologic_29/Views/user_profile/chat/chatting_screen.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
@@ -82,7 +81,7 @@ class ChatScreen extends StatelessWidget {
                                     .conversationModel
                                     .data?[index]
                                     .recieveragent!
-                                    .username;
+                                    .firstName;
                                 String? firstChar;
                                 if (agentName!.isNotEmpty) {
                                   firstChar = agentName[0];
@@ -163,7 +162,7 @@ class ChatScreen extends StatelessWidget {
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              "${chattController.conversationModel.data![index].recieveragent!.username ?? ''} ",
+                                              "${chattController.conversationModel.data![index].recieveragent!.firstName ?? ''} ",
                                               style: AppTextStyles.heading1
                                                   .copyWith(
                                                       color: AppColors.appthem,
@@ -174,8 +173,8 @@ class ChatScreen extends StatelessWidget {
                                               chattController
                                                       .conversationModel
                                                       .data?[index]
-                                                      .chats?[index]
-                                                      .message ??
+                                                      .recieveragent!
+                                                      .deactivateMessage ??
                                                   '',
                                               style: AppTextStyles.heading1
                                                   .copyWith(
@@ -184,18 +183,18 @@ class ChatScreen extends StatelessWidget {
                                           ],
                                         ),
                                         const Spacer(),
-                                        Text(
-                                          DateFormat('dd.MM.yyyy').format(
-                                              DateTime.parse(chattController
-                                                      .conversationModel
-                                                      .data![index]
-                                                      .chats![index]
-                                                      .updatedAt ??
-                                                  "".toString())),
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  color: AppColors.appthem),
-                                        ),
+                                        // Text(
+                                        //   DateFormat('dd.MM.yyyy').format(
+                                        //       DateTime.parse(chattController
+                                        //               .conversationModel
+                                        //               .data![index]
+                                        //               .chats![index]
+                                        //               .updatedAt ??
+                                        //           "".toString())),
+                                        //   style: AppTextStyles.heading1
+                                        //       .copyWith(
+                                        //           color: AppColors.appthem),
+                                        // ),
                                         SizedBox(
                                           width: 2.0.w,
                                         )

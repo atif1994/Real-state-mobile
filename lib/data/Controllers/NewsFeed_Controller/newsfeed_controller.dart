@@ -14,10 +14,10 @@ class NewsFeedController extends GetxController {
   int pagekey = 1;
   @override
   void onInit() {
-    newsfeedApiLoading.value = true;
+    newsfeedApiLoading.value = false;
   }
 
-   getnewsfeed(pageKey) async {
+  getnewsfeed(pageKey) async {
     errorLoadingnewsfeed.value = '';
     loadingnewspost.value = true;
     var res = await NewsFeedService.getNewsFeedAPI();

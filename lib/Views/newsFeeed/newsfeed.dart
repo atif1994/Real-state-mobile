@@ -66,7 +66,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
             // ListView.builder(itemBuilder: itemBuilder)
 
-            Obx(() => newsfeedController.newsfeedApiLoading.value
+            Obx(() => newsfeedController.loadingnewspost.value
                 ? const Center(
                     child: CircularProgressIndicator(
                     color: AppColors.appthem,
