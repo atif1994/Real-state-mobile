@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/data/Models/agent_model/assign_agents_response.dart';
 import 'package:prologic_29/data/Models/agent_model/get_agent_model.dart';
@@ -32,7 +33,7 @@ class AgentController extends GetxController {
   RxInt agentsIndex = 0.obs;
 
   var assignAgentsModel = AssignAgentResponse();
-  void assignAgents() async {
+  void assignAgents(BuildContext context) async {
     errorAssingningAgents.value = '';
     loadingAgent.value = true;
 
@@ -43,6 +44,7 @@ class AgentController extends GetxController {
     } else {
       errorLoadingAgent.value = res.toString();
       loadingAgent.value = false;
+      Navigator.pop(context);
     }
   }
 

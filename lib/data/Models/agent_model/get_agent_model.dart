@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:get/state_manager.dart';
+
 GetAgentResponse getAgentResponseFromJson(String str) =>
     GetAgentResponse.fromJson(json.decode(str));
 
@@ -101,6 +103,7 @@ class Datum {
   String? cityId;
   dynamic mobileVerificationCode;
   List<Assignedagent>? assignedagent;
+  RxBool isAsign = false.obs;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],

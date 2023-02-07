@@ -63,7 +63,10 @@ class PropertiseSection extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          profilePropertiseController.getPropertise(
+                              profilePropertiseController.userid ?? 0);
+                        },
                         text: "Reload",
                       ),
                     ),
@@ -136,11 +139,7 @@ class PropertiseSection extends StatelessWidget {
                                               MainAxisAlignment.spaceAround,
                                           children: [
                                             Text(
-                                              profilePropertiseController
-                                                  .profilePropertiseModel
-                                                  .data![index]
-                                                  .id!
-                                                  .toString(),
+                                              "${profilePropertiseController.profilePropertiseModel.data![index].id ?? ""}",
                                               style: AppTextStyles.heading1
                                                   .copyWith(
                                                       color: AppColors.appthem),
@@ -259,41 +258,30 @@ class PropertiseSection extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20))),
-              child: Obx((() => agentController.loadingAgent.value
-                  ? const Center(child: CircularProgressIndicator())
+              child: Obx(() => agentController.loadingAgent.value
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.appthem,
+                      ),
+                    )
                   : agentController.errorLoadingAgent.value != ""
                       ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  agentController.getAgent(77);
+                                  agentController
+                                      .getAgent(agentController.propId);
                                 },
                                 icon: const Icon(Icons.refresh)),
-                            SizedBox(
-                              height: 1.0.h,
-                            ),
                             Text(agentController.errorLoadingAgent.value),
                           ],
                         )
-                      : Obx(() => agentController.loadingAgent.value
-                          ? const CircularProgressIndicator(
-                              color: AppColors.appthem,
-                            )
-                          : agentController.errorLoadingAgent.value != ""
-                              ? Column(
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          agentController
-                                              .getAgent(agentController.propId);
-                                        },
-                                        icon: const Icon(Icons.refresh)),
-                                    Text(agentController
-                                        .errorLoadingAgent.value),
-                                  ],
-                                )
-                              : ListView.builder(
+                      : Column(
+                          children: [
+                            SizedBox(
+                              height: 40.0.h,
+                              //   color: Colors.red,
+                              child: ListView.builder(
                                   padding: EdgeInsets.only(top: 2.0.h),
                                   itemCount:
                                       agentController.agentModel.data!.length,
@@ -315,45 +303,84 @@ class PropertiseSection extends StatelessWidget {
                                                 .copyWith(
                                                     color: AppColors.appthem),
                                           ),
-                                          Text(
-                                            agentController.agentModel
-                                                    .data![index].username ??
-                                                "",
-                                            style: AppTextStyles.heading1
-                                                .copyWith(
-                                                    color: AppColors.appthem),
+                                          SizedBox(
+                                            width: 65.0.w,
+                                            //   color: Colors.red,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                agentController
+                                                        .agentModel
+                                                        .data![index]
+                                                        .username ??
+                                                    "",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        color:
+                                                            AppColors.appthem),
+                                              ),
+                                            ),
                                           ),
-                                          Text(
-                                            agentController.agentModel
-                                                    .data![index].email ??
-                                                "",
-                                            style: AppTextStyles.heading1
-                                                .copyWith(
-                                                    color: AppColors.appthem),
-                                          ),
-                                          Obx(() => agentController
-                                                      .agentsIndex ==
-                                                  index
-                                              ? const Icon(Icons.check_box)
+                                          Obx(() => agentController.agentModel
+                                                  .data![index].isAsign.value
+                                              ? IconButton(
+                                                  onPressed: () {
+                                                    agentController
+                                                        .agentModel
+                                                        .data![index]
+                                                        .isAsign
+                                                        .value = false;
+
+                                                    agentController.agents
+                                                        .removeAt(index);
+
+                                                    print(agentController
+                                                        .agents.length);
+                                                  },
+                                                  icon: const Icon(Icons.done))
                                               : IconButton(
                                                   onPressed: () {
-                                                    agentController.agentsIndex
-                                                        .value = index;
+                                                    agentController
+                                                        .agentModel
+                                                        .data![index]
+                                                        .isAsign
+                                                        .value = true;
+
+                                                    //////////////////////
+
+                                                    agentController.agents.add(
+                                                        agentController
+                                                            .agentModel
+                                                            .data![index]
+                                                            .id);
+
+                                                    print(agentController
+                                                        .agents.length);
                                                   },
-                                                  icon:
-                                                      const Icon(Icons.add_box),
-                                                ))
+                                                  icon: const Icon(
+                                                      Icons.add_box)))
                                         ],
                                       ),
                                     );
-                                  }))))));
-        });
-  }
+                                  })),
+                            ),
+                            Obx(() => agentController
+                                    .loadingAssingerdAgent.value
+                                ? const CircularProgressIndicator()
+                                : Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: CustomButton(
+                                      onPressed: () {
+                                        agentController.assignAgents(context);
 
-  mytext(text) {
-    return Text(
-      text,
-      style: const TextStyle(fontSize: 15),
-    );
+                                        agentController.agents.clear();
+                                      },
+                                      text: "Save",
+                                    ),
+                                  ))
+                          ],
+                        )));
+        });
   }
 }
