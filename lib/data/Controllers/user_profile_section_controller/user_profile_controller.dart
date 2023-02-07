@@ -17,8 +17,8 @@ class UserProfileController extends GetxController {
   }
 
   void load() async {
+    // await Future.delayed(const Duration(seconds: 2));
     getUserId();
-    await Future.delayed(const Duration(seconds: 2));
     getUserProfile(11);
   }
 
@@ -37,8 +37,8 @@ class UserProfileController extends GetxController {
     errorLoadingUserProfile.value = "";
 
     var res = await USerProfileServices.getUserProfile(uid);
-    loadingUserProfile.value = false;
     if (res is GetUserProfileResponse) {
+      loadingUserProfile.value = false;
       userProfileData = res;
     } else {
       loadingUserProfile.value = false;

@@ -59,8 +59,8 @@ class Datum {
   String? status;
   dynamic image;
   String? senderId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   User? user;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -74,12 +74,8 @@ class Datum {
         status: json["status"],
         image: json["image"],
         senderId: json["sender_id"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         user: json["user"] == null ? null : User.fromJson(json["user"]),
       );
 
@@ -92,8 +88,8 @@ class Datum {
         "status": status,
         "image": image,
         "sender_id": senderId,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "user": user?.toJson(),
       };
 }
@@ -137,7 +133,7 @@ class Customer {
   DateTime? confirmedAt;
   dynamic emailVerifyToken;
   String? isFeatured;
-  DateTime? createdAt;
+  String? createdAt;
   String? updatedAt;
   String? profileImage;
   String? addressId;
@@ -162,9 +158,7 @@ class Customer {
             : DateTime.parse(json["confirmed_at"]),
         emailVerifyToken: json["email_verify_token"],
         isFeatured: json["is_featured"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
+        createdAt: json["created_at"],
         updatedAt: json["updated_at"],
         profileImage: json["profile_image"],
         addressId: json["address_id"],
@@ -188,7 +182,7 @@ class Customer {
         "confirmed_at": confirmedAt?.toIso8601String(),
         "email_verify_token": emailVerifyToken,
         "is_featured": isFeatured,
-        "created_at": createdAt?.toIso8601String(),
+        "created_at": createdAt,
         "updated_at": updatedAt,
         "profile_image": profileImage,
         "address_id": addressId,
