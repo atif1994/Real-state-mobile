@@ -25,6 +25,7 @@ class NewsFeed extends StatefulWidget {
 
 class _NewsFeedState extends State<NewsFeed> {
   int? uid;
+  bool _iswishlist = false;
   var scrollController = ScrollController();
   var newsfeedController = Get.put(NewsFeedController());
   var postCommentsController = Get.put(PostCommentsController());
@@ -116,21 +117,68 @@ class _NewsFeedState extends State<NewsFeed> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(
-                                        height: 200,
-                                        width: 100.w,
+                                      Stack(children: [
+                                        SizedBox(
+                                          height: 200,
+                                          width: 100.w,
 
-                                        // ignore: prefer_const_constructors
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10)),
-                                          child: Image.asset(
-                                            AppImageResources.property,
-                                            fit: BoxFit.cover,
+                                          // ignore: prefer_const_constructors
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(10),
+                                                    topRight:
+                                                        Radius.circular(10)),
+                                            child: Image.asset(
+                                              AppImageResources.property,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                        Padding(
+                                            padding: const EdgeInsets.all(6.0),
+                                            child: Obx(() => newsfeedController
+                                                    .newsfeedmodel
+                                                    .data!
+                                                    .data![index]
+                                                    .isLiked
+                                                    .value
+                                                ? InkWell(
+                                                    onTap: () {
+                                                      newsfeedController
+                                                          .newsfeedmodel
+                                                          .data!
+                                                          .data![index]
+                                                          .isLiked
+                                                          .value = true;
+
+                                                      print(newsfeedController
+                                                          .newsfeedmodel
+                                                          .data!
+                                                          .data![index]
+                                                          .isLiked
+                                                          .value);
+                                                    },
+                                                    child: const Icon(
+                                                      Icons.favorite_outline,
+                                                      color: Colors.amber,
+                                                    ))
+                                                : InkWell(
+                                                    onTap: () {
+                                                      newsfeedController
+                                                          .newsfeedmodel
+                                                          .data!
+                                                          .data![index]
+                                                          .isLiked
+                                                          .value = false;
+                                                    },
+                                                    child: Icon(
+                                                      Icons.favorite_outline,
+                                                      color: Colors.red,
+                                                    ),
+                                                  )))
+                                      ]),
                                       SizedBox(
                                         width: 2.0.h,
                                       ),
@@ -160,7 +208,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                               )),
                                             ),
                                             Text(
-                                                " ${newsfeedController.newsfeedmodel.data!.data![index].price}  }",
+                                                " ${newsfeedController.newsfeedmodel.data!.data![index].price}",
                                                 style: AppTextStyles.heading1
                                                     .copyWith(
                                                         color: AppColors
@@ -269,17 +317,21 @@ class _NewsFeedState extends State<NewsFeed> {
                                             SizedBox(
                                               width: 2.0.w,
                                             ),
-                                            Text(
-                                              newsfeedController
-                                                      .newsfeedmodel
-                                                      .data!
-                                                      .data![index]
-                                                      .location ??
-                                                  "",
-                                              style: AppTextStyles.labelSmall,
+                                            Container(
+                                              width: 40.w,
+                                              child: Text(
+                                                newsfeedController
+                                                        .newsfeedmodel
+                                                        .data!
+                                                        .data![index]
+                                                        .location ??
+                                                    "",
+                                                style: AppTextStyles.labelSmall,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                             ),
                                             SizedBox(
-                                              width: 24.0.w,
+                                              width: 17.0.w,
                                             ),
                                             Container(
                                               height: 3.5.h,
