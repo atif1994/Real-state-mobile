@@ -159,9 +159,9 @@ class Datum {
   int? id;
   String? name;
   String? description;
-  Content? content;
-  Location? location;
-  List<dynamic>? images;
+  String? content;
+  String? location;
+  dynamic images;
   String? numberBedroom;
   String? numberBathroom;
   String? numberFloor;
@@ -169,7 +169,7 @@ class Datum {
   String? price;
   String? currencyId;
   String? cityId;
-  String? stateId;
+  dynamic stateId;
   dynamic countryId;
   Period? period;
   String? authorId;
@@ -188,29 +188,27 @@ class Datum {
   dynamic subcategoryId;
   String? plotNumber;
   String? streetNumber;
-  SectorAndBlockName? sectorAndBlockName;
-  dynamic assignedAgent;
+  String? sectorAndBlockName;
+  String? assignedAgent;
   String? assignerId;
   String? isDeleted;
   List<LikesOnProperty>? likesOnProperties;
   City? city;
   List<dynamic>? country;
-  dynamic state;
+  List<dynamic>? state;
   Category? category;
   Type? type;
   Currency? currency;
   List<Feature>? features;
-  List<Facility>? facilities;
+  List<dynamic>? facilities;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         name: json["name"],
         description: json["description"],
-        content: contentValues.map[json["content"]]!,
-        location: locationValues.map[json["location"]]!,
-        images: json["images"] == null
-            ? []
-            : List<dynamic>.from(json["images"]!.map((x) => x)),
+        content: json["content"],
+        location: json["location"],
+        images: json["images"],
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         numberFloor: json["number_floor"],
@@ -225,8 +223,7 @@ class Datum {
         authorType: authorTypeValues.map[json["author_type"]]!,
         categoryId: json["category_id"],
         isFeatured: json["is_featured"],
-        moderationStatus:
-            moderationStatusValues.map[json["moderation_status"]]!,
+        moderationStatus: moderationStatusValues.map[json["moderation_status"]],
         expireDate: json["expire_date"] == null
             ? null
             : DateTime.parse(json["expire_date"]),
@@ -244,8 +241,7 @@ class Datum {
         subcategoryId: json["subcategory_id"],
         plotNumber: json["plot_number"],
         streetNumber: json["street_number"],
-        sectorAndBlockName:
-            sectorAndBlockNameValues.map[json["sector_and_block_name"]]!,
+        sectorAndBlockName: json["sector_and_block_name"],
         assignedAgent: json["assigned_agent"],
         assignerId: json["assigner_id"],
         isDeleted: json["is_deleted"],
@@ -257,7 +253,9 @@ class Datum {
         country: json["country"] == null
             ? []
             : List<dynamic>.from(json["country"]!.map((x) => x)),
-        state: json["state"],
+        state: json["state"] == null
+            ? []
+            : List<dynamic>.from(json["state"]!.map((x) => x)),
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
@@ -271,18 +269,16 @@ class Datum {
                 json["features"]!.map((x) => Feature.fromJson(x))),
         facilities: json["facilities"] == null
             ? []
-            : List<Facility>.from(
-                json["facilities"]!.map((x) => Facility.fromJson(x))),
+            : List<dynamic>.from(json["facilities"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "description": description,
-        "content": contentValues.reverse[content],
-        "location": locationValues.reverse[location],
-        "images":
-            images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
+        "content": content,
+        "location": location,
+        "images": images,
         "number_bedroom": numberBedroom,
         "number_bathroom": numberBathroom,
         "number_floor": numberFloor,
@@ -309,8 +305,7 @@ class Datum {
         "subcategory_id": subcategoryId,
         "plot_number": plotNumber,
         "street_number": streetNumber,
-        "sector_and_block_name":
-            sectorAndBlockNameValues.reverse[sectorAndBlockName],
+        "sector_and_block_name": sectorAndBlockName,
         "assigned_agent": assignedAgent,
         "assigner_id": assignerId,
         "is_deleted": isDeleted,
@@ -320,7 +315,7 @@ class Datum {
         "city": city?.toJson(),
         "country":
             country == null ? [] : List<dynamic>.from(country!.map((x) => x)),
-        "state": state,
+        "state": state == null ? [] : List<dynamic>.from(state!.map((x) => x)),
         "category": category?.toJson(),
         "type": type?.toJson(),
         "currency": currency?.toJson(),
@@ -329,7 +324,7 @@ class Datum {
             : List<dynamic>.from(features!.map((x) => x.toJson())),
         "facilities": facilities == null
             ? []
-            : List<dynamic>.from(facilities!.map((x) => x.toJson())),
+            : List<dynamic>.from(facilities!.map((x) => x)),
       };
 }
 
@@ -355,7 +350,7 @@ class Category {
   });
 
   int? id;
-  CategoryName? name;
+  String? name;
   String? description;
   Status? status;
   String? order;
@@ -367,7 +362,7 @@ class Category {
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],
-        name: categoryNameValues.map[json["name"]]!,
+        name: json["name"],
         description: json["description"],
         status: statusValues.map[json["status"]]!,
         order: json["order"],
@@ -384,7 +379,7 @@ class Category {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": categoryNameValues.reverse[name],
+        "name": name,
         "description": description,
         "status": statusValues.reverse[status],
         "order": order,
@@ -395,14 +390,6 @@ class Category {
         "parentclass": parentclass,
       };
 }
-
-enum CategoryName { VILLA, OFFICE, HOUSE }
-
-final categoryNameValues = EnumValues({
-  "House": CategoryName.HOUSE,
-  "Office": CategoryName.OFFICE,
-  "Villa": CategoryName.VILLA
-});
 
 enum Status { PUBLISHED }
 
@@ -424,7 +411,7 @@ class City {
   });
 
   int? id;
-  CityName? name;
+  String? name;
   String? stateId;
   String? countryId;
   dynamic recordId;
@@ -433,11 +420,11 @@ class City {
   Status? status;
   DateTime? createdAt;
   DateTime? updatedAt;
-  CitySlug? slug;
+  String? slug;
 
   factory City.fromJson(Map<String, dynamic> json) => City(
         id: json["id"],
-        name: cityNameValues.map[json["name"]]!,
+        name: json["name"],
         stateId: json["state_id"],
         countryId: json["country_id"],
         recordId: json["record_id"],
@@ -450,12 +437,12 @@ class City {
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
-        slug: citySlugValues.map[json["slug"]]!,
+        slug: json["slug"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": cityNameValues.reverse[name],
+        "name": name,
         "state_id": stateId,
         "country_id": countryId,
         "record_id": recordId,
@@ -464,30 +451,9 @@ class City {
         "status": statusValues.reverse[status],
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
-        "slug": citySlugValues.reverse[slug],
+        "slug": slug,
       };
 }
-
-enum CityName { LAHORE, KARACHI, ISLAMABAD }
-
-final cityNameValues = EnumValues({
-  "Islamabad": CityName.ISLAMABAD,
-  "Karachi": CityName.KARACHI,
-  "Lahore": CityName.LAHORE
-});
-
-enum CitySlug { LHR, KHI, LSB }
-
-final citySlugValues =
-    EnumValues({"khi": CitySlug.KHI, "lhr": CitySlug.LHR, "lsb": CitySlug.LSB});
-
-enum Content { P_PZDKGSDFKOB_MS_DLMFSL_P, P_YUGJHGJHG_P, TESTING_FROM_MOBILE }
-
-final contentValues = EnumValues({
-  "<p>pzdkgsdfkob'ms'dlmfsl</p>": Content.P_PZDKGSDFKOB_MS_DLMFSL_P,
-  "<p>yugjhgjhg</p>": Content.P_YUGJHGJHG_P,
-  "testing from mobile": Content.TESTING_FROM_MOBILE
-});
 
 class Currency {
   Currency({
@@ -545,87 +511,13 @@ class Currency {
       };
 }
 
-enum Symbol { EMPTY, RS }
+enum Symbol { RS, EMPTY }
 
 final symbolValues = EnumValues({"\u0024": Symbol.EMPTY, "Rs": Symbol.RS});
 
-enum Title { USD, PKR }
+enum Title { PKR, USD }
 
 final titleValues = EnumValues({"PKR": Title.PKR, "USD": Title.USD});
-
-class Facility {
-  Facility({
-    this.id,
-    this.name,
-    this.icon,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-    this.pivot,
-  });
-
-  int? id;
-  String? name;
-  String? icon;
-  Status? status;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  FacilityPivot? pivot;
-
-  factory Facility.fromJson(Map<String, dynamic> json) => Facility(
-        id: json["id"],
-        name: json["name"],
-        icon: json["icon"],
-        status: statusValues.map[json["status"]]!,
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        pivot: json["pivot"] == null
-            ? null
-            : FacilityPivot.fromJson(json["pivot"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "icon": icon,
-        "status": statusValues.reverse[status],
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
-        "pivot": pivot?.toJson(),
-      };
-}
-
-class FacilityPivot {
-  FacilityPivot({
-    this.referenceId,
-    this.facilityId,
-    this.referenceType,
-    this.distance,
-  });
-
-  String? referenceId;
-  String? facilityId;
-  String? referenceType;
-  String? distance;
-
-  factory FacilityPivot.fromJson(Map<String, dynamic> json) => FacilityPivot(
-        referenceId: json["reference_id"],
-        facilityId: json["facility_id"],
-        referenceType: json["reference_type"],
-        distance: json["distance"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "reference_id": referenceId,
-        "facility_id": facilityId,
-        "reference_type": referenceType,
-        "distance": distance,
-      };
-}
 
 class Feature {
   Feature({
@@ -637,45 +529,30 @@ class Feature {
   });
 
   int? id;
-  FeatureName? name;
-  Icon? icon;
+  String? name;
+  String? icon;
   Status? status;
-  FeaturePivot? pivot;
+  Pivot? pivot;
 
   factory Feature.fromJson(Map<String, dynamic> json) => Feature(
         id: json["id"],
-        name: featureNameValues.map[json["name"]]!,
-        icon: iconValues.map[json["icon"]]!,
+        name: json["name"],
+        icon: json["icon"],
         status: statusValues.map[json["status"]]!,
-        pivot:
-            json["pivot"] == null ? null : FeaturePivot.fromJson(json["pivot"]),
+        pivot: json["pivot"] == null ? null : Pivot.fromJson(json["pivot"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": featureNameValues.reverse[name],
-        "icon": iconValues.reverse[icon],
+        "name": name,
+        "icon": icon,
         "status": statusValues.reverse[status],
         "pivot": pivot?.toJson(),
       };
 }
 
-enum Icon { FAS_FA_USER_SECRET, FA_FA_WAREHOUSE }
-
-final iconValues = EnumValues({
-  "fas fa-user-secret": Icon.FAS_FA_USER_SECRET,
-  "fa fa-warehouse": Icon.FA_FA_WAREHOUSE
-});
-
-enum FeatureName { SECURITY_STAFF, BALCONY }
-
-final featureNameValues = EnumValues({
-  "Balcony": FeatureName.BALCONY,
-  "Security Staff": FeatureName.SECURITY_STAFF
-});
-
-class FeaturePivot {
-  FeaturePivot({
+class Pivot {
+  Pivot({
     this.propertyId,
     this.featureId,
   });
@@ -683,7 +560,7 @@ class FeaturePivot {
   String? propertyId;
   String? featureId;
 
-  factory FeaturePivot.fromJson(Map<String, dynamic> json) => FeaturePivot(
+  factory Pivot.fromJson(Map<String, dynamic> json) => Pivot(
         propertyId: json["property_id"],
         featureId: json["feature_id"],
       );
@@ -711,82 +588,14 @@ class LikesOnProperty {
       };
 }
 
-enum Location { VOLUPTATES_SINT_ENIM, OMNIS_INCIDUNT_ENIM, RAWALPINDI }
-
-final locationValues = EnumValues({
-  "Omnis incidunt enim": Location.OMNIS_INCIDUNT_ENIM,
-  "rawalpindi": Location.RAWALPINDI,
-  "Voluptates sint enim": Location.VOLUPTATES_SINT_ENIM
-});
-
-enum ModerationStatus { PENDING }
+enum ModerationStatus { APPROVED }
 
 final moderationStatusValues =
-    EnumValues({"pending": ModerationStatus.PENDING});
+    EnumValues({"approved": ModerationStatus.APPROVED});
 
 enum Period { DAY, MONTH }
 
 final periodValues = EnumValues({"day": Period.DAY, "month": Period.MONTH});
-
-enum SectorAndBlockName { VEDA_DUNN, XAVIERA_LYONS, BLOCK_EI }
-
-final sectorAndBlockNameValues = EnumValues({
-  "block ei": SectorAndBlockName.BLOCK_EI,
-  "Veda Dunn": SectorAndBlockName.VEDA_DUNN,
-  "Xaviera Lyons": SectorAndBlockName.XAVIERA_LYONS
-});
-
-class StateClass {
-  StateClass({
-    this.id,
-    this.name,
-    this.abbreviation,
-    this.countryId,
-    this.order,
-    this.isFeatured,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  int? id;
-  String? name;
-  String? abbreviation;
-  String? countryId;
-  String? order;
-  String? isFeatured;
-  Status? status;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-
-  factory StateClass.fromJson(Map<String, dynamic> json) => StateClass(
-        id: json["id"],
-        name: json["name"],
-        abbreviation: json["abbreviation"],
-        countryId: json["country_id"],
-        order: json["order"],
-        isFeatured: json["is_featured"],
-        status: statusValues.map[json["status"]]!,
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "abbreviation": abbreviation,
-        "country_id": countryId,
-        "order": order,
-        "is_featured": isFeatured,
-        "status": statusValues.reverse[status],
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
-      };
-}
 
 class Type {
   Type({
@@ -799,40 +608,40 @@ class Type {
 
   int? id;
   String? name;
-  TypeSlug? slug;
+  Slug? slug;
   String? order;
   Code? code;
 
   factory Type.fromJson(Map<String, dynamic> json) => Type(
         id: json["id"],
-        name: json["name"]!,
-        slug: typeSlugValues.map[json["slug"]]!,
+        name: json["name"],
+        slug: slugValues.map[json["slug"]],
         order: json["order"],
-        code: codeValues.map[json["code"]]!,
+        code: codeValues.map[json["code"]],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": typeNameValues.reverse[name],
-        "slug": typeSlugValues.reverse[slug],
+        "name": nameValues.reverse[name],
+        "slug": slugValues.reverse[slug],
         "order": order,
         "code": codeValues.reverse[code],
       };
 }
 
-enum Code { SALE, INVEST }
+enum Code { SALE, RENT }
 
-final codeValues = EnumValues({"invest": Code.INVEST, "sale": Code.SALE});
+final codeValues = EnumValues({"rent": Code.RENT, "sale": Code.SALE});
 
-enum TypeName { FOR_SALE, FOR_INVEST }
+enum Name { FOR_SALE, FOR_RENT }
 
-final typeNameValues = EnumValues(
-    {"For Invest": TypeName.FOR_INVEST, "For Sale": TypeName.FOR_SALE});
+final nameValues =
+    EnumValues({"For Rent": Name.FOR_RENT, "For Sale": Name.FOR_SALE});
 
-enum TypeSlug { FOR_SALE, FOR_INVEST }
+enum Slug { FOR_SALE, FOR_RENT }
 
-final typeSlugValues = EnumValues(
-    {"for-invest": TypeSlug.FOR_INVEST, "for-sale": TypeSlug.FOR_SALE});
+final slugValues =
+    EnumValues({"for-rent": Slug.FOR_RENT, "for-sale": Slug.FOR_SALE});
 
 class Link {
   Link({
