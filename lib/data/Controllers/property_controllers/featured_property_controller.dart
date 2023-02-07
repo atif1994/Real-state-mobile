@@ -12,7 +12,7 @@ class DashboardController extends GetxController {
   var featuredPropertyModel = FeaturedPropertiseModel();
   // List<Datum>? data;
   RxString errorLoadingFeaturedPropertise = ''.obs;
-  int userid = 273;
+  int userid = 11;
   int? cid;
   String? cityName;
   int catid = 0;
@@ -27,10 +27,10 @@ class DashboardController extends GetxController {
     getCityInfo();
     getMyProperty(userid);
     await Future.delayed(const Duration(milliseconds: 400));
-    getnewspost();
+    getFilteredPropertise(cid, catid);
     getFeaturedPropertise();
     getPrpertyCitis();
-    getFilteredPropertise(cid, catid);
+    getnewspost();
   }
 
   void getFeaturedPropertise() async {
@@ -38,8 +38,8 @@ class DashboardController extends GetxController {
     errorLoadingFeaturedPropertise.value = '';
     var res = await FeaturedPropertyService.getFeaturedPropertiser();
     if (res is FeaturedPropertiseModel) {
-      loadingFeaturedPropertise.value = false;
       featuredPropertyModel = res;
+      loadingFeaturedPropertise.value = false;
     } else {
       loadingFeaturedPropertise.value = false;
       errorLoadingFeaturedPropertise.value = res.toString();
@@ -50,7 +50,6 @@ class DashboardController extends GetxController {
   RxBool loadingCities = false.obs;
   var citiesModel = CitiesResponse();
   RxString errorLoadingCities = ''.obs;
-
   void getPrpertyCitis() async {
     loadingCities.value = true;
     errorLoadingCities.value = '';
@@ -67,7 +66,6 @@ class DashboardController extends GetxController {
   //filter property without perameter
   void getCityInfo() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-
     cid = pref.getInt("cityId");
     cityName = pref.getString("cityName");
   }
@@ -100,14 +98,11 @@ class DashboardController extends GetxController {
   RxString errorLoadingMyPropertise = ''.obs;
   void getMyProperty(int userid) async {
     var res = await FeaturedPropertyService.myPropertiser(userid);
-
     loadingMyPropertise.value = false;
-
     if (res is MyProperty) {
       myPropertyModel = res;
     } else {
       loadingMyPropertise.value = false;
-
       errorLoadingMyPropertise.value = res.toString();
     }
   }
@@ -115,12 +110,10 @@ class DashboardController extends GetxController {
   RxBool loadingnewspost = false.obs;
   var newspostModel = Newspost();
   RxString errorLoadingnewspost = ''.obs;
-
   void getnewspost() async {
     loadingnewspost.value = true;
     errorLoadingnewspost.value = '';
     var res = await FeaturedPropertyService.getNewsPostAPI();
-
     loadingnewspost.value = false;
     if (res is Newspost) {
       newspostModel = res;

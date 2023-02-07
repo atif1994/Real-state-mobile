@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:prologic_29/Views/user_profile/chat/chatting_screen.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
@@ -12,7 +11,7 @@ import '../../../data/Controllers/chat_controller.dart';
 
 class ChatScreen extends StatelessWidget {
   ChatScreen({super.key});
-  var chatController = Get.put(ChatController());
+  var chattController = Get.put(ChatController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,18 +47,19 @@ class ChatScreen extends StatelessWidget {
                 height: 78.0.h,
                 width: 100.0.w,
                 child: Obx(
-                  () => chatController.loadingConversation.value
+                  () => chattController.loadingConversation.value
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
-                      : chatController.errConversationLoad.value != ''
+                      : chattController.errConversationLoad.value != ''
                           ? Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   IconButton(
                                       onPressed: () {
-                                        chatController.getConversation();
+                                        chattController.getConversation(
+                                            chattController.uid);
                                       },
                                       icon: const Icon(
                                         Icons.refresh,
@@ -68,17 +68,20 @@ class ChatScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 1.0.h,
                                   ),
-                                  Text(
-                                      chatController.errConversationLoad.value),
+                                  Text(chattController
+                                      .errConversationLoad.value),
                                 ],
                               ),
                             )
                           : ListView.builder(
-                              itemCount:
-                                  chatController.conversationModel.data?.length,
+                              itemCount: chattController
+                                  .conversationModel.data?.length,
                               itemBuilder: (context, index) {
-                                var agentName = chatController.conversationModel
-                                    .data![index].recieveragent!.username;
+                                var agentName = chattController
+                                    .conversationModel
+                                    .data?[index]
+                                    .recieveragent!
+                                    .firstName;
                                 String? firstChar;
                                 if (agentName!.isNotEmpty) {
                                   firstChar = agentName[0];
@@ -89,16 +92,31 @@ class ChatScreen extends StatelessWidget {
                                         await SharedPreferences.getInstance();
                                     pref.setInt(
                                         "conversatinId",
-                                        chatController.conversationModel
+                                        chattController.conversationModel
                                             .data![index].id!);
 
                                     Get.to(
                                         () => Chating(
-                                              name: chatController
+                                              name: chattController
                                                   .conversationModel
                                                   .data![index]
                                                   .recieveragent!
                                                   .username,
+                                              conId: chattController
+                                                  .conversationModel
+                                                  .data![index]
+                                                  .chats![index]
+                                                  .conversationId,
+                                              customerId: chattController
+                                                  .conversationModel
+                                                  .data![index]
+                                                  .chats![index]
+                                                  .customer,
+                                              agentId: chattController
+                                                  .conversationModel
+                                                  .data![index]
+                                                  .chats![index]
+                                                  .agent,
                                             ),
                                         duration:
                                             const Duration(milliseconds: 600),
@@ -144,7 +162,7 @@ class ChatScreen extends StatelessWidget {
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              "${chatController.conversationModel.data![index].recieveragent!.username ?? ''} ",
+                                              "${chattController.conversationModel.data![index].recieveragent!.firstName ?? ''} ",
                                               style: AppTextStyles.heading1
                                                   .copyWith(
                                                       color: AppColors.appthem,
@@ -152,11 +170,11 @@ class ChatScreen extends StatelessWidget {
                                                           FontWeight.w800),
                                             ),
                                             Text(
-                                              chatController
+                                              chattController
                                                       .conversationModel
-                                                      .data![index]
-                                                      .chats![index]
-                                                      .message ??
+                                                      .data?[index]
+                                                      .recieveragent!
+                                                      .deactivateMessage ??
                                                   '',
                                               style: AppTextStyles.heading1
                                                   .copyWith(
@@ -165,18 +183,18 @@ class ChatScreen extends StatelessWidget {
                                           ],
                                         ),
                                         const Spacer(),
-                                        Text(
-                                          DateFormat('dd.MM.yyyy').format(
-                                              DateTime.parse(chatController
-                                                      .conversationModel
-                                                      .data![index]
-                                                      .chats![index]
-                                                      .updatedAt ??
-                                                  "".toString())),
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  color: AppColors.appthem),
-                                        ),
+                                        // Text(
+                                        //   DateFormat('dd.MM.yyyy').format(
+                                        //       DateTime.parse(chattController
+                                        //               .conversationModel
+                                        //               .data![index]
+                                        //               .chats![index]
+                                        //               .updatedAt ??
+                                        //           "".toString())),
+                                        //   style: AppTextStyles.heading1
+                                        //       .copyWith(
+                                        //           color: AppColors.appthem),
+                                        // ),
                                         SizedBox(
                                           width: 2.0.w,
                                         )
