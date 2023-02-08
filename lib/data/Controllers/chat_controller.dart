@@ -9,11 +9,18 @@ import '../Services/chat_services.dart';
 class ChatController extends GetxController {
   int? conversationId;
   int uid = 0;
+  RxBool loadChat = false.obs;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    loadChat.value = true;
     loadData();
+  }
+
+  void loadChatFu() {
+    Future.delayed(const Duration(seconds: 2));
+    loadChat.value = false;
   }
 
   void loadData() async {
@@ -48,6 +55,7 @@ class ChatController extends GetxController {
     } else {
       loadingConversation.value = false;
       errConversationLoad.value = res.toString();
+      update();
     }
   }
 
@@ -56,17 +64,20 @@ class ChatController extends GetxController {
   RxBool loadingChat = false.obs;
   var chatModel = ChatModel();
   RxString errChatload = ''.obs;
-
-  void getChat(int conversationId) async {
+  int counter = 0;
+  getChat(int conversationId) async {
+    counter++;
     loadingChat.value = true;
     var res = await ChatServices.getChatServiceAPI(conversationId);
     if (res is ChatModel) {
+      loadChat.value = false;
       loadingChat.value = false;
       chatModel = res;
     } else {
       loadingChat.value = false;
       errChatload.value = res.toString();
     }
+    update();
   }
 
 //get convesationId from sharedPref had store from chat room
