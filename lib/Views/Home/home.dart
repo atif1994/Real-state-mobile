@@ -45,6 +45,9 @@ class _HomeState extends State<Home> {
   int? cid;
 
   String? cityName;
+  String fname = '';
+
+  String lname = '';
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final labels = ["Buy", "Rent", "Invest"];
   final labels1 = ["Homes", "Plots", "Commercial"];
@@ -90,15 +93,18 @@ class _HomeState extends State<Home> {
 
     cid = pref.getInt("cityId");
     cityName = pref.getString("cityName");
+
+    fname = pref.getString("fname") ?? "";
+    lname = pref.getString("lname") ?? "";
   }
 
   @override
   void initState() {
-    dashboardController.getFilteredPropertise(cid, 0);
     getCityInfo();
+    dashboardController.getFilteredPropertise(cid, 0);
+    dashboardController.getFeaturedPropertise();
     LocalNotificationsApi.init();
     listenNotification();
-
     super.initState();
   }
 
@@ -124,50 +130,48 @@ class _HomeState extends State<Home> {
                   actions: [
                     Row(
                       children: [
-                        Image.asset(
-                          AppImageResources.wishList,
-                          height: 3.0.h,
-                          color: Colors.white,
-                        ),
+                        fname == '' && lname == ''
+                            ? Text(
+                                "Ahmad khan",
+                                style: AppTextStyles.heading1
+                                    .copyWith(fontSize: 14.sp),
+                              )
+                            : Text(
+                                "$fname$lname",
+                                style: AppTextStyles.heading1
+                                    .copyWith(fontSize: 14.sp),
+                              ),
                         SizedBox(
-                          width: 2.0.w,
+                          width: 10.0.w,
                         ),
-                        Text("WishList",
-                            style: AppTextStyles.labelSmall.copyWith(
-                                color: AppColors.colorWhite,
-                                fontFamily: AppFonts.nexaBold)),
-                        SizedBox(
-                          width: 4.0.w,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(
-                            right: 20,
-                          ),
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: SizedBox(
-                                  width: 8.0.w,
-                                  height: 5.0.h,
-                                  child: GestureDetector(
-                                    onTap: (() {
-                                      Get.to(AllNotifications());
-                                    }),
-                                    child: Image.asset(
-                                        AppImageResources.notificationbell),
-                                  ),
-                                  // child: IconButton(
-                                  //   onPressed: () {
-                                  //     Get.to(() => AllNotifications);
-                                  //   },
-                                  //   icon: const Icon(Icons.email,
-                                  //       color: Colors.lightBlueAccent),
-                                  // ),
+                        Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 1.0.w),
+                              height: 11.0.w,
+                              width: 12.0.w,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                right: 6.0.w,
+                              ),
+                              height: 11.0.w,
+                              width: 12.0.w,
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  "https://picsum.photos/200/300",
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              // Positioned(right: 3, top: 3, child: MyBadge(10)),
-                            ],
-                          ),
+                            )
+                          ],
                         ),
                       ],
                     )
@@ -176,7 +180,7 @@ class _HomeState extends State<Home> {
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     title: Text(
-                      "ProLogics",
+                      "",
                       style: AppTextStyles.heading1
                           .copyWith(fontFamily: AppFonts.nexaRegular),
                     ),
@@ -901,7 +905,7 @@ class _HomeState extends State<Home> {
                                         child: SizedBox(
                                           width: 80.0.w,
                                           child: Text(
-                                              "Find your dream home from our Newly added properties",
+                                              "Find your dreaam home from our Newly added properties",
                                               style: AppTextStyles.labelSmall
                                                   .copyWith(fontSize: 9.sp)),
                                         ),
@@ -1452,7 +1456,7 @@ class _HomeState extends State<Home> {
                   Container(
                     margin:
                         EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 2.0.h),
-                    height: 55.0.h,
+                    height: 50.0.h,
                     width: 120.0.w,
                     decoration: CustomDecorations.mainCon,
                     child: Obx(
@@ -1521,7 +1525,7 @@ class _HomeState extends State<Home> {
                                             right: 2.0.w,
                                             top: 1.0.h,
                                           ),
-                                          height: 40.0.h,
+                                          height: 35.0.h,
                                           width: 100.0.w,
                                           //color: Colors.red,
                                           child: ListView.builder(

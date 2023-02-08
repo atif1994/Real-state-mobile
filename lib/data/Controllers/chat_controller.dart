@@ -8,30 +8,40 @@ import '../Services/chat_services.dart';
 
 class ChatController extends GetxController {
   int? conversationId;
+  int uid = 0;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     loadData();
-
-    print("conversational Id =======????$conversationId ");
   }
 
   void loadData() async {
-    getConversation();
+    getUserId();
+    await Future.delayed(const Duration(milliseconds: 200));
+    getConversation(uid);
     getConversationId();
     await Future.delayed(const Duration(seconds: 2));
-    getChat(conversationId);
+    getChat(conversationId ?? 0);
+    print("conversational Id =======????$conversationId ");
+  }
+
+  getUserId() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    uid = pref.getInt("userid") ?? 0;
+
+    print("************************$uid");
   }
 
   RxBool loadingConversation = false.obs;
   var conversationModel = Conversation();
   RxString errConversationLoad = ''.obs;
 
-  void getConversation() async {
+  void getConversation(int uid) async {
     loadingConversation.value = true;
     errConversationLoad.value = '';
-    var res = await ChatServices.getConversationService();
+    var res = await ChatServices.getConversationService(uid);
     loadingConversation.value = false;
     if (res is Conversation) {
       conversationModel = res;
@@ -47,11 +57,9 @@ class ChatController extends GetxController {
   var chatModel = ChatModel();
   RxString errChatload = ''.obs;
 
-  void getChat(int? conversationId) async {
+  void getChat(int conversationId) async {
     loadingChat.value = true;
-    errChatload.value = '';
-    var res = await ChatServices.getChatServiceAPI(conversationId!);
-    loadingChat.value = false;
+    var res = await ChatServices.getChatServiceAPI(conversationId);
     if (res is ChatModel) {
       loadingChat.value = false;
       chatModel = res;
@@ -74,10 +82,10 @@ class ChatController extends GetxController {
   var sendMsgModel = SendChatModel();
   RxString errSendMsg = ''.obs;
 
-  void sendMsgMethod() async {
+  void sendMsgMethod(custId, agentId, msg, convId) async {
     loadingsend.value = true;
     errSendMsg.value = '';
-    var res = await ChatServices.sendMsgService();
+    var res = await ChatServices.sendMsgService(custId, agentId, msg, convId);
     loadingsend.value = false;
     if (res is SendChatModel) {
       sendMsgModel = res;
