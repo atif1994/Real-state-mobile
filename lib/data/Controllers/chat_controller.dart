@@ -14,6 +14,7 @@ class ChatController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    getUserId();
     loadChat.value = true;
     loadData();
   }
@@ -24,33 +25,32 @@ class ChatController extends GetxController {
   }
 
   void loadData() async {
-    getUserId();
-    await Future.delayed(const Duration(milliseconds: 200));
     getConversation(uid);
     getConversationId();
-    await Future.delayed(const Duration(seconds: 2));
+
+    await Future.delayed(const Duration(milliseconds: 200));
     getChat(conversationId ?? 0);
     print("conversational Id =======????$conversationId ");
   }
 
   getUserId() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-
     uid = pref.getInt("userid") ?? 0;
-
     print("************************$uid");
   }
 
   RxBool loadingConversation = false.obs;
   var conversationModel = Conversation();
   RxString errConversationLoad = ''.obs;
-
-  void getConversation(int uid) async {
+  getConversation(int uid) async {
+    print("*****user id call in func*******************$uid");
     loadingConversation.value = true;
     errConversationLoad.value = '';
     var res = await ChatServices.getConversationService(uid);
-    loadingConversation.value = false;
+
     if (res is Conversation) {
+      loadingConversation.value = false;
+      loadingChat.value = false;
       conversationModel = res;
     } else {
       loadingConversation.value = false;
@@ -64,9 +64,7 @@ class ChatController extends GetxController {
   RxBool loadingChat = false.obs;
   var chatModel = ChatModel();
   RxString errChatload = ''.obs;
-  int counter = 0;
   getChat(int conversationId) async {
-    counter++;
     loadingChat.value = true;
     var res = await ChatServices.getChatServiceAPI(conversationId);
     if (res is ChatModel) {

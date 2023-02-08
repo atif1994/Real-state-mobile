@@ -53,6 +53,7 @@ class _ChatingState extends State<Chating> {
         ),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(bottom: 5.h),
         child: Column(
           children: [
             Container(
@@ -78,12 +79,14 @@ class _ChatingState extends State<Chating> {
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return ListView.builder(
+                              padding: const EdgeInsets.only(bottom: 45),
+                              shrinkWrap: true,
                               itemCount: controller.chatModel.data?.length,
                               itemBuilder: (context, index) {
                                 return Container(
                                   margin: EdgeInsets.only(
                                       top: 1.0.h,
-                                      bottom: 1.0.h,
+                                      bottom: .5.h,
                                       left: 4.0.w,
                                       right: 4.0.w),
                                   decoration: BoxDecoration(
@@ -117,6 +120,7 @@ class _ChatingState extends State<Chating> {
                 )),
 
             ////////////////
+
             Container(
               margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 1.0.h),
               height: 8.0.h,
