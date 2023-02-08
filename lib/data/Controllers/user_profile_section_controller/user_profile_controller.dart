@@ -44,5 +44,6 @@ class UserProfileController extends GetxController {
       loadingUserProfile.value = false;
       errorLoadingUserProfile.value = res;
     }
+    update();
   }
 }

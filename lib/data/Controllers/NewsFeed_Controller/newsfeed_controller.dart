@@ -16,7 +16,7 @@ class NewsFeedController extends GetxController {
   int pagekey = 1;
   @override
   void onInit() {
-    newsfeedApiLoading.value = false;
+    newsfeedApiLoading.value = true;
   }
 
   getnewsfeed(pageKey) async {
@@ -31,5 +31,7 @@ class NewsFeedController extends GetxController {
       loadingnewspost.value = false;
       errorLoadingnewsfeed.value = res.toString();
     }
+    print("________News feed Api Call______");
+    update();
   }
 }
