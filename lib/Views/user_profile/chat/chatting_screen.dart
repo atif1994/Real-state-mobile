@@ -53,59 +53,74 @@ class _ChatingState extends State<Chating> {
         ),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(bottom: 5.h),
         child: Column(
           children: [
             Container(
                 margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w, top: 2.0.h),
                 height: 75.0.h,
                 width: 100.0.w,
-                child: Obx(() => chattController.loadChat.value
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : chattController.chatModel.data!.length < 0
-                        ? const Center(child: Text("Say Hi"))
-                        : FutureBuilder(
-                          future:   chattController
-                            .getChat(int.parse(widget.conId.toString())),
-                            builder: (context, snapshot) {
-                              return ListView.builder(
-                                  itemCount:
-                                      chattController.chatModel.data?.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      margin: EdgeInsets.only(
-                                          top: 1.0.h,
-                                          bottom: 1.0.h,
-                                          left: 4.0.w,
-                                          right: 4.0.w),
-                                      decoration: BoxDecoration(
-                                          color: chattController.uid ==
-                                                  chattController.chatModel
-                                                      .data![index].senderId
-                                              ? Colors.red
-                                              : AppColors.appthem,
-                                          borderRadius: const BorderRadius.only(
-                                              topRight: Radius.circular(10),
-                                              bottomLeft: Radius.circular(10))),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: GetBuilder<ChatController>(
-                                          init: ChatController(),
-                                          builder: (controller) {
-                                            return Text(
-                                              "${controller.counter}${controller.chatModel.data?[index].message ?? ""}",
-                                              style: AppTextStyles.heading1,
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    );
-                                  });
-                            },
-                          ))),
+                child:
+                    // Obx(() => chattController.loadChat.value
+                    //     ? const Center(
+                    //         child: CircularProgressIndicator(),
+                    //       )
+                    //     :
+                    // chattController.chatModel.data!.length < 0
+                    //     ? const Center(child: Text("Say Hi"))
+                    //     :
+                    GetBuilder<ChatController>(
+                  init: ChatController(),
+                  initState: (_) {},
+                  builder: (controller) {
+                    return FutureBuilder(
+                      future: controller
+                          .getChat(int.parse(widget.conId.toString())),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return ListView.builder(
+                              padding: const EdgeInsets.only(bottom: 45),
+                              shrinkWrap: true,
+                              itemCount: controller.chatModel.data?.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(
+                                      top: 1.0.h,
+                                      bottom: .5.h,
+                                      left: 4.0.w,
+                                      right: 4.0.w),
+                                  decoration: BoxDecoration(
+                                      color: controller.uid ==
+                                              controller.chatModel.data![index]
+                                                  .senderId
+                                          ? Colors.red
+                                          : AppColors.appthem,
+                                      borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(10),
+                                          bottomLeft: Radius.circular(10))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                      controller
+                                              .chatModel.data?[index].message ??
+                                          "",
+                                      style: AppTextStyles.heading1,
+                                    ),
+                                  ),
+                                );
+                              });
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    );
+                  },
+                )),
 
             ////////////////
+
             Container(
               margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 1.0.h),
               height: 8.0.h,
