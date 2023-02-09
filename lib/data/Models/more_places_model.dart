@@ -161,7 +161,7 @@ class Datum {
   String? description;
   String? content;
   String? location;
-  Map<String, Image>? images;
+  dynamic images;
   String? numberBedroom;
   String? numberBathroom;
   String? numberFloor;
@@ -208,8 +208,7 @@ class Datum {
         description: json["description"],
         content: json["content"],
         location: json["location"],
-        images: Map.from(json["images"]!)
-            .map((k, v) => MapEntry<String, Image>(k, imageValues.map[v]!)),
+        images: json["images"],
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         numberFloor: json["number_floor"],
@@ -224,8 +223,7 @@ class Datum {
         authorType: authorTypeValues.map[json["author_type"]]!,
         categoryId: json["category_id"],
         isFeatured: json["is_featured"],
-        moderationStatus:
-            moderationStatusValues.map[json["moderation_status"]]!,
+        moderationStatus: moderationStatusValues.map[json["moderation_status"]],
         expireDate: json["expire_date"] == null
             ? null
             : DateTime.parse(json["expire_date"]),
@@ -280,8 +278,7 @@ class Datum {
         "description": description,
         "content": content,
         "location": location,
-        "images": Map.from(images!).map(
-            (k, v) => MapEntry<String, dynamic>(k, imageValues.reverse[v])),
+        "images": images,
         "number_bedroom": numberBedroom,
         "number_bathroom": numberBathroom,
         "number_floor": numberFloor,
@@ -574,20 +571,6 @@ class Pivot {
       };
 }
 
-enum Image {
-  PROPERTIES_P_16_JPG,
-  PROPERTIES_P_4_JPG,
-  PROPERTIES_P_6_JPG,
-  PROPERTIES_P_5_JPG
-}
-
-final imageValues = EnumValues({
-  "properties/p-16.jpg": Image.PROPERTIES_P_16_JPG,
-  "properties/p-4.jpg": Image.PROPERTIES_P_4_JPG,
-  "properties/p-5.jpg": Image.PROPERTIES_P_5_JPG,
-  "properties/p-6.jpg": Image.PROPERTIES_P_6_JPG
-});
-
 class LikesOnProperty {
   LikesOnProperty({
     this.isliked,
@@ -631,10 +614,10 @@ class Type {
 
   factory Type.fromJson(Map<String, dynamic> json) => Type(
         id: json["id"],
-        name: json["name"]!,
-        slug: slugValues.map[json["slug"]]!,
+        name: json["name"],
+        slug: slugValues.map[json["slug"]],
         order: json["order"],
-        code: codeValues.map[json["code"]]!,
+        code: codeValues.map[json["code"]],
       );
 
   Map<String, dynamic> toJson() => {
