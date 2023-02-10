@@ -10,6 +10,7 @@ class NewsFeedController extends GetxController {
   var newsfeedmodel = NewsfeedModel();
   RxString errorLoadingnewsfeed = ''.obs;
   RxBool newsfeedApiLoading = false.obs;
+  RxList idlst = [].obs;
   RxInt length = 0.obs;
 
   var scrollController = ScrollController();
