@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/Views/Auth/sign_in.dart';
+import 'package:prologic_29/Views/area_guide/properties_areaguide.dart';
+import 'package:prologic_29/Views/user_profile/chat/convesation_screen.dart';
+import 'package:prologic_29/Views/user_profile/security/security_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utils/constants/appcolors.dart';
@@ -111,7 +115,7 @@ class ProfilePages extends StatelessWidget {
             ),
             child: ListTile(
               onTap: (() {
-                Get.to(const WishlistPage());
+                Get.to(WishlistPage());
               }),
               leading: const Icon(Icons.settings),
               title: Text(
@@ -133,7 +137,7 @@ class ProfilePages extends StatelessWidget {
             ),
             child: ListTile(
               onTap: (() {
-                Get.to(const WishlistPage());
+                Get.to(const Properties());
               }),
               leading: const Icon(Icons.propane_rounded),
               title: Text(
@@ -155,7 +159,7 @@ class ProfilePages extends StatelessWidget {
             ),
             child: ListTile(
               onTap: (() {
-                Get.to(const WishlistPage());
+                Get.to(WishlistPage());
               }),
               leading: const Icon(Icons.mark_chat_read),
               title: Text(
@@ -177,7 +181,7 @@ class ProfilePages extends StatelessWidget {
             ),
             child: ListTile(
               onTap: (() {
-                Get.to(const WishlistPage());
+                Get.to(SecurityScreen());
               }),
               leading: const Icon(Icons.lock),
               title: Text(
@@ -199,7 +203,7 @@ class ProfilePages extends StatelessWidget {
             ),
             child: ListTile(
               onTap: (() {
-                Get.to(const WishlistPage());
+                Get.to(ChatScreen());
               }),
               leading: const Icon(Icons.chat),
               title: Text(
@@ -221,7 +225,7 @@ class ProfilePages extends StatelessWidget {
             ),
             child: ListTile(
               onTap: (() {
-                Get.to(const WishlistPage());
+                Get.to(SignIn());
               }),
               leading: const Icon(Icons.logout_outlined),
               title: Text(
@@ -243,11 +247,11 @@ class ProfilePages extends StatelessWidget {
             ),
             child: ListTile(
               onTap: (() {
-                Get.to(const WishlistPage());
+                Get.to(WishlistPage());
               }),
               leading: const Icon(Icons.logout_outlined),
               title: Text(
-                'jsxnn',
+                'ddddddddddddddddd',
                 style: AppTextStyles.heading1.copyWith(
                   color: AppColors.colorblack,
                   fontSize: 21,

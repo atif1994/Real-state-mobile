@@ -29,7 +29,7 @@ class wishlistController extends GetxController {
   void getwishlist() async {
     loadingwishlist.value = true;
 
-    var res = await getWishlistService.wishlistservice(idlst);
+    var res = await ShowWishlistService.showWishlist(idlst);
     wishloadApiLoad.value = false;
     if (res is WishlistResponse) {
       wishloadApiLoad.value = false;
