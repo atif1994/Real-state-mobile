@@ -1,6 +1,11 @@
+
+import 'dart:io';
+import 'package:badges/badges.dart' as badges;
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:jumping_dot/jumping_dot.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
@@ -54,8 +59,30 @@ class _NewsFeedState extends State<NewsFeed> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('News Feed ', style: AppTextStyles.heading1),
+        title: Text('News Feed', style: AppTextStyles.heading1),
         backgroundColor: AppColors.appthem,
+
+        actions: [
+          Obx(() => Padding(
+                padding: const EdgeInsets.only(right: 15, top: 13),
+                child: GestureDetector(
+                  onTap: () async {
+                    var box = await Hive.openBox('wishlist');
+                    print(box.get('idlist'));
+                  },
+                  child: badges.Badge(
+                    badgeContent: Text(
+                      newsfeedController.idlst.length.toString(),
+                    ),
+                    child: Icon(
+                      Icons.favorite_outlined,
+                      size: 25.sp,
+                    ),
+                  ),
+                ),
+              ))
+        ],
+
       ),
       body: SingleChildScrollView(
           child: Expanded(
@@ -148,60 +175,99 @@ class _NewsFeedState extends State<NewsFeed> {
                                                       ),
                                                     ),
                                                   ),
-                                                  Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              6.0),
-                                                      child: Obx(() =>
-                                                          newsfeedController
-                                                                  .newsfeedmodel
-                                                                  .data!
-                                                                  .data![index]
-                                                                  .isLiked
-                                                                  .value
-                                                              ? InkWell(
-                                                                  onTap: () {
-                                                                    newsfeedController
-                                                                        .newsfeedmodel
-                                                                        .data!
-                                                                        .data![
-                                                                            index]
-                                                                        .isLiked
-                                                                        .value = true;
+                                                  Positioned(
+                                                    right: 9,
+                                                    top: 9,
+                                                    child: Obx(() => newsfeedController
+                                                            .idlst
+                                                            .contains(
+                                                                newsfeedController
+                                                                    .newsfeedmodel
+                                                                    .data!
+                                                                    .data![
+                                                                        index]
+                                                                    .id)
+                                                        ? GestureDetector(
+                                                            onTap: () {
+                                                              newsfeedController
+                                                                  .idlst
+                                                                  .remove(newsfeedController
+                                                                      .newsfeedmodel
+                                                                      .data!
+                                                                      .data![
+                                                                          index]
+                                                                      .id);
+                                                              // newsfeedController
+                                                              //     .newsfeedmodel
+                                                              //     .data!
+                                                              //     .data![
+                                                              //         index]
+                                                              //     .isLiked
+                                                              //     .value = false;
+                                                            },
+                                                            child: Container(
+                                                              height: 5.h,
+                                                              width: 10.w,
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              7)),
+                                                              child: const Icon(
+                                                                Icons
+                                                                    .favorite_outlined,
+                                                                color: Colors
+                                                                    .amber,
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : GestureDetector(
+                                                            onTap: () async {
+                                                              var box = await Hive
+                                                                  .openBox(
+                                                                      'wishlist');
 
-                                                                    print(newsfeedController
-                                                                        .newsfeedmodel
-                                                                        .data!
-                                                                        .data![
-                                                                            index]
-                                                                        .isLiked
-                                                                        .value);
-                                                                  },
-                                                                  child:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .favorite_outline,
-                                                                    color: Colors
-                                                                        .amber,
-                                                                  ))
-                                                              : InkWell(
-                                                                  onTap: () {
-                                                                    newsfeedController
-                                                                        .newsfeedmodel
-                                                                        .data!
-                                                                        .data![
-                                                                            index]
-                                                                        .isLiked
-                                                                        .value = false;
-                                                                  },
-                                                                  child:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .favorite_outline,
-                                                                    color: Colors
-                                                                        .red,
-                                                                  ),
-                                                                )))
+                                                              newsfeedController
+                                                                  .idlst
+                                                                  .add(newsfeedController
+                                                                      .newsfeedmodel
+                                                                      .data!
+                                                                      .data![
+                                                                          index]
+                                                                      .id);
+
+                                                              box.put(
+                                                                  'idlist',
+                                                                  newsfeedController
+                                                                      .idlst);
+                                                              // newsfeedController
+                                                              //     .newsfeedmodel
+                                                              //     .data!
+                                                              //     .data![
+                                                              //         index]
+                                                              //     .isLiked
+                                                              //     .value = true;
+                                                            },
+                                                            child: Container(
+                                                              height: 5.h,
+                                                              width: 10.w,
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              7)),
+                                                              child: const Icon(
+                                                                Icons
+                                                                    .favorite_outline,
+                                                                color: Colors
+                                                                    .amber,
+                                                              ),
+                                                            ))),
+                                                  )
                                                 ]),
                                                 SizedBox(
                                                   width: 2.0.h,
