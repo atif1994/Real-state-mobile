@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class _profileImageState extends State<profileImage> {
   var imageupdatecontroller = Get.put(UpdateImageController());
 
   File? imageTemp;
-
+  String? imag;
   ImagePicker imagePicker = ImagePicker();
 
   Future<void> cameraimg() async {
@@ -28,6 +29,8 @@ class _profileImageState extends State<profileImage> {
     if (img != null) {
       setState(() {
         imageTemp = File(img.path);
+
+        imag = base64Encode(imageTemp!.readAsBytesSync());
       });
     }
   }
@@ -37,6 +40,8 @@ class _profileImageState extends State<profileImage> {
     if (img != null) {
       setState(() {
         imageTemp = File(img.path);
+
+        imag = base64Encode(imageTemp!.readAsBytesSync());
       });
     }
   }
@@ -113,7 +118,7 @@ class _profileImageState extends State<profileImage> {
                     )),
             CustomButton(
               onPressed: () {
-                imageupdatecontroller.updateprofileimage(imageTemp);
+                imageupdatecontroller.updateprofileimage(imag!);
               },
               text: 'Upload Image',
             ),
