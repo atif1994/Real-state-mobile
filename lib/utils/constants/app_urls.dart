@@ -1,7 +1,9 @@
 class AppUrls {
+
   static const String baseUrl = 'http://realestate.tecrux.net/api/';
   static const String baseUrl3 = 'http://realestate.tecrux.solutions/api/';
   static const String baseUrl2 = 'http://realestate.tecrux.solutions/storage/';
+
 
   static const String featuredProperty = "v1/featured-properties";
   static const String propertyCities = "v1/cities";

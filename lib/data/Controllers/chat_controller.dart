@@ -19,15 +19,16 @@ class ChatController extends GetxController {
     loadData();
   }
 
-  void loadChatFu() {
-    Future.delayed(const Duration(seconds: 2));
-    loadChat.value = false;
-  }
+  // void loadChatFu() {
+  //   Future.delayed(const Duration(seconds: 2));
+  //   loadChat.value = false;
+  // }
 
   void loadData() async {
+    getUserId();
+    await Future.delayed(const Duration(milliseconds: 200));
     getConversation(uid);
     getConversationId();
-
     await Future.delayed(const Duration(milliseconds: 200));
     getChat(conversationId ?? 0);
     print("conversational Id =======????$conversationId ");
@@ -47,7 +48,6 @@ class ChatController extends GetxController {
     loadingConversation.value = true;
     errConversationLoad.value = '';
     var res = await ChatServices.getConversationService(uid);
-
     if (res is Conversation) {
       loadingConversation.value = false;
       loadingChat.value = false;

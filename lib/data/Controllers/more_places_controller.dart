@@ -10,19 +10,22 @@ class MorePlacesController extends GetxController {
 
   AllPropertiesResponse moreplaceresponse = AllPropertiesResponse();
 
+
   int page = 0;
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getplacesdata(page);
+    getplacesdata();
   }
 
-  getplacesdata(page) async {
-    page++;
+  getplacesdata() async {
     loadingmoreplaces.value = true;
     errorloadingmoreplaces.value = '';
+
     var res = await GetPropertiesServices.getproperties(page);
+
     if (res is AllPropertiesResponse) {
       loadingmoreplaces.value = false;
       moreplaceresponse = res;

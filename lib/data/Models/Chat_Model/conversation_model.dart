@@ -119,8 +119,8 @@ class Chat {
   String? status;
   dynamic image;
   String? senderId;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory Chat.fromJson(Map<String, dynamic> json) => Chat(
         id: json["id"],
@@ -131,7 +131,12 @@ class Chat {
         status: json["status"],
         image: json["image"],
         senderId: json["sender_id"],
-        createdAt: json["created_at"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -143,8 +148,8 @@ class Chat {
         "status": status,
         "image": image,
         "sender_id": senderId,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }
 
@@ -184,7 +189,7 @@ class Recieveragent {
   String? email;
   dynamic emailVerifiedAt;
   String? mobileNo;
-  String? profileImage;
+  dynamic profileImage;
   dynamic dob;
   String? activeStatus;
   dynamic deletedAt;
@@ -299,9 +304,6 @@ class Permissions {
     this.propertyFeatureEdit,
     this.superuser,
     this.manageSupers,
-    this.facilityIndex,
-    this.facilityCreate,
-    this.facilityEdit,
   });
 
   bool? consultIndex;
@@ -319,11 +321,8 @@ class Permissions {
   bool? propertyFeatureIndex;
   bool? propertyFeatureCreate;
   bool? propertyFeatureEdit;
-  dynamic superuser;
-  dynamic manageSupers;
-  bool? facilityIndex;
-  bool? facilityCreate;
-  bool? facilityEdit;
+  String? superuser;
+  String? manageSupers;
 
   factory Permissions.fromJson(Map<String, dynamic> json) => Permissions(
         consultIndex: json["consult.index"],
@@ -343,9 +342,6 @@ class Permissions {
         propertyFeatureEdit: json["property_feature.edit"],
         superuser: json["superuser"],
         manageSupers: json["manage_supers"],
-        facilityIndex: json["facility.index"],
-        facilityCreate: json["facility.create"],
-        facilityEdit: json["facility.edit"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -366,9 +362,6 @@ class Permissions {
         "property_feature.edit": propertyFeatureEdit,
         "superuser": superuser,
         "manage_supers": manageSupers,
-        "facility.index": facilityIndex,
-        "facility.create": facilityCreate,
-        "facility.edit": facilityEdit,
       };
 }
 
