@@ -28,9 +28,10 @@ class UpdateImageController extends GetxController {
     loadingupdateimage = true.obs;
     errorloadingupdateimage = ''.obs;
 
-    var res = await UpdateImageService.updateImage(img.toString(), uid!);
-    loadingupdateimage = false.obs;
+    var res = await UpdateImageService.updateImage(img!, uid!);
+
     if (res is UpdateimageResponse) {
+      loadingupdateimage = false.obs;
       updateImageData = res;
     } else {
       loadingupdateimage = false.obs;
