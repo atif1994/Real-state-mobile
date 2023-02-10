@@ -10,7 +10,6 @@ class MorePlacesController extends GetxController {
 
   AllPropertiesResponse moreplaceresponse = AllPropertiesResponse();
 
-
   int page = 0;
 
   @override
@@ -24,7 +23,7 @@ class MorePlacesController extends GetxController {
     loadingmoreplaces.value = true;
     errorloadingmoreplaces.value = '';
 
-    var res = await GetPropertiesServices.getproperties(page);
+    var res = await GetPropertiesServices.getproperties();
 
     if (res is AllPropertiesResponse) {
       loadingmoreplaces.value = false;

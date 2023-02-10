@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:badges/badges.dart' as badges;
 
@@ -61,7 +60,6 @@ class _NewsFeedState extends State<NewsFeed> {
       appBar: AppBar(
         title: Text('News Feed', style: AppTextStyles.heading1),
         backgroundColor: AppColors.appthem,
-
         actions: [
           Obx(() => Padding(
                 padding: const EdgeInsets.only(right: 15, top: 13),
@@ -82,7 +80,6 @@ class _NewsFeedState extends State<NewsFeed> {
                 ),
               ))
         ],
-
       ),
       body: SingleChildScrollView(
           child: Expanded(

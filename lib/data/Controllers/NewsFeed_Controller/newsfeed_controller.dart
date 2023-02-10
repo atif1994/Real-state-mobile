@@ -14,7 +14,6 @@ class NewsFeedController extends GetxController {
   RxList idlst = [].obs;
   RxInt length = 0.obs;
 
-
   var scrollController = ScrollController();
   int pagekey = 1;
   @override
@@ -71,5 +70,4 @@ class NewsFeedController extends GetxController {
   //     likeerrorLoadingnewsfeed.value = res.toString();
   //   }
   // }
-
 }
