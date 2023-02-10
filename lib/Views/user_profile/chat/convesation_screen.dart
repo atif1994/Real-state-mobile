@@ -16,7 +16,7 @@ class ChatScreen extends StatelessWidget {
   getUserId() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     uid = pref.getInt("userid") ?? 0;
-    print("************************$uid");
+    print("**********************$uid");
   }
 
   @override
