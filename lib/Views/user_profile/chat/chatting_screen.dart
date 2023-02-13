@@ -27,6 +27,7 @@ class Chating extends StatefulWidget {
 class _ChatingState extends State<Chating> {
   var chattController = Get.put(ChatController());
   var chatController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   int uid = 0;
   bool isTextFieldClicked = false;
 
@@ -39,6 +40,8 @@ class _ChatingState extends State<Chating> {
     _initiatePusherSocketForMessaging();
 
     chattController.getChat(int.parse(widget.conId.toString()));
+
+    _scrollDown();
   }
 
   @override
@@ -79,6 +82,7 @@ class _ChatingState extends State<Chating> {
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return ListView.builder(
+                              controller: _scrollController,
                               padding: const EdgeInsets.only(bottom: 45),
                               shrinkWrap: true,
                               itemCount: controller.chatModel.data?.length,
@@ -197,6 +201,19 @@ class _ChatingState extends State<Chating> {
             senderId: widget.customerId,
             id: int.parse(widget.agentId.toString())));
       });
+    });
+  }
+
+  void _scrollDown() {
+    Future.delayed(
+        const Duration(
+          milliseconds: 50,
+        ), () {
+      _scrollController.position.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(seconds: 1),
+        curve: Curves.fastOutSlowIn,
+      );
     });
   }
 }

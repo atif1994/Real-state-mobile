@@ -298,7 +298,7 @@ class _HomeState extends State<Home> {
                   Container(
                     margin:
                         EdgeInsets.only(top: 2.0.h, left: 3.0.w, right: 3.0.w),
-                    height: 48.0.h,
+                    height: 50.0.h,
                     width: 100.0.w,
                     decoration: CustomDecorations.mainCon,
                     child: Obx(
@@ -625,6 +625,10 @@ class _HomeState extends State<Home> {
                                             : _browsPropertyIndex1 == 0
                                                 ? Expanded(
                                                     child: GridView.builder(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                          left: 5.0.w,
+                                                        ),
                                                         scrollDirection:
                                                             Axis.horizontal,
                                                         gridDelegate:
@@ -655,16 +659,22 @@ class _HomeState extends State<Home> {
                                                             width: 20.0.w,
                                                             alignment: Alignment
                                                                 .center,
-                                                            decoration: BoxDecoration(
-                                                                border: Border.all(
-                                                                    color: Colors
-                                                                        .grey),
-                                                                color: Colors
-                                                                    .white,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10)),
+
+                                                            decoration:
+                                                                CustomDecorations
+                                                                    .mainCon,
+                                                            // decoration: BoxDecoration(
+                                                            //     border: Border.all(
+                                                            //         color: Colors
+                                                            //             .grey),
+                                                            //     color: Colors
+                                                            //         .white,
+                                                            //     borderRadius:
+                                                            //         BorderRadius
+                                                            //             .circular(
+                                                            //                 10)
+
+                                                            //                 ),
                                                             child: Center(
                                                               child: Text(dashboardController
                                                                       .filteredPropertyModel
@@ -679,6 +689,10 @@ class _HomeState extends State<Home> {
                                                 : _browsPropertyIndex1 == 1
                                                     ? Expanded(
                                                         child: GridView.builder(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                              left: 5.0.w,
+                                                            ),
                                                             scrollDirection:
                                                                 Axis.horizontal,
                                                             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -713,15 +727,19 @@ class _HomeState extends State<Home> {
                                                                 alignment:
                                                                     Alignment
                                                                         .center,
-                                                                decoration: BoxDecoration(
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey),
-                                                                    color: Colors
-                                                                        .white,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10)),
+                                                                // decoration: BoxDecoration(
+                                                                //     border: Border.all(
+                                                                //         color: Colors
+                                                                //             .grey),
+                                                                //     color: Colors
+                                                                //         .white,
+                                                                //     borderRadius:
+                                                                //         BorderRadius.circular(
+                                                                //             10)),
+
+                                                                decoration:
+                                                                    CustomDecorations
+                                                                        .mainCon,
                                                                 child: Center(
                                                                   child: Text(dashboardController
                                                                           .filteredPropertyModel
@@ -737,6 +755,12 @@ class _HomeState extends State<Home> {
                                                         ? Expanded(
                                                             child: GridView
                                                                 .builder(
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .only(
+                                                                      left:
+                                                                          5.0.w,
+                                                                    ),
                                                                     scrollDirection:
                                                                         Axis
                                                                             .horizontal,
@@ -770,11 +794,14 @@ class _HomeState extends State<Home> {
                                                                             20.0.w,
                                                                         alignment:
                                                                             Alignment.center,
-                                                                        decoration: BoxDecoration(
-                                                                            border:
-                                                                                Border.all(color: Colors.grey),
-                                                                            color: Colors.white,
-                                                                            borderRadius: BorderRadius.circular(10)),
+                                                                        // decoration: BoxDecoration(
+                                                                        //     border:
+                                                                        //         Border.all(color: Colors.grey),
+                                                                        //     color: Colors.white,
+                                                                        //     borderRadius: BorderRadius.circular(10)),
+                                                                        decoration:
+                                                                            CustomDecorations.mainCon,
+
                                                                         child:
                                                                             Center(
                                                                           child:
@@ -788,6 +815,12 @@ class _HomeState extends State<Home> {
                                                             ? Expanded(
                                                                 child: GridView
                                                                     .builder(
+                                                                        padding:
+                                                                            EdgeInsets
+                                                                                .only(
+                                                                          left:
+                                                                              5.0.w,
+                                                                        ),
                                                                         scrollDirection:
                                                                             Axis
                                                                                 .horizontal,
@@ -818,10 +851,13 @@ class _HomeState extends State<Home> {
                                                                                 20.0.w,
                                                                             alignment:
                                                                                 Alignment.center,
-                                                                            decoration: BoxDecoration(
-                                                                                border: Border.all(color: Colors.grey),
-                                                                                color: Colors.white,
-                                                                                borderRadius: BorderRadius.circular(10)),
+                                                                            // decoration: BoxDecoration(
+                                                                            //     border: Border.all(color: Colors.grey),
+                                                                            //     color: Colors.white,
+                                                                            //     borderRadius: BorderRadius.circular(10)),
+
+                                                                            decoration:
+                                                                                CustomDecorations.mainCon,
                                                                             child:
                                                                                 Center(
                                                                               child: Text(dashboardController.filteredPropertyModel.areas![index].square ?? ''),

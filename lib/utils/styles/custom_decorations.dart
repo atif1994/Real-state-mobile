@@ -31,4 +31,21 @@ class CustomDecorations {
       borderRadius: BorderRadius.circular(10),
       color: AppColors.colorWhite,
       border: Border.all(color: AppColors.colorWhite));
+
+  static BoxDecoration nuemorphicCon = BoxDecoration(
+    boxShadow: [
+      BoxShadow(
+        color: Colors.white.withOpacity(0.8),
+        offset: const Offset(-6.0, -6.0),
+        blurRadius: 16.0,
+      ),
+      BoxShadow(
+        color: Colors.black.withOpacity(0.1),
+        offset: const Offset(6.0, 6.0),
+        blurRadius: 16.0,
+      ),
+    ],
+    color: const Color(0xFFEFEEEE),
+    borderRadius: BorderRadius.circular(12.0),
+  );
 }
