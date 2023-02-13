@@ -12,7 +12,7 @@ class wishlistController extends GetxController {
     wishloadApiLoad.value = true;
     super.onInit();
     getids();
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     getwishlist();
   }
 

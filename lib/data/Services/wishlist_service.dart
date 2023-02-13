@@ -8,7 +8,9 @@ import '../Models/wishlist_model.dart';
 
 class ShowWishlistService {
   static Future<dynamic> showWishlist(List<dynamic> ids) async {
-    Map data = {"properties": ids};
+    Map data = {
+      "properties": [ids]
+    };
     try {
       var url = '${AppUrls.baseUrl}${AppUrls.getWishlist}';
       var res = await BaseClientClass.post(url, data);

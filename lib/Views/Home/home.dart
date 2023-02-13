@@ -1480,37 +1480,28 @@ class _HomeState extends State<Home> {
                                     ],
                                   ),
                                 )
-                              : Container(
-                                  margin: const EdgeInsets.only(bottom: 5),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 3.0.w,
-                                          top: 0.3.h,
-                                        ),
-                                        child: Text(
-                                          "ProLogic 29",
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  fontFamily: AppFonts.nexaBold,
-                                                  fontSize: 16.sp,
-                                                  color: AppColors.appthem),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 3.0.w, top: 0.3.h),
-                                        child: SizedBox(
-                                          width: 40.0.w,
+                              : Expanded(
+                                  child: Container(
+                                    margin: const EdgeInsets.only(bottom: 5),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            left: 3.0.w,
+                                            top: 0.3.h,
+                                          ),
                                           child: Text(
-                                              "Let us help you navigate the renting, buying, selling & investing experience",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp)),
+                                            "ProLogic 29",
+                                            style: AppTextStyles.heading1
+                                                .copyWith(
+                                                    fontFamily:
+                                                        AppFonts.nexaBold,
+                                                    fontSize: 16.sp,
+                                                    color: AppColors.appthem),
+                                          ),
                                         ),
-
                                         Padding(
                                           padding: EdgeInsets.only(
                                               left: 3.0.w, top: 0.3.h),
@@ -1597,9 +1588,7 @@ class _HomeState extends State<Home> {
                                                       SizedBox(
                                                         height: 1.0.h,
                                                       ),
-                                                     //////////row
-                                                
-                                              Row(
+                                                      Row(
                                                         children: [
                                                           SizedBox(
                                                             width: 2.0.w,
@@ -1629,28 +1618,43 @@ class _HomeState extends State<Home> {
                                                           )
                                                         ],
                                                       ),
-                                            
-                                            
-                                            ///////////
-                                            Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 2.0.w,
-                                                          right: 2.0.w,
-                                                          top: 1.0.h),
-                                                      child: Text(
-                                                        newspostController
-                                                                .newspostModel
-                                                                .data![index]!
-                                                                .name ??
-
-                                                            "",
-                                                        style: AppTextStyles
-                                                            .heading1
-                                                            .copyWith(
-                                                                color: AppColors
-                                                                    .appthem),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 2.0.w,
+                                                                right: 2.0.w,
+                                                                top: 1.0.h),
+                                                        child: Text(
+                                                          newspostController
+                                                                  .newspostModel
+                                                                  .data![index]!
+                                                                  .name ??
+                                                              "",
+                                                          style: AppTextStyles
+                                                              .heading1
+                                                              .copyWith(
+                                                                  color: AppColors
+                                                                      .appthem),
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
                                                       ),
-
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 2.0.w,
+                                                                right: 2.0.w,
+                                                                top: 1.0.h),
+                                                        child: Text(
+                                                            // "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities."
+                                                            "",
+                                                            style: AppTextStyles
+                                                                .labelSmall
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        8.sp)),
+                                                      ),
                                                       Center(
                                                         child: Container(
                                                           height: 4.0.h,
@@ -1683,50 +1687,6 @@ class _HomeState extends State<Home> {
                                         ),
                                       ],
                                     ),
-
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 2.0.w,
-                                                          right: 2.0.w,
-                                                          top: 1.0.h),
-                                                      child: Text(
-                                                          // "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities."
-                                                          "",
-                                                          style: AppTextStyles
-                                                              .labelSmall
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      8.sp)),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 2.0.w),
-                                                      height: 4.0.h,
-                                                      width: 30.0.w,
-                                                      decoration: BoxDecoration(
-                                                          color:
-                                                              AppColors.appthem,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8)),
-                                                      child: Center(
-                                                          child: Text(
-                                                        "Continue",
-                                                        style: AppTextStyles
-                                                            .labelSmall
-                                                            .copyWith(
-                                                                color: AppColors
-                                                                    .colorWhite),
-                                                      )),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            }),
-                                      ),
-                                    ],
-
                                   ),
                                 )),
                     ),
