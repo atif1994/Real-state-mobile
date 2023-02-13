@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../Models/more_places_model.dart';
 import '../Services/more_places_service.dart';
@@ -9,20 +10,20 @@ class MorePlacesController extends GetxController {
 
   AllPropertiesResponse moreplaceresponse = AllPropertiesResponse();
 
-  RxInt page = 0.obs;
+  int page = 0;
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getplacesdata(page);
+    getplacesdata();
   }
 
-  getplacesdata(page) async {
-    page++;
+  getplacesdata() async {
     loadingmoreplaces.value = true;
     errorloadingmoreplaces.value = '';
 
-    var res = await GetPropertiesServices.getproperties(page);
+    var res = await GetPropertiesServices.getproperties();
 
     if (res is AllPropertiesResponse) {
       loadingmoreplaces.value = false;
@@ -32,5 +33,6 @@ class MorePlacesController extends GetxController {
       errorloadingmoreplaces.value = res.toString();
       loadingmoreplaces.value = false;
     }
+    update();
   }
 }

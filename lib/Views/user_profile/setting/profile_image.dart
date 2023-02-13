@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class _profileImageState extends State<profileImage> {
   var imageupdatecontroller = Get.put(UpdateImageController());
 
   File? imageTemp;
-
+  String? imag;
   ImagePicker imagePicker = ImagePicker();
 
   Future<void> cameraimg() async {
@@ -28,6 +29,8 @@ class _profileImageState extends State<profileImage> {
     if (img != null) {
       setState(() {
         imageTemp = File(img.path);
+
+        imag = base64Encode(imageTemp!.readAsBytesSync());
       });
     }
   }
@@ -37,6 +40,8 @@ class _profileImageState extends State<profileImage> {
     if (img != null) {
       setState(() {
         imageTemp = File(img.path);
+
+        imag = base64Encode(imageTemp!.readAsBytesSync());
       });
     }
   }
@@ -89,41 +94,33 @@ class _profileImageState extends State<profileImage> {
                     )),
               ],
             ),
-            Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(color: Colors.black)),
-                margin: EdgeInsets.symmetric(vertical: 30.sp),
-                height: 40.h,
-                width: 40.h,
-                child: imageTemp == null
-                    ? Center(
-                        child: Text(
-                          'Your Image is here',
-                          style: AppTextStyles.labelSmall,
-                        ),
-                      )
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.file(
-                          imageTemp!.absolute,
-                          fit: BoxFit.cover,
-                        ),
-                      )),
-            Obx(
-              () => imageupdatecontroller.loadingupdateimage.value
-                  ? CircularProgressIndicator()
-                  : imageupdatecontroller.errorloadingupdateimage.value != ""
-                      ? Center(
-                          child: Text(imageupdatecontroller
-                              .errorloadingupdateimage.value),
-                        )
-                      : CustomButton(
-                          onPressed: () {
-                            imageupdatecontroller.updateprofileimage(imageTemp);
-                          },
-                          text: 'Upload Image',
-                        ),
+            imageTemp == null
+                ? SizedBox(
+                    height: 30.h,
+                  )
+                :
+                // CircleAvatar(
+                //     radius: 60,
+                //     backgroundColor: Colors.amber,
+                //     backgroundImage: FileImage(imageTemp!)
+                //     ),
+                //----------
+                Container(
+                    margin: EdgeInsets.symmetric(vertical: 30.sp),
+                    height: 40.h,
+                    width: 40.h,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.file(
+                        imageTemp!.absolute,
+                        fit: BoxFit.cover,
+                      ),
+                    )),
+            CustomButton(
+              onPressed: () {
+                imageupdatecontroller.updateprofileimage(imag!);
+              },
+              text: 'Upload Image',
             ),
             const Spacer(),
           ],
