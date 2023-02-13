@@ -32,8 +32,7 @@ class Moreplaces extends StatelessWidget {
                     children: [
                       IconButton(
                           onPressed: () {
-                            moreplacescontroller
-                                .getplacesdata(moreplacescontroller.page);
+                            moreplacescontroller.getplacesdata();
                           },
                           icon: const Icon(Icons.refresh)),
                       Text(moreplacescontroller.errorloadingmoreplaces.value),
@@ -267,12 +266,12 @@ class Moreplaces extends StatelessWidget {
                         );
                       } else {
                         moreplacescontroller
-                            .getplacesdata(moreplacescontroller.page);
+                            .getplacesdata();
                         print(
                             "pagination call ============${moreplacescontroller.page}");
                         return Padding(
                           padding: EdgeInsets.all(5.h),
-                          child: Center(
+                          child: const Center(
                             child: CircularProgressIndicator(),
                           ),
                         );
