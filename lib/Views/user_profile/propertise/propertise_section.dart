@@ -78,286 +78,279 @@ class PropertiseSection extends StatelessWidget {
               ],
             ),
           ),
-          Flexible(
-            child: Container(
-                margin: EdgeInsets.only(
-                    left: 2.0.w, right: 2.0.w, top: 1.0.h, bottom: 1.0.h),
-                height: 70.0.h,
-                width: 100.0.w,
-                decoration: CustomDecorations.mainCon,
-                child: Obx(
-                  () => profilePropertiseController.loadingPropertise.value
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                          color: AppColors.appthem,
-                        ))
-                      : profilePropertiseController
-                                  .errorLoadingPropertise.value !=
-                              ""
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      profilePropertiseController.getPropertise(
-                                          profilePropertiseController.userid ??
-                                              0);
-                                    },
-                                    icon: const Icon(Icons.refresh)),
-                                SizedBox(
-                                  height: 1.0.h,
-                                ),
-                                Text(profilePropertiseController
-                                    .errorLoadingPropertise.value),
-                              ],
-                            )
-                          : ListView.builder(
-                              itemCount: profilePropertiseController
-                                  .profilePropertiseModel.data?.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin: EdgeInsets.only(
-                                      top: 1.0.h, left: 3.0.w, right: 3.0.w),
-                                  decoration: CustomDecorations.mainCon
-                                      .copyWith(
-                                          border: Border.all(
-                                              color: AppColors.appthem)),
-                                  child: ExpansionTile(
-                                    title: Row(
-                                      children: [
-                                        Text(
-                                          "ID",
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  color: AppColors.appthem,
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          width: 25.0.w,
-                                        ),
-                                        Text(
-                                          profilePropertiseController
-                                              .profilePropertiseModel
-                                              .data![index]
-                                              .id
-                                              .toString(),
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  color: AppColors.appthem,
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                    subtitle: Row(
-                                      children: [
-                                        Text(
-                                          "Title",
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  color: AppColors.appthem),
-                                        ),
-                                        SizedBox(
-                                          width: 20.0.w,
-                                        ),
-                                        Text(
-                                          profilePropertiseController
-                                              .profilePropertiseModel
-                                              .data![index]
-                                              .name
-                                              .toString(),
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  color: AppColors.appthem),
-                                        ),
-                                      ],
-                                    ),
+          Container(
+              margin: EdgeInsets.only(
+                  left: 2.0.w, right: 2.0.w, top: 1.0.h, bottom: 1.0.h),
+              height: 70.0.h,
+              width: 100.0.w,
+              decoration: CustomDecorations.mainCon,
+              child: Obx(
+                () => profilePropertiseController.loadingPropertise.value
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                        color: AppColors.appthem,
+                      ))
+                    : profilePropertiseController
+                                .errorLoadingPropertise.value !=
+                            ""
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    profilePropertiseController.getPropertise(
+                                        profilePropertiseController.userid ??
+                                            0);
+                                  },
+                                  icon: const Icon(Icons.refresh)),
+                              SizedBox(
+                                height: 1.0.h,
+                              ),
+                              Text(profilePropertiseController
+                                  .errorLoadingPropertise.value),
+                            ],
+                          )
+                        : ListView.builder(
+                            itemCount: profilePropertiseController
+                                .profilePropertiseModel.data?.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: EdgeInsets.only(
+                                    top: 1.0.h, left: 3.0.w, right: 3.0.w),
+                                decoration: CustomDecorations.mainCon.copyWith(
+                                    border:
+                                        Border.all(color: AppColors.appthem)),
+                                child: ExpansionTile(
+                                  title: Row(
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                            "Plot No",
-                                            style: AppTextStyles.heading1
-                                                .copyWith(
-                                                    color: AppColors.appthem),
-                                          ),
-                                          SizedBox(
-                                            width: 2.0.w,
-                                          ),
-                                          Text(
-                                            profilePropertiseController
-                                                .profilePropertiseModel
-                                                .data![index]
-                                                .plotNumber
-                                                .toString(),
-                                            style: AppTextStyles.heading1
-                                                .copyWith(
-                                                    color: AppColors.appthem),
-                                          ),
-                                          ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      AppColors.appthem,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              300))),
-                                              onPressed: () {
-                                                agentController.getAgent(
-                                                    profilePropertiseController
-                                                            .profilePropertiseModel
-                                                            .data![index]
-                                                            .id ??
-                                                        0);
-                                                agentController.propId =
-                                                    profilePropertiseController
-                                                            .profilePropertiseModel
-                                                            .data![index]
-                                                            .id ??
-                                                        0;
-
-                                                _showBottomSheet(context);
-                                              },
-                                              child: Text(
-                                                "Assign Agents",
-                                                style: AppTextStyles.heading1
-                                                    .copyWith(
-                                                        color: Colors.white,
-                                                        fontSize: 10.sp),
-                                              )),
-                                        ],
+                                      Text(
+                                        "ID",
+                                        style: AppTextStyles.heading1.copyWith(
+                                            color: AppColors.appthem,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        width: 25.0.w,
+                                      ),
+                                      Text(
+                                        profilePropertiseController
+                                            .profilePropertiseModel
+                                            .data![index]
+                                            .id
+                                            .toString(),
+                                        style: AppTextStyles.heading1.copyWith(
+                                            color: AppColors.appthem,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
-                                );
+                                  subtitle: Row(
+                                    children: [
+                                      Text(
+                                        "Title",
+                                        style: AppTextStyles.heading1
+                                            .copyWith(color: AppColors.appthem),
+                                      ),
+                                      SizedBox(
+                                        width: 20.0.w,
+                                      ),
+                                      Text(
+                                        profilePropertiseController
+                                            .profilePropertiseModel
+                                            .data![index]
+                                            .name
+                                            .toString(),
+                                        style: AppTextStyles.heading1
+                                            .copyWith(color: AppColors.appthem),
+                                      ),
+                                    ],
+                                  ),
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          "Plot No",
+                                          style: AppTextStyles.heading1
+                                              .copyWith(
+                                                  color: AppColors.appthem),
+                                        ),
+                                        SizedBox(
+                                          width: 2.0.w,
+                                        ),
+                                        Text(
+                                          profilePropertiseController
+                                              .profilePropertiseModel
+                                              .data![index]
+                                              .plotNumber
+                                              .toString(),
+                                          style: AppTextStyles.heading1
+                                              .copyWith(
+                                                  color: AppColors.appthem),
+                                        ),
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    AppColors.appthem,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            300))),
+                                            onPressed: () {
+                                              agentController.getAgent(
+                                                  profilePropertiseController
+                                                          .profilePropertiseModel
+                                                          .data![index]
+                                                          .id ??
+                                                      0);
+                                              agentController.propId =
+                                                  profilePropertiseController
+                                                          .profilePropertiseModel
+                                                          .data![index]
+                                                          .id ??
+                                                      0;
 
-                                // Container(
-                                //   margin: EdgeInsets.only(
-                                //       left: 2.0.w,
-                                //       right: 2.0.w,
-                                //       top: index == 0 ? 1.0.h : 2.0.h,
-                                //       bottom: index == 5 ? 2.0.h : 0.0.h),
-                                //   height: 12.0.h,
-                                //   width: 100.0.w,
-                                //   decoration: BoxDecoration(
-                                //     borderRadius: BorderRadius.circular(10),
-                                //     color: index % 2 == 0
-                                //         ? Colors.grey[400]
-                                //         : Colors.grey[300],
-                                //   ),
-                                //   child: Column(
-                                //     children: [
-                                //       SizedBox(
-                                //         height: 4.0.h,
-                                //         width: 100.0.w,
-                                //         child: Row(
-                                //           mainAxisAlignment:
-                                //               MainAxisAlignment.spaceAround,
-                                //           children: [
-                                //             Text(
-                                //               "${profilePropertiseController.profilePropertiseModel.data![index].id ?? ""}",
-                                //               style: AppTextStyles.heading1
-                                //                   .copyWith(
-                                //                       color: AppColors.appthem),
-                                //             ),
-                                //             Text(
-                                //               profilePropertiseController
-                                //                   .profilePropertiseModel
-                                //                   .data![index]
-                                //                   .name
-                                //                   .toString(),
-                                //               style: AppTextStyles.heading1
-                                //                   .copyWith(
-                                //                       color: AppColors.appthem),
-                                //             ),
-                                //             Text(
-                                //               profilePropertiseController
-                                //                       .profilePropertiseModel
-                                //                       .data![index]
-                                //                       .type!
-                                //                       .name ??
-                                //                   "",
-                                //               style: AppTextStyles.heading1
-                                //                   .copyWith(
-                                //                       color: AppColors.appthem),
-                                //             ),
-                                //           ],
-                                //         ),
-                                //       ),
-                                //       const Divider(),
-                                //       SizedBox(
-                                //         height: 4.0.h,
-                                //         width: 100.0.w,
-                                //         child: Row(
-                                //           mainAxisAlignment:
-                                //               MainAxisAlignment.spaceAround,
-                                //           children: [
-                                //             const SizedBox(),
-                                //             Container(
-                                //               height: 12.0.w,
-                                //               width: 10.0.w,
-                                //               decoration: BoxDecoration(
-                                //                   color: Colors.blue,
-                                //                   borderRadius:
-                                //                       BorderRadius.circular(
-                                //                           10)),
-                                //               child: const Icon(
-                                //                 Icons.note_add,
-                                //                 color: Colors.white,
-                                //               ),
-                                //             ),
-                                //             const SizedBox(),
-                                //             Container(
-                                //               height: 12.0.w,
-                                //               width: 10.0.w,
-                                //               decoration: BoxDecoration(
-                                //                   color: Colors.red,
-                                //                   borderRadius:
-                                //                       BorderRadius.circular(
-                                //                           10)),
-                                //               child: const Icon(
-                                //                 Icons.delete,
-                                //                 color: Colors.white,
-                                //               ),
-                                //             ),
-                                //             const SizedBox(),
-                                //             ElevatedButton(
-                                //                 style: ElevatedButton.styleFrom(
-                                //                     backgroundColor:
-                                //                         Colors.green),
-                                //                 onPressed: () {
-                                //                   agentController.getAgent(
-                                //                       profilePropertiseController
-                                //                               .profilePropertiseModel
-                                //                               .data![index]
-                                //                               .id ??
-                                //                           0);
-                                //                   agentController.propId =
-                                //                       profilePropertiseController
-                                //                               .profilePropertiseModel
-                                //                               .data![index]
-                                //                               .id ??
-                                //                           0;
+                                              _showBottomSheet(context);
+                                            },
+                                            child: Text(
+                                              "Assign Agents",
+                                              style: AppTextStyles.heading1
+                                                  .copyWith(
+                                                      color: Colors.white,
+                                                      fontSize: 10.sp),
+                                            )),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
 
-                                //                   _showBottomSheet(context);
-                                //                 },
-                                //                 child: Text(
-                                //                   "Assign Agents",
-                                //                   style: AppTextStyles.heading1
-                                //                       .copyWith(
-                                //                           color: Colors.white),
-                                //                 )),
-                                //             const SizedBox(),
-                                //           ],
-                                //         ),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // );
-                              }),
-                )),
-          )
+                              // Container(
+                              //   margin: EdgeInsets.only(
+                              //       left: 2.0.w,
+                              //       right: 2.0.w,
+                              //       top: index == 0 ? 1.0.h : 2.0.h,
+                              //       bottom: index == 5 ? 2.0.h : 0.0.h),
+                              //   height: 12.0.h,
+                              //   width: 100.0.w,
+                              //   decoration: BoxDecoration(
+                              //     borderRadius: BorderRadius.circular(10),
+                              //     color: index % 2 == 0
+                              //         ? Colors.grey[400]
+                              //         : Colors.grey[300],
+                              //   ),
+                              //   child: Column(
+                              //     children: [
+                              //       SizedBox(
+                              //         height: 4.0.h,
+                              //         width: 100.0.w,
+                              //         child: Row(
+                              //           mainAxisAlignment:
+                              //               MainAxisAlignment.spaceAround,
+                              //           children: [
+                              //             Text(
+                              //               "${profilePropertiseController.profilePropertiseModel.data![index].id ?? ""}",
+                              //               style: AppTextStyles.heading1
+                              //                   .copyWith(
+                              //                       color: AppColors.appthem),
+                              //             ),
+                              //             Text(
+                              //               profilePropertiseController
+                              //                   .profilePropertiseModel
+                              //                   .data![index]
+                              //                   .name
+                              //                   .toString(),
+                              //               style: AppTextStyles.heading1
+                              //                   .copyWith(
+                              //                       color: AppColors.appthem),
+                              //             ),
+                              //             Text(
+                              //               profilePropertiseController
+                              //                       .profilePropertiseModel
+                              //                       .data![index]
+                              //                       .type!
+                              //                       .name ??
+                              //                   "",
+                              //               style: AppTextStyles.heading1
+                              //                   .copyWith(
+                              //                       color: AppColors.appthem),
+                              //             ),
+                              //           ],
+                              //         ),
+                              //       ),
+                              //       const Divider(),
+                              //       SizedBox(
+                              //         height: 4.0.h,
+                              //         width: 100.0.w,
+                              //         child: Row(
+                              //           mainAxisAlignment:
+                              //               MainAxisAlignment.spaceAround,
+                              //           children: [
+                              //             const SizedBox(),
+                              //             Container(
+                              //               height: 12.0.w,
+                              //               width: 10.0.w,
+                              //               decoration: BoxDecoration(
+                              //                   color: Colors.blue,
+                              //                   borderRadius:
+                              //                       BorderRadius.circular(
+                              //                           10)),
+                              //               child: const Icon(
+                              //                 Icons.note_add,
+                              //                 color: Colors.white,
+                              //               ),
+                              //             ),
+                              //             const SizedBox(),
+                              //             Container(
+                              //               height: 12.0.w,
+                              //               width: 10.0.w,
+                              //               decoration: BoxDecoration(
+                              //                   color: Colors.red,
+                              //                   borderRadius:
+                              //                       BorderRadius.circular(
+                              //                           10)),
+                              //               child: const Icon(
+                              //                 Icons.delete,
+                              //                 color: Colors.white,
+                              //               ),
+                              //             ),
+                              //             const SizedBox(),
+                              //             ElevatedButton(
+                              //                 style: ElevatedButton.styleFrom(
+                              //                     backgroundColor:
+                              //                         Colors.green),
+                              //                 onPressed: () {
+                              //                   agentController.getAgent(
+                              //                       profilePropertiseController
+                              //                               .profilePropertiseModel
+                              //                               .data![index]
+                              //                               .id ??
+                              //                           0);
+                              //                   agentController.propId =
+                              //                       profilePropertiseController
+                              //                               .profilePropertiseModel
+                              //                               .data![index]
+                              //                               .id ??
+                              //                           0;
+
+                              //                   _showBottomSheet(context);
+                              //                 },
+                              //                 child: Text(
+                              //                   "Assign Agents",
+                              //                   style: AppTextStyles.heading1
+                              //                       .copyWith(
+                              //                           color: Colors.white),
+                              //                 )),
+                              //             const SizedBox(),
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // );
+                            }),
+              ))
         ],
       ),
     );
