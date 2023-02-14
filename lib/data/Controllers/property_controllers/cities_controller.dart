@@ -1,5 +1,6 @@
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
+import '../../../Views/property_by_city/property_by_city_screen.dart';
 import '../../Models/property_model/cities_response.dart';
 import '../../Services/property_services/featured_property_service.dart';
 
@@ -26,5 +27,10 @@ class CitiesController extends GetxController {
       loadingCities.value = false;
       errorLoadingCities.value = res.toString();
     }
+  }
+
+  // send to city vise properties
+  void sendToCityWiseProperty(cityId,cityName) {
+    Get.to(PropertyByCityScreen(id: cityId,cityName: cityName,));
   }
 }
