@@ -1517,212 +1517,211 @@ class _HomeState extends State<Home> {
                                   ),
                                 )
                               : Container(
-                                margin: const EdgeInsets.only(bottom: 5),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 3.0.w,
-                                        top: 0.3.h,
-                                      ),
-                                      child: Text(
-                                        "ProLogic 29",
-                                        style: AppTextStyles.heading1
-                                            .copyWith(
-                                                fontFamily:
-                                                    AppFonts.nexaBold,
-                                                fontSize: 16.sp,
-                                                color: AppColors.appthem),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 3.0.w, top: 0.3.h),
-                                      child: SizedBox(
-                                        width: 85.0.w,
+                                  margin: const EdgeInsets.only(bottom: 5),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 3.0.w,
+                                          top: 0.3.h,
+                                        ),
                                         child: Text(
-                                            "Let us help you navigate the renting, buying, selling & investing experience",
-                                            style: AppTextStyles.labelSmall
-                                                .copyWith(fontSize: 9.sp)),
+                                          "ProLogic 29",
+                                          style: AppTextStyles.heading1
+                                              .copyWith(
+                                                  fontFamily: AppFonts.nexaBold,
+                                                  fontSize: 16.sp,
+                                                  color: AppColors.appthem),
+                                        ),
                                       ),
-                                    ),
-                                    Container(
-                                      height: 35.0.h,
-                                      margin: EdgeInsets.only(
-                                          left: 2.0.w,
-                                          right: 2.0.w,
-                                          top: 1.0.h,
-                                          bottom: 1.0.h),
-                                      width: 100.0.w,
-                                      //    color: Colors.red,
-                                      child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: newspostController
-                                              .newspostModel.data!.length,
-                                          itemBuilder: (context, index) {
-                                            return Container(
-                                              margin: EdgeInsets.only(
-                                                  left: index == 0
-                                                      ? 2.0.w
-                                                      : 2.0.w,
-                                                  right: index ==
-                                                          newspostController
-                                                                  .newspostModel
-                                                                  .data!
-                                                                  .length -
-                                                              1
-                                                      ? 2.0.w
-                                                      : 0.0.w,
-                                                  bottom: 0.5.h),
-                                              width: 60.0.w,
-                                              decoration:
-                                                  CustomDecorations.mainCon,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
-                                                children: [
-                                                  Container(
-                                                    height: 15.0.h,
-                                                    width: 100.0.w,
-                                                    decoration: const BoxDecoration(
-                                                        borderRadius: BorderRadius.only(
-                                                            topLeft: Radius
-                                                                .circular(
-                                                                    10),
-                                                            topRight: Radius
-                                                                .circular(
-                                                                    10))),
-                                                    child: ClipRRect(
-                                                        borderRadius: const BorderRadius
-                                                                .only(
-                                                            topLeft: Radius
-                                                                .circular(
-                                                                    10),
-                                                            topRight: Radius
-                                                                .circular(
-                                                                    10)),
-                                                        child:
-                                                            // Image.asset(
-                                                            //   testimonialImages[
-                                                            //       index],
-                                                            //   fit: BoxFit.cover,
-                                                            // ),
-                                                            Image.network(
-                                                          newspostController
-                                                                  .newspostModel
-                                                                  .data![
-                                                                      index]!
-                                                                  .image ??
-                                                              '',
-                                                          fit: BoxFit.cover,
-                                                        )),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 1.0.h,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(
-                                                        width: 2.0.w,
-                                                      ),
-                                                      const Icon(
-                                                        Icons.date_range,
-                                                        color: AppColors
-                                                            .appthem,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 2.0.w,
-                                                      ),
-                                                      Text(
-                                                        DateFormat(
-                                                                'dd.MM.yyyy')
-                                                            .format(DateTime.parse(newspostController
-                                                                .newspostModel
-                                                                .data![
-                                                                    index]!
-                                                                .createdAt
-                                                                .toString())),
-                                                        style: AppTextStyles
-                                                            .labelSmall
-                                                            .copyWith(
-                                                                fontSize:
-                                                                    10.sp),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.only(
-                                                            left: 2.0.w,
-                                                            right: 2.0.w,
-                                                            top: 1.0.h),
-                                                    child: Text(
-                                                      newspostController
-                                                              .newspostModel
-                                                              .data![index]!
-                                                              .name ??
-                                                          "",
-                                                      style: AppTextStyles
-                                                          .heading1
-                                                          .copyWith(
-                                                              color: AppColors
-                                                                  .appthem),
-                                                      maxLines: 2,
-                                                      overflow: TextOverflow
-                                                          .ellipsis,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.only(
-                                                            left: 2.0.w,
-                                                            right: 2.0.w,
-                                                            top: 1.0.h),
-                                                    child: Text(
-                                                        // "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities."
-                                                        "",
-                                                        style: AppTextStyles
-                                                            .labelSmall
-                                                            .copyWith(
-                                                                fontSize:
-                                                                    8.sp)),
-                                                  ),
-                                                  Center(
-                                                    child: Container(
-                                                      height: 4.0.h,
-                                                      width: 30.0.w,
-                                                      decoration: BoxDecoration(
-                                                          color: AppColors
-                                                              .appthem,
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 3.0.w, top: 0.3.h),
+                                        child: SizedBox(
+                                          width: 85.0.w,
+                                          child: Text(
+                                              "Let us help you navigate the renting, buying, selling & investing experience",
+                                              style: AppTextStyles.labelSmall
+                                                  .copyWith(fontSize: 9.sp)),
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 35.0.h,
+                                        margin: EdgeInsets.only(
+                                            left: 2.0.w,
+                                            right: 2.0.w,
+                                            top: 1.0.h,
+                                            bottom: 1.0.h),
+                                        width: 100.0.w,
+                                        //    color: Colors.red,
+                                        child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: newspostController
+                                                .newspostModel.data!.length,
+                                            itemBuilder: (context, index) {
+                                              return Container(
+                                                margin: EdgeInsets.only(
+                                                    left: index == 0
+                                                        ? 2.0.w
+                                                        : 2.0.w,
+                                                    right: index ==
+                                                            newspostController
+                                                                    .newspostModel
+                                                                    .data!
+                                                                    .length -
+                                                                1
+                                                        ? 2.0.w
+                                                        : 0.0.w,
+                                                    bottom: 0.5.h),
+                                                width: 60.0.w,
+                                                decoration:
+                                                    CustomDecorations.mainCon,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      height: 15.0.h,
+                                                      width: 100.0.w,
+                                                      decoration: const BoxDecoration(
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8)),
-                                                      child: Center(
-                                                          child: Text(
-                                                        "Continue",
+                                                              BorderRadius.only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          10),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          10))),
+                                                      child: ClipRRect(
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          10),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          10)),
+                                                          child:
+                                                              // Image.asset(
+                                                              //   testimonialImages[
+                                                              //       index],
+                                                              //   fit: BoxFit.cover,
+                                                              // ),
+                                                              Image.network(
+                                                            newspostController
+                                                                    .newspostModel
+                                                                    .data![
+                                                                        index]!
+                                                                    .image ??
+                                                                '',
+                                                            fit: BoxFit.cover,
+                                                          )),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 1.0.h,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        const Icon(
+                                                          Icons.date_range,
+                                                          color:
+                                                              AppColors.appthem,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.0.w,
+                                                        ),
+                                                        Text(
+                                                          DateFormat(
+                                                                  'dd.MM.yyyy')
+                                                              .format(DateTime.parse(
+                                                                  newspostController
+                                                                      .newspostModel
+                                                                      .data![
+                                                                          index]!
+                                                                      .createdAt
+                                                                      .toString())),
+                                                          style: AppTextStyles
+                                                              .labelSmall
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      10.sp),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 2.0.w,
+                                                          right: 2.0.w,
+                                                          top: 1.0.h),
+                                                      child: Text(
+                                                        newspostController
+                                                                .newspostModel
+                                                                .data![index]!
+                                                                .name ??
+                                                            "",
                                                         style: AppTextStyles
-                                                            .labelSmall
+                                                            .heading1
                                                             .copyWith(
                                                                 color: AppColors
-                                                                    .colorWhite),
-                                                      )),
+                                                                    .appthem),
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 1.0.h,
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          }),
-                                    ),
-                                  ],
-                                ),
-                              )),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 2.0.w,
+                                                          right: 2.0.w,
+                                                          top: 1.0.h),
+                                                      child: Text(
+                                                          // "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities."
+                                                          "",
+                                                          style: AppTextStyles
+                                                              .labelSmall
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      8.sp)),
+                                                    ),
+                                                    Center(
+                                                      child: Container(
+                                                        height: 4.0.h,
+                                                        width: 30.0.w,
+                                                        decoration: BoxDecoration(
+                                                            color: AppColors
+                                                                .appthem,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8)),
+                                                        child: Center(
+                                                            child: Text(
+                                                          "Continue",
+                                                          style: AppTextStyles
+                                                              .labelSmall
+                                                              .copyWith(
+                                                                  color: AppColors
+                                                                      .colorWhite),
+                                                        )),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 1.0.h,
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            }),
+                                      ),
+                                    ],
+                                  ),
+                                )),
                     ),
                   ),
                   SizedBox(

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -10,10 +8,12 @@ import 'package:prologic_29/data/Controllers/NewsFeed_Controller/newsfeed_contro
 import 'package:prologic_29/data/Controllers/comments_controller/post_comments_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:hive/hive.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 
 import '../../data/Controllers/post_like_controller/post_like_controller.dart';
+
+
+
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/custom_decorations.dart';
@@ -61,7 +61,7 @@ class _NewsFeedState extends State<NewsFeed> {
         actions: [
           Obx(() => Text(
                 newsfeedController.length.value.toString(),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ))
         ],
         // actions: [
@@ -177,56 +177,58 @@ class _NewsFeedState extends State<NewsFeed> {
                                                       padding:
                                                           const EdgeInsets.all(
                                                               6.0),
-                                                      child: Obx(() =>
-                                                          newsfeedController
+                                                      child: Obx(() => newsfeedController
                                                                   .newsfeedmodel
                                                                   .data!
                                                                   .data![index]
-                                                                  .isLiked
-                                                                  .value
-                                                              ? InkWell(
-                                                                  onTap: () {
-                                                                    newsfeedController
-                                                                        .newsfeedmodel
-                                                                        .data!
-                                                                        .data![
-                                                                            index]
-                                                                        .isLiked
-                                                                        .value = true;
+                                                                  .likesOnProperties![
+                                                                      0]
+                                                                  .isliked ==
+                                                              false
+                                                          ? InkWell(
+                                                              onTap: () {
+                                                                newsfeedController
+                                                                    .newsfeedmodel
+                                                                    .data!
+                                                                    .data![
+                                                                        index]
+                                                                    .likesOnProperties![
+                                                                        0]
+                                                                    .isliked = true;
 
-                                                                    print(newsfeedController
-                                                                        .newsfeedmodel
-                                                                        .data!
-                                                                        .data![
-                                                                            index]
-                                                                        .isLiked
-                                                                        .value);
-                                                                  },
-                                                                  child:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .favorite_outline,
-                                                                    color: Colors
-                                                                        .amber,
-                                                                  ))
-                                                              : InkWell(
-                                                                  onTap: () {
-                                                                    newsfeedController
-                                                                        .newsfeedmodel
-                                                                        .data!
-                                                                        .data![
-                                                                            index]
-                                                                        .isLiked
-                                                                        .value = false;
-                                                                  },
-                                                                  child:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .favorite_outline,
-                                                                    color: Colors
-                                                                        .red,
-                                                                  ),
-                                                                )))
+                                                                print(newsfeedController
+                                                                    .newsfeedmodel
+                                                                    .data!
+                                                                    .data![
+                                                                        index]
+                                                                    .likesOnProperties![
+                                                                        0]
+                                                                    .isliked);
+                                                              },
+                                                              child: const Icon(
+                                                                Icons
+                                                                    .favorite_outline,
+                                                                color: Colors
+                                                                    .amber,
+                                                              ))
+                                                          : InkWell(
+                                                              onTap: () {
+                                                                newsfeedController
+                                                                    .newsfeedmodel
+                                                                    .data!
+                                                                    .data![
+                                                                        index]
+                                                                    .likesOnProperties![
+                                                                        0]
+                                                                    .isliked = false;
+                                                              },
+                                                              child: const Icon(
+                                                                Icons
+                                                                    .favorite_outline,
+                                                                color:
+                                                                    Colors.red,
+                                                              ),
+                                                            )))
                                                 ]),
                                                 SizedBox(
                                                   width: 2.0.h,
@@ -433,7 +435,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                               ],
                                             ),
                                           ),
-
                                           SizedBox(
                                             width: 24.0.w,
                                           ),
