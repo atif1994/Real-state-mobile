@@ -25,6 +25,7 @@ class NewsFeedController extends GetxController {
     errorLoadingnewsfeed.value = '';
     loadingnewspost.value = true;
     var res = await NewsFeedService.getNewsFeedAPI();
+    newsfeedApiLoading.value = false;
     if (res is NewsfeedModel) {
       newsfeedApiLoading.value = false;
       loadingnewspost.value = false;

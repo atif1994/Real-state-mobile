@@ -1,4 +1,5 @@
 import 'package:get/state_manager.dart';
+import 'package:prologic_29/data/Models/login_model.dart';
 import 'package:prologic_29/data/Models/myproperty_model.dart';
 import 'package:prologic_29/data/Models/property_filters_model/property_filters_response.dart';
 import 'package:prologic_29/data/Services/property_services/featured_property_service.dart';
@@ -76,7 +77,8 @@ class DashboardController extends GetxController {
   void getFilteredPropertise(int? cid, catid) async {
     loadingfilteredPropertise.value = true;
     errorLoadingFilteredPropertise.value = '';
-    var res = await FeaturedPropertyService.propertyfilterService(cid!, catid);
+    var res =
+        await FeaturedPropertyService.propertyfilterService(cid ?? 0, catid);
     loadingfilteredPropertise.value = false;
     if (res is PropertiseFiltersResponse) {
       filteredPropertyModel = res;
@@ -122,4 +124,6 @@ class DashboardController extends GetxController {
       errorLoadingnewspost.value = res.toString();
     }
   }
+
+
 }

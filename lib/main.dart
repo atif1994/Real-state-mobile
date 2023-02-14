@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:prologic_29/Views/Auth/auth.dart';
+import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/data/Services/app_bindings.dart';
 import 'package:sizer/sizer.dart';
 
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         home:
             //Profile_Page()
             // const NewsFeed(),
-            const Auth(),
+            SignIn(),
         // const Blog(),
         //  home: Auth(),
         //MyHomePage(),

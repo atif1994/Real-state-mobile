@@ -13,9 +13,11 @@ class NewsFeedService {
 
     try {
       if (res is http.Response) {
+        var id = res.body;
         return newsfeedModelFromJson(res.body);
       } else {
         //page++;
+        print("newsfeed error--------$res");
         return res;
       }
     } catch (e) {
