@@ -1344,126 +1344,140 @@ class _HomeState extends State<Home> {
                                                 top: 1.0.h, bottom: 1.0.h),
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
-                                              return Container(
-                                                margin: EdgeInsets.only(
-                                                    left: index == 0
-                                                        ? 2.0.w
-                                                        : 3.0.w,
-                                                    right: index ==
-                                                            citiesController
-                                                                    .citiesModel
-                                                                    .data!
-                                                                    .length -
-                                                                1
-                                                        ? 2.0.w
-                                                        : 0.0.w),
-                                                height: 20.0.h,
-                                                width: 50.0.w,
-                                                decoration:
-                                                    CustomDecorations.mainCon,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                        height: 15.0.h,
-                                                        width: 100.0.w,
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    10),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    10),
-                                                          ),
-                                                        ),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                  .only(
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    10),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    10),
-                                                          ),
-                                                          child:
-                                                              // Image.asset(
-                                                              //     citieseImages[
-                                                              //             index]
-                                                              //         .toString()),
-
-                                                              Image(
-                                                            image: NetworkImage(
-                                                              '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index]!.metadata![0]!.metaValue![0] ?? ''}',
-                                                            ),
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        )),
-                                                    SizedBox(
-                                                      height: 2.0.h,
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        SizedBox(
-                                                          width: 2.0.w,
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  citiesController
+                                                      .sendToCityWiseProperty(
+                                                          citiesController
+                                                              .citiesModel
+                                                              .data![index]!
+                                                              .id,
+                                                          citiesController
+                                                              .citiesModel
+                                                              .data![index]!
+                                                              .name);
+                                                },
+                                                child: Container(
+                                                  margin: EdgeInsets.only(
+                                                      left: index == 0
+                                                          ? 2.0.w
+                                                          : 3.0.w,
+                                                      right: index ==
                                                               citiesController
                                                                       .citiesModel
-                                                                      .data![
-                                                                          index]!
-                                                                      .name ??
-                                                                  '',
-                                                              style: AppTextStyles
-                                                                  .labelSmall,
+                                                                      .data!
+                                                                      .length -
+                                                                  1
+                                                          ? 2.0.w
+                                                          : 0.0.w),
+                                                  height: 20.0.h,
+                                                  width: 50.0.w,
+                                                  decoration:
+                                                      CustomDecorations.mainCon,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                          height: 15.0.h,
+                                                          width: 100.0.w,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(10),
+                                                              topRight: Radius
+                                                                  .circular(10),
                                                             ),
-                                                            Text(
-                                                              "${citiesController.citiesModel.data![index]!.propertiesCount ?? ""} Propertise",
-                                                              style: AppTextStyles
-                                                                  .labelSmall
-                                                                  .copyWith(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      fontSize:
-                                                                          10.sp),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        const Spacer(),
-                                                        Container(
-                                                          height: 7.0.w,
-                                                          width: 7.0.w,
-                                                          decoration: BoxDecoration(
-                                                              color: AppColors
-                                                                  .appthem,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          300)),
-                                                          child: const Center(
-                                                              child: Icon(
-                                                            Icons
-                                                                .arrow_forward_ios,
-                                                            color: Colors.white,
-                                                            size: 14,
+                                                          ),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(10),
+                                                              topRight: Radius
+                                                                  .circular(10),
+                                                            ),
+                                                            child:
+                                                                // Image.asset(
+                                                                //     citieseImages[
+                                                                //             index]
+                                                                //         .toString()),
+
+                                                                Image(
+                                                              image:
+                                                                  NetworkImage(
+                                                                '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index]!.metadata![0]!.metaValue![0] ?? ''}',
+                                                              ),
+                                                              fit: BoxFit.cover,
+                                                            ),
                                                           )),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 2.0.w,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
+                                                      SizedBox(
+                                                        height: 2.0.h,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 2.0.w,
+                                                          ),
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                citiesController
+                                                                        .citiesModel
+                                                                        .data![
+                                                                            index]!
+                                                                        .name ??
+                                                                    '',
+                                                                style: AppTextStyles
+                                                                    .labelSmall,
+                                                              ),
+                                                              Text(
+                                                                "${citiesController.citiesModel.data![index]!.propertiesCount ?? ""} Propertise",
+                                                                style: AppTextStyles
+                                                                    .labelSmall
+                                                                    .copyWith(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        fontSize:
+                                                                            10.sp),
+                                                              )
+                                                            ],
+                                                          ),
+                                                          const Spacer(),
+                                                          Container(
+                                                            height: 7.0.w,
+                                                            width: 7.0.w,
+                                                            decoration: BoxDecoration(
+                                                                color: AppColors
+                                                                    .appthem,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            300)),
+                                                            child: const Center(
+                                                                child: Icon(
+                                                              Icons
+                                                                  .arrow_forward_ios,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 14,
+                                                            )),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 2.0.w,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               );
                                             }),
