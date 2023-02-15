@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Auth/sign_up.dart';
+import 'package:prologic_29/data/Controllers/forget_pass_controller.dart';
 import 'package:prologic_29/data/Controllers/sign_in_controller.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 
@@ -11,6 +12,7 @@ class SignIn extends GetView<SignInController> {
   SignIn({Key? key}) : super(key: key);
   final _formkey = GlobalKey<FormState>();
   final signController = Get.put(SignInController());
+  final forgetPassController = Get.put(ForgetPassController());
 
   @override
   Widget build(BuildContext context) {
@@ -97,10 +99,21 @@ class SignIn extends GetView<SignInController> {
                                               alignment: Alignment.centerRight,
                                               child: TextButton(
                                                   onPressed: () {},
-                                                  child: const Text(
-                                                    'Forgot Password?',
-                                                    style: TextStyle(
-                                                        color: Colors.red),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      print(
+                                                          "Forget pass click");
+                                                      forgetPassController
+                                                          .getForgetPass(
+                                                              signController
+                                                                  .emailController
+                                                                  .text);
+                                                    },
+                                                    child: const Text(
+                                                      'Forgot Password?',
+                                                      style: TextStyle(
+                                                          color: Colors.red),
+                                                    ),
                                                   ))),
                                           MyButton(
                                               onTap: () {
