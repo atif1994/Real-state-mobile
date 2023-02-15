@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/data/Services/propertybycity_services/property_by_city_service.dart';
-import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Controllers/property_bycity_controller.dart';
+import '../../utils/constants/app_urls.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
 import '../../utils/styles/custom_decorations.dart';
@@ -25,7 +25,7 @@ class _PropertyByCityScreenState extends State<PropertyByCityScreen> {
   @override
   void initState() {
     propertybyCityController.getPropertyByCity(widget.id!);
-    PropertyByCityService.getPropertyByCityServiceImages(widget.id!);
+    // PropertyByCityService.getPropertyByCityServiceImages(widget.id!);
     super.initState();
   }
 
@@ -66,137 +66,134 @@ class _PropertyByCityScreenState extends State<PropertyByCityScreen> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {},
-                        child: Container(
-                          margin: EdgeInsets.only(
-                              left: index == 0 ? 2.0.w : 3.0.w,
-                              right: index ==
-                                      propertybyCityController
-                                              .propertybyCityModel
-                                              .data!
-                                              .data!
-                                              .length -
-                                          1
-                                  ? 2.0.w
-                                  : 0.0.w),
-                          height: Get.height * .5,
-                          width: 50.0.w,
-                          decoration: CustomDecorations.mainCon,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  height: 30.0.h,
-                                  width: 100.0.w,
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
-                                    ),
-                                  ),
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        PropertyByCityService.imagesList.length,
-                                    itemBuilder: (context, index) {
-                                      return ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10),
-                                        ),
-                                        child:
-                                            //  Image.asset(
-                                            //   "assets/icons.house.png",
-                                            //   height: 50,
-                                            //   width: 50,
-                                            // ),
-
-                                            Image(
-                                          image: NetworkImage(
-                                            "${AppUrls.baseUrl}${PropertyByCityService.imagesList[index].img1}",
-                                          ),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      );
-                                    },
-                                  )),
-                              SizedBox(
-                                height: 2.0.h,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    width: 2.0.w,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: index == 0 ? 2.0.w : 3.0.w,
+                                right: index ==
                                         propertybyCityController
                                                 .propertybyCityModel
                                                 .data!
-                                                .data![index]
-                                                .name ??
-                                            '',
-                                        style: AppTextStyles.labelSmall,
+                                                .data!
+                                                .length -
+                                            1
+                                    ? 2.0.w
+                                    : 0.0.w),
+                            height: Get.height * .5,
+                            width: 50.0.w,
+                            decoration: CustomDecorations.mainCon,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    height: 30.0.h,
+                                    width: 100.0.w,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
                                       ),
-                                      Text(
-                                        "Location: ${propertybyCityController.propertybyCityModel.data!.data![index].location ?? ""} ",
-                                        style: AppTextStyles.labelSmall
-                                            .copyWith(
-                                                color: Colors.grey,
-                                                fontSize: 10.sp),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
                                       ),
-                                      Text(
-                                        "bedRroms: ${propertybyCityController.propertybyCityModel.data!.data![index].numberBedroom ?? ""} ",
-                                        style: AppTextStyles.labelSmall
-                                            .copyWith(
-                                                color: Colors.grey,
-                                                fontSize: 10.sp),
+                                      child:
+                                          //  Image.asset(
+                                          //   "assets/icons.house.png",
+                                          //   height: 50,
+                                          //   width: 50,
+                                          // ),
+
+                                          Image(
+                                        image: NetworkImage(
+                                            "${AppUrls.baseUrl2}${propertybyCityController.propertybyCityModel.data!.data![index].images!.the1}"
+                                            //  "${AppUrls.baseUrl2}${propertybyCityController.propertybyCityModel.data!.data![index].images!.the1}",
+                                            ),
+                                        fit: BoxFit.cover,
                                       ),
-                                      Text(
-                                        "Floor: ${propertybyCityController.propertybyCityModel.data!.data![index].numberFloor ?? ""} ",
-                                        style: AppTextStyles.labelSmall
-                                            .copyWith(
-                                                color: Colors.grey,
-                                                fontSize: 10.sp),
-                                      ),
-                                      Text(
-                                        "Bathrooms: ${propertybyCityController.propertybyCityModel.data!.data![index].numberBathroom ?? ""} ",
-                                        style: AppTextStyles.labelSmall
-                                            .copyWith(
-                                                color: Colors.grey,
-                                                fontSize: 10.sp),
-                                      )
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    "Rs: ${propertybyCityController.propertybyCityModel.data!.data![index].price ?? ''}",
-                                    style: AppTextStyles.labelSmall,
-                                  ),
-                                  Container(
-                                    height: 7.0.w,
-                                    width: 7.0.w,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.appthem,
-                                        borderRadius:
-                                            BorderRadius.circular(300)),
-                                    child: const Center(
-                                        child: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                      size: 14,
                                     )),
-                                  ),
-                                  SizedBox(
-                                    width: 2.0.w,
-                                  )
-                                ],
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 2.0.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      width: 2.0.w,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          propertybyCityController
+                                                  .propertybyCityModel
+                                                  .data!
+                                                  .data![index]
+                                                  .name ??
+                                              '',
+                                          style: AppTextStyles.labelSmall,
+                                        ),
+                                        Text(
+                                          "Location: ${propertybyCityController.propertybyCityModel.data!.data![index].location ?? ""} ",
+                                          style: AppTextStyles.labelSmall
+                                              .copyWith(
+                                                  color: Colors.grey,
+                                                  fontSize: 10.sp),
+                                        ),
+                                        Text(
+                                          "bedRroms: ${propertybyCityController.propertybyCityModel.data!.data![index].numberBedroom ?? ""} ",
+                                          style: AppTextStyles.labelSmall
+                                              .copyWith(
+                                                  color: Colors.grey,
+                                                  fontSize: 10.sp),
+                                        ),
+                                        Text(
+                                          "Floor: ${propertybyCityController.propertybyCityModel.data!.data![index].numberFloor ?? ""} ",
+                                          style: AppTextStyles.labelSmall
+                                              .copyWith(
+                                                  color: Colors.grey,
+                                                  fontSize: 10.sp),
+                                        ),
+                                        Text(
+                                          "Bathrooms: ${propertybyCityController.propertybyCityModel.data!.data![index].numberBathroom ?? ""} ",
+                                          style: AppTextStyles.labelSmall
+                                              .copyWith(
+                                                  color: Colors.grey,
+                                                  fontSize: 10.sp),
+                                        )
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      "Rs: ${propertybyCityController.propertybyCityModel.data!.data![index].price ?? ''}",
+                                      style: AppTextStyles.labelSmall,
+                                    ),
+                                    Container(
+                                      height: 7.0.w,
+                                      width: 7.0.w,
+                                      decoration: BoxDecoration(
+                                          color: AppColors.appthem,
+                                          borderRadius:
+                                              BorderRadius.circular(300)),
+                                      child: const Center(
+                                          child: Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: Colors.white,
+                                        size: 14,
+                                      )),
+                                    ),
+                                    SizedBox(
+                                      width: 2.0.w,
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );
