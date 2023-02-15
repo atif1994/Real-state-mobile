@@ -26,7 +26,7 @@ class SignInController extends GetxController {
     SharedPreferences pref = await SharedPreferences.getInstance();
     userId = pref.getInt("userid");
     if (userId != null) {
-      Get.to(const Home());
+      Get.to(Home());
     } else {
       Get.to(SignIn());
     }
@@ -73,22 +73,21 @@ class SignInController extends GetxController {
           loginModel.data!.firstName!,
           loginModel.data!.lastName!,
           loginModel.data!.email!,
-          loginModel.data!.phone!);
+          loginModel.data!.phone!,
+          loginModel.data!.avatar!.url ?? "");
       Get.find<AuthController>().isUserSignedIn();
       Get.snackbar('Signed In', 'User is signed in');
       Fluttertoast.showToast(msg: 'Authorised');
       isLoading.value = false;
-      Get.to(const Home());
+      Get.to(Home());
+      print("***************************${loginModel.data!.avatar!.url}");
     } else {
       isLoading.value = false;
       print(response.reasonPhrase);
       Fluttertoast.showToast(msg: 'Unauthorised');
     }
 
-
     //Go to Signup page
-    
-
 
 /////
 
@@ -170,7 +169,7 @@ void setUserid(int userid) async {
 }
 
 _saveCountryData(int cID, String cName, String fname, String lname,
-    String email, String phone) async {
+    String email, String phone, String img) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
 
   pref.setInt("cityId", cID);
@@ -179,6 +178,7 @@ _saveCountryData(int cID, String cName, String fname, String lname,
   pref.setString("lname", lname);
   pref.setString("email", email);
   pref.setString("phone", phone);
+  pref.setString("img", img);
 }
 
 
