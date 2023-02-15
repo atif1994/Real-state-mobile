@@ -29,27 +29,27 @@ class PropertyByCityService {
     }
   }
 
-  static Future<dynamic> getPropertyByCityServiceImages(int cityId) async {
-    var url = "${AppUrls.baseUrl}${AppUrls.propertyByCity}$cityId";
-    var res = await BaseClientClass.get(url, '');
-    List<ImagesModel> imagesList = [];
+  // static Future<dynamic> getPropertyByCityServiceImages(int cityId) async {
+  //   var url = "${AppUrls.baseUrl}${AppUrls.propertyByCity}$cityId";
+  //   var res = await BaseClientClass.get(url, '');
+  //   List<ImagesModel> imagesList = [];
 
-    try {
-      if (res is http.Response) {
-        var rawData = jsonDecode(res.body);
-        List list = rawData['data']['data'];
-        for (var element in list) {
-          imagesList
-              .add(ImagesModel(element['images']['1'], element['images']['2']));
-          print("city list-------${imagesList[0].img2}");
-        }
-      } else {
-        return res;
-      }
-    } catch (e) {
-      return e;
-    }
-  }
+  //   try {
+  //     if (res is http.Response) {
+  //       var rawData = jsonDecode(res.body);
+  //       List list = rawData['data']['data'];
+  //       for (var element in list) {
+  //         imagesList
+  //             .add(ImagesModel(element['images']['1'], element['images']['2']));
+  //         print("city list-------${imagesList[0].img2}");
+  //       }
+  //     } else {
+  //       return res;
+  //     }
+  //   } catch (e) {
+  //     return e;
+  //   }
+  // }
 }
 
 class ImagesModel {
