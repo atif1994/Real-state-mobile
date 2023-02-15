@@ -85,11 +85,6 @@ class SignInController extends GetxController {
       Fluttertoast.showToast(msg: 'Unauthorised');
     }
 
-
-    //Go to Signup page
-    
-
-
 /////
 
     // Map dataa = {
@@ -180,13 +175,6 @@ _saveCountryData(int cID, String cName, String fname, String lname,
   pref.setString("email", email);
   pref.setString("phone", phone);
 }
-
-
-
-
-
-
-
 
 // import 'package:dio/dio.dart' as dio;
 // import 'package:flutter/material.dart';
