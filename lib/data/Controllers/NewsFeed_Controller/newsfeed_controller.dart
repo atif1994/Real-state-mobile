@@ -21,7 +21,7 @@ class NewsFeedController extends GetxController {
     newsfeedApiLoading.value = true;
   }
 
-  getnewsfeed(pageKey) async {
+  getnewsfeed() async {
     errorLoadingnewsfeed.value = '';
     loadingnewspost.value = true;
     var res = await NewsFeedService.getNewsFeedAPI();

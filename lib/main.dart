@@ -35,13 +35,8 @@ class MyApp extends StatelessWidget {
               ),
             )),
 
-        home:
-            //Profile_Page()
-            // const NewsFeed(),
-            SignIn(),
-        // const Blog(),
-        //  home: Auth(),
-        //MyHomePage(),
+        home:SignIn(),
+        
       );
     });
     /////////////////////////

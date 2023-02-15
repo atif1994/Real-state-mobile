@@ -1,7 +1,8 @@
 class AppUrls {
   static const String baseUrl3 = 'http://realestate.tecrux.net/api/';
   static const String baseUrl = 'http://realestate.tecrux.solutions/api/';
-  static const String baseUrl2 = 'http://realestate.tecrux.solutions/storage/';
+  static const String baseUrl2 =
+      'http://realestate.tecrux.solutions/public/storage/';
 
   static const String featuredProperty = "v1/featured-properties";
   static const String propertyCities = "v1/cities";
@@ -38,4 +39,7 @@ class AppUrls {
 
   static const String assignAgents = "v1/assign-agents";
   static const String getWishlist = "v1/wishlist";
+
+  //////////////////////commnets
+  static const String getLatestComments = "v1/get-comments";
 }

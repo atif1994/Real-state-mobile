@@ -41,7 +41,7 @@ class CustomDrawer extends StatelessWidget {
                 width: 100.0.w,
                 height: 29.0.h,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.5),
+                  color: Colors.white.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
               ),
@@ -145,7 +145,7 @@ class CustomDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => const Blog());
+                        Get.to(() => Blog());
                       },
                       leading: Image.asset(
                         AppImageResources.blogger,
@@ -350,7 +350,6 @@ class CustomDrawer extends StatelessWidget {
                         onTap: () async {
                           //signout
                           logoutController.logout();
-                          
                         },
                         child: Text(
                           "Logout",

@@ -87,22 +87,29 @@ class SecurityScreen extends StatelessWidget {
                 ),
 
                 Padding(
-                  padding:
-                      EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 2.0.h),
-                  child: CustomButton(
-                    onPressed: () {
-                      if (newPasswardController.text ==
-                          confirmPasswardController.text) {
-                        changepasswordController
-                            .changepassword(confirmPasswardController.text);
-                      } else {
-                        Fluttertoast.showToast(msg: 'Password is not same');
-                        print('not correct');
-                      }
-                    },
-                    text: "Update Passward",
-                  ),
-                )
+                    padding:
+                        EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 2.0.h),
+                    child: Obx(
+                      () => changepasswordController.loadingchangepassword.value
+                          ? Center(
+                              child: CircularProgressIndicator(
+                              color: AppColors.appthem,
+                            ))
+                          : CustomButton(
+                              onPressed: () {
+                                if (newPasswardController.text ==
+                                    confirmPasswardController.text) {
+                                  changepasswordController.changepassword(
+                                      confirmPasswardController.text);
+                                } else {
+                                  Fluttertoast.showToast(
+                                      msg: 'Password is not same');
+                                  print('not correct');
+                                }
+                              },
+                              text: "Update Passward",
+                            ),
+                    ))
               ],
             ),
           ),

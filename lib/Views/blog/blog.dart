@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utils/constants/appcolors.dart';
@@ -7,7 +9,8 @@ import '../../utils/styles/app_textstyles.dart';
 import '../../utils/styles/custom_decorations.dart';
 
 class Blog extends StatelessWidget {
-  const Blog({super.key});
+  var newspostController = Get.put(DashboardController());
+  Blog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -99,98 +102,158 @@ class Blog extends StatelessWidget {
                 // SizedBox(
                 //   height: 5.0.h,
                 // ),
-                ListView.builder(
-                    primary: false,
-                    shrinkWrap: true,
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(96, 238, 228, 228)),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 4.0.h,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: 4.0.w,
-                                  right: 4.0.w,
-                                  top: index == 0 ? 1.0.h : 2.0.h),
-                              decoration: CustomDecorations.mainCon,
-                              height: 60.0.h,
-                              width: 100.0.w,
-                              child: Column(
-                                // mainAxisAlignment: MainAxisAlignment.st,
-                                children: [
-                                  Image.asset(
-                                    AppImageResources.property,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  SizedBox(
-                                    height: 3.0.h,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Here are the best 10 marla House Design Ideas',
-                                      style: AppTextStyles.labelSmall
-                                          .copyWith(fontSize: 16.sp),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 1.h, horizontal: 1.h),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'CONSTRUCTION',
-                                          style: AppTextStyles.labelSmall
-                                              .copyWith(
-                                                  fontSize: 10.sp,
-                                                  color: const Color.fromARGB(
-                                                      255, 54, 185, 50)),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        SizedBox(
-                                          width: 2.h,
-                                        ),
-                                        Text(
-                                          '10 MIN READ',
-                                          style:
-                                              AppTextStyles.labelSmall.copyWith(
-                                            fontSize: 9.sp,
-                                            color: Colors.grey,
-                                          ),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Text(
-                                      'Lorem Ipsum is simply dummy text of the print and typeset industry. Lorem Ipsum has been the industry standard text.',
-                                      style: AppTextStyles.labelSmall.copyWith(
-                                        fontSize: 11.sp,
-                                        color: const Color.fromARGB(
-                                            255, 100, 100, 100),
-                                      ),
-                                      // textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  // ),
-                                ],
-                              ),
+                Obx(
+                  () => newspostController.loadingnewspost.value
+                      ? Center(
+                          child: CircularProgressIndicator(
+                          color: AppColors.appthem,
+                        ))
+                      : newspostController.errorLoadingnewspost.value != ""
+                          ? Column(
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      newspostController.getnewspost();
+                                    },
+                                    icon: Icon(Icons.refresh)),
+                                SizedBox(
+                                  height: 2.0.h,
+                                ),
+                                Text(newspostController
+                                    .errorLoadingnewspost.value),
+                              ],
                             )
-                          ],
-                        ),
-                      );
-                    }),
+                          : ListView.builder(
+                              primary: false,
+                              shrinkWrap: true,
+                              itemCount:
+                                  newspostController.newspostModel.data!.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  decoration: const BoxDecoration(
+                                      color: Color.fromARGB(96, 238, 228, 228)),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 4.0.h,
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 4.0.w,
+                                            right: 4.0.w,
+                                            top: index == 0 ? 1.0.h : 2.0.h),
+                                        decoration: CustomDecorations.mainCon,
+                                        //   height: 60.0.h,
+                                        width: 100.0.w,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            // mainAxisAlignment: MainAxisAlignment.st,
+                                            children: [
+                                              newspostController
+                                                          .newspostModel
+                                                          .data![index]!
+                                                          .image ==
+                                                      ''
+                                                  ? Image.asset(
+                                                      AppImageResources
+                                                          .property,
+                                                      fit: BoxFit.cover,
+                                                    )
+                                                  : Image.network(
+                                                      newspostController
+                                                              .newspostModel
+                                                              .data![index]!
+                                                              .image ??
+                                                          ''),
+                                              SizedBox(
+                                                height: 3.0.h,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  newspostController
+                                                          .newspostModel
+                                                          .data![index]!
+                                                          .name ??
+                                                      "",
+                                                  style: AppTextStyles
+                                                      .labelSmall
+                                                      .copyWith(
+                                                          fontSize: 16.sp),
+                                                  textAlign: TextAlign.start,
+                                                ),
+                                              ),
+
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 1.h,
+                                                    horizontal: 1.h),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      newspostController
+                                                                  .newspostModel
+                                                                  .data![index]!
+                                                                  .slug ==
+                                                              ''
+                                                          ? "Construction"
+                                                          : newspostController
+                                                                  .newspostModel
+                                                                  .data![index]!
+                                                                  .slug ??
+                                                              "",
+                                                      style: AppTextStyles
+                                                          .labelSmall
+                                                          .copyWith(
+                                                              fontSize: 10.sp,
+                                                              color: const Color
+                                                                      .fromARGB(
+                                                                  255,
+                                                                  54,
+                                                                  185,
+                                                                  50)),
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 2.h,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: Text(
+                                                  newspostController
+                                                          .newspostModel
+                                                          .data![index]!
+                                                          .description ??
+                                                      "",
+                                                  style: AppTextStyles
+                                                      .labelSmall
+                                                      .copyWith(
+                                                    fontSize: 11.sp,
+                                                    color: const Color.fromARGB(
+                                                        255, 100, 100, 100),
+                                                  ),
+                                                  // textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                              // ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }),
+                )
               ],
             ),
           ),

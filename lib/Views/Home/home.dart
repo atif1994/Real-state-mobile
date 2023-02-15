@@ -9,6 +9,7 @@ import 'package:prologic_29/Views/Home/more_places.dart';
 
 import 'package:prologic_29/Views/Notifications/notification_page.dart';
 import 'package:prologic_29/Views/Property_by_id/property_by_id.dart';
+import 'package:prologic_29/Views/blog/blog.dart';
 
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/custom_widgets/drawer_widget.dart';
@@ -963,7 +964,7 @@ class _HomeState extends State<Home> {
                                                         id: dashboardController
                                                             .featuredPropertyModel
                                                             .data!
-                                                            .data![index]!
+                                                            .data![index]
                                                             .id,
                                                       ));
                                                 },
@@ -1006,7 +1007,7 @@ class _HomeState extends State<Home> {
                                                                         10)),
                                                             child:
                                                                 Image.network(
-                                                              "${AppUrls.baseUrl2}${dashboardController.featuredPropertyModel.data!.data![index]!.images[index] ?? ''}",
+                                                              "${AppUrls.baseUrl2}${dashboardController.featuredPropertyModel.data!.data![index].images!.the1}",
                                                               fit: BoxFit.cover,
                                                             ),
 
@@ -1041,7 +1042,7 @@ class _HomeState extends State<Home> {
                                                                         .featuredPropertyModel
                                                                         .data!
                                                                         .data![
-                                                                            index]!
+                                                                            index]
                                                                         .type!
                                                                         .name ??
                                                                     "",
@@ -1054,7 +1055,7 @@ class _HomeState extends State<Home> {
                                                             ),
                                                             Flexible(
                                                               child: Text(
-                                                                  "Rs  ${dashboardController.featuredPropertyModel.data!.data![index]!.price ?? ""} PKR",
+                                                                  "Rs  ${dashboardController.featuredPropertyModel.data!.data![index].price ?? ""} PKR",
                                                                   style: AppTextStyles
                                                                       .heading1
                                                                       .copyWith(
@@ -1075,7 +1076,7 @@ class _HomeState extends State<Home> {
                                                                       .featuredPropertyModel
                                                                       .data!
                                                                       .data![
-                                                                          index]!
+                                                                          index]
                                                                       .name ??
                                                                   "",
                                                               style:
@@ -1104,7 +1105,7 @@ class _HomeState extends State<Home> {
                                                                       .featuredPropertyModel
                                                                       .data!
                                                                       .data![
-                                                                          index]!
+                                                                          index]
                                                                       .numberBedroom ??
                                                                   "",
                                                               style: AppTextStyles
@@ -1129,7 +1130,7 @@ class _HomeState extends State<Home> {
                                                                       .featuredPropertyModel
                                                                       .data!
                                                                       .data![
-                                                                          index]!
+                                                                          index]
                                                                       .numberBathroom ??
                                                                   "",
                                                               style: AppTextStyles
@@ -1158,7 +1159,7 @@ class _HomeState extends State<Home> {
                                                                       .featuredPropertyModel
                                                                       .data!
                                                                       .data![
-                                                                          index]!
+                                                                          index]
                                                                       .square ??
                                                                   "",
                                                               style: AppTextStyles
@@ -1188,7 +1189,7 @@ class _HomeState extends State<Home> {
                                                                       .featuredPropertyModel
                                                                       .data!
                                                                       .data![
-                                                                          index]!
+                                                                          index]
                                                                       .location ??
                                                                   "",
                                                               style: AppTextStyles
@@ -1558,8 +1559,7 @@ class _HomeState extends State<Home> {
                                         //    color: Colors.red,
                                         child: ListView.builder(
                                             scrollDirection: Axis.horizontal,
-                                            itemCount: newspostController
-                                                .newspostModel.data!.length,
+                                            itemCount: 3,
                                             itemBuilder: (context, index) {
                                               return Container(
                                                 margin: EdgeInsets.only(
@@ -1690,25 +1690,36 @@ class _HomeState extends State<Home> {
                                                                       8.sp)),
                                                     ),
                                                     Center(
-                                                      child: Container(
-                                                        height: 4.0.h,
-                                                        width: 30.0.w,
-                                                        decoration: BoxDecoration(
-                                                            color: AppColors
-                                                                .appthem,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8)),
-                                                        child: Center(
-                                                            child: Text(
-                                                          "Continue",
-                                                          style: AppTextStyles
-                                                              .labelSmall
-                                                              .copyWith(
-                                                                  color: AppColors
-                                                                      .colorWhite),
-                                                        )),
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          Get.to(() => Blog(),
+                                                              transition:
+                                                                  Transition
+                                                                      .rightToLeft,
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      600));
+                                                        },
+                                                        child: Container(
+                                                          height: 4.0.h,
+                                                          width: 30.0.w,
+                                                          decoration: BoxDecoration(
+                                                              color: AppColors
+                                                                  .appthem,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8)),
+                                                          child: Center(
+                                                              child: Text(
+                                                            "Continue",
+                                                            style: AppTextStyles
+                                                                .labelSmall
+                                                                .copyWith(
+                                                                    color: AppColors
+                                                                        .colorWhite),
+                                                          )),
+                                                        ),
                                                       ),
                                                     ),
                                                     SizedBox(
