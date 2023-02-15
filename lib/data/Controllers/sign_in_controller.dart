@@ -85,6 +85,11 @@ class SignInController extends GetxController {
       Fluttertoast.showToast(msg: 'Unauthorised');
     }
 
+
+    //Go to Signup page
+    
+
+
 /////
 
     // Map dataa = {
