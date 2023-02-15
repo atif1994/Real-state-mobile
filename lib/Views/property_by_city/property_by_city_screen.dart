@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/data/Services/propertybycity_services/property_by_city_service.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Controllers/property_bycity_controller.dart';
@@ -32,7 +31,7 @@ class _PropertyByCityScreenState extends State<PropertyByCityScreen> {
   @override
   Widget build(BuildContext context) {
     print(
-        "********************************property by City**************${widget.id} ${widget.cityName} ${PropertyByCityService.imagesList.length}");
+        "********************************property by City**************${widget.id} ${widget.cityName}");
     return Scaffold(
         appBar: AppBar(
           title: Text("${widget.cityName}", style: AppTextStyles.heading1),

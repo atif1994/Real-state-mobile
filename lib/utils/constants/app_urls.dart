@@ -14,23 +14,18 @@ class AppUrls {
   static const String notificationend = "v1/notifications/1";
   static const String newspost = "v1/posts";
   static const String addProperty = "v1/add-property";
-
   static const String newsfeed = "v1/Properties";
-
+  static const String forgetpass = "v1/password/forgot";
   static const String contacusend = "v1/contact";
   static const String postLikee = "v1/postlike";
   static const String postComments = "v1/postcomment";
   static const String newsfeedcomment = "v1/coment-property";
   static const String sendChat = "v1/send-chat";
-
   //////////////////////user profile
   static const String getUserProfile = "v1/me/";
   static const String convesationList = "v1/conversations/";
-
   static const String chatList = "v1/chat/";
-
   //////////////////////user profile sec
-
   static const String updateUserProfile = "v1/me/";
   static const String updateUserImage = "v1/update-avatar/";
   static const String changePassword = "v1/change-password/";
