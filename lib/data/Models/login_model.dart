@@ -71,7 +71,7 @@ class Data {
   dynamic avatarId;
   DateTime? dob;
   String? phone;
-  int? credits;
+  String? credits;
   DateTime? confirmedAt;
   dynamic emailVerifyToken;
   String? isFeatured;
@@ -97,7 +97,7 @@ class Data {
         avatarId: json["avatar_id"],
         dob: json["dob"] == null ? null : DateTime.parse(json["dob"]),
         phone: json["phone"],
-        credits: json["credits"],
+        // credits: json["credits"],
         confirmedAt: json["confirmed_at"] == null
             ? null
             : DateTime.parse(json["confirmed_at"]),

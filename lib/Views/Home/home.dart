@@ -1356,6 +1356,13 @@ class _HomeState extends State<Home> {
                                                               .citiesModel
                                                               .data![index]!
                                                               .name);
+
+                                                  // PropertyByCityService
+                                                  //     .getPropertyByCityServiceImages(
+                                                  //         citiesController
+                                                  //             .citiesModel
+                                                  //             .data![index]!
+                                                  //             .id!);
                                                 },
                                                 child: Container(
                                                   margin: EdgeInsets.only(

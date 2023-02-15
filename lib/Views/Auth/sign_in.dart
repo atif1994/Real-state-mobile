@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/Views/Auth/sign_up.dart';
 import 'package:prologic_29/data/Controllers/sign_in_controller.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 
@@ -160,11 +161,16 @@ class SignIn extends GetView<SignInController> {
                                                 //     .value = false;
                                                 signController.signIn();
                                               },
-                                              child: const Text(
-                                                'Don\'t have and account?\nCreate account',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.white),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Get.to(SignUp());
+                                                },
+                                                child: const Text(
+                                                  'Don\'t have and account?\nCreate account',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
                                               ))
                                         ],
                                       ),

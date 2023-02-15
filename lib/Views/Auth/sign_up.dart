@@ -3,16 +3,14 @@
 import 'dart:ui';
 
 import 'package:csc_picker/csc_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/data/Controllers/sign_up_controller.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
+import 'package:prologic_29/data/Controllers/sign_up_controller.dart';
+import 'package:sizer/sizer.dart';
 import '../../data/Controllers/auth_controller.dart';
 import '../../My Widgets/my_button.dart';
-import '../../My Widgets/my_text_field.dart';
 import '../../data/Services/constants.dart';
-import '../Home/home.dart';
 
 class SignUp extends GetView<SignUpController> {
   final _formkey = GlobalKey<FormState>();
@@ -261,6 +259,9 @@ class SignUp extends GetView<SignUpController> {
                                       // });
                                     },
                                   ),
+                                  SizedBox(
+                                    height: 4.h,
+                                  ),
                                   MyButton(
                                       onTap: () {
                                         if (_formkey.currentState!.validate()) {
@@ -277,25 +278,25 @@ class SignUp extends GetView<SignUpController> {
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: [
-                                        const Padding(
-                                          padding: EdgeInsets.only(right: 10),
-                                          child: Text('Or Sign Up With',
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                        ),
-                                        const Expanded(
-                                            child: Divider(
-                                                color: Colors.grey,
-                                                thickness: 1.5)),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Image.asset(facebookIcon,
-                                              width: 50, height: 50),
-                                        ),
-                                        Image.asset(googleIcon,
-                                            width: 50, height: 50),
+                                      children: const [
+                                        // Padding(
+                                        //   padding: EdgeInsets.only(right: 10),
+                                        //   child: Text('Or Sign Up With',
+                                        //       style: TextStyle(
+                                        //           color: Colors.white)),
+                                        // ),
+                                        // const Expanded(
+                                        //     child: Divider(
+                                        //         color: Colors.grey,
+                                        //         thickness: 1.5)),
+                                        // Padding(
+                                        //   padding: const EdgeInsets.symmetric(
+                                        //       horizontal: 10),
+                                        //   child: Image.asset(facebookIcon,
+                                        //       width: 50, height: 50),
+                                        // ),
+                                        // Image.asset(googleIcon,
+                                        //     width: 50, height: 50),
                                       ],
                                     ),
                                   ),
@@ -307,10 +308,15 @@ class SignUp extends GetView<SignUpController> {
                                             .isSignInScreen
                                             .value = true;
                                       },
-                                      child: const Text(
-                                        'Already have a CG Account?\nLog In',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(color: Colors.white),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Get.to(SignIn());
+                                        },
+                                        child: const Text(
+                                          'Already have a CG Account?\nLog In',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ))
                                 ],
                               ),

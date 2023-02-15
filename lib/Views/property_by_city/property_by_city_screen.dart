@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/data/Services/propertybycity_services/property_by_city_service.dart';
+import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Controllers/property_bycity_controller.dart';
@@ -23,13 +25,14 @@ class _PropertyByCityScreenState extends State<PropertyByCityScreen> {
   @override
   void initState() {
     propertybyCityController.getPropertyByCity(widget.id!);
+    PropertyByCityService.getPropertyByCityServiceImages(widget.id!);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     print(
-        "********************************property by City**************${widget.id} ${widget.cityName}");
+        "********************************property by City**************${widget.id} ${widget.cityName} ${PropertyByCityService.imagesList.length}");
     return Scaffold(
         appBar: AppBar(
           title: Text("${widget.cityName}", style: AppTextStyles.heading1),
@@ -90,24 +93,31 @@ class _PropertyByCityScreenState extends State<PropertyByCityScreen> {
                                       topRight: Radius.circular(10),
                                     ),
                                   ),
-                                  child: const ClipRRect(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
-                                    ),
-                                    child:
-                                        //  Image.asset(
-                                        //   "assets/icons.house.png",
-                                        //   height: 50,
-                                        //   width: 50,
-                                        // ),
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:
+                                        PropertyByCityService.imagesList.length,
+                                    itemBuilder: (context, index) {
+                                      return ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
+                                        ),
+                                        child:
+                                            //  Image.asset(
+                                            //   "assets/icons.house.png",
+                                            //   height: 50,
+                                            //   width: 50,
+                                            // ),
 
-                                        Image(
-                                      image: NetworkImage(
-                                        "",
-                                      ),
-                                      fit: BoxFit.cover,
-                                    ),
+                                            Image(
+                                          image: NetworkImage(
+                                            "${AppUrls.baseUrl}${PropertyByCityService.imagesList[index].img1}",
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      );
+                                    },
                                   )),
                               SizedBox(
                                 height: 2.0.h,

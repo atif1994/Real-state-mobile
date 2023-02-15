@@ -6,12 +6,20 @@ import 'package:http/http.dart' as http;
 import '../../Models/propertyby_city_model.dart';
 
 class PropertyByCityService {
+  static List<ImagesModel> imagesList = [];
   static Future<dynamic> getPropertyByCityService(int cityId) async {
     var url = "${AppUrls.baseUrl}${AppUrls.propertyByCity}$cityId";
     var res = await BaseClientClass.get(url, '');
 
     try {
       if (res is http.Response) {
+        // var rawData = jsonDecode(res.body);
+        // List list = rawData['data']['data'];
+        // for (var element in list) {
+        //   imagesList
+        //       .add(ImagesModel(element['images']['1'], element['images']['2']));
+        //   print("city list-------${imagesList[0].img2}");
+        // }
         return propertyByCityModelFromJson(res.body);
       } else {
         return res;
@@ -30,9 +38,10 @@ class PropertyByCityService {
       if (res is http.Response) {
         var rawData = jsonDecode(res.body);
         List list = rawData['data']['data'];
-        for (Map element in list) {
+        for (var element in list) {
           imagesList
               .add(ImagesModel(element['images']['1'], element['images']['2']));
+          print("city list-------${imagesList[0].img2}");
         }
       } else {
         return res;
