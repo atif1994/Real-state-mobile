@@ -80,18 +80,15 @@ class SignInController extends GetxController {
       Fluttertoast.showToast(msg: 'Authorised');
       isLoading.value = false;
       Get.to(Home());
-      print("***************************${loginModel.data!.avatar!.url}");
+      print("***************************${loginModel.data!.avatar!}");
     } else {
       isLoading.value = false;
       print(response.reasonPhrase);
       Fluttertoast.showToast(msg: 'Unauthorised');
     }
 
-<<<<<<< HEAD
     //Go to Signup page
 
-=======
->>>>>>> d528926ef62491ce02f2fcf7ea5e9fae912500cb
 /////
 
     // Map dataa = {
