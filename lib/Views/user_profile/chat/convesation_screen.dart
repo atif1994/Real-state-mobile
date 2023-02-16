@@ -77,160 +77,168 @@ class ChatScreen extends StatelessWidget {
                                 ],
                               ),
                             )
-                          : FutureBuilder(
-                              future:
-                                  controller.getConversation(controller.uid),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else {
-                                  return ListView.builder(
-                                      itemCount: controller
-                                          .conversationModel.data?.length,
-                                      itemBuilder: (context, index) {
-                                        var agentName = controller
-                                            .conversationModel
-                                            .data?[index]
-                                            .recieveragent!
-                                            .firstName;
-                                        String? firstChar;
-                                        if (agentName!.isNotEmpty) {
-                                          firstChar = agentName[0];
-                                        }
-                                        return InkWell(
-                                          onTap: () async {
-                                            SharedPreferences pref =
-                                                await SharedPreferences
-                                                    .getInstance();
-                                            pref.setInt(
-                                                "conversatinId",
-                                                controller.conversationModel
-                                                    .data![index].id!);
+                          : controller.chatModel.data == null
+                              ? Center(child: Text("No Chat Found"))
+                              : FutureBuilder(
+                                  future: controller
+                                      .getConversation(controller.uid),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    } else {
+                                      return ListView.builder(
+                                          itemCount: controller
+                                              .conversationModel.data?.length,
+                                          itemBuilder: (context, index) {
+                                            var agentName = controller
+                                                .conversationModel
+                                                .data?[index]
+                                                .recieveragent!
+                                                .firstName;
+                                            String? firstChar;
+                                            if (agentName!.isNotEmpty) {
+                                              firstChar = agentName[0];
+                                            }
+                                            return InkWell(
+                                              onTap: () async {
+                                                SharedPreferences pref =
+                                                    await SharedPreferences
+                                                        .getInstance();
+                                                pref.setInt(
+                                                    "conversatinId",
+                                                    controller.conversationModel
+                                                        .data![index].id!);
 
-                                            Get.to(
-                                                () => Chating(
-                                                      name: controller
-                                                          .conversationModel
-                                                          .data![index]
-                                                          .recieveragent!
-                                                          .username,
-                                                      conId: controller
-                                                          .conversationModel
-                                                          .data![index]
-                                                          .chats![index]
-                                                          .conversationId,
-                                                      customerId: controller
-                                                          .conversationModel
-                                                          .data![index]
-                                                          .chats![index]
-                                                          .customer,
-                                                      agentId: controller
-                                                          .conversationModel
-                                                          .data![index]
-                                                          .chats![index]
-                                                          .agent,
-                                                    ),
-                                                duration: const Duration(
-                                                    milliseconds: 600),
-                                                transition:
-                                                    Transition.rightToLeft);
-                                          },
-                                          child: Container(
-                                            margin: EdgeInsets.only(
-                                                top: index == 0 ? 1.0.h : 2.0.h,
-                                                bottom:
-                                                    index == 9 ? 1.0.h : 0.0.h),
-                                            height: 8.0.h,
-                                            width: 100.0.w,
-                                            decoration:
-                                                CustomDecorations.mainCon,
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  width: 2.0.w,
-                                                ),
-                                                Container(
-                                                  height: 12.0.w,
-                                                  width: 12.0.w,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.orange,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              300)),
-                                                  child: Center(
-                                                      child: Text(
-                                                    firstChar.toString(),
-                                                    style: AppTextStyles
-                                                        .heading1
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w800),
-                                                  )),
-                                                ),
-                                                SizedBox(
-                                                  width: 3.0.w,
-                                                ),
-                                                Column(
+                                                Get.to(
+                                                    () => Chating(
+                                                          name: controller
+                                                              .conversationModel
+                                                              .data![index]
+                                                              .recieveragent!
+                                                              .username,
+                                                          conId: controller
+                                                              .conversationModel
+                                                              .data![index]
+                                                              .chats![index]
+                                                              .conversationId,
+                                                          customerId: controller
+                                                              .conversationModel
+                                                              .data![index]
+                                                              .chats![index]
+                                                              .customer,
+                                                          agentId: controller
+                                                              .conversationModel
+                                                              .data![index]
+                                                              .chats![index]
+                                                              .agent,
+                                                        ),
+                                                    duration: const Duration(
+                                                        milliseconds: 600),
+                                                    transition:
+                                                        Transition.rightToLeft);
+                                              },
+                                              child: Container(
+                                                margin: EdgeInsets.only(
+                                                    top: index == 0
+                                                        ? 1.0.h
+                                                        : 2.0.h,
+                                                    bottom: index == 9
+                                                        ? 1.0.h
+                                                        : 0.0.h),
+                                                height: 8.0.h,
+                                                width: 100.0.w,
+                                                decoration:
+                                                    CustomDecorations.mainCon,
+                                                child: Row(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
                                                   children: [
-                                                    Text(
-                                                      "${controller.conversationModel.data![index].recieveragent!.firstName ?? ''} ",
-                                                      style: AppTextStyles
-                                                          .heading1
-                                                          .copyWith(
-                                                              color: AppColors
-                                                                  .appthem,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w800),
+                                                    SizedBox(
+                                                      width: 2.0.w,
                                                     ),
-                                                    Text(
-                                                      controller
-                                                              .conversationModel
-                                                              .data?[index]
-                                                              .recieveragent!
-                                                              .deactivateMessage ??
-                                                          '',
-                                                      style: AppTextStyles
-                                                          .heading1
-                                                          .copyWith(
-                                                              color: AppColors
-                                                                  .appthem),
+                                                    Container(
+                                                      height: 12.0.w,
+                                                      width: 12.0.w,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.orange,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      300)),
+                                                      child: Center(
+                                                          child: Text(
+                                                        firstChar.toString(),
+                                                        style: AppTextStyles
+                                                            .heading1
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w800),
+                                                      )),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 3.0.w,
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "${controller.conversationModel.data![index].recieveragent!.firstName ?? ''} ",
+                                                          style: AppTextStyles
+                                                              .heading1
+                                                              .copyWith(
+                                                                  color: AppColors
+                                                                      .appthem,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w800),
+                                                        ),
+                                                        Text(
+                                                          controller
+                                                                  .conversationModel
+                                                                  .data?[index]
+                                                                  .recieveragent!
+                                                                  .deactivateMessage ??
+                                                              '',
+                                                          style: AppTextStyles
+                                                              .heading1
+                                                              .copyWith(
+                                                                  color: AppColors
+                                                                      .appthem),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    const Spacer(),
+                                                    // Text(
+                                                    //   DateFormat('dd.MM.yyyy').format(
+                                                    //       DateTime.parse(controller
+                                                    //               .conversationModel
+                                                    //               .data![index]
+                                                    //               .chats![index]
+                                                    //               .updatedAt ??
+                                                    //           "".toString())),
+                                                    //   style: AppTextStyles.heading1
+                                                    //       .copyWith(
+                                                    //           color: AppColors.appthem),
+                                                    // ),
+                                                    SizedBox(
+                                                      width: 2.0.w,
                                                     )
                                                   ],
                                                 ),
-                                                const Spacer(),
-                                                // Text(
-                                                //   DateFormat('dd.MM.yyyy').format(
-                                                //       DateTime.parse(controller
-                                                //               .conversationModel
-                                                //               .data![index]
-                                                //               .chats![index]
-                                                //               .updatedAt ??
-                                                //           "".toString())),
-                                                //   style: AppTextStyles.heading1
-                                                //       .copyWith(
-                                                //           color: AppColors.appthem),
-                                                // ),
-                                                SizedBox(
-                                                  width: 2.0.w,
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      });
-                                }
-                              },
-                            )),
+                                              ),
+                                            );
+                                          });
+                                    }
+                                  },
+                                )),
             ),
           ],
         ),

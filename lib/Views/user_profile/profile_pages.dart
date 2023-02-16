@@ -5,6 +5,7 @@ import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/Views/user_profile/chat/convesation_screen.dart';
 import 'package:prologic_29/Views/user_profile/security/security_screen.dart';
 import 'package:prologic_29/Views/user_profile/setting/settings_screen.dart';
+import 'package:prologic_29/data/Controllers/logout_controller.dart';
 import 'package:prologic_29/data/Controllers/user_profile_section_controller/user_profile_controller.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
@@ -16,6 +17,8 @@ class ProfilePages extends StatelessWidget {
   ProfilePages({super.key});
 
   var profileController = Get.put(UserProfileController());
+  var logoutController = Get.put(LogoutController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -368,6 +371,7 @@ class ProfilePages extends StatelessWidget {
 
                                 InkWell(
                                     onTap: () {
+                                      logoutController.logout();
                                       Get.off(SignIn());
                                     },
                                     child: Container(

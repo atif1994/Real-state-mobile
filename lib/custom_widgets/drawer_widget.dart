@@ -9,6 +9,7 @@ import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Views/AddProperty/add_property.dart';
@@ -16,15 +17,21 @@ import '../Views/ContactUs/contact_us.dart';
 import '../Views/Notifications/notification_page.dart';
 import '../Views/user_profile/profile_pages.dart';
 import '../Views/Wishlist/favorites.dart';
+import '../data/Controllers/logout_controller.dart';
 
 class CustomDrawer extends StatelessWidget {
   String fname;
   String lname;
   String email;
+  String img;
   CustomDrawer(
-      {Key? key, required this.fname, required this.lname, required this.email})
+      {Key? key,
+      required this.fname,
+      required this.lname,
+      required this.email,
+      required this.img})
       : super(key: key);
-
+  final logoutController = Get.put(LogoutController());
   @override
   Widget build(BuildContext context) {
     print("***************************$email");
@@ -39,7 +46,7 @@ class CustomDrawer extends StatelessWidget {
                 width: 100.0.w,
                 height: 29.0.h,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.5),
+                  color: Colors.white.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
               ),
@@ -66,10 +73,15 @@ class CustomDrawer extends StatelessWidget {
                           borderRadius: BorderRadius.circular(300)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(300),
-                        child: Image.network(
-                          "https://picsum.photos/200/300",
-                          fit: BoxFit.cover,
-                        ),
+                        child: img == ""
+                            ? Image.network(
+                                "https://picsum.photos/200/300",
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                img,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                     SizedBox(
@@ -143,7 +155,7 @@ class CustomDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => const Blog());
+                        Get.to(() => Blog());
                       },
                       leading: Image.asset(
                         AppImageResources.blogger,
@@ -196,7 +208,7 @@ class CustomDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => WishlistPage());
+                        Get.to(() => const WishlistPage());
                       },
                       leading: Image.asset(
                         AppImageResources.wishlistsearches,
@@ -344,10 +356,16 @@ class CustomDrawer extends StatelessWidget {
                         Icons.logout,
                         color: AppColors.colorWhite,
                       ),
-                      title: Text(
-                        "Logout",
-                        style: AppTextStyles.heading1
-                            .copyWith(color: AppColors.colorWhite),
+                      title: GestureDetector(
+                        onTap: () async {
+                          //signout
+                          logoutController.logout();
+                        },
+                        child: Text(
+                          "Logout",
+                          style: AppTextStyles.heading1
+                              .copyWith(color: AppColors.colorWhite),
+                        ),
                       ),
                     ),
                   ),

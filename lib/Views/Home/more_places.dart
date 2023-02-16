@@ -93,7 +93,9 @@ class Moreplaces extends StatelessWidget {
                                                       fit: BoxFit.cover,
                                                     )
                                                   : Image.network(
-                                                      '${AppUrls.baseUrl2}${moreplacescontroller.moreplaceresponse.data!.data![index].images!["1"].toString()}')
+                                                      '${AppUrls.baseUrl2}${moreplacescontroller.moreplaceresponse.data!.data![index].images!["1"].toString()}',
+                                                      fit: BoxFit.cover,
+                                                    )
 
                                               //     Image.asset(
                                               //   AppImageResources.property,
@@ -265,8 +267,7 @@ class Moreplaces extends StatelessWidget {
                           ],
                         );
                       } else {
-                        moreplacescontroller
-                            .getplacesdata();
+                        moreplacescontroller.getplacesdata();
                         print(
                             "pagination call ============${moreplacescontroller.page}");
                         return Padding(

@@ -108,13 +108,13 @@ class Category {
   });
 
   int? id;
-  Name? name;
+  String? name;
   String? slug;
   dynamic description;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],
-        name: nameValues.map[json["name"]],
+        name: json["name"],
         slug: json["slug"],
         description: json["description"],
       );

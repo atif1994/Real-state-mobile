@@ -23,12 +23,21 @@ class NewsFeedController extends GetxController {
     // getnewsfeed();
   }
 
+<<<<<<< HEAD
   void getnewsfeed() async {
+=======
+  getnewsfeed() async {
+    errorLoadingnewsfeed.value = '';
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
     loadingnewspost.value = true;
     errorLoadingnewsfeed.value = '';
 
     var res = await NewsFeedService.getNewsFeedAPI();
+<<<<<<< HEAD
     loadingnewspost.value = true;
+=======
+    newsfeedApiLoading.value = false;
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
     if (res is NewsfeedModel) {
       newsfeedmodel = res;
     } else {

@@ -299,20 +299,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           Padding(
             padding: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
-            child: Obx(() => CustomButton(
-                  onPressed: () {
-                    updateprofileController.updateUserProfile(
-                        fullNameController.text.split(' ')[0],
-                        fullNameController.text.split(' ')[1],
-                        phoneController.text,
-                        userDescController.text,
-                        emailController.text,
-                        dob,
-                        gender);
-                  },
-                  isloading: updateprofileController.loadingUpdateProfile.value,
-                  text: "Save",
-                )),
+            child: Obx(() => updateprofileController.loadingUpdateProfile.value
+                ? Center(
+                    child: CircularProgressIndicator(
+                    color: AppColors.appthem,
+                  ))
+                : CustomButton(
+                    onPressed: () {
+                      updateprofileController.updateUserProfile(
+                          fullNameController.text.split(' ')[0],
+                          fullNameController.text.split(' ')[1],
+                          phoneController.text,
+                          userDescController.text,
+                          emailController.text,
+                          dob,
+                          gender);
+                    },
+                    text: "Save",
+                  )),
           )
         ],
       ),
