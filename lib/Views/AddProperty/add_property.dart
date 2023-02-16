@@ -13,6 +13,7 @@ import '../../data/Services/property_services/addproperty_services.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
 
+import '../newsFeeed/newsfeed.dart';
 import 'all_property.dart';
 
 class Property extends StatefulWidget {
@@ -183,7 +184,7 @@ class _PropertyState extends State<Property>
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              Get.to(() => const AllProperty());
+              Get.to(() => const NewsFeed());
             },
           ),
         ],
