@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:get/get.dart';
-
 NewsfeedModel newsfeedModelFromJson(String str) =>
     NewsfeedModel.fromJson(json.decode(str));
 
@@ -203,7 +201,9 @@ class Datum {
   Currency? currency;
   List<Feature>? features;
   List<Facility>? facilities;
+
   RxBool isAddedToWishList = false.obs;
+
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],

@@ -121,7 +121,9 @@ class _profileImageState extends State<profileImage> {
                       : CustomButton(
                           onPressed: () {
                             imageupdatecontroller
+
                                 .updateprofileimage(imageTemp!);
+
                           },
                           text: 'Upload Image',
                         ),
