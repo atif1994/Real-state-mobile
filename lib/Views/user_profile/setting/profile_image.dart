@@ -120,7 +120,8 @@ class _profileImageState extends State<profileImage> {
                         )
                       : CustomButton(
                           onPressed: () {
-                            imageupdatecontroller.updateprofileimage(imageTemp.toString());
+                            imageupdatecontroller
+                                .updateprofileimage(imageTemp.toString());
                           },
                           text: 'Upload Image',
                         ),
