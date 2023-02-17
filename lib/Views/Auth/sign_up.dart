@@ -266,7 +266,7 @@ class SignUp extends GetView<SignUpController> {
                                       onTap: () {
                                         if (_formkey.currentState!.validate()) {
                                           controller.signUp();
-                                          print("Successfull");
+                                          // print("Successfull");
                                         } else {
                                           print("Unsuccessfull");
                                         }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/data/Services/signup_services/signup_services.dart';
-import 'package:prologic_29/utils/constants/appcolors.dart';
 import '../Models/signup_model/signup_model.dart';
 
 class SignUpController extends GetxController {
@@ -44,47 +44,14 @@ class SignUpController extends GetxController {
         CityController.text,
         phoneNumberController.text);
     if (res is SignupModel) {
-      print("already exist email or pass==${isLoading.value}=======");
       isLoading(false);
-      // signupModel.error == true
-      //     ? print("already exist email or pass=========")
-      //     : Fluttertoast.showToast(msg: signupModel.message.toString());
-      // Fluttertoast.showToast(msg: signupModel.message.toString());
-      Get.snackbar(
-          "already exist email or username", signupModel.message.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          // backgroundColor: whiteColor,
-          colorText: Colors.white,
-          margin: const EdgeInsets.only(bottom: 40),
-          backgroundGradient: const LinearGradient(colors: [
-            Colors.black87,
-            AppColors.appthem,
-          ]),
-          maxWidth: 350,
-          leftBarIndicatorColor: Colors.green,
-          overlayBlur: 5,
-          instantInit: true,
-          duration: const Duration(seconds: 3));
+      Fluttertoast.showToast(msg: "");
+      Get.snackbar('Succfully Create Account', "");
       Get.to(SignIn());
       return res;
     } else {
       isLoading(false);
-      Get.snackbar(
-          "already exist email or username", signupModel.message.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          // backgroundColor: whiteColor,
-          colorText: Colors.white,
-          margin: const EdgeInsets.only(bottom: 40),
-          backgroundGradient: const LinearGradient(colors: [
-            Colors.black87,
-            AppColors.appthem,
-          ]),
-          maxWidth: 350,
-          leftBarIndicatorColor: Colors.red,
-          overlayBlur: 5,
-          instantInit: true,
-          duration: const Duration(seconds: 3));
-      errSignup.value = res.toString();
+      errSignup.value = res;
       return res;
     }
 

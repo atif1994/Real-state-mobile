@@ -30,9 +30,7 @@ import '../../utils/constants/app_urls.dart';
 import 'home_screen.dart';
 
 class Home extends StatefulWidget {
-  Home({
-    Key? key,
-  }) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -49,8 +47,6 @@ class _HomeState extends State<Home> {
 
   String? cityName;
   String fname = '';
-
-  String userImg = '';
 
   String lname = '';
   String email = '';
@@ -103,7 +99,6 @@ class _HomeState extends State<Home> {
     fname = pref.getString("fname") ?? "";
     lname = pref.getString("lname") ?? "";
     email = pref.getString("email") ?? "";
-    userImg = pref.getString("img") ?? "";
   }
 
   @override
@@ -124,7 +119,6 @@ class _HomeState extends State<Home> {
       ));
   @override
   Widget build(BuildContext context) {
-    print(userImg);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -132,7 +126,6 @@ class _HomeState extends State<Home> {
           fname: fname,
           lname: lname,
           email: email,
-          img: "${AppUrls.baseUrl2}${userImg}",
         ),
 
         ///bottom nav bar end
@@ -180,15 +173,10 @@ class _HomeState extends State<Home> {
                                 borderRadius: BorderRadius.circular(10)),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: userImg == ''
-                                  ? Image.network(
-                                      "https://picsum.photos/200/300",
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Image.network(
-                                      "${AppUrls.baseUrl2}${userImg}",
-                                      fit: BoxFit.cover,
-                                    ),
+                              child: Image.network(
+                                "https://picsum.photos/200/300",
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           )
                         ],
@@ -1352,7 +1340,7 @@ class _HomeState extends State<Home> {
                                         // color: Colors.red,
                                         child: ListView.builder(
                                             itemCount: citiesController
-                                                .citiesModel.data?.length,
+                                                .citiesModel.data!.length,
                                             padding: EdgeInsets.only(
                                                 top: 1.0.h, bottom: 1.0.h),
                                             scrollDirection: Axis.horizontal,

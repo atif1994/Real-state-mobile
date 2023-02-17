@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field_2.dart';
 import 'package:prologic_29/data/Controllers/addProperty_Controller.dart';
@@ -11,13 +8,12 @@ import 'package:prologic_29/data/Controllers/property_controllers/featured_prope
 import 'package:prologic_29/data/Models/addproperty_model/postDataProperty_model.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../data/Controllers/pick_image_controller.dart';
 import '../../data/Services/constants.dart';
 import '../../data/Services/property_services/addproperty_services.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
 
-import '../newsFeeed/newsfeed.dart';
+import 'all_property.dart';
 
 class Property extends StatefulWidget {
   const Property({Key? key}) : super(key: key);
@@ -177,37 +173,6 @@ class _PropertyState extends State<Property>
     }
   }
 
-//images upload fun
-  final ImagePicker imagePicker = ImagePicker();
-  List<XFile>? imageFileList = [];
-
-  void galleryimg() async {
-    final List<XFile> selectedImages = await imagePicker.pickMultiImage();
-    if (selectedImages.isNotEmpty) {
-      imageFileList!.addAll(selectedImages);
-    }
-    print("Image List Length:${imageFileList!.length}");
-    setState(() {});
-  }
-
-  // Future<void> cameraimg() async {
-  //   final img = await imagePicker.pickImage(source: ImageSource.camera);
-  //   if (img != null) {
-  //     setState(() {
-  //       imageFileList = File(img.path);
-  //     });
-  //   }
-  // }
-
-  // Future<void> galleryimg() async {
-  //   final List<XFile>? img = await imagePicker.pickImage(source: ImageSource.gallery);
-  //   if (img != null) {
-  //     setState(() {
-  //       imageFileList = File(img.path);
-  //     });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -218,7 +183,7 @@ class _PropertyState extends State<Property>
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              Get.to(() => const NewsFeed());
+              Get.to(() => const AllProperty());
             },
           ),
         ],
@@ -1239,70 +1204,7 @@ class _PropertyState extends State<Property>
                       )
                     ],
                   ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              // Get.to(const AddPropertyImage());
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) => bottomSheet(context),
-                              );
-                            },
-                            child: const Text('Add Photos')),
-                        const Icon(Icons.image)
-                      ],
-                    ),
-                  ),
-                  // GridView.builder(
-                  //     itemCount: 3,
-                  //     gridDelegate:
-                  //         const SliverGridDelegateWithFixedCrossAxisCount(
-                  //             crossAxisCount: 3),
-                  //     itemBuilder: (BuildContext context, int index) {
-                  //       return Column(
-                  //         children: [
-                  //           const Text("data"),
-                  //           Image.file(
-                  //             File(imageFileList![index].path),
-                  //             fit: BoxFit.cover,
-                  //           ),
-                  //         ],
-                  //       );
-                  //     }),
-                  Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.black)),
-                      margin: EdgeInsets.symmetric(vertical: 30.sp),
-                      height: 40.h,
-                      width: 40.h,
-                      child: imageFileList == 0
-                          ? Center(
-                              child: Center(
-                                child: Text(
-                                  'Your Image is here',
-                                  style: AppTextStyles.labelSmall,
-                                ),
-                              ),
-                            )
-                          : ListView.builder(
-                              itemCount: imageFileList!.isEmpty
-                                  ? 0
-                                  : imageFileList?.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.file(
-                                    File(imageFileList![0].path),
-                                    fit: BoxFit.cover,
-                                  ),
-                                );
-                              },
-                            )),
+                  TextButton(onPressed: () {}, child: const Text('Add Photos'))
                 ],
               ),
               myDivider(),
@@ -1504,92 +1406,4 @@ class _PropertyState extends State<Property>
       },
     );
   }
-
-  // File? imageFile;
-  // ImagePicker imagePicker = ImagePicker();
-  ImagePickerController imagePickerController =
-      Get.put(ImagePickerController());
-  Widget bottomSheet(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      width: double.infinity,
-      height: 100,
-      margin: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            "Select or Capture Photo",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // InkWell(
-              //   child: Column(
-              //     children: const [
-              //       Icon(
-              //         Icons.camera,
-              //         color: Colors.purple,
-              //       ),
-              //       Text(
-              //         "Camera",
-              //         style: TextStyle(
-              //             fontSize: 20,
-              //             fontWeight: FontWeight.bold,
-              //             color: Colors.purple),
-              //       ),
-              //     ],
-              //   ),
-              //   onTap: () {
-              //     //  cameraimg();
-              //   },
-              // ),
-              SizedBox(
-                width: size.width * 0.4,
-              ),
-              InkWell(
-                child: Column(
-                  children: const [
-                    Icon(
-                      Icons.image,
-                      color: Colors.deepPurple,
-                    ),
-                    Text(
-                      "Gallery",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple),
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  galleryimg();
-                },
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  // Future<void> takePhoto(ImageSource source, BuildContext context) async {
-  //   final pickedImage =
-  //       await imagePicker.pickImage(source: source, imageQuality: 100);
-  //   imageFile = File(pickedImage!.path);
-  //   // print(' imagee path:${imageFile}');
-  //   imagePickerController.setImagePath(imageFile!.path);
-  //   Navigator.pop(context);
-  // }
 }
