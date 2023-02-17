@@ -861,7 +861,11 @@ class Datum {
   String? description;
   String? content;
   String? location;
+<<<<<<< HEAD
+  Map<String, Image>? images;
+=======
   Images? images;
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
   String? numberBedroom;
   String? numberBathroom;
   String? numberFloor;
@@ -902,14 +906,24 @@ class Datum {
   Currency? currency;
   List<Feature>? features;
   List<dynamic>? facilities;
+<<<<<<< HEAD
+  RxBool isLiked = false.obs;
+
+=======
   RxBool isAddedToWishList = false.obs;
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         name: json["name"],
         description: json["description"],
         content: json["content"],
         location: json["location"],
+<<<<<<< HEAD
+        images: Map.from(json["images"]!)
+            .map((k, v) => MapEntry<String, Image>(k, imageValues.map[v]!)),
+=======
         images: json["images"] == null ? null : Images.fromJson(json["images"]),
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         numberFloor: json["number_floor"],
@@ -974,7 +988,12 @@ class Datum {
         "description": description,
         "content": content,
         "location": location,
+<<<<<<< HEAD
+        "images": Map.from(images!).map(
+            (k, v) => MapEntry<String, dynamic>(k, imageValues.reverse[v])),
+=======
         "images": images?.toJson(),
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
         "number_bedroom": numberBedroom,
         "number_bathroom": numberBathroom,
         "number_floor": numberFloor,
@@ -1077,6 +1096,13 @@ class Category {
       };
 }
 
+<<<<<<< HEAD
+enum Status { PUBLISHED }
+
+final statusValues = EnumValues({"published": Status.PUBLISHED});
+
+=======
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
 class City {
   City({
     this.id,
@@ -1099,9 +1125,15 @@ class City {
   dynamic recordId;
   String? order;
   String? isFeatured;
+<<<<<<< HEAD
+  Status? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+=======
   String? status;
   String? createdAt;
   String? updatedAt;
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
   String? slug;
 
   factory City.fromJson(Map<String, dynamic> json) => City(
@@ -1112,9 +1144,19 @@ class City {
         recordId: json["record_id"],
         order: json["order"],
         isFeatured: json["is_featured"],
+<<<<<<< HEAD
+        status: statusValues.map[json["status"]]!,
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+=======
         status: json["status"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
         slug: json["slug"],
       );
 
@@ -1126,9 +1168,15 @@ class City {
         "record_id": recordId,
         "order": order,
         "is_featured": isFeatured,
+<<<<<<< HEAD
+        "status": statusValues.reverse[status],
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+=======
         "status": status,
         "created_at": createdAt,
         "updated_at": updatedAt,
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
         "slug": slug,
       };
 }
@@ -1180,11 +1228,27 @@ class Currency {
         "order": order,
         "is_default": isDefault,
         "exchange_rate": exchangeRate,
+<<<<<<< HEAD
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+      };
+}
+
+enum Symbol { RS, EMPTY }
+
+final symbolValues = EnumValues({"\u0024": Symbol.EMPTY, "Rs": Symbol.RS});
+
+enum Title { PKR, USD }
+
+final titleValues = EnumValues({"PKR": Title.PKR, "USD": Title.USD});
+
+=======
         "created_at": createdAt,
         "updated_at": updatedAt,
       };
 }
 
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
 class Feature {
   Feature({
     this.id,
@@ -1197,14 +1261,22 @@ class Feature {
   int? id;
   String? name;
   String? icon;
+<<<<<<< HEAD
+  Status? status;
+=======
   String? status;
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
   Pivot? pivot;
 
   factory Feature.fromJson(Map<String, dynamic> json) => Feature(
         id: json["id"],
         name: json["name"],
         icon: json["icon"],
+<<<<<<< HEAD
+        status: statusValues.map[json["status"]]!,
+=======
         status: json["status"],
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
         pivot: json["pivot"] == null ? null : Pivot.fromJson(json["pivot"]),
       );
 
@@ -1212,7 +1284,11 @@ class Feature {
         "id": id,
         "name": name,
         "icon": icon,
+<<<<<<< HEAD
+        "status": statusValues.reverse[status],
+=======
         "status": status,
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
         "pivot": pivot?.toJson(),
       };
 }
@@ -1237,6 +1313,22 @@ class Pivot {
       };
 }
 
+<<<<<<< HEAD
+enum Image {
+  PROPERTIES_P_16_JPG,
+  PROPERTIES_P_4_JPG,
+  PROPERTIES_P_6_JPG,
+  PROPERTIES_P_5_JPG
+}
+
+final imageValues = EnumValues({
+  "properties/p-16.jpg": Image.PROPERTIES_P_16_JPG,
+  "properties/p-4.jpg": Image.PROPERTIES_P_4_JPG,
+  "properties/p-5.jpg": Image.PROPERTIES_P_5_JPG,
+  "properties/p-6.jpg": Image.PROPERTIES_P_6_JPG
+});
+
+=======
 class Images {
   Images({
     this.the1,
@@ -1269,6 +1361,7 @@ class Images {
       };
 }
 
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
 class LikesOnProperty {
   LikesOnProperty({
     this.isliked,
@@ -1286,6 +1379,18 @@ class LikesOnProperty {
       };
 }
 
+<<<<<<< HEAD
+enum ModerationStatus { APPROVED }
+
+final moderationStatusValues =
+    EnumValues({"approved": ModerationStatus.APPROVED});
+
+enum Period { DAY, MONTH }
+
+final periodValues = EnumValues({"day": Period.DAY, "month": Period.MONTH});
+
+=======
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
 class Type {
   Type({
     this.id,
@@ -1296,28 +1401,60 @@ class Type {
   });
 
   int? id;
+<<<<<<< HEAD
+  Name? name;
+  Slug? slug;
+=======
   String? name;
   String? slug;
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
   String? order;
   String? code;
 
   factory Type.fromJson(Map<String, dynamic> json) => Type(
         id: json["id"],
+<<<<<<< HEAD
+        name: nameValues.map[json["name"]]!,
+        slug: slugValues.map[json["slug"]]!,
+=======
         name: json["name"],
         slug: json["slug"],
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
         order: json["order"],
         code: json["code"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
+<<<<<<< HEAD
+        "name": nameValues.reverse[name],
+        "slug": slugValues.reverse[slug],
+=======
         "name": name,
         "slug": slug,
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
         "order": order,
         "code": code,
       };
 }
 
+<<<<<<< HEAD
+enum Code { SALE, RENT }
+
+final codeValues = EnumValues({"rent": Code.RENT, "sale": Code.SALE});
+
+enum Name { FOR_SALE, FOR_RENT }
+
+final nameValues =
+    EnumValues({"For Rent": Name.FOR_RENT, "For Sale": Name.FOR_SALE});
+
+enum Slug { FOR_SALE, FOR_RENT }
+
+final slugValues =
+    EnumValues({"for-rent": Slug.FOR_RENT, "for-sale": Slug.FOR_SALE});
+
+=======
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
 class Link {
   Link({
     this.url,
