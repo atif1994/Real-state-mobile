@@ -19,7 +19,8 @@ class UserProfileController extends GetxController {
   void load() async {
     // await Future.delayed(const Duration(seconds: 2));
     getUserId();
-    getUserProfile(11);
+    await Future.delayed(const Duration(milliseconds: 600));
+    getUserProfile(uid!);
   }
 
 ///////////////////////////////////////////////////

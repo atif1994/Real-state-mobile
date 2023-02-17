@@ -9,7 +9,6 @@ import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Views/AddProperty/add_property.dart';
@@ -23,8 +22,13 @@ class CustomDrawer extends StatelessWidget {
   String fname;
   String lname;
   String email;
+  String img;
   CustomDrawer(
-      {Key? key, required this.fname, required this.lname, required this.email})
+      {Key? key,
+      required this.fname,
+      required this.lname,
+      required this.email,
+      required this.img})
       : super(key: key);
   final logoutController = Get.put(LogoutController());
   @override
@@ -68,10 +72,15 @@ class CustomDrawer extends StatelessWidget {
                           borderRadius: BorderRadius.circular(300)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(300),
-                        child: Image.network(
-                          "https://picsum.photos/200/300",
-                          fit: BoxFit.cover,
-                        ),
+                        child: img == ''
+                            ? Image.asset(
+                                "assets/person.jpg",
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                img,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                     SizedBox(
