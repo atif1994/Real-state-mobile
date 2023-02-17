@@ -1,263 +1,239 @@
 // To parse this JSON data, do
 //
-//     final loginModel = loginModelFromJson(jsonString);
+//     final likeModel = likeModelFromJson(jsonString);
 
 import 'dart:convert';
 
-LoginModel loginModelFromJson(String str) =>
-    LoginModel.fromJson(json.decode(str));
+LikeModel likeModelFromJson(String str) => LikeModel.fromJson(json.decode(str));
 
-String loginModelToJson(LoginModel data) => json.encode(data.toJson());
+String likeModelToJson(LikeModel data) => json.encode(data.toJson());
 
-class LoginModel {
-  LoginModel({
-    this.success,
+class LikeModel {
+  LikeModel({
+    this.deleted,
     this.message,
-    this.data,
+    this.isliked,
+    this.likeOcunt,
+    this.notdeleted,
+    this.property,
   });
 
-  bool? success;
+  bool? deleted;
   String? message;
-  Data? data;
+  int? isliked;
+  int? likeOcunt;
+  bool? notdeleted;
+  List<Property>? property;
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
-        success: json["success"],
+  factory LikeModel.fromJson(Map<String, dynamic> json) => LikeModel(
+        deleted: json["deleted"],
         message: json["message"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        isliked: json["isliked"],
+        likeOcunt: json["like_ocunt"],
+        notdeleted: json["notdeleted"],
+        property: json["property"] == null
+            ? []
+            : List<Property>.from(
+                json["property"]!.map((x) => Property.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success,
+        "deleted": deleted,
         "message": message,
-        "data": data?.toJson(),
+        "isliked": isliked,
+        "like_ocunt": likeOcunt,
+        "notdeleted": notdeleted,
+        "property": property == null
+            ? []
+            : List<dynamic>.from(property!.map((x) => x.toJson())),
       };
 }
 
-class Data {
-  Data({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.username,
-    this.description,
-    this.gender,
-    this.email,
-    this.avatarId,
-    this.dob,
-    this.phone,
-    this.credits,
-    this.confirmedAt,
-    this.emailVerifyToken,
-    this.isFeatured,
-    this.createdAt,
-    this.updatedAt,
-    this.profileImage,
-    this.addressId,
-    this.roleId,
-    this.deletedAt,
-    this.activeStatus,
-    this.city,
-    this.address,
-    this.avatar,
-  });
-
-  int? id;
-  String? firstName;
-  String? lastName;
-  String? username;
-  dynamic description;
-  dynamic gender;
-  String? email;
-  dynamic avatarId;
-  dynamic dob;
-  String? phone;
-  String? credits;
-  dynamic confirmedAt;
-  String? emailVerifyToken;
-  String? isFeatured;
-  String? createdAt;
-  String? updatedAt;
-  dynamic profileImage;
-  String? addressId;
-  dynamic roleId;
-  dynamic deletedAt;
-  String? activeStatus;
-  City? city;
-  Address? address;
-  Avatar? avatar;
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        id: json["id"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        username: json["username"],
-        description: json["description"],
-        gender: json["gender"],
-        email: json["email"],
-        avatarId: json["avatar_id"],
-        dob: json["dob"],
-        phone: json["phone"],
-        credits: json["credits"],
-        confirmedAt: json["confirmed_at"],
-        emailVerifyToken: json["email_verify_token"],
-        isFeatured: json["is_featured"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-        profileImage: json["profile_image"],
-        addressId: json["address_id"],
-        roleId: json["role_id"],
-        deletedAt: json["deleted_at"],
-        activeStatus: json["active_status"],
-        city: json["city"] == null ? null : City.fromJson(json["city"]),
-        address:
-            json["address"] == null ? null : Address.fromJson(json["address"]),
-        avatar: json["avatar"] == null ? null : Avatar.fromJson(json["avatar"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "first_name": firstName,
-        "last_name": lastName,
-        "username": username,
-        "description": description,
-        "gender": gender,
-        "email": email,
-        "avatar_id": avatarId,
-        "dob": dob,
-        "phone": phone,
-        "credits": credits,
-        "confirmed_at": confirmedAt,
-        "email_verify_token": emailVerifyToken,
-        "is_featured": isFeatured,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-        "profile_image": profileImage,
-        "address_id": addressId,
-        "role_id": roleId,
-        "deleted_at": deletedAt,
-        "active_status": activeStatus,
-        "city": city?.toJson(),
-        "address": address?.toJson(),
-        "avatar": avatar?.toJson(),
-      };
-}
-
-class Address {
-  Address({
-    this.id,
-    this.userId,
-    this.city,
-    this.state,
-    this.province,
-    this.country,
-    this.createdAt,
-    this.updatedAt,
-    this.accountId,
-  });
-
-  int? id;
-  dynamic userId;
-  String? city;
-  String? state;
-  String? province;
-  String? country;
-  String? createdAt;
-  String? updatedAt;
-  String? accountId;
-
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
-        id: json["id"],
-        userId: json["user_id"],
-        city: json["city"],
-        state: json["state"],
-        province: json["province"],
-        country: json["country"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-        accountId: json["account_id"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "user_id": userId,
-        "city": city,
-        "state": state,
-        "province": province,
-        "country": country,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-        "account_id": accountId,
-      };
-}
-
-class Avatar {
-  Avatar({
-    this.url,
-  });
-
-  String? url;
-
-  factory Avatar.fromJson(Map<String, dynamic> json) => Avatar(
-        url: json["url"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "url": url,
-      };
-}
-
-class City {
-  City({
+class Property {
+  Property({
     this.id,
     this.name,
+    this.description,
+    this.content,
+    this.location,
+    this.images,
+    this.numberBedroom,
+    this.numberBathroom,
+    this.numberFloor,
+    this.square,
+    this.price,
+    this.currencyId,
+    this.cityId,
     this.stateId,
     this.countryId,
-    this.recordId,
-    this.order,
+    this.period,
+    this.authorId,
+    this.authorType,
+    this.categoryId,
     this.isFeatured,
-    this.status,
+    this.moderationStatus,
+    this.expireDate,
+    this.autoRenew,
+    this.neverExpired,
+    this.latitude,
+    this.longitude,
+    this.typeId,
     this.createdAt,
     this.updatedAt,
-    this.slug,
+    this.subcategoryId,
+    this.plotNumber,
+    this.streetNumber,
+    this.sectorAndBlockName,
+    this.assignedAgent,
+    this.assignerId,
+    this.isDeleted,
+    this.likesOnProperties,
   });
 
   int? id;
   String? name;
-  String? stateId;
-  String? countryId;
-  dynamic recordId;
-  String? order;
+  dynamic description;
+  dynamic content;
+  dynamic location;
+  List<dynamic>? images;
+  dynamic numberBedroom;
+  dynamic numberBathroom;
+  dynamic numberFloor;
+  dynamic square;
+  dynamic price;
+  dynamic currencyId;
+  dynamic cityId;
+  dynamic stateId;
+  dynamic countryId;
+  String? period;
+  dynamic authorId;
+  String? authorType;
+  dynamic categoryId;
   String? isFeatured;
-  String? status;
-  String? createdAt;
-  String? updatedAt;
-  String? slug;
+  String? moderationStatus;
+  dynamic expireDate;
+  String? autoRenew;
+  String? neverExpired;
+  dynamic latitude;
+  dynamic longitude;
+  String? typeId;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  dynamic subcategoryId;
+  String? plotNumber;
+  String? streetNumber;
+  String? sectorAndBlockName;
+  dynamic assignedAgent;
+  dynamic assignerId;
+  String? isDeleted;
+  List<LikesOnProperty>? likesOnProperties;
 
-  factory City.fromJson(Map<String, dynamic> json) => City(
+  factory Property.fromJson(Map<String, dynamic> json) => Property(
         id: json["id"],
         name: json["name"],
+        description: json["description"],
+        content: json["content"],
+        location: json["location"],
+        images: json["images"] == null
+            ? []
+            : List<dynamic>.from(json["images"]!.map((x) => x)),
+        numberBedroom: json["number_bedroom"],
+        numberBathroom: json["number_bathroom"],
+        numberFloor: json["number_floor"],
+        square: json["square"],
+        price: json["price"],
+        currencyId: json["currency_id"],
+        cityId: json["city_id"],
         stateId: json["state_id"],
         countryId: json["country_id"],
-        recordId: json["record_id"],
-        order: json["order"],
+        period: json["period"],
+        authorId: json["author_id"],
+        authorType: json["author_type"],
+        categoryId: json["category_id"],
         isFeatured: json["is_featured"],
-        status: json["status"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-        slug: json["slug"],
+        moderationStatus: json["moderation_status"],
+        expireDate: json["expire_date"],
+        autoRenew: json["auto_renew"],
+        neverExpired: json["never_expired"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
+        typeId: json["type_id"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        subcategoryId: json["subcategory_id"],
+        plotNumber: json["plot_number"],
+        streetNumber: json["street_number"],
+        sectorAndBlockName: json["sector_and_block_name"],
+        assignedAgent: json["assigned_agent"],
+        assignerId: json["assigner_id"],
+        isDeleted: json["is_deleted"],
+        likesOnProperties: json["likes_on_properties"] == null
+            ? []
+            : List<LikesOnProperty>.from(json["likes_on_properties"]!
+                .map((x) => LikesOnProperty.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "description": description,
+        "content": content,
+        "location": location,
+        "images":
+            images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
+        "number_bedroom": numberBedroom,
+        "number_bathroom": numberBathroom,
+        "number_floor": numberFloor,
+        "square": square,
+        "price": price,
+        "currency_id": currencyId,
+        "city_id": cityId,
         "state_id": stateId,
         "country_id": countryId,
-        "record_id": recordId,
-        "order": order,
+        "period": period,
+        "author_id": authorId,
+        "author_type": authorType,
+        "category_id": categoryId,
         "is_featured": isFeatured,
-        "status": status,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-        "slug": slug,
+        "moderation_status": moderationStatus,
+        "expire_date": expireDate,
+        "auto_renew": autoRenew,
+        "never_expired": neverExpired,
+        "latitude": latitude,
+        "longitude": longitude,
+        "type_id": typeId,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "subcategory_id": subcategoryId,
+        "plot_number": plotNumber,
+        "street_number": streetNumber,
+        "sector_and_block_name": sectorAndBlockName,
+        "assigned_agent": assignedAgent,
+        "assigner_id": assignerId,
+        "is_deleted": isDeleted,
+        "likes_on_properties": likesOnProperties == null
+            ? []
+            : List<dynamic>.from(likesOnProperties!.map((x) => x.toJson())),
+      };
+}
+
+class LikesOnProperty {
+  LikesOnProperty({
+    this.isliked,
+  });
+
+  bool? isliked;
+
+  factory LikesOnProperty.fromJson(Map<String, dynamic> json) =>
+      LikesOnProperty(
+        isliked: json["isliked"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "isliked": isliked,
       };
 }

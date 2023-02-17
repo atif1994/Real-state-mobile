@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+<<<<<<< HEAD
+import 'package:prologic_29/Views/Auth/auth.dart';
+import 'package:prologic_29/Views/Home/home.dart';
+=======
 import 'package:prologic_29/Views/Auth/sign_in.dart';
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
 import 'package:prologic_29/data/Services/app_bindings.dart';
 import 'package:sizer/sizer.dart';
 
@@ -35,8 +40,18 @@ class MyApp extends StatelessWidget {
               ),
             )),
 
+<<<<<<< HEAD
+        home:
+            //Profile_Page()
+            // const NewsFeed(),
+
+            // const Blog(),
+            Home(),
+        //MyHomePage(),
+=======
         home:SignIn(),
         
+>>>>>>> db9c9bf85ad7a7f81d9bde185344f65e23224438
       );
     });
     /////////////////////////

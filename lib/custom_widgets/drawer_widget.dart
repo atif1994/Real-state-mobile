@@ -23,8 +23,13 @@ class CustomDrawer extends StatelessWidget {
   String fname;
   String lname;
   String email;
+  String img;
   CustomDrawer(
-      {Key? key, required this.fname, required this.lname, required this.email})
+      {Key? key,
+      required this.fname,
+      required this.lname,
+      required this.email,
+      required this.img})
       : super(key: key);
   final logoutController = Get.put(LogoutController());
   @override
@@ -68,10 +73,15 @@ class CustomDrawer extends StatelessWidget {
                           borderRadius: BorderRadius.circular(300)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(300),
-                        child: Image.network(
-                          "https://picsum.photos/200/300",
-                          fit: BoxFit.cover,
-                        ),
+                        child: img == ""
+                            ? Image.network(
+                                "https://picsum.photos/200/300",
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                img,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                     SizedBox(
