@@ -202,6 +202,9 @@ class Datum {
   List<Feature>? features;
   List<Facility>? facilities;
 
+  RxBool isAddedToWishList = false.obs;
+
+
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         name: json["name"],

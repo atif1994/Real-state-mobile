@@ -10,7 +10,7 @@ import '../../../utils/constants/appcolors.dart';
 import '../../../utils/styles/app_textstyles.dart';
 
 class profileImage extends StatefulWidget {
-  profileImage({super.key});
+  const profileImage({super.key});
 
   @override
   State<profileImage> createState() => _profileImageState();
@@ -112,7 +112,7 @@ class _profileImageState extends State<profileImage> {
                       )),
             Obx(
               () => imageupdatecontroller.loadingupdateimage.value
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : imageupdatecontroller.errorloadingupdateimage.value != ""
                       ? Center(
                           child: Text(imageupdatecontroller
@@ -121,7 +121,9 @@ class _profileImageState extends State<profileImage> {
                       : CustomButton(
                           onPressed: () {
                             imageupdatecontroller
-                                .updateprofileimage(imageTemp.toString());
+
+                                .updateprofileimage(imageTemp!);
+
                           },
                           text: 'Upload Image',
                         ),
@@ -135,7 +137,7 @@ class _profileImageState extends State<profileImage> {
 
   Mycontainer(icon) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       // height: 50,
       // width: 100,
       decoration: BoxDecoration(
