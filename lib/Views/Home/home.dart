@@ -2,6 +2,7 @@
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 // import 'package:prologic_29/Views/Drawer/about_us.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
@@ -12,7 +13,6 @@ import 'package:prologic_29/Views/Property_by_id/property_by_id.dart';
 import 'package:prologic_29/Views/blog/blog.dart';
 
 import 'package:prologic_29/custom_widgets/custom_button.dart';
-import 'package:prologic_29/custom_widgets/drawer_widget.dart';
 import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
@@ -50,6 +50,7 @@ class _HomeState extends State<Home> {
 
   String lname = '';
   String email = '';
+  String? imgurl;
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final labels = ["Buy", "Rent", "Invest"];
   final labels1 = ["Homes", "Plots", "Commercial"];
@@ -93,12 +94,15 @@ class _HomeState extends State<Home> {
   void getCityInfo() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-    cid = pref.getInt("cityId");
-    cityName = pref.getString("cityName");
+    setState(() {
+      cid = pref.getInt("cityId");
+      cityName = pref.getString("cityName");
 
-    fname = pref.getString("fname") ?? "";
-    lname = pref.getString("lname") ?? "";
-    email = pref.getString("email") ?? "";
+      fname = pref.getString("fname") ?? "";
+      lname = pref.getString("lname") ?? "";
+      email = pref.getString("email") ?? "";
+      imgurl = pref.getString("img") ?? "";
+    });
   }
 
   @override
@@ -122,11 +126,11 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        drawer: CustomDrawer(
-          fname: fname,
-          lname: lname,
-          email: email,
-        ),
+        // drawer: CustomDrawer(
+        //   fname: fname,
+        //   lname: lname,
+        //   email: email,
+        // ),
 
         ///bottom nav bar end
         body: NestedScrollView(
@@ -136,7 +140,12 @@ class _HomeState extends State<Home> {
                   backgroundColor: AppColors.appthem,
                   leading: IconButton(
                       onPressed: () {
-                        Scaffold.of(context).openDrawer();
+                        if (ZoomDrawer.of(context)!.isOpen()) {
+                          ZoomDrawer.of(context)!.close();
+                        } else {
+                          ZoomDrawer.of(context)!.open();
+                        }
+                        // Scaffold.of(context).openDrawer();
                       },
                       icon: const Icon(Icons.dashboard)),
                   actions: [
@@ -163,22 +172,26 @@ class _HomeState extends State<Home> {
                                 borderRadius: BorderRadius.circular(10)),
                           ),
                           Container(
-                            margin: EdgeInsets.only(
-                              right: 6.0.w,
-                            ),
-                            height: 11.0.w,
-                            width: 12.0.w,
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                "https://picsum.photos/200/300",
-                                fit: BoxFit.cover,
+                              margin: EdgeInsets.only(
+                                right: 6.0.w,
                               ),
-                            ),
-                          )
+                              height: 11.0.w,
+                              width: 12.0.w,
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: imgurl != ''
+                                    ? Image.network(
+                                        imgurl ?? "",
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset(
+                                        "assets/person.jpg",
+                                        fit: BoxFit.cover,
+                                      ),
+                              ))
                         ],
                       ),
                     ),
@@ -1340,7 +1353,7 @@ class _HomeState extends State<Home> {
                                         // color: Colors.red,
                                         child: ListView.builder(
                                             itemCount: citiesController
-                                                .citiesModel.data!.length,
+                                                .citiesModel.data?.length,
                                             padding: EdgeInsets.only(
                                                 top: 1.0.h, bottom: 1.0.h),
                                             scrollDirection: Axis.horizontal,
@@ -1717,9 +1730,10 @@ class _HomeState extends State<Home> {
                                                               transition:
                                                                   Transition
                                                                       .rightToLeft,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      600));
+                                                              duration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          600));
                                                         },
                                                         child: Container(
                                                           height: 4.0.h,

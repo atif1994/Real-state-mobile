@@ -25,6 +25,7 @@ class AppUrls {
   static const String getUserProfile = "v1/me/";
   static const String convesationList = "v1/conversations/";
   static const String chatList = "v1/chat/";
+  static const String storewishlist = "v1/store-wishlist";
   //////////////////////user profile sec
   static const String updateUserProfile = "v1/me/";
   static const String updateUserImage = "v1/update-avatar/";

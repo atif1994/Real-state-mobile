@@ -36,7 +36,8 @@ class ProfilePages extends StatelessWidget {
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  profileController.getUserProfile(11);
+                                  profileController
+                                      .getUserProfile(profileController.uid!);
                                 },
                                 icon: const Icon(
                                   Icons.refresh,
@@ -111,7 +112,7 @@ class ProfilePages extends StatelessWidget {
                                       Column(
                                         children: [
                                           Text(
-                                              "${profileController.userProfileData.data!.firstName ?? ""} ${profileController.userProfileData.data!.lastName ?? ""}",
+                                              "${profileController.userProfileData.data?.firstName ?? ""} ${profileController.userProfileData.data?.lastName ?? ""}",
                                               style: AppTextStyles.heading1
                                                   .copyWith(fontSize: 20.sp)),
                                           SizedBox(
@@ -119,7 +120,7 @@ class ProfilePages extends StatelessWidget {
                                           ),
                                           Text(
                                               profileController.userProfileData
-                                                      .data!.phone ??
+                                                      .data?.phone ??
                                                   "",
                                               style: AppTextStyles.heading1
                                                   .copyWith(fontSize: 12.sp)),

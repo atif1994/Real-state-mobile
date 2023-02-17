@@ -13,6 +13,7 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 
 import '../../data/Controllers/post_like_controller/post_like_controller.dart';
 
+import '../../data/Controllers/wishlist_controller/add_wishlist_controller.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/custom_decorations.dart';
@@ -25,6 +26,7 @@ class NewsFeed extends StatefulWidget {
 }
 
 class _NewsFeedState extends State<NewsFeed> {
+  var addwishistcontroller = Get.put(AddWishlistController());
   int? uid;
   final bool _iswishlist = false;
   var scrollController = ScrollController();
@@ -63,8 +65,8 @@ class _NewsFeedState extends State<NewsFeed> {
           Padding(
             padding: EdgeInsets.only(right: 5.0.w, top: 2.0.h),
             child: Badge(
-              child: Icon(Icons.favorite),
               label: Text(wishlish.length.toString()),
+              child: const Icon(Icons.favorite),
             ),
           )
         ],
@@ -189,21 +191,18 @@ class _NewsFeedState extends State<NewsFeed> {
                                                           ))
                                                       : InkWell(
                                                           onTap: () {
-                                                            newsfeedController
-                                                                .newsfeedmodel
-                                                                .data!
-                                                                .data![index]
-                                                                .isAddedToWishList
-                                                                .value = true;
+                                                            addwishistcontroller
+                                                                .postwishlist();
 
                                                             setState(() {
-                                                              wishlish.add(
-                                                                  newsfeedController
+                                                              addwishistcontroller
+                                                                  .pid
+                                                                  .add(newsfeedController
                                                                       .newsfeedmodel
-                                                                      .data!
-                                                                      .data![
+                                                                      .data
+                                                                      ?.data![
                                                                           index]
-                                                                      .id!);
+                                                                      .id);
                                                             });
 
                                                             print(newsfeedController
@@ -424,7 +423,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           d == 1
-                                              ? Icon(
+                                              ? const Icon(
                                                   Icons.favorite,
                                                   color: Colors.red,
                                                 )
@@ -491,7 +490,8 @@ class _NewsFeedState extends State<NewsFeed> {
                                                           .data![index]
                                                           .id!);
                                               await Future.delayed(
-                                                  Duration(milliseconds: 400));
+                                                  const Duration(
+                                                      milliseconds: 400));
                                               _showModelSheet(
                                                   context,
                                                   newsfeedController
@@ -576,7 +576,7 @@ class _NewsFeedState extends State<NewsFeed> {
                               ///////////
                             },
                             itemCount: newsfeedController
-                                .newsfeedmodel.data!.data!.length,
+                                .newsfeedmodel.data?.data!.length,
                           );
                         }))
           ],
@@ -601,19 +601,19 @@ class _NewsFeedState extends State<NewsFeed> {
           return Container(
             height: 30.0.h,
             width: 100.0.w,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10))),
             child: Container(
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 height: 20.0.h,
                 width: 100.0.w,
                 //   color: Colors.red,
                 child: Obx(
                   () => getLatestCommentsController.loadingCommnets.value
-                      ? Center(
+                      ? const Center(
                           child: CircularProgressIndicator(
                           color: AppColors.appthem,
                         ))
@@ -626,7 +626,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                       getLatestCommentsController
                                           .getLatestCommnets(pid);
                                     },
-                                    icon: Icon(Icons.refresh)),
+                                    icon: const Icon(Icons.refresh)),
                                 SizedBox(
                                   height: 1.0.h,
                                 ),
@@ -634,9 +634,8 @@ class _NewsFeedState extends State<NewsFeed> {
                               ],
                             )
                           : getLatestCommentsController
-                                      .commnetsModel.data!.length ==
-                                  0
-                              ? Center(child: Text("No Commnets Yet"))
+                                  .commnetsModel.data!.isEmpty
+                              ? const Center(child: Text("No Commnets Yet"))
                               : ListView.builder(
                                   itemCount: getLatestCommentsController
                                       .commnetsModel.data!.length,
@@ -732,7 +731,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                             ],
                                           ),
                                         ),
-                                        Divider()
+                                        const Divider()
                                       ],
                                     );
                                   }),

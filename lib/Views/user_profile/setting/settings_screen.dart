@@ -63,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     phoneController.text =
         profileController.userProfileData.data!.phone.toString();
     dob = DateFormat("dd-MM-yyyy")
-        .format(profileController.userProfileData.data!.dob!);
+        .format(profileController.userProfileData.data!.dob ?? DateTime.now());
     profileController.userProfileData.data!.dob.toString();
     gender = profileController.userProfileData.data!.gender.toString();
 
@@ -123,7 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   child: ClipOval(
                                       child: InkWell(
                                     onTap: () {
-                                      Get.to(profileImage());
+                                      Get.to(const profileImage());
                                     },
                                     child: Container(
                                         decoration: BoxDecoration(
@@ -300,7 +300,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Padding(
             padding: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
             child: Obx(() => updateprofileController.loadingUpdateProfile.value
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(
                     color: AppColors.appthem,
                   ))
