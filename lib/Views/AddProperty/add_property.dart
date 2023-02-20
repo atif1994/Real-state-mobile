@@ -18,7 +18,6 @@ import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
 
 import '../newsFeeed/newsfeed.dart';
-import 'all_property.dart';
 
 class Property extends StatefulWidget {
   const Property({Key? key}) : super(key: key);
@@ -174,7 +173,7 @@ class _PropertyState extends State<Property>
 
   void getCitiese() {
     for (int i = 0; i < cityListController.citiesModel.data!.length; i++) {
-      citiese.add(cityListController.citiesModel.data![i]?.name ?? "");
+      citiese.add(cityListController.citiesModel.data![i].name ?? "");
     }
   }
 
@@ -189,7 +188,7 @@ class _PropertyState extends State<Property>
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              Get.to(() => NewsFeed());
+              Get.to(() => const NewsFeed());
             },
           ),
         ],
@@ -1219,18 +1218,18 @@ class _PropertyState extends State<Property>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Add Photos'),
+                          const Text('Add Photos'),
                           SizedBox(
                             width: 10.w,
                           ),
-                          Icon(Icons.image)
+                          const Icon(Icons.image)
                         ],
                       ),
                     ),
                   ),
                   imageFileList!.isEmpty
-                      ? Padding(
-                          padding: const EdgeInsets.all(18.0),
+                      ? const Padding(
+                          padding: EdgeInsets.all(18.0),
                           child: Text("Please select image"),
                         )
                       : Container(
@@ -1257,13 +1256,13 @@ class _PropertyState extends State<Property>
                           ),
                         ),
                   imageFileList!.isEmpty
-                      ? SizedBox()
+                      ? const SizedBox()
                       : ElevatedButton(
                           onPressed: () {
                             imageFileList!.length = 0;
                             setState(() {});
                           },
-                          child: Text("Clear"))
+                          child: const Text("Clear"))
                 ],
               ),
               myDivider(),
@@ -1472,8 +1471,8 @@ class _PropertyState extends State<Property>
 
   void selectImages() async {
     List<String> base64List = [];
-    final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
-    if (selectedImages!.isNotEmpty) {
+    final List<XFile> selectedImages = await imagePicker.pickMultiImage();
+    if (selectedImages.isNotEmpty) {
       imageFileList!.addAll(selectedImages);
       setState(() {});
 
@@ -1482,14 +1481,14 @@ class _PropertyState extends State<Property>
 
 //add all base64
       for (int i = 0; i <= imageFileList!.length; i++) {
-        final bytes = await Io.File(imageFileList![i].path).readAsBytesSync();
+        final bytes = Io.File(imageFileList![i].path).readAsBytesSync();
         String img64 = base64Encode(bytes);
         // print(" convert64-----$img64--===}");
         base64List.add(img64);
-        print(" listBase----${base64List}---");
+        print(" listBase----$base64List---");
       }
     }
-    print("Image List Length:" + imageFileList!.length.toString());
+    print("Image List Length:${imageFileList!.length}");
     setState(() {});
   }
 
@@ -1498,7 +1497,7 @@ class _PropertyState extends State<Property>
         backgroundColor: Colors.white,
         context: context,
         builder: (context) {
-          return Container(
+          return SizedBox(
             height: 170,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -1542,7 +1541,7 @@ class _PropertyState extends State<Property>
 
   Mycontainer(icon) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       // height: 50,
       // width: 100,
       decoration: BoxDecoration(
