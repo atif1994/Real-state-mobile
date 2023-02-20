@@ -72,5 +72,4 @@ class AddProperrtyController extends GetxController {
   }
 
 // Features List
-
 }
