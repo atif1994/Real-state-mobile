@@ -259,7 +259,7 @@ class ProfilePages extends StatelessWidget {
                                           SizedBox(
                                             width: 6.0.w,
                                           ),
-                                          Text("Propertise",
+                                          Text("Properties",
                                               style: AppTextStyles.heading1
                                                   .copyWith(
                                                       fontSize: 12.sp,

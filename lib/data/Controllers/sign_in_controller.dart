@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
-import 'package:prologic_29/Views/main_screen/main_screen.dart';
 import 'package:prologic_29/data/Models/login_model.dart';
 import 'package:prologic_29/data/Models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,8 +26,8 @@ class SignInController extends GetxController {
     SharedPreferences pref = await SharedPreferences.getInstance();
     userId = pref.getInt("userid");
     if (userId != null) {
-      //    Get.to(const Home());
-      Get.to(() => const MainScreen());
+      Get.to(const Home());
+      //  Get.to(() => const MainScreen());
     } else {
       Get.to(SignIn());
     }
@@ -52,6 +51,7 @@ class SignInController extends GetxController {
     http.StreamedResponse response = await request.send();
     var res = await response.stream.bytesToString();
     if (response.statusCode < 201) {
+      isLoading.value = false;
       print("rrr======$res-------");
       loginModel = loginModelFromJson(res);
       print("model --------${loginModel.data!.id}----");
