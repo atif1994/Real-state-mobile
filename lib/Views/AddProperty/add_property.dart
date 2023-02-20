@@ -1,10 +1,6 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:io' as Io;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field_2.dart';
 import 'package:prologic_29/data/Controllers/addProperty_Controller.dart';
@@ -17,7 +13,6 @@ import '../../data/Services/property_services/addproperty_services.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
 
-import '../newsFeeed/newsfeed.dart';
 import 'all_property.dart';
 
 class Property extends StatefulWidget {
@@ -178,7 +173,6 @@ class _PropertyState extends State<Property>
     }
   }
 
-  List<String> base64List = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,7 +183,7 @@ class _PropertyState extends State<Property>
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              Get.to(() => NewsFeed());
+              Get.to(() => const AllProperty());
             },
           ),
         ],
@@ -1210,60 +1204,7 @@ class _PropertyState extends State<Property>
                       )
                     ],
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      _showBottomSheet(context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 20, bottom: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Add Photos'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Icon(Icons.image)
-                        ],
-                      ),
-                    ),
-                  ),
-                  imageFileList!.isEmpty
-                      ? Padding(
-                          padding: const EdgeInsets.all(18.0),
-                          child: Text("Please select image"),
-                        )
-                      : Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.grey.shade200,
-                          ),
-                          padding: EdgeInsets.all(1.h),
-                          height: Get.height * .3,
-                          width: Get.width * 5,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: imageFileList?.length == null
-                                ? 0
-                                : imageFileList!.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Image.file(
-                                    fit: BoxFit.cover,
-                                    File(imageFileList![index].path)),
-                              );
-                            },
-                          ),
-                        ),
-                  imageFileList!.isEmpty
-                      ? SizedBox()
-                      : ElevatedButton(
-                          onPressed: () {
-                            imageFileList!.length = 0;
-                            setState(() {});
-                          },
-                          child: Text("Clear"))
+                  TextButton(onPressed: () {}, child: const Text('Add Photos'))
                 ],
               ),
               myDivider(),
@@ -1463,98 +1404,6 @@ class _PropertyState extends State<Property>
           ],
         );
       },
-    );
-  }
-
-//bottom sheet for image
-  final ImagePicker imagePicker = ImagePicker();
-  List<XFile>? imageFileList = [];
-
-  void selectImages() async {
-    List<String> base64List = [];
-    final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
-    if (selectedImages!.isNotEmpty) {
-      imageFileList!.addAll(selectedImages);
-      setState(() {});
-
-//single image path print
-      print("list===== ${imageFileList![0].path}");
-
-//add all base64
-      for (int i = 0; i <= imageFileList!.length; i++) {
-        final bytes = await Io.File(imageFileList![i].path).readAsBytesSync();
-        String img64 = base64Encode(bytes);
-        // print(" convert64-----$img64--===}");
-        base64List.add(img64);
-        print(" listBase----${base64List}---");
-      }
-    }
-    print("Image List Length:" + imageFileList!.length.toString());
-    setState(() {});
-  }
-
-  void _showBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-        backgroundColor: Colors.white,
-        context: context,
-        builder: (context) {
-          return Container(
-            height: 170,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // GestureDetector(
-                //   onTap: (() {
-                //     cameraimg();
-                //   }),
-                //   child: Column(
-                //     children: [
-                //       Mycontainer(Icons.camera_alt),
-                //       Text(
-                //         'Camera',
-                //         style: AppTextStyles.labelSmall.copyWith(
-                //             fontSize: 13.sp, fontWeight: FontWeight.bold),
-                //       )
-                //     ],
-                //   ),
-                // ),
-
-                GestureDetector(
-                    onTap: () {
-                      selectImages();
-                      Get.back();
-                    },
-                    child: Column(
-                      children: [
-                        Mycontainer(Icons.image),
-                        Text(
-                          'Gallery',
-                          style: AppTextStyles.labelSmall.copyWith(
-                              fontSize: 13.sp, fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    )),
-              ],
-            ),
-          );
-        });
-  }
-
-  Mycontainer(icon) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      // height: 50,
-      // width: 100,
-      decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(width: 2, color: AppColors.colorblack)),
-      child: Padding(
-        padding: const EdgeInsets.all(23),
-        child: Icon(
-          icon,
-          size: 40,
-        ),
-      ),
     );
   }
 }
