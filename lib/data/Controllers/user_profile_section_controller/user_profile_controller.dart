@@ -6,12 +6,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfileController extends GetxController {
   RxBool loadingUserProfile = false.obs;
+  RxBool loadingUserProfileAPI = false.obs;
   RxString errorLoadingUserProfile = ''.obs;
   var userProfileData = GetUserProfileResponse();
   int? uid;
 
   @override
   void onInit() {
+    loadingUserProfileAPI.value = true;
     load();
     super.onInit();
   }
@@ -39,6 +41,7 @@ class UserProfileController extends GetxController {
 
     var res = await USerProfileServices.getUserProfile(uid);
     if (res is GetUserProfileResponse) {
+      loadingUserProfileAPI.value = true;
       loadingUserProfile.value = false;
       userProfileData = res;
     } else {
