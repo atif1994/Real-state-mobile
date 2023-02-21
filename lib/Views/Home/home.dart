@@ -2,7 +2,6 @@
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 // import 'package:prologic_29/Views/Drawer/about_us.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
@@ -23,6 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:intl/intl.dart';
 
+import '../../custom_widgets/drawer_widget.dart';
 import '../../data/Controllers/Notification_Controller/Notification_Controller.dart';
 import '../../data/Controllers/property_controllers/cities_controller.dart';
 import '../../data/Services/local_notifications_service.dart';
@@ -127,11 +127,8 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        // drawer: CustomDrawer(
-        //   fname: fname,
-        //   lname: lname,
-        //   email: email,
-        // ),
+        drawer: CustomDrawer(
+            fname: fname, lname: lname, email: email, img: imgurl!),
 
         ///bottom nav bar end
         body: NestedScrollView(
@@ -141,12 +138,12 @@ class _HomeState extends State<Home> {
                   backgroundColor: AppColors.appthem,
                   leading: IconButton(
                       onPressed: () {
-                        if (ZoomDrawer.of(context)!.isOpen()) {
-                          ZoomDrawer.of(context)!.close();
-                        } else {
-                          ZoomDrawer.of(context)!.open();
-                        }
-                        // Scaffold.of(context).openDrawer();
+                        // if (ZoomDrawer.of(context)!.isOpen()) {
+                        //   ZoomDrawer.of(context)!.close();
+                        // } else {
+                        //   ZoomDrawer.of(context)!.open();
+                        // }
+                        Scaffold.of(context).openDrawer();
                       },
                       icon: const Icon(Icons.dashboard)),
                   actions: [
@@ -157,8 +154,6 @@ class _HomeState extends State<Home> {
                       "Dashboard",
                       style: AppTextStyles.heading1.copyWith(fontSize: 14.sp),
                     )),
-
-                    const Spacer(),
 
                     Padding(
                       padding: EdgeInsets.only(top: 1.0.h),
@@ -1370,11 +1365,11 @@ class _HomeState extends State<Home> {
                                                       .sendToCityWiseProperty(
                                                           citiesController
                                                               .citiesModel
-                                                              .data![index]!
+                                                              .data![index]
                                                               .id,
                                                           citiesController
                                                               .citiesModel
-                                                              .data![index]!
+                                                              .data![index]
                                                               .name);
 
                                                   // PropertyByCityService
@@ -1438,7 +1433,7 @@ class _HomeState extends State<Home> {
                                                                 Image(
                                                               image:
                                                                   NetworkImage(
-                                                                '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index]!.metadata![0]!.metaValue![0] ?? ''}',
+                                                                '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index].metadata![0].metaValue![0] ?? ''}',
                                                               ),
                                                               fit: BoxFit.cover,
                                                             ),
@@ -1460,14 +1455,14 @@ class _HomeState extends State<Home> {
                                                                 citiesController
                                                                         .citiesModel
                                                                         .data![
-                                                                            index]!
+                                                                            index]
                                                                         .name ??
                                                                     '',
                                                                 style: AppTextStyles
                                                                     .labelSmall,
                                                               ),
                                                               Text(
-                                                                "${citiesController.citiesModel.data![index]!.propertiesCount ?? ""} Propertise",
+                                                                "${citiesController.citiesModel.data![index].propertiesCount ?? ""} Propertise",
                                                                 style: AppTextStyles
                                                                     .labelSmall
                                                                     .copyWith(

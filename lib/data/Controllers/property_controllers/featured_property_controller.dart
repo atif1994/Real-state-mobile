@@ -1,5 +1,4 @@
 import 'package:get/state_manager.dart';
-import 'package:prologic_29/data/Models/login_model.dart';
 import 'package:prologic_29/data/Models/myproperty_model.dart';
 import 'package:prologic_29/data/Models/property_filters_model/property_filters_response.dart';
 import 'package:prologic_29/data/Services/property_services/featured_property_service.dart';
@@ -124,6 +123,4 @@ class DashboardController extends GetxController {
       errorLoadingnewspost.value = res.toString();
     }
   }
-
-
 }

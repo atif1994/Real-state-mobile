@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:prologic_29/utils/constants/app_urls.dart';
-import 'package:prologic_29/utils/constants/base_client.dart';
 
 import '../../Models/user_profile_section_model/image_update_model.dart';
 
@@ -16,8 +15,7 @@ class UpdateImageService {
     var res = await _httpClient.send(request).then(http.Response.fromStream);
 
     try {
-
-     if (res is http.Response) {
+      if (res is http.Response) {
         return updateimageResponseFromJson(res.body);
       } else {
         return res;

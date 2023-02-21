@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:jumping_dot/jumping_dot.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/data/Controllers/NewsFeed_Controller/newsfeed_controller.dart';
 import 'package:prologic_29/data/Controllers/comments_controller/get_latest_commnets_controller.dart';
