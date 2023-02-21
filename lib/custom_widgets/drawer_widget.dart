@@ -17,6 +17,7 @@ import '../Views/Notifications/notification_page.dart';
 import '../Views/user_profile/profile_pages.dart';
 import '../Views/Wishlist/favorites.dart';
 import '../data/Controllers/logout_controller.dart';
+import '../data/Controllers/user_profile_section_controller/image_update_controller.dart';
 
 class CustomDrawer extends StatelessWidget {
   String fname;
@@ -31,9 +32,11 @@ class CustomDrawer extends StatelessWidget {
       required this.img})
       : super(key: key);
   final logoutController = Get.put(LogoutController());
+  var updateImageController = Get.put(UpdateImageController());
+
   @override
   Widget build(BuildContext context) {
-    print("***************************$email");
+    print("******************$img*********$email");
     return Drawer(
       backgroundColor: AppColors.appthem,
       child: Column(
@@ -72,13 +75,18 @@ class CustomDrawer extends StatelessWidget {
                           borderRadius: BorderRadius.circular(300)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(300),
-                        child: img == ''
-                            ? Image.asset(
-                                "assets/person.jpg",
+                        child: img != ''
+                            ? Image.network(
+                                updateImageController.updateImageModel.data !=
+                                        null
+                                    ? updateImageController
+                                        .updateImageModel.data!.avatar
+                                        .toString()
+                                    : img,
                                 fit: BoxFit.cover,
                               )
-                            : Image.network(
-                                img,
+                            : Image.asset(
+                                "assets/person.jpg",
                                 fit: BoxFit.cover,
                               ),
                       ),

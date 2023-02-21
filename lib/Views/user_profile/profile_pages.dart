@@ -8,16 +8,41 @@ import 'package:prologic_29/Views/user_profile/setting/settings_screen.dart';
 import 'package:prologic_29/data/Controllers/logout_controller.dart';
 import 'package:prologic_29/data/Controllers/user_profile_section_controller/user_profile_controller.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import '../../data/Controllers/user_profile_section_controller/image_update_controller.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
 import 'propertise/propertise_section.dart';
 
-class ProfilePages extends StatelessWidget {
-  ProfilePages({super.key});
+class ProfilePages extends StatefulWidget {
+  const ProfilePages({super.key});
 
+  @override
+  State<ProfilePages> createState() => _ProfilePagesState();
+}
+
+class _ProfilePagesState extends State<ProfilePages> {
   var profileController = Get.put(UserProfileController());
+
   var logoutController = Get.put(LogoutController());
+
+  var updateImageController = Get.put(UpdateImageController());
+
+  String? imguploadUrl = '';
+  geUploadtImgUrl() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    imguploadUrl = pref.getString("img");
+    print(
+        "Profile Page uplaod image url Setting screen from Shared pref+++++ $imguploadUrl");
+  }
+
+  @override
+  void initState() {
+    geUploadtImgUrl();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,15 +121,9 @@ class ProfilePages extends StatelessWidget {
 
                                               backgroundImage:
                                                   CachedNetworkImageProvider(
-                                            profileController.userProfileData
-                                                        .data?.avatar ==
-                                                    ""
-                                                ? "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4"
-                                                : profileController
-                                                        .userProfileData
-                                                        .data
-                                                        ?.avatar ??
-                                                    '',
+                                            imguploadUrl != ""
+                                                ? "$imguploadUrl"
+                                                : "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4",
                                           ))),
                                       SizedBox(
                                         height: 2.0.h,

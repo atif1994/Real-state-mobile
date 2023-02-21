@@ -28,9 +28,9 @@ class SignIn extends GetView<SignInController> {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Obx(() {
-                if (!controller.isLoading.value) {
-                  return Padding(
+              Obx(() => controller.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : Padding(
                       padding: const EdgeInsets.all(15),
                       child: ClipRRect(
                           child: BackdropFilter(
@@ -120,6 +120,7 @@ class SignIn extends GetView<SignInController> {
                                                 if (_formkey.currentState!
                                                     .validate()) {
                                                   controller.signIn();
+
                                                   // print("Successfull");
                                                 } else {
                                                   print("Unsuccessfull");
@@ -192,11 +193,7 @@ class SignIn extends GetView<SignInController> {
                             ),
                           ),
                         ),
-                      )));
-                } else {
-                  return loader;
-                }
-              })
+                      ))))
             ],
           ),
         ),
