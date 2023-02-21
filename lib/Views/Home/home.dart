@@ -29,6 +29,7 @@ import '../../data/Controllers/sign_in_controller.dart';
 import '../../data/Controllers/user_profile_section_controller/image_update_controller.dart';
 import '../../data/Services/local_notifications_service.dart';
 import '../../utils/constants/app_urls.dart';
+import '../AddProperty/add_property.dart';
 import 'home_screen.dart';
 
 class Home extends StatefulWidget {
@@ -300,7 +301,7 @@ class _HomeState extends State<Home> {
                                 AnimatedTextKit(
                                   animatedTexts: [
                                     TyperAnimatedText(
-                                      'Search for shoops',
+                                      'Search for shops',
                                       textStyle: AppTextStyles.labelSmall
                                           .copyWith(color: Colors.grey),
                                     ),
@@ -374,7 +375,7 @@ class _HomeState extends State<Home> {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        "Browse Propertise",
+                                        "Browse Properties",
                                         style: AppTextStyles.heading1.copyWith(
                                             fontFamily: AppFonts.nexaBold,
                                             fontSize: 16.sp,
@@ -1282,19 +1283,24 @@ class _HomeState extends State<Home> {
                             )
                           ],
                         ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: 3.0.w, right: 3.0.w, top: 1.0.h),
-                          height: 4.0.h,
-                          width: 100.0.w,
-                          decoration: BoxDecoration(
-                              color: AppColors.appthem,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              "Post an Ad",
-                              style: AppTextStyles.heading1
-                                  .copyWith(color: Colors.white),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => const Property());
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 3.0.w, right: 3.0.w, top: 1.0.h),
+                            height: 4.0.h,
+                            width: 100.0.w,
+                            decoration: BoxDecoration(
+                                color: AppColors.appthem,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                              child: Text(
+                                "Add Property",
+                                style: AppTextStyles.heading1
+                                    .copyWith(color: Colors.white),
+                              ),
                             ),
                           ),
                         )

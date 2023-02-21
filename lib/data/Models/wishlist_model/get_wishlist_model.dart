@@ -1,109 +1,41 @@
 // To parse this JSON data, do
 //
-//     final allPropertiesResponse = allPropertiesResponseFromJson(jsonString);
+//     final getWishlistModel = getWishlistModelFromJson(jsonString);
 
 import 'dart:convert';
 
-AllPropertiesResponse allPropertiesResponseFromJson(String str) =>
-    AllPropertiesResponse.fromJson(json.decode(str));
+GetWishlistModel getWishlistModelFromJson(String str) =>
+    GetWishlistModel.fromJson(json.decode(str));
 
-String allPropertiesResponseToJson(AllPropertiesResponse data) =>
+String getWishlistModelToJson(GetWishlistModel data) =>
     json.encode(data.toJson());
 
-class AllPropertiesResponse {
-  AllPropertiesResponse({
+class GetWishlistModel {
+  GetWishlistModel({
     this.error,
     this.data,
     this.message,
   });
 
   bool? error;
-  Data? data;
-  dynamic message;
+  List<Datum>? data;
+  String? message;
 
-  factory AllPropertiesResponse.fromJson(Map<String, dynamic> json) =>
-      AllPropertiesResponse(
+  factory GetWishlistModel.fromJson(Map<String, dynamic> json) =>
+      GetWishlistModel(
         error: json["error"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null
+            ? []
+            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
         message: json["message"],
       );
 
   Map<String, dynamic> toJson() => {
         "error": error,
-        "data": data?.toJson(),
-        "message": message,
-      };
-}
-
-class Data {
-  Data({
-    this.currentPage,
-    this.data,
-    this.firstPageUrl,
-    this.from,
-    this.lastPage,
-    this.lastPageUrl,
-    this.links,
-    this.nextPageUrl,
-    this.path,
-    this.perPage,
-    this.prevPageUrl,
-    this.to,
-    this.total,
-  });
-
-  int? currentPage;
-  List<Datum>? data;
-  String? firstPageUrl;
-  int? from;
-  int? lastPage;
-  String? lastPageUrl;
-  List<Link>? links;
-  String? nextPageUrl;
-  String? path;
-  int? perPage;
-  dynamic prevPageUrl;
-  int? to;
-  int? total;
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        currentPage: json["current_page"],
-        data: json["data"] == null
-            ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
-        firstPageUrl: json["first_page_url"],
-        from: json["from"],
-        lastPage: json["last_page"],
-        lastPageUrl: json["last_page_url"],
-        links: json["links"] == null
-            ? []
-            : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
-        nextPageUrl: json["next_page_url"],
-        path: json["path"],
-        perPage: json["per_page"],
-        prevPageUrl: json["prev_page_url"],
-        to: json["to"],
-        total: json["total"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "current_page": currentPage,
         "data": data == null
             ? []
             : List<dynamic>.from(data!.map((x) => x.toJson())),
-        "first_page_url": firstPageUrl,
-        "from": from,
-        "last_page": lastPage,
-        "last_page_url": lastPageUrl,
-        "links": links == null
-            ? []
-            : List<dynamic>.from(links!.map((x) => x.toJson())),
-        "next_page_url": nextPageUrl,
-        "path": path,
-        "per_page": perPage,
-        "prev_page_url": prevPageUrl,
-        "to": to,
-        "total": total,
+        "message": message,
       };
 }
 
@@ -146,7 +78,6 @@ class Datum {
     this.assignerId,
     this.isDeleted,
     this.isLiked,
-    this.likesOnProperties,
     this.city,
     this.country,
     this.state,
@@ -170,7 +101,7 @@ class Datum {
   String? price;
   String? currencyId;
   String? cityId;
-  String? stateId;
+  dynamic stateId;
   dynamic countryId;
   String? period;
   String? authorId;
@@ -181,8 +112,8 @@ class Datum {
   String? expireDate;
   String? autoRenew;
   String? neverExpired;
-  String? latitude;
-  String? longitude;
+  dynamic latitude;
+  dynamic longitude;
   String? typeId;
   String? createdAt;
   String? updatedAt;
@@ -190,19 +121,18 @@ class Datum {
   String? plotNumber;
   String? streetNumber;
   String? sectorAndBlockName;
-  String? assignedAgent;
+  dynamic assignedAgent;
   String? assignerId;
   String? isDeleted;
-  int? isLiked;
-  List<LikesOnProperty>? likesOnProperties;
+  String? isLiked;
   City? city;
   List<dynamic>? country;
-  dynamic state;
+  List<dynamic>? state;
   Category? category;
   Type? type;
   Currency? currency;
   List<Feature>? features;
-  List<Facility>? facilities;
+  List<dynamic>? facilities;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
@@ -242,15 +172,10 @@ class Datum {
         assignerId: json["assigner_id"],
         isDeleted: json["is_deleted"],
         isLiked: json["is_liked"],
-        likesOnProperties: json["likes_on_properties"] == null
-            ? []
-            : List<LikesOnProperty>.from(json["likes_on_properties"]!
-                .map((x) => LikesOnProperty.fromJson(x))),
         city: json["city"] == null ? null : City.fromJson(json["city"]),
         country: json["country"] == null
             ? []
             : List<dynamic>.from(json["country"]!.map((x) => x)),
-        state: json["state"],
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
@@ -264,8 +189,7 @@ class Datum {
                 json["features"]!.map((x) => Feature.fromJson(x))),
         facilities: json["facilities"] == null
             ? []
-            : List<Facility>.from(
-                json["facilities"]!.map((x) => Facility.fromJson(x))),
+            : List<dynamic>.from(json["facilities"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -306,13 +230,10 @@ class Datum {
         "assigner_id": assignerId,
         "is_deleted": isDeleted,
         "is_liked": isLiked,
-        "likes_on_properties": likesOnProperties == null
-            ? []
-            : List<dynamic>.from(likesOnProperties!.map((x) => x.toJson())),
         "city": city?.toJson(),
         "country":
             country == null ? [] : List<dynamic>.from(country!.map((x) => x)),
-        "state": state,
+        "state": state == null ? [] : List<dynamic>.from(state!.map((x) => x)),
         "category": category?.toJson(),
         "type": type?.toJson(),
         "currency": currency?.toJson(),
@@ -321,7 +242,7 @@ class Datum {
             : List<dynamic>.from(features!.map((x) => x.toJson())),
         "facilities": facilities == null
             ? []
-            : List<dynamic>.from(facilities!.map((x) => x.toJson())),
+            : List<dynamic>.from(facilities!.map((x) => x)),
       };
 }
 
@@ -341,7 +262,7 @@ class Category {
 
   int? id;
   String? name;
-  String? description;
+  dynamic description;
   String? status;
   String? order;
   String? isDefault;
@@ -485,76 +406,6 @@ class Currency {
       };
 }
 
-class Facility {
-  Facility({
-    this.id,
-    this.name,
-    this.icon,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-    this.pivot,
-  });
-
-  int? id;
-  String? name;
-  String? icon;
-  String? status;
-  String? createdAt;
-  String? updatedAt;
-  FacilityPivot? pivot;
-
-  factory Facility.fromJson(Map<String, dynamic> json) => Facility(
-        id: json["id"],
-        name: json["name"],
-        icon: json["icon"],
-        status: json["status"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-        pivot: json["pivot"] == null
-            ? null
-            : FacilityPivot.fromJson(json["pivot"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "icon": icon,
-        "status": status,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-        "pivot": pivot?.toJson(),
-      };
-}
-
-class FacilityPivot {
-  FacilityPivot({
-    this.referenceId,
-    this.facilityId,
-    this.referenceType,
-    this.distance,
-  });
-
-  String? referenceId;
-  String? facilityId;
-  String? referenceType;
-  String? distance;
-
-  factory FacilityPivot.fromJson(Map<String, dynamic> json) => FacilityPivot(
-        referenceId: json["reference_id"],
-        facilityId: json["facility_id"],
-        referenceType: json["reference_type"],
-        distance: json["distance"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "reference_id": referenceId,
-        "facility_id": facilityId,
-        "reference_type": referenceType,
-        "distance": distance,
-      };
-}
-
 class Feature {
   Feature({
     this.id,
@@ -568,15 +419,14 @@ class Feature {
   String? name;
   String? icon;
   String? status;
-  FeaturePivot? pivot;
+  Pivot? pivot;
 
   factory Feature.fromJson(Map<String, dynamic> json) => Feature(
         id: json["id"],
         name: json["name"],
         icon: json["icon"],
         status: json["status"],
-        pivot:
-            json["pivot"] == null ? null : FeaturePivot.fromJson(json["pivot"]),
+        pivot: json["pivot"] == null ? null : Pivot.fromJson(json["pivot"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -588,8 +438,8 @@ class Feature {
       };
 }
 
-class FeaturePivot {
-  FeaturePivot({
+class Pivot {
+  Pivot({
     this.propertyId,
     this.featureId,
   });
@@ -597,7 +447,7 @@ class FeaturePivot {
   String? propertyId;
   String? featureId;
 
-  factory FeaturePivot.fromJson(Map<String, dynamic> json) => FeaturePivot(
+  factory Pivot.fromJson(Map<String, dynamic> json) => Pivot(
         propertyId: json["property_id"],
         featureId: json["feature_id"],
       );
@@ -640,71 +490,6 @@ class ImagesClass {
       };
 }
 
-class LikesOnProperty {
-  LikesOnProperty({
-    this.isliked,
-  });
-
-  bool? isliked;
-
-  factory LikesOnProperty.fromJson(Map<String, dynamic> json) =>
-      LikesOnProperty(
-        isliked: json["isliked"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "isliked": isliked,
-      };
-}
-
-class StateClass {
-  StateClass({
-    this.id,
-    this.name,
-    this.abbreviation,
-    this.countryId,
-    this.order,
-    this.isFeatured,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  int? id;
-  String? name;
-  String? abbreviation;
-  String? countryId;
-  String? order;
-  String? isFeatured;
-  String? status;
-  String? createdAt;
-  String? updatedAt;
-
-  factory StateClass.fromJson(Map<String, dynamic> json) => StateClass(
-        id: json["id"],
-        name: json["name"],
-        abbreviation: json["abbreviation"],
-        countryId: json["country_id"],
-        order: json["order"],
-        isFeatured: json["is_featured"],
-        status: json["status"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "abbreviation": abbreviation,
-        "country_id": countryId,
-        "order": order,
-        "is_featured": isFeatured,
-        "status": status,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-      };
-}
-
 class Type {
   Type({
     this.id,
@@ -734,29 +519,5 @@ class Type {
         "slug": slug,
         "order": order,
         "code": code,
-      };
-}
-
-class Link {
-  Link({
-    this.url,
-    this.label,
-    this.active,
-  });
-
-  String? url;
-  String? label;
-  bool? active;
-
-  factory Link.fromJson(Map<String, dynamic> json) => Link(
-        url: json["url"],
-        label: json["label"],
-        active: json["active"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "url": url,
-        "label": label,
-        "active": active,
       };
 }

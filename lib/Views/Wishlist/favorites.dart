@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../custom_widgets/custom_button.dart';
 import '../../utils/constants/image_resources.dart';
+import 'get_wishlist.dart';
 
 class WishlistPage extends StatelessWidget {
   const WishlistPage({super.key});
@@ -53,56 +54,58 @@ class WishlistPage extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Container(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 10.0.h,
-                  ),
-                  Image.asset(
-                    AppImageResources.abt,
-                    color: AppColors.colorblack,
-                    height: 20.0.h,
-                  ),
-                  SizedBox(
-                    height: 6.0.h,
-                  ),
-                  Text(
-                    'No Favorites Yet',
-                    style: AppTextStyles.heading1.copyWith(
-                      fontSize: 21,
-                      color: AppColors.colorblack,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Text(
-                    'Press the -- icon to add listings to your favorites',
-                    style: AppTextStyles.labelSmall.copyWith(
-                      fontSize: 14,
-                      color: AppColors.colorblack,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 3.0.h,
-                  ),
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 11.0.w, right: 11.0.w),
-                      child: CustomButton(
-                        onPressed: () {
-                          Get.to(() => WishlistProperties());
-                        },
-                        text: "Search Properties",
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            GetWishlist(),
+
+            // Container(
+            //   child: Column(
+            //     children: [
+            //       SizedBox(
+            //         height: 10.0.h,
+            //       ),
+            //       Image.asset(
+            //         AppImageResources.abt,
+            //         color: AppColors.colorblack,
+            //         height: 20.0.h,
+            //       ),
+            //       SizedBox(
+            //         height: 6.0.h,
+            //       ),
+            //       Text(
+            //         'No Favorites Yet',
+            //         style: AppTextStyles.heading1.copyWith(
+            //           fontSize: 21,
+            //           color: AppColors.colorblack,
+            //           fontWeight: FontWeight.w500,
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         height: 1.h,
+            //       ),
+            //       Text(
+            //         'Press the -- icon to add listings to your favorites',
+            //         style: AppTextStyles.labelSmall.copyWith(
+            //           fontSize: 14,
+            //           color: AppColors.colorblack,
+            //           fontWeight: FontWeight.w500,
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         height: 3.0.h,
+            //       ),
+            //       Center(
+            //         child: Padding(
+            //           padding: EdgeInsets.only(left: 11.0.w, right: 11.0.w),
+            //           child: CustomButton(
+            //             onPressed: () {
+            //               Get.to(() => WishlistProperties());
+            //             },
+            //             text: "Search Properties",
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Container(
               child: Column(
                 children: [
