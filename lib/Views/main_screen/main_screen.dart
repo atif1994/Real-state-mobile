@@ -1,7 +1,7 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:prologic_29/Views/Home/home.dart';
-import 'package:prologic_29/data/Models/login_model.dart';
+import 'package:prologic_29/data/Models/signin_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../custom_widgets/drawer_widget.dart';

@@ -10,8 +10,9 @@ class UpdateImageController extends GetxController {
   RxBool loadingupdateimage = false.obs;
   RxString errorloadingupdateimage = ''.obs;
   int? uid;
+  String imagePath = "";
 
-  var updateImageData = UpdateimageResponse();
+  var updateImageModel = UpdateimageResponse();
 
   @override
   void onInit() {
@@ -26,13 +27,14 @@ class UpdateImageController extends GetxController {
   }
 
   void updateprofileimage(File img) async {
+    imagePath = img.path.toString();
     loadingupdateimage = true.obs;
     errorloadingupdateimage = ''.obs;
 
     var res = await UpdateImageService().uploadFile(img, uid!);
     loadingupdateimage = false.obs;
     if (res is UpdateimageResponse) {
-      updateImageData = res;
+      updateImageModel = res;
       _saveImage();
       loadingupdateimage.value = false;
       Get.to(() => const SettingsScreen());
@@ -45,6 +47,7 @@ class UpdateImageController extends GetxController {
   _saveImage() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-    pref.setString("img", updateImageData.data!.avatar ?? "");
+    pref.setString("img", updateImageModel.data!.avatar ?? "");
+    print("upload image url-------${updateImageModel.data!.avatar}");
   }
 }

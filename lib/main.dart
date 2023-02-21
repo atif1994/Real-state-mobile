@@ -8,7 +8,6 @@ import 'package:sizer/sizer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Future.delayed(const Duration(milliseconds: 300));
   var directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
 
