@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
 NewsfeedModel newsfeedModelFromJson(String str) =>
     NewsfeedModel.fromJson(json.decode(str));
 
@@ -203,7 +205,6 @@ class Datum {
   List<Facility>? facilities;
 
   RxBool isAddedToWishList = false.obs;
-
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
