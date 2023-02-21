@@ -4,10 +4,7 @@
 
 import 'dart:convert';
 
-
-
 import 'package:get/get.dart';
-
 
 NewsfeedModel newsfeedModelFromJson(String str) =>
     NewsfeedModel.fromJson(json.decode(str));
@@ -150,6 +147,7 @@ class Datum {
     this.isDeleted,
     this.isLiked,
     this.likesOnProperties,
+    this.slugable,
     this.city,
     this.country,
     this.state,
@@ -198,6 +196,7 @@ class Datum {
   String? isDeleted;
   int? isLiked;
   List<LikesOnProperty>? likesOnProperties;
+  Slugable? slugable;
   City? city;
   List<dynamic>? country;
   dynamic state;
@@ -250,6 +249,9 @@ class Datum {
             ? []
             : List<LikesOnProperty>.from(json["likes_on_properties"]!
                 .map((x) => LikesOnProperty.fromJson(x))),
+        slugable: json["slugable"] == null
+            ? null
+            : Slugable.fromJson(json["slugable"]),
         city: json["city"] == null ? null : City.fromJson(json["city"]),
         country: json["country"] == null
             ? []
@@ -314,6 +316,7 @@ class Datum {
             ? []
             : List<dynamic>.from(likesOnProperties!.map((x) => x.toJson())),
         "city": city?.toJson(),
+        "slugable": slugable?.toJson(),
         "country":
             country == null ? [] : List<dynamic>.from(country!.map((x) => x)),
         "state": state,
@@ -378,6 +381,26 @@ class Category {
         "updated_at": updatedAt,
         "parent_id": parentId,
         "parentclass": parentclass,
+      };
+}
+
+class Slugable {
+  Slugable({
+    this.id,
+    this.key,
+  });
+
+  int? id;
+  String? key;
+
+  factory Slugable.fromJson(Map<String, dynamic> json) => Slugable(
+        id: json["id"],
+        key: json["key"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "key": key,
       };
 }
 

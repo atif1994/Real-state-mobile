@@ -2,10 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:prologic_29/data/Services/wishlist_service/add_wishlist.dart';
+import 'package:prologic_29/data/Services/wishlist_service/delete_wishlist_service.dart';
 import 'package:prologic_29/data/Services/wishlist_service/get_wishlist_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Models/wishlist_model/add_wishist_model.dart';
+import '../../Models/wishlist_model/delete_wishlist_model.dart';
 import '../../Models/wishlist_model/get_wishlist_model.dart';
 
 class AddWishlistController extends GetxController {
@@ -17,9 +19,13 @@ class AddWishlistController extends GetxController {
   RxBool loadinggetwishlist = false.obs;
   RxString errorLoadinggetwishlist = ''.obs;
 
+  RxBool loadingdelwishlist = false.obs;
+  RxString errorLoadingdelwishlist = ''.obs;
+
   int propId = 0;
   var wishlistModel = AddWishlistModel();
   var getwishlistmodel = GetWishlistModel();
+  var delwishlistmodel = DeletePropertiesResponse();
   RxList pid = [].obs;
   int? uid;
 
@@ -66,10 +72,28 @@ class AddWishlistController extends GetxController {
       getloadwishlist.value = false;
       loadinggetwishlist.value = false;
       getwishlistmodel = res;
+      final data = getwishlistmodel.data as List<Datum>;
+      data.forEach((e) {
+        pid.add(e.id);
+      });
     } else {
       getloadwishlist.value = false;
       errorLoadinggetwishlist.value = res.toString();
       loadinggetwishlist.value = false;
+    }
+  }
+
+  void delwishlist(prid) async {
+    loadingdelwishlist.value = true;
+
+    var res = await DelWishlistService.deletewishlist(prid, uid);
+
+    if (res is DeletePropertiesResponse) {
+      loadingdelwishlist.value = false;
+      delwishlistmodel = res;
+    } else {
+      loadingdelwishlist.value = false;
+      errorLoadingdelwishlist.value = res.toString();
     }
   }
 }

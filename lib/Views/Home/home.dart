@@ -943,7 +943,7 @@ class _HomeState extends State<Home> {
                                         child: SizedBox(
                                           width: 80.0.w,
                                           child: Text(
-                                              "Find your dreaam home from our Newly added properties",
+                                              "Find your dream home from our Newly added properties",
                                               style: AppTextStyles.labelSmall
                                                   .copyWith(fontSize: 9.sp)),
                                         ),
@@ -1285,7 +1285,7 @@ class _HomeState extends State<Home> {
                   Container(
                       margin: EdgeInsets.only(
                           left: 3.0.w, right: 3.0.w, top: 1.0.h),
-                      height: 43.0.h,
+                      height: 36.0.h,
                       width: 100.0.w,
                       decoration: CustomDecorations.mainCon,
                       child: Obx(
@@ -1323,7 +1323,7 @@ class _HomeState extends State<Home> {
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(
-                                            left: 3.0.w, top: 0.3.h),
+                                            left: 3.0.w, top: 1.h),
                                         child: Text(
                                           "Find By Locations",
                                           style: AppTextStyles.heading1
@@ -1433,7 +1433,7 @@ class _HomeState extends State<Home> {
                                                                 Image(
                                                               image:
                                                                   NetworkImage(
-                                                                '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index].metadata![0].metaValue![0] ?? ''}',
+                                                                '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index].metadata![0].metaValue![0]}',
                                                               ),
                                                               fit: BoxFit.cover,
                                                             ),
@@ -1504,15 +1504,15 @@ class _HomeState extends State<Home> {
                                               );
                                             }),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 2.0.h,
-                                            left: 3.0.w,
-                                            right: 3.0.w),
-                                        child: const CustomButton(
-                                          text: "More Locations",
-                                        ),
-                                      )
+                                      // Padding(
+                                      //   padding: EdgeInsets.only(
+                                      //       top: 2.0.h,
+                                      //       left: 3.0.w,
+                                      //       right: 3.0.w),
+                                      //   child: const CustomButton(
+                                      //     text: "More Locations",
+                                      //   ),
+                                      // )
                                     ],
                                   ),
                       )),
