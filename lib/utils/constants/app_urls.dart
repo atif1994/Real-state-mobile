@@ -21,6 +21,7 @@ class AppUrls {
   static const String postComments = "v1/postcomment";
   static const String newsfeedcomment = "v1/coment-property";
   static const String sendChat = "v1/send-chat";
+  static const String delWishlist = "v1/delete-wishlist";
   //////////////////////user profile
   static const String getUserProfile = "v1/me/";
   static const String convesationList = "v1/conversations/";

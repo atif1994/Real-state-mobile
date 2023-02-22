@@ -25,41 +25,65 @@ class AddPropertyServices {
     int? typeId,
     List<dynamic>? feature,
     List? facilities,
+    List? imageList,
   }) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     int? userId = pref.getInt('userid');
+    print("Image list in to APIIIIIIII--------$imageList");
 
     Map data = {
-      "error": false,
-      "data": {
-        "assigner_id": userId,
-        "name": name,
-        "description": disp,
-        "content": content,
-        "sector_and_block_name": block,
-        "street_number": streetNo,
-        "plot_number": plotNo,
-        "location": location,
-        "city_id": cityId,
-        "state_id": 2,
-        "price": price,
-        "currency_id": 1,
-        "square": square,
-        "number_floor": numberFloor,
-        "number_bathroom": bedroomNo,
-        "number_bedroom": bedroomNo,
-        "category_id": categoryId,
-        "type_id": typeId,
-        "features": feature,
-        "expire_date": "2023-03-10T07:36:55.000000Z",
-        "author_id": 11,
-        "author_type": "Botble\\RealEstate\\Models\\Account",
-        "updated_at": "2023-01-24T07:36:55.000000Z",
-        "created_at": "2023-01-24T07:36:55.000000Z",
-        "id": 167,
-        "assigned_agent": null,
-      },
-      "message": "Created successfully"
+      "plateform": "mobile",
+      "assigner_id": userId,
+      "name": name,
+      "description": disp,
+      "content": content,
+      "sector_and_block_name": block,
+      "street_number": streetNo,
+      "plot_number": plotNo,
+      "location": location,
+      "city_id": cityId,
+      "state_id": 2,
+      "price": price,
+      "currency_id": 1,
+      "square": square,
+      "number_floor": numberFloor,
+      "number_bathroom": bedroomNo,
+      "number_bedroom": bedroomNo,
+      "category_id": categoryId,
+      "type_id": typeId,
+      "images": imageList,
+      "features": feature,
+      "facilities": [
+        {"id": 1, "distance": 25},
+        {"id": 2, "distance": 25}
+      ]
+    };
+    var add = {
+      "plateform": "mobile",
+      "assigner_id": userId,
+      "name": name,
+      "description": disp,
+      "content": content,
+      "sector_and_block_name": block,
+      "street_number": streetNo,
+      "plot_number": plotNo,
+      "location": location,
+      "city_id": cityId,
+      "state_id": 2,
+      "price": price,
+      "currency_id": 1,
+      "square": square,
+      "number_floor": numberFloor,
+      "number_bathroom": bedroomNo,
+      "number_bedroom": bedroomNo,
+      "category_id": categoryId,
+      "type_id": typeId,
+      "images": imageList,
+      "features": feature,
+      "facilities": [
+        {"id": 1, "distance": 25},
+        {"id": 2, "distance": 25}
+      ]
     };
 
     var url = "${AppUrls.baseUrl}${AppUrls.addProperty}";

@@ -1323,46 +1323,47 @@ class _PropertyState extends State<Property>
                         onTap: () {
                           setState(() {
                             AddPropertyServices.addPropertyAPI(
-                              name: titleController.text,
-                              disp: dispController.text,
-                              content: contentController.text,
-                              cityId: addPropertyController
-                                  .selectedValueCityId.value
-                                  .toString(),
-                              //type sell or rent
-                              typeId: iWantTo,
-                              categoryId: selectedPropertyCategory,
-                              location: locatController.text,
-                              block: sectorController.text,
-                              plotNo: plotNoController.text,
-                              streetNo: streetNoController.text,
-                              price: priceController.text,
-                              square: squareController.text,
-                              bedroomNo: selectedBedroom,
-                              bathNo: selectedBathroom,
-                              numberFloor: selectedFloor.toString(),
-                              feature: addFeaturesList,
+                                name: titleController.text,
+                                disp: dispController.text,
+                                content: contentController.text,
+                                cityId: addPropertyController
+                                    .selectedValueCityId.value
+                                    .toString(),
+                                //type sell or rent
+                                typeId: iWantTo,
+                                categoryId: selectedPropertyCategory,
+                                location: locatController.text,
+                                block: sectorController.text,
+                                plotNo: plotNoController.text,
+                                streetNo: streetNoController.text,
+                                price: priceController.text,
+                                square: squareController.text,
+                                bedroomNo: selectedBedroom,
+                                bathNo: selectedBathroom,
+                                numberFloor: selectedFloor.toString(),
+                                feature: addFeaturesList,
+                                imageList: base64List
 
-                              // titleController.text,
-                              // dispController.text,
-                              // contentController.text,
-                              // sectorController.text,
-                              // streetNoController.text,
-                              // plotNoController.text,
-                              // locatController.text,
-                              // cityController.text,
-                              // stateController.text,
-                              // priceController.text,
-                              // currController.text,
-                              // squareController.text,
-                              // floorNoController.text,
-                              // selectedBathroom,
-                              // selectedBedroom,
-                              // categoryController.text,
-                              // typeController.text,
-                              // features,
-                              // facilities
-                            );
+                                // titleController.text,
+                                // dispController.text,
+                                // contentController.text,
+                                // sectorController.text,
+                                // streetNoController.text,
+                                // plotNoController.text,
+                                // locatController.text,
+                                // cityController.text,
+                                // stateController.text,
+                                // priceController.text,
+                                // currController.text,
+                                // squareController.text,
+                                // floorNoController.text,
+                                // selectedBathroom,
+                                // selectedBedroom,
+                                // categoryController.text,
+                                // typeController.text,
+                                // features,
+                                // facilities
+                                );
                           });
                         },
                         text: 'Add Property'),
@@ -1470,7 +1471,6 @@ class _PropertyState extends State<Property>
   List<XFile>? imageFileList = [];
 
   void selectImages() async {
-    List<String> base64List = [];
     final List<XFile> selectedImages = await imagePicker.pickMultiImage();
     if (selectedImages.isNotEmpty) {
       imageFileList!.addAll(selectedImages);
@@ -1484,8 +1484,8 @@ class _PropertyState extends State<Property>
         final bytes = Io.File(imageFileList![i].path).readAsBytesSync();
         String img64 = base64Encode(bytes);
         // print(" convert64-----$img64--===}");
-        base64List.add(img64);
-        print(" listBase----$base64List---");
+        base64List.add("data:image/jpeg;base64,$img64");
+        print(" listBase----${base64List[0]}---");
       }
     }
     print("Image List Length:${imageFileList!.length}");

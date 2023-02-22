@@ -16,8 +16,8 @@ import '../../utils/styles/app_textstyles.dart';
 import 'propertise/propertise_section.dart';
 
 class ProfilePages extends StatefulWidget {
-  const ProfilePages({super.key});
-
+  ProfilePages({super.key, this.uploadImgParamter});
+  String? uploadImgParamter;
   @override
   State<ProfilePages> createState() => _ProfilePagesState();
 }
@@ -121,8 +121,8 @@ class _ProfilePagesState extends State<ProfilePages> {
 
                                               backgroundImage:
                                                   CachedNetworkImageProvider(
-                                            imguploadUrl != ""
-                                                ? "$imguploadUrl"
+                                            widget.uploadImgParamter != ""
+                                                ? "${widget.uploadImgParamter}"
                                                 : "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4",
                                           ))),
                                       SizedBox(

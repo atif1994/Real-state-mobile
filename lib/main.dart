@@ -7,6 +7,7 @@ import 'package:prologic_29/data/Services/app_bindings.dart';
 import 'package:sizer/sizer.dart';
 
 void main() async {
+  await Future.delayed(const Duration(milliseconds: 600));
   WidgetsFlutterBinding.ensureInitialized();
   var directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);

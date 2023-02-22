@@ -17,26 +17,26 @@ class AddProperrtyController extends GetxController {
   RxString errorLoadingAddProperty = ''.obs;
 
   void getAddProperty(
-    name,
-    disp,
-    content,
-    block,
-    streetNo,
-    plotNo,
-    location,
-    cityId,
-    stateId,
-    price,
-    currency,
-    square,
-    numberFloor,
-    bathNo,
-    bedroomNo,
-    categoryId,
-    typeId,
-    feature,
-    facilities,
-  ) async {
+      name,
+      disp,
+      content,
+      block,
+      streetNo,
+      plotNo,
+      location,
+      cityId,
+      stateId,
+      price,
+      currency,
+      square,
+      numberFloor,
+      bathNo,
+      bedroomNo,
+      categoryId,
+      typeId,
+      feature,
+      facilities,
+      imageList) async {
     var res = await AddPropertyServices.addPropertyAPI(
         name: name,
         disp: disp,
@@ -56,7 +56,8 @@ class AddProperrtyController extends GetxController {
         categoryId: categoryId,
         typeId: typeId,
         feature: feature,
-        facilities: facilities);
+        facilities: facilities,
+        imageList: imageList);
     if (res is AddPropertyModel) {
       addPropertyModel = res;
     } else {
