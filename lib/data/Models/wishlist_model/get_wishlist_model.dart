@@ -1,16 +1,17 @@
 // To parse this JSON data, do
 //
-//     final newsfeedModel = newsfeedModelFromJson(jsonString);
+//     final getWishlistModel = getWishlistModelFromJson(jsonString);
 
 import 'dart:convert';
 
-NewsfeedModel newsfeedModelFromJson(String str) =>
-    NewsfeedModel.fromJson(json.decode(str));
+GetWishlistModel getWishlistModelFromJson(String str) =>
+    GetWishlistModel.fromJson(json.decode(str));
 
-String newsfeedModelToJson(NewsfeedModel data) => json.encode(data.toJson());
+String getWishlistModelToJson(GetWishlistModel data) =>
+    json.encode(data.toJson());
 
-class NewsfeedModel {
-  NewsfeedModel({
+class GetWishlistModel {
+  GetWishlistModel({
     this.error,
     this.data,
     this.message,
@@ -18,9 +19,10 @@ class NewsfeedModel {
 
   bool? error;
   List<Datum>? data;
-  dynamic message;
+  String? message;
 
-  factory NewsfeedModel.fromJson(Map<String, dynamic> json) => NewsfeedModel(
+  factory GetWishlistModel.fromJson(Map<String, dynamic> json) =>
+      GetWishlistModel(
         error: json["error"],
         data: json["data"] == null
             ? []
@@ -76,9 +78,6 @@ class Datum {
     this.assignerId,
     this.isDeleted,
     this.isLiked,
-    this.isWishlist,
-    this.likesOnProperties,
-    this.slugable,
     this.city,
     this.country,
     this.state,
@@ -94,7 +93,7 @@ class Datum {
   String? description;
   String? content;
   String? location;
-  Images? images;
+  dynamic images;
   String? numberBedroom;
   String? numberBathroom;
   String? numberFloor;
@@ -113,8 +112,8 @@ class Datum {
   String? expireDate;
   String? autoRenew;
   String? neverExpired;
-  String? latitude;
-  String? longitude;
+  dynamic latitude;
+  dynamic longitude;
   String? typeId;
   String? createdAt;
   String? updatedAt;
@@ -122,13 +121,10 @@ class Datum {
   String? plotNumber;
   String? streetNumber;
   String? sectorAndBlockName;
-  String? assignedAgent;
+  dynamic assignedAgent;
   String? assignerId;
   String? isDeleted;
-  int? isLiked;
-  int? isWishlist;
-  List<LikesOnProperty>? likesOnProperties;
-  Slugable? slugable;
+  String? isLiked;
   City? city;
   List<dynamic>? country;
   List<dynamic>? state;
@@ -144,7 +140,7 @@ class Datum {
         description: json["description"],
         content: json["content"],
         location: json["location"],
-        images: json["images"] == null ? null : Images.fromJson(json["images"]),
+        images: json["images"],
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         numberFloor: json["number_floor"],
@@ -176,21 +172,10 @@ class Datum {
         assignerId: json["assigner_id"],
         isDeleted: json["is_deleted"],
         isLiked: json["is_liked"],
-        isWishlist: json["is_wishlist"],
-        likesOnProperties: json["likes_on_properties"] == null
-            ? []
-            : List<LikesOnProperty>.from(json["likes_on_properties"]!
-                .map((x) => LikesOnProperty.fromJson(x))),
-        slugable: json["slugable"] == null
-            ? null
-            : Slugable.fromJson(json["slugable"]),
         city: json["city"] == null ? null : City.fromJson(json["city"]),
         country: json["country"] == null
             ? []
             : List<dynamic>.from(json["country"]!.map((x) => x)),
-        state: json["state"] == null
-            ? []
-            : List<dynamic>.from(json["state"]!.map((x) => x)),
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
@@ -213,7 +198,7 @@ class Datum {
         "description": description,
         "content": content,
         "location": location,
-        "images": images?.toJson(),
+        "images": images,
         "number_bedroom": numberBedroom,
         "number_bathroom": numberBathroom,
         "number_floor": numberFloor,
@@ -245,11 +230,6 @@ class Datum {
         "assigner_id": assignerId,
         "is_deleted": isDeleted,
         "is_liked": isLiked,
-        "is_wishlist": isWishlist,
-        "likes_on_properties": likesOnProperties == null
-            ? []
-            : List<dynamic>.from(likesOnProperties!.map((x) => x.toJson())),
-        "slugable": slugable?.toJson(),
         "city": city?.toJson(),
         "country":
             country == null ? [] : List<dynamic>.from(country!.map((x) => x)),
@@ -282,7 +262,7 @@ class Category {
 
   int? id;
   String? name;
-  String? description;
+  dynamic description;
   String? status;
   String? order;
   String? isDefault;
@@ -478,8 +458,8 @@ class Pivot {
       };
 }
 
-class Images {
-  Images({
+class ImagesClass {
+  ImagesClass({
     this.the1,
     this.the2,
     this.the3,
@@ -493,7 +473,7 @@ class Images {
   String? the4;
   String? the5;
 
-  factory Images.fromJson(Map<String, dynamic> json) => Images(
+  factory ImagesClass.fromJson(Map<String, dynamic> json) => ImagesClass(
         the1: json["1"],
         the2: json["2"],
         the3: json["3"],
@@ -507,63 +487,6 @@ class Images {
         "3": the3,
         "4": the4,
         "5": the5,
-      };
-}
-
-class LikesOnProperty {
-  LikesOnProperty({
-    this.isliked,
-  });
-
-  bool? isliked;
-
-  factory LikesOnProperty.fromJson(Map<String, dynamic> json) =>
-      LikesOnProperty(
-        isliked: json["isliked"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "isliked": isliked,
-      };
-}
-
-class Slugable {
-  Slugable({
-    this.id,
-    this.key,
-    this.referenceId,
-    this.referenceType,
-    this.prefix,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  int? id;
-  String? key;
-  String? referenceId;
-  String? referenceType;
-  String? prefix;
-  String? createdAt;
-  String? updatedAt;
-
-  factory Slugable.fromJson(Map<String, dynamic> json) => Slugable(
-        id: json["id"],
-        key: json["key"],
-        referenceId: json["reference_id"],
-        referenceType: json["reference_type"],
-        prefix: json["prefix"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "key": key,
-        "reference_id": referenceId,
-        "reference_type": referenceType,
-        "prefix": prefix,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
       };
 }
 
