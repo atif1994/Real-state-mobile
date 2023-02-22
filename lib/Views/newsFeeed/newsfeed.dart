@@ -40,7 +40,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
   final PagingController _pagingController = PagingController(firstPageKey: 0);
   List<int> wishlish = [];
-  String link = 'http://realestate.tecrux.net/properties/nam-batao-g';
+  // String link = 'http://realestate.tecrux.net/properties/nam-batao-g';
   @override
   void initState() {
     super.initState();
@@ -159,132 +159,87 @@ class _NewsFeedState extends State<NewsFeed> {
                                             ),
                                           ),
                                           Positioned(
-                                            top: 6,
-                                            right: 8,
-                                            child: Obx(() => addwishistcontroller
-                                                    .pid
-                                                    .contains(newsfeedController
-                                                        .newsfeedmodel
-                                                        .data![index]
-                                                        .id)
-                                                //             || addwishistcontroller.getwishlistmodel.data![index].id == newsfeedController
-                                                //             .newsfeedmodel
-                                                //             .data!
-                                                //             .data![index]
-                                                //             .id
-                                                ? GestureDetector(
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Color.fromARGB(
-                                                              255, 27, 17, 17),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(6)),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(5.0),
-                                                        child: Icon(
-                                                          Icons.favorite,
-                                                          color: Colors.amber,
+                                              top: 6,
+                                              right: 8,
+                                              child: newsfeedController
+                                                          .newsfeedmodel
+                                                          .data![index]
+                                                          .isWishlist ==
+                                                      1
+                                                  ? GestureDetector(
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    27,
+                                                                    17,
+                                                                    17),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6)),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(5.0),
+                                                          child: Icon(
+                                                            Icons.favorite,
+                                                            color: Colors.amber,
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    onTap: () {
-                                                      addwishistcontroller.pid
-                                                          .remove(
-                                                              newsfeedController
-                                                                  .newsfeedmodel
-                                                                  .data![index]
-                                                                  .id);
-                                                      print(addwishistcontroller
-                                                          .pid);
-                                                      // addwishistcontroller
-                                                      //     .delwishlist(
-                                                      //         newsfeedController
-                                                      //             .newsfeedmodel
-                                                      //             .data!
-                                                      //             .data![index]
-                                                      //             .id);
-                                                    },
-                                                  )
-                                                : GestureDetector(
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              126,
-                                                              124,
-                                                              124),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(6)),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(5.0),
-                                                        child: Icon(
-                                                          Icons
-                                                              .favorite_outline,
-                                                          color: Colors.amber,
+                                                      onTap: () async {
+                                                        addwishistcontroller
+                                                            .delwishlist(
+                                                                newsfeedController
+                                                                    .newsfeedmodel
+                                                                    .data![
+                                                                        index]
+                                                                    .id);
+                                                        await Future.delayed(
+                                                            Duration(
+                                                                milliseconds:
+                                                                    600));
+                                                        newsfeedController
+                                                            .getnewsfeed();
+                                                      },
+                                                    )
+                                                  : GestureDetector(
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    126,
+                                                                    124,
+                                                                    124),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6)),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(5.0),
+                                                          child: Icon(
+                                                            Icons
+                                                                .favorite_outline,
+                                                            color: Colors.amber,
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    onTap: () {
-                                                      addwishistcontroller.pid
-                                                          .add(
-                                                              newsfeedController
-                                                                  .newsfeedmodel
-                                                                  .data![index]
-                                                                  .id);
-                                                      addwishistcontroller
-                                                          .postwishlist();
-                                                    },
-
-                                                    // newsfeedController
-                                                    //             .newsfeedmodel
-                                                    //             .data!
-                                                    //             .data![index]
-                                                    //             .isAddedToWishList
-                                                    //             .value ==
-                                                    //         true
-                                                    //     ? InkWell(
-                                                    //         onTap: () {},
-                                                    //         child: const Icon(
-                                                    //           Icons.favorite,
-                                                    //           color: Colors.amber,
-                                                    //         ))
-                                                    //     : InkWell(
-                                                    //         onTap: () {
-                                                    //           addwishistcontroller
-                                                    //               .postwishlist();
-
-                                                    //           setState(() {
-                                                    //             addwishistcontroller
-                                                    //                 .pid
-                                                    //                 .add(newsfeedController
-                                                    //                     .newsfeedmodel
-                                                    //                     .data
-                                                    //                     ?.data![
-                                                    //                         index]
-                                                    //                     .id);
-                                                    //           });
-
-                                                    //           print(newsfeedController
-                                                    //               .newsfeedmodel
-                                                    //               .data!
-                                                    //               .data![index]
-                                                    //               .isAddedToWishList
-                                                    //               .value);
-                                                    //         },
-                                                    //         child: const Icon(
-                                                    //           Icons
-                                                    //               .favorite_outline,
-                                                    //           color: Colors.amber,
-                                                    //         ),
-                                                    // )
-                                                  )),
-                                          )
+                                                      onTap: () async {
+                                                        addwishistcontroller
+                                                            .postwishlist();
+                                                        await Future.delayed(
+                                                            Duration(
+                                                                milliseconds:
+                                                                    500));
+                                                        newsfeedController
+                                                            .getnewsfeed();
+                                                      },
+                                                    )),
                                         ]),
                                         SizedBox(
                                           width: 2.0.h,

@@ -1,109 +1,39 @@
 // To parse this JSON data, do
 //
-//     final allPropertiesResponse = allPropertiesResponseFromJson(jsonString);
+//     final newsfeedModel = newsfeedModelFromJson(jsonString);
 
 import 'dart:convert';
 
-AllPropertiesResponse allPropertiesResponseFromJson(String str) =>
-    AllPropertiesResponse.fromJson(json.decode(str));
+NewsfeedModel newsfeedModelFromJson(String str) =>
+    NewsfeedModel.fromJson(json.decode(str));
 
-String allPropertiesResponseToJson(AllPropertiesResponse data) =>
-    json.encode(data.toJson());
+String newsfeedModelToJson(NewsfeedModel data) => json.encode(data.toJson());
 
-class AllPropertiesResponse {
-  AllPropertiesResponse({
+class NewsfeedModel {
+  NewsfeedModel({
     this.error,
     this.data,
     this.message,
   });
 
   bool? error;
-  Data? data;
+  List<Datum>? data;
   dynamic message;
 
-  factory AllPropertiesResponse.fromJson(Map<String, dynamic> json) =>
-      AllPropertiesResponse(
+  factory NewsfeedModel.fromJson(Map<String, dynamic> json) => NewsfeedModel(
         error: json["error"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null
+            ? []
+            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
         message: json["message"],
       );
 
   Map<String, dynamic> toJson() => {
         "error": error,
-        "data": data?.toJson(),
-        "message": message,
-      };
-}
-
-class Data {
-  Data({
-    this.currentPage,
-    this.data,
-    this.firstPageUrl,
-    this.from,
-    this.lastPage,
-    this.lastPageUrl,
-    this.links,
-    this.nextPageUrl,
-    this.path,
-    this.perPage,
-    this.prevPageUrl,
-    this.to,
-    this.total,
-  });
-
-  int? currentPage;
-  List<Datum>? data;
-  String? firstPageUrl;
-  int? from;
-  int? lastPage;
-  String? lastPageUrl;
-  List<Link>? links;
-  String? nextPageUrl;
-  String? path;
-  int? perPage;
-  dynamic prevPageUrl;
-  int? to;
-  int? total;
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        currentPage: json["current_page"],
-        data: json["data"] == null
-            ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
-        firstPageUrl: json["first_page_url"],
-        from: json["from"],
-        lastPage: json["last_page"],
-        lastPageUrl: json["last_page_url"],
-        links: json["links"] == null
-            ? []
-            : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
-        nextPageUrl: json["next_page_url"],
-        path: json["path"],
-        perPage: json["per_page"],
-        prevPageUrl: json["prev_page_url"],
-        to: json["to"],
-        total: json["total"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "current_page": currentPage,
         "data": data == null
             ? []
             : List<dynamic>.from(data!.map((x) => x.toJson())),
-        "first_page_url": firstPageUrl,
-        "from": from,
-        "last_page": lastPage,
-        "last_page_url": lastPageUrl,
-        "links": links == null
-            ? []
-            : List<dynamic>.from(links!.map((x) => x.toJson())),
-        "next_page_url": nextPageUrl,
-        "path": path,
-        "per_page": perPage,
-        "prev_page_url": prevPageUrl,
-        "to": to,
-        "total": total,
+        "message": message,
       };
 }
 
@@ -145,7 +75,10 @@ class Datum {
     this.assignedAgent,
     this.assignerId,
     this.isDeleted,
+    this.isLiked,
+    this.isWishlist,
     this.likesOnProperties,
+    this.slugable,
     this.city,
     this.country,
     this.state,
@@ -161,7 +94,7 @@ class Datum {
   String? description;
   String? content;
   String? location;
-  dynamic images;
+  Images? images;
   String? numberBedroom;
   String? numberBathroom;
   String? numberFloor;
@@ -171,20 +104,20 @@ class Datum {
   String? cityId;
   dynamic stateId;
   dynamic countryId;
-  Period? period;
+  String? period;
   String? authorId;
-  AuthorType? authorType;
+  String? authorType;
   String? categoryId;
   String? isFeatured;
-  ModerationStatus? moderationStatus;
-  DateTime? expireDate;
+  String? moderationStatus;
+  String? expireDate;
   String? autoRenew;
   String? neverExpired;
   String? latitude;
   String? longitude;
   String? typeId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   dynamic subcategoryId;
   String? plotNumber;
   String? streetNumber;
@@ -192,7 +125,10 @@ class Datum {
   String? assignedAgent;
   String? assignerId;
   String? isDeleted;
+  int? isLiked;
+  int? isWishlist;
   List<LikesOnProperty>? likesOnProperties;
+  Slugable? slugable;
   City? city;
   List<dynamic>? country;
   List<dynamic>? state;
@@ -208,7 +144,7 @@ class Datum {
         description: json["description"],
         content: json["content"],
         location: json["location"],
-        images: json["images"],
+        images: json["images"] == null ? null : Images.fromJson(json["images"]),
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         numberFloor: json["number_floor"],
@@ -218,26 +154,20 @@ class Datum {
         cityId: json["city_id"],
         stateId: json["state_id"],
         countryId: json["country_id"],
-        period: periodValues.map[json["period"]]!,
+        period: json["period"],
         authorId: json["author_id"],
-        authorType: authorTypeValues.map[json["author_type"]]!,
+        authorType: json["author_type"],
         categoryId: json["category_id"],
         isFeatured: json["is_featured"],
-        moderationStatus: moderationStatusValues.map[json["moderation_status"]],
-        expireDate: json["expire_date"] == null
-            ? null
-            : DateTime.parse(json["expire_date"]),
+        moderationStatus: json["moderation_status"],
+        expireDate: json["expire_date"],
         autoRenew: json["auto_renew"],
         neverExpired: json["never_expired"],
         latitude: json["latitude"],
         longitude: json["longitude"],
         typeId: json["type_id"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         subcategoryId: json["subcategory_id"],
         plotNumber: json["plot_number"],
         streetNumber: json["street_number"],
@@ -245,10 +175,15 @@ class Datum {
         assignedAgent: json["assigned_agent"],
         assignerId: json["assigner_id"],
         isDeleted: json["is_deleted"],
+        isLiked: json["is_liked"],
+        isWishlist: json["is_wishlist"],
         likesOnProperties: json["likes_on_properties"] == null
             ? []
             : List<LikesOnProperty>.from(json["likes_on_properties"]!
                 .map((x) => LikesOnProperty.fromJson(x))),
+        slugable: json["slugable"] == null
+            ? null
+            : Slugable.fromJson(json["slugable"]),
         city: json["city"] == null ? null : City.fromJson(json["city"]),
         country: json["country"] == null
             ? []
@@ -278,7 +213,7 @@ class Datum {
         "description": description,
         "content": content,
         "location": location,
-        "images": images,
+        "images": images?.toJson(),
         "number_bedroom": numberBedroom,
         "number_bathroom": numberBathroom,
         "number_floor": numberFloor,
@@ -288,20 +223,20 @@ class Datum {
         "city_id": cityId,
         "state_id": stateId,
         "country_id": countryId,
-        "period": periodValues.reverse[period],
+        "period": period,
         "author_id": authorId,
-        "author_type": authorTypeValues.reverse[authorType],
+        "author_type": authorType,
         "category_id": categoryId,
         "is_featured": isFeatured,
-        "moderation_status": moderationStatusValues.reverse[moderationStatus],
-        "expire_date": expireDate?.toIso8601String(),
+        "moderation_status": moderationStatus,
+        "expire_date": expireDate,
         "auto_renew": autoRenew,
         "never_expired": neverExpired,
         "latitude": latitude,
         "longitude": longitude,
         "type_id": typeId,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "subcategory_id": subcategoryId,
         "plot_number": plotNumber,
         "street_number": streetNumber,
@@ -309,9 +244,12 @@ class Datum {
         "assigned_agent": assignedAgent,
         "assigner_id": assignerId,
         "is_deleted": isDeleted,
+        "is_liked": isLiked,
+        "is_wishlist": isWishlist,
         "likes_on_properties": likesOnProperties == null
             ? []
             : List<dynamic>.from(likesOnProperties!.map((x) => x.toJson())),
+        "slugable": slugable?.toJson(),
         "city": city?.toJson(),
         "country":
             country == null ? [] : List<dynamic>.from(country!.map((x) => x)),
@@ -327,13 +265,6 @@ class Datum {
             : List<dynamic>.from(facilities!.map((x) => x)),
       };
 }
-
-enum AuthorType { BOTBLE_REAL_ESTATE_MODELS_ACCOUNT }
-
-final authorTypeValues = EnumValues({
-  "Botble\\RealEstate\\Models\\Account":
-      AuthorType.BOTBLE_REAL_ESTATE_MODELS_ACCOUNT
-});
 
 class Category {
   Category({
@@ -352,11 +283,11 @@ class Category {
   int? id;
   String? name;
   String? description;
-  Status? status;
+  String? status;
   String? order;
   String? isDefault;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   String? parentId;
   String? parentclass;
 
@@ -364,15 +295,11 @@ class Category {
         id: json["id"],
         name: json["name"],
         description: json["description"],
-        status: statusValues.map[json["status"]]!,
+        status: json["status"],
         order: json["order"],
         isDefault: json["is_default"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         parentId: json["parent_id"],
         parentclass: json["parentclass"],
       );
@@ -381,19 +308,15 @@ class Category {
         "id": id,
         "name": name,
         "description": description,
-        "status": statusValues.reverse[status],
+        "status": status,
         "order": order,
         "is_default": isDefault,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "parent_id": parentId,
         "parentclass": parentclass,
       };
 }
-
-enum Status { PUBLISHED }
-
-final statusValues = EnumValues({"published": Status.PUBLISHED});
 
 class City {
   City({
@@ -417,9 +340,9 @@ class City {
   dynamic recordId;
   String? order;
   String? isFeatured;
-  Status? status;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? status;
+  String? createdAt;
+  String? updatedAt;
   String? slug;
 
   factory City.fromJson(Map<String, dynamic> json) => City(
@@ -430,13 +353,9 @@ class City {
         recordId: json["record_id"],
         order: json["order"],
         isFeatured: json["is_featured"],
-        status: statusValues.map[json["status"]]!,
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        status: json["status"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         slug: json["slug"],
       );
 
@@ -448,9 +367,9 @@ class City {
         "record_id": recordId,
         "order": order,
         "is_featured": isFeatured,
-        "status": statusValues.reverse[status],
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "status": status,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "slug": slug,
       };
 }
@@ -470,54 +389,42 @@ class Currency {
   });
 
   int? id;
-  Title? title;
-  Symbol? symbol;
+  String? title;
+  String? symbol;
   String? isPrefixSymbol;
   String? decimals;
   String? order;
   String? isDefault;
   String? exchangeRate;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
 
   factory Currency.fromJson(Map<String, dynamic> json) => Currency(
         id: json["id"],
-        title: titleValues.map[json["title"]]!,
-        symbol: symbolValues.map[json["symbol"]]!,
+        title: json["title"],
+        symbol: json["symbol"],
         isPrefixSymbol: json["is_prefix_symbol"],
         decimals: json["decimals"],
         order: json["order"],
         isDefault: json["is_default"],
         exchangeRate: json["exchange_rate"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "title": titleValues.reverse[title],
-        "symbol": symbolValues.reverse[symbol],
+        "title": title,
+        "symbol": symbol,
         "is_prefix_symbol": isPrefixSymbol,
         "decimals": decimals,
         "order": order,
         "is_default": isDefault,
         "exchange_rate": exchangeRate,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
       };
 }
-
-enum Symbol { RS, EMPTY }
-
-final symbolValues = EnumValues({"\u0024": Symbol.EMPTY, "Rs": Symbol.RS});
-
-enum Title { PKR, USD }
-
-final titleValues = EnumValues({"PKR": Title.PKR, "USD": Title.USD});
 
 class Feature {
   Feature({
@@ -531,14 +438,14 @@ class Feature {
   int? id;
   String? name;
   String? icon;
-  Status? status;
+  String? status;
   Pivot? pivot;
 
   factory Feature.fromJson(Map<String, dynamic> json) => Feature(
         id: json["id"],
         name: json["name"],
         icon: json["icon"],
-        status: statusValues.map[json["status"]]!,
+        status: json["status"],
         pivot: json["pivot"] == null ? null : Pivot.fromJson(json["pivot"]),
       );
 
@@ -546,7 +453,7 @@ class Feature {
         "id": id,
         "name": name,
         "icon": icon,
-        "status": statusValues.reverse[status],
+        "status": status,
         "pivot": pivot?.toJson(),
       };
 }
@@ -571,6 +478,38 @@ class Pivot {
       };
 }
 
+class Images {
+  Images({
+    this.the1,
+    this.the2,
+    this.the3,
+    this.the4,
+    this.the5,
+  });
+
+  String? the1;
+  String? the2;
+  String? the3;
+  String? the4;
+  String? the5;
+
+  factory Images.fromJson(Map<String, dynamic> json) => Images(
+        the1: json["1"],
+        the2: json["2"],
+        the3: json["3"],
+        the4: json["4"],
+        the5: json["5"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "1": the1,
+        "2": the2,
+        "3": the3,
+        "4": the4,
+        "5": the5,
+      };
+}
+
 class LikesOnProperty {
   LikesOnProperty({
     this.isliked,
@@ -588,14 +527,45 @@ class LikesOnProperty {
       };
 }
 
-enum ModerationStatus { APPROVED }
+class Slugable {
+  Slugable({
+    this.id,
+    this.key,
+    this.referenceId,
+    this.referenceType,
+    this.prefix,
+    this.createdAt,
+    this.updatedAt,
+  });
 
-final moderationStatusValues =
-    EnumValues({"approved": ModerationStatus.APPROVED});
+  int? id;
+  String? key;
+  String? referenceId;
+  String? referenceType;
+  String? prefix;
+  String? createdAt;
+  String? updatedAt;
 
-enum Period { DAY, MONTH }
+  factory Slugable.fromJson(Map<String, dynamic> json) => Slugable(
+        id: json["id"],
+        key: json["key"],
+        referenceId: json["reference_id"],
+        referenceType: json["reference_type"],
+        prefix: json["prefix"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
+      );
 
-final periodValues = EnumValues({"day": Period.DAY, "month": Period.MONTH});
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "key": key,
+        "reference_id": referenceId,
+        "reference_type": referenceType,
+        "prefix": prefix,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+      };
+}
 
 class Type {
   Type({
@@ -608,73 +578,23 @@ class Type {
 
   int? id;
   String? name;
-  Slug? slug;
+  String? slug;
   String? order;
-  Code? code;
+  String? code;
 
   factory Type.fromJson(Map<String, dynamic> json) => Type(
         id: json["id"],
         name: json["name"],
-        slug: slugValues.map[json["slug"]],
+        slug: json["slug"],
         order: json["order"],
-        code: codeValues.map[json["code"]],
+        code: json["code"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": nameValues.reverse[name],
-        "slug": slugValues.reverse[slug],
+        "name": name,
+        "slug": slug,
         "order": order,
-        "code": codeValues.reverse[code],
+        "code": code,
       };
-}
-
-enum Code { SALE, RENT }
-
-final codeValues = EnumValues({"rent": Code.RENT, "sale": Code.SALE});
-
-enum Name { FOR_SALE, FOR_RENT }
-
-final nameValues =
-    EnumValues({"For Rent": Name.FOR_RENT, "For Sale": Name.FOR_SALE});
-
-enum Slug { FOR_SALE, FOR_RENT }
-
-final slugValues =
-    EnumValues({"for-rent": Slug.FOR_RENT, "for-sale": Slug.FOR_SALE});
-
-class Link {
-  Link({
-    this.url,
-    this.label,
-    this.active,
-  });
-
-  String? url;
-  String? label;
-  bool? active;
-
-  factory Link.fromJson(Map<String, dynamic> json) => Link(
-        url: json["url"],
-        label: json["label"],
-        active: json["active"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "url": url,
-        "label": label,
-        "active": active,
-      };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

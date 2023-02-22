@@ -8,7 +8,7 @@ class MorePlacesController extends GetxController {
   RxBool loadingmoreplaces = false.obs;
   RxString errorloadingmoreplaces = ''.obs;
 
-  AllPropertiesResponse moreplaceresponse = AllPropertiesResponse();
+  NewsfeedModel moreplaceresponse = NewsfeedModel();
 
   int page = 0;
 
@@ -25,7 +25,7 @@ class MorePlacesController extends GetxController {
 
     var res = await GetPropertiesServices.getproperties();
 
-    if (res is AllPropertiesResponse) {
+    if (res is NewsfeedModel) {
       loadingmoreplaces.value = false;
       moreplaceresponse = res;
       return res;

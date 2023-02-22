@@ -69,13 +69,14 @@ class AddWishlistController extends GetxController {
     getloadwishlist.value = false;
 
     if (res is GetWishlistModel) {
-      getloadwishlist.value = false;
       loadinggetwishlist.value = false;
       getwishlistmodel = res;
-      final data = getwishlistmodel.data as List<Datum>;
-      data.forEach((e) {
-        pid.add(e.id);
-      });
+      print('@@@@@@@@@@');
+      // final data = getwishlistmodel.data as List<Datum>;
+      // data.forEach((e) {
+      //   pid.add(e.id);
+      // });
+      getloadwishlist.value = false;
     } else {
       getloadwishlist.value = false;
       errorLoadinggetwishlist.value = res.toString();
