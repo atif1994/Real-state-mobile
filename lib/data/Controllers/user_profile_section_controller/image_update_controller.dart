@@ -28,18 +28,18 @@ class UpdateImageController extends GetxController {
 
   void updateprofileimage(File img) async {
     imagePath = img.path.toString();
-    loadingupdateimage = true.obs;
+    loadingupdateimage.value = true;
     errorloadingupdateimage = ''.obs;
 
     var res = await UpdateImageService().uploadFile(img, uid!);
-    loadingupdateimage = false.obs;
+    loadingupdateimage.value = false;
     if (res is UpdateimageResponse) {
       updateImageModel = res;
       _saveImage();
       loadingupdateimage.value = false;
       Get.to(() => const SettingsScreen());
     } else {
-      loadingupdateimage = false.obs;
+      loadingupdateimage.value = false;
       errorloadingupdateimage.value = res;
     }
   }
