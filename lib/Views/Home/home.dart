@@ -25,8 +25,6 @@ import 'package:intl/intl.dart';
 import '../../custom_widgets/drawer_widget.dart';
 import '../../data/Controllers/Notification_Controller/Notification_Controller.dart';
 import '../../data/Controllers/property_controllers/cities_controller.dart';
-import '../../data/Controllers/sign_in_controller.dart';
-import '../../data/Controllers/user_profile_section_controller/image_update_controller.dart';
 import '../../data/Services/local_notifications_service.dart';
 import '../../utils/constants/app_urls.dart';
 import 'home_screen.dart';
@@ -42,11 +40,9 @@ class _HomeState extends State<Home> {
   final f = DateFormat('yyyy-MM-dd');
   var dashboardController = Get.put(DashboardController());
   var citiesController = Get.put(CitiesController());
+
   var notificationController = Get.put(Notificationcontroller());
   var newspostController = Get.put(DashboardController());
-  var signinController = Get.put(SignInController());
-  var updateImageController = Get.put(UpdateImageController());
-
   int? cid;
 
   String? cityName;
@@ -55,7 +51,6 @@ class _HomeState extends State<Home> {
   String lname = '';
   String email = '';
   String? imgurl;
-  String? modelImageUrl = "";
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final labels = ["Buy", "Rent", "Invest"];
   final labels1 = ["Homes", "Plots", "Commercial"];
@@ -106,18 +101,8 @@ class _HomeState extends State<Home> {
       fname = pref.getString("fname") ?? "";
       lname = pref.getString("lname") ?? "";
       email = pref.getString("email") ?? "";
-      imgurl = pref.getString("imgurl") ?? "";
-      print("baseurl+++${AppUrls.baseUrl2}img url ======$imgurl");
+      imgurl = pref.getString("img") ?? "";
     });
-  }
-
-//get uplaod image url with BaseUrl from shared pref
-  String? imguploadUrl;
-  geUploadtImgUrl() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    imguploadUrl = pref.getString("img");
-    print(
-        "Dash board uplaod image url Setting screen from Shared pref+++++ $imguploadUrl");
   }
 
   @override
@@ -127,7 +112,6 @@ class _HomeState extends State<Home> {
     dashboardController.getFeaturedPropertise();
     LocalNotificationsApi.init();
     listenNotification();
-    geUploadtImgUrl();
     super.initState();
   }
 
@@ -137,17 +121,13 @@ class _HomeState extends State<Home> {
   void onClickedNotification(String? payload) => Get.to(() => AllNotifications(
         payload: payload,
       ));
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         drawer: CustomDrawer(
-            fname: fname,
-            lname: lname,
-            email: email,
-            img: imguploadUrl ?? imgurl ?? ""),
+            fname: fname, lname: lname, email: email, img: imgurl!),
 
         ///bottom nav bar end
         body: NestedScrollView(
@@ -197,16 +177,9 @@ class _HomeState extends State<Home> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                child: imguploadUrl != ''
+                                child: imgurl != ''
                                     ? Image.network(
-                                        "$imguploadUrl",
-                                        // updateImageController
-                                        //             .updateImageModel.data !=
-                                        //         null
-                                        //     ? updateImageController
-                                        //         .updateImageModel.data!.avatar
-                                        //         .toString()
-                                        //     : "${AppUrls.baseUrl2}$imgurl",
+                                        imgurl ?? "",
                                         fit: BoxFit.cover,
                                       )
                                     : Image.asset(
