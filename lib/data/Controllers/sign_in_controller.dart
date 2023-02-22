@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
-import 'package:prologic_29/data/Models/signin_model.dart';
+import 'package:prologic_29/data/Models/login_model.dart';
 import 'package:prologic_29/data/Models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -38,7 +38,6 @@ class SignInController extends GetxController {
 
   RxBool isLoading = false.obs;
   LoginModel loginModel = LoginModel();
-  String? imgUrl;
 
   signIn() async {
     isLoading.value = true;
@@ -76,10 +75,7 @@ class SignInController extends GetxController {
           loginModel.data!.firstName!,
           loginModel.data!.lastName!,
           loginModel.data!.email!,
-          loginModel.data!.phone!,
-          loginModel.data!.avatar!.url.toString());
-      print(
-          "image for login responsej==========${loginModel.data!.avatar!.url}");
+          loginModel.data!.phone!);
       Get.find<AuthController>().isUserSignedIn();
       Get.snackbar('Signed In', 'User is signed in');
       Fluttertoast.showToast(msg: 'Authorised');
@@ -171,7 +167,7 @@ void setUserid(int userid) async {
 }
 
 _saveCountryData(int cID, String cName, String fname, String lname,
-    String email, String phone, String imgurl) async {
+    String email, String phone) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
 
   pref.setInt("cityId", cID);
@@ -180,9 +176,6 @@ _saveCountryData(int cID, String cName, String fname, String lname,
   pref.setString("lname", lname);
   pref.setString("email", email);
   pref.setString("phone", phone);
-  pref.setString("imgurl", imgurl);
-
-  print("image store in shared pref. from login==========$imgurl");
 }
 
 // import 'package:dio/dio.dart' as dio;

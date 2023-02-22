@@ -5,19 +5,18 @@ import 'package:prologic_29/data/Services/user_profile_section_services/user_pro
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfileController extends GetxController {
-  @override
-  void onInit() {
-    loadingUserProfileAPI.value = true;
-    load();
-    // TODO: implement onInit
-    super.onInit();
-  }
-
   RxBool loadingUserProfile = false.obs;
   RxBool loadingUserProfileAPI = false.obs;
   RxString errorLoadingUserProfile = ''.obs;
   var userProfileData = GetUserProfileResponse();
   int? uid;
+
+  @override
+  void onInit() {
+    loadingUserProfileAPI.value = true;
+    load();
+    super.onInit();
+  }
 
   void load() async {
     // await Future.delayed(const Duration(seconds: 2));

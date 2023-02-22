@@ -26,6 +26,7 @@ class NewsFeed extends StatefulWidget {
 
 class _NewsFeedState extends State<NewsFeed> {
   var addwishistcontroller = Get.put(AddWishlistController());
+
   int? uid;
   final bool _iswishlist = false;
   var scrollController = ScrollController();
@@ -60,242 +61,262 @@ class _NewsFeedState extends State<NewsFeed> {
       appBar: AppBar(
         title: Text('News Feed ', style: AppTextStyles.heading1),
         backgroundColor: AppColors.appthem,
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 5.0.w, top: 2.0.h),
-            child: Badge(
-              label: Text(wishlish.length.toString()),
-              child: const Icon(Icons.favorite),
-            ),
-          )
-        ],
         // actions: [
-        //   GestureDetector(
-        //     onTap: () async {
-        //       // var box = await Hive.openBox('someBox');
-        //       // var lstt = box.get('idlist');
-        //       // await Future.delayed(Duration(seconds: 2));
-        //       print(newsfeedController.mylist.length);
-        //     },
-        //     child: Icon(
-        //       Icons.favorite_outlined,
-        //       color: Colors.white,
-        //     ),
-        //   ),
-        //   SizedBox(
-        //     width: 5.w,
-        //   )
+        //   Padding(
+        //       padding: EdgeInsets.only(right: 5.0.w, top: 2.0.h),
+        //       child: Obx(
+        //         () => Badge(
+        //           label: Text(addwishistcontroller.getwishlistmodel.data!.length
+        //               .toString()),
+        //           child: const Icon(Icons.favorite),
+        //         ),
+        //       ))
         // ],
+        //---------------------------------------
       ),
       body: SingleChildScrollView(
-          child: Column(
-        children: [
-          SizedBox(
-            height: 2.0.h,
-          ),
+          child: Expanded(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 2.0.h,
+            ),
 
-          // ListView.builder(itemBuilder: itemBuilder)
+            // ListView.builder(itemBuilder: itemBuilder)
 
-          Obx(() => newsfeedController.newsfeedApiLoading.value
-              ? const Center(
-                  child: CircularProgressIndicator(
-                  color: AppColors.appthem,
-                ))
-              : newsfeedController.errorLoadingnewsfeed.value != ''
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                newsfeedController.getnewsfeed();
-                              },
-                              icon: const Icon(
-                                Icons.refresh,
-                                color: AppColors.appthem,
-                              )),
-                          SizedBox(
-                            height: 1.0.h,
+            Obx(() => newsfeedController.newsfeedApiLoading.value
+                ? const Center(
+                    child: CircularProgressIndicator(
+                    color: AppColors.appthem,
+                  ))
+                : newsfeedController.errorLoadingnewsfeed.value != ''
+                    ? Center(
+                        child: Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    newsfeedController.getnewsfeed();
+                                  },
+                                  icon: const Icon(
+                                    Icons.refresh,
+                                    color: AppColors.appthem,
+                                  )),
+                              SizedBox(
+                                height: 1.0.h,
+                              ),
+                              Text(newsfeedController
+                                  .errorLoadingnewsfeed.value),
+                            ],
                           ),
-                          Text(newsfeedController.errorLoadingnewsfeed.value),
-                        ],
-                      ),
-                    )
-                  : GetBuilder<NewsFeedController>(
-                      init: NewsFeedController(),
-                      initState: (_) {},
-                      builder: (controller) {
-                        return ListView.builder(
-                          primary: false,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            _controllers.add(TextEditingController());
+                        ),
+                      )
+                    : GetBuilder<NewsFeedController>(
+                        init: NewsFeedController(),
+                        initState: (_) {},
+                        builder: (controller) {
+                          return ListView.builder(
+                            primary: false,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              _controllers.add(TextEditingController());
 
-                            var d = newsfeedController
-                                .newsfeedmodel.data!.data![index].isLiked;
+                              var d = newsfeedController
+                                  .newsfeedmodel.data!.data![index].isLiked;
 
-                            return Column(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      left: 5.0.w,
-                                      right: 5.0.w,
-                                      top: index == 0 ? 1.0.h : 2.0.h),
-                                  //  height: 45.0.h,
-                                  width: 100.0.w,
-                                  decoration: CustomDecorations.mainCon,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Stack(children: [
-                                        SizedBox(
-                                          height: 200,
-                                          width: 100.w,
+                              return Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        left: 5.0.w,
+                                        right: 5.0.w,
+                                        top: index == 0 ? 1.0.h : 2.0.h),
+                                    //  height: 45.0.h,
+                                    width: 100.0.w,
+                                    decoration: CustomDecorations.mainCon,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Stack(children: [
+                                          SizedBox(
+                                            height: 200,
+                                            width: 100.w,
 
-                                          // ignore: prefer_const_constructors
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(10),
-                                                    topRight:
-                                                        Radius.circular(10)),
-                                            child: Image.asset(
-                                              AppImageResources.property,
-                                              fit: BoxFit.cover,
+                                            // ignore: prefer_const_constructors
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(10),
+                                                      topRight:
+                                                          Radius.circular(10)),
+                                              child: Image.asset(
+                                                AppImageResources.property,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
-<<<<<<< HEAD
                                           Positioned(
                                             top: 6,
                                             right: 8,
                                             child: Obx(() => addwishistcontroller
-                                                    .pid
-                                                    .contains(newsfeedController
-                                                        .newsfeedmodel
-                                                        .data!
-                                                        .data![index]
-                                                        .id)
-                                                //             || addwishistcontroller.getwishlistmodel.data![index].id == newsfeedController
-                                                //             .newsfeedmodel
-                                                //             .data!
-                                                //             .data![index]
-                                                //             .id
-                                                ? GestureDetector(
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Color.fromARGB(
-                                                              255, 27, 17, 17),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(6)),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(5.0),
-                                                        child: Icon(
-                                                          Icons.favorite,
-                                                          color: Colors.amber,
-                                                        ),
+                                                    .pid.isEmpty
+                                                ? Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Color.fromARGB(
+                                                            255, 27, 17, 17),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(6)),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      child: Icon(
+                                                        Icons.favorite_border,
+                                                        color: Colors.amber,
                                                       ),
                                                     ),
-                                                    onTap: () {
-                                                      addwishistcontroller.pid
-                                                          .remove(
-                                                              newsfeedController
-                                                                  .newsfeedmodel
-                                                                  .data!
-                                                                  .data![index]
-                                                                  .id);
-                                                      print(addwishistcontroller
-                                                          .pid);
-                                                      addwishistcontroller
-                                                          .delwishlist(
-                                                              newsfeedController
-                                                                  .newsfeedmodel
-                                                                  .data!
-                                                                  .data![index]
-                                                                  .id);
-                                                    },
                                                   )
-                                                : GestureDetector(
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              126,
-                                                              124,
-                                                              124),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(6)),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(5.0),
-                                                        child: Icon(
-                                                          Icons
-                                                              .favorite_outline,
-                                                          color: Colors.green,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    onTap: () {
-                                                      addwishistcontroller.pid
-                                                          .add(
-                                                              newsfeedController
-                                                                  .newsfeedmodel
-                                                                  .data!
-                                                                  .data![index]
-                                                                  .id);
-                                                      addwishistcontroller
-                                                          .postwishlist();
-                                                    },
-
-                                                    // newsfeedController
+                                                : addwishistcontroller.pid
+                                                        .contains(
+                                                            newsfeedController
+                                                                .newsfeedmodel
+                                                                .data!
+                                                                .data![index]
+                                                                .id)
+                                                    //             || addwishistcontroller.getwishlistmodel.data![index].id == newsfeedController
                                                     //             .newsfeedmodel
                                                     //             .data!
                                                     //             .data![index]
-                                                    //             .isAddedToWishList
-                                                    //             .value ==
-                                                    //         true
-                                                    //     ? InkWell(
-                                                    //         onTap: () {},
-                                                    //         child: const Icon(
-                                                    //           Icons.favorite,
-                                                    //           color: Colors.amber,
-                                                    //         ))
-                                                    //     : InkWell(
-                                                    //         onTap: () {
-                                                    //           addwishistcontroller
-                                                    //               .postwishlist();
+                                                    //             .id
+                                                    ? GestureDetector(
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      27,
+                                                                      17,
+                                                                      17),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          6)),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(5.0),
+                                                            child: Icon(
+                                                              Icons.favorite,
+                                                              color:
+                                                                  Colors.amber,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        onTap: () {
+                                                          addwishistcontroller
+                                                              .pid
+                                                              .remove(newsfeedController
+                                                                  .newsfeedmodel
+                                                                  .data!
+                                                                  .data![index]
+                                                                  .id);
+                                                          print(
+                                                              addwishistcontroller
+                                                                  .pid);
+                                                          addwishistcontroller
+                                                              .delwishlist(
+                                                                  newsfeedController
+                                                                      .newsfeedmodel
+                                                                      .data!
+                                                                      .data![
+                                                                          index]
+                                                                      .id);
+                                                        },
+                                                      )
+                                                    : GestureDetector(
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      126,
+                                                                      124,
+                                                                      124),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          6)),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(5.0),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .favorite_outline,
+                                                              color:
+                                                                  Colors.amber,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        onTap: () {
+                                                          addwishistcontroller
+                                                              .pid
+                                                              .add(newsfeedController
+                                                                  .newsfeedmodel
+                                                                  .data!
+                                                                  .data![index]
+                                                                  .id);
+                                                          addwishistcontroller
+                                                              .postwishlist();
+                                                        },
 
-                                                    //           setState(() {
-                                                    //             addwishistcontroller
-                                                    //                 .pid
-                                                    //                 .add(newsfeedController
-                                                    //                     .newsfeedmodel
-                                                    //                     .data
-                                                    //                     ?.data![
-                                                    //                         index]
-                                                    //                     .id);
-                                                    //           });
+                                                        // newsfeedController
+                                                        //             .newsfeedmodel
+                                                        //             .data!
+                                                        //             .data![index]
+                                                        //             .isAddedToWishList
+                                                        //             .value ==
+                                                        //         true
+                                                        //     ? InkWell(
+                                                        //         onTap: () {},
+                                                        //         child: const Icon(
+                                                        //           Icons.favorite,
+                                                        //           color: Colors.amber,
+                                                        //         ))
+                                                        //     : InkWell(
+                                                        //         onTap: () {
+                                                        //           addwishistcontroller
+                                                        //               .postwishlist();
 
-                                                    //           print(newsfeedController
-                                                    //               .newsfeedmodel
-                                                    //               .data!
-                                                    //               .data![index]
-                                                    //               .isAddedToWishList
-                                                    //               .value);
-                                                    //         },
-                                                    //         child: const Icon(
-                                                    //           Icons
-                                                    //               .favorite_outline,
-                                                    //           color: Colors.amber,
-                                                    //         ),
-                                                    // )
-                                                  )),
+                                                        //           setState(() {
+                                                        //             addwishistcontroller
+                                                        //                 .pid
+                                                        //                 .add(newsfeedController
+                                                        //                     .newsfeedmodel
+                                                        //                     .data
+                                                        //                     ?.data![
+                                                        //                         index]
+                                                        //                     .id);
+                                                        //           });
+
+                                                        //           print(newsfeedController
+                                                        //               .newsfeedmodel
+                                                        //               .data!
+                                                        //               .data![index]
+                                                        //               .isAddedToWishList
+                                                        //               .value);
+                                                        //         },
+                                                        //         child: const Icon(
+                                                        //           Icons
+                                                        //               .favorite_outline,
+                                                        //           color: Colors.amber,
+                                                        //         ),
+                                                        // )
+                                                      )),
                                           )
                                         ]),
                                         SizedBox(
@@ -555,290 +576,55 @@ class _NewsFeedState extends State<NewsFeed> {
                                             onTap: () {
                                               likeController.getPostLike(
                                                   newsfeedController
-=======
-                                        ),
-                                        Padding(
-                                            padding: const EdgeInsets.all(6.0),
-                                            child: Obx(() => newsfeedController
-                                                        .newsfeedmodel
-                                                        .data!
-                                                        .data![index]
-                                                        .isAddedToWishList
-                                                        .value ==
-                                                    true
-                                                ? InkWell(
-                                                    onTap: () {},
-                                                    child: const Icon(
-                                                      Icons.favorite,
-                                                      color: Colors.amber,
-                                                    ))
-                                                : InkWell(
-                                                    onTap: () {
-                                                      addwishistcontroller
-                                                          .postwishlist();
-
-                                                      setState(() {
-                                                        addwishistcontroller.pid
-                                                            .add(newsfeedController
-                                                                .newsfeedmodel
-                                                                .data
-                                                                ?.data![index]
-                                                                .id);
-                                                      });
-
-                                                      print(newsfeedController
-                                                          .newsfeedmodel
-                                                          .data!
-                                                          .data![index]
-                                                          .isAddedToWishList
-                                                          .value);
-                                                    },
-                                                    child: const Icon(
-                                                      Icons.favorite_outline,
-                                                      color: Colors.amber,
-                                                    ),
-                                                  )))
-                                      ]),
-                                      SizedBox(
-                                        width: 2.0.h,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(6.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              height: 3.5.h,
-                                              width: 22.0.w,
-                                              decoration: BoxDecoration(
-                                                  color: AppColors.appthem,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          300)),
-                                              child: Center(
-                                                  child: Text(
-                                                newsfeedController.newsfeedmodel
-                                                    .data!.data![index].id
-                                                    .toString(),
-                                                style: AppTextStyles.labelSmall
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .colorWhite),
-                                              )),
-                                            ),
-                                            Text(
-                                                " ${newsfeedController.newsfeedmodel.data!.data![index].price}",
-                                                style: AppTextStyles.heading1
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .colorblack,
-                                                        fontSize: 10.sp))
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 2.0.w,
-                                        ),
-                                        child: Text(
-                                          newsfeedController.newsfeedmodel.data!
-                                                  .data![index].description ??
-                                              "",
-                                          style:
-                                              AppTextStyles.heading1.copyWith(
-                                            color: AppColors.colorblack,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 1.0.h,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 2.0.w),
-                                        child: Row(
-                                          // crossAxisAlignment: CrossAxisAlignment.end,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.bed,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text(
-                                              newsfeedController
->>>>>>> 3dde0790e8a777140dde8f0da41a368a3a8a4d67
                                                       .newsfeedmodel
                                                       .data!
                                                       .data![index]
-                                                      .numberBedroom ??
-                                                  "",
+                                                      .id
+                                                      .toString(),
+                                                  uid!);
+                                              setState(() {});
+                                            },
+                                            child: Text(
+                                              "Likee",
                                               style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp),
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.bath,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text(
-                                              newsfeedController
-                                                      .newsfeedmodel
-                                                      .data!
-                                                      .data![index]
-                                                      .numberBathroom ??
-                                                  "",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp),
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.plots,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            Text(
-                                              newsfeedController
-                                                      .newsfeedmodel
-                                                      .data!
-                                                      .data![index]
-                                                      .square ??
-                                                  "",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const Divider(),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Image.asset(
-                                              AppImageResources.loc,
-                                              height: 2.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 2.0.w,
-                                            ),
-                                            SizedBox(
-                                              width: 40.w,
-                                              child: Text(
-                                                newsfeedController
-                                                        .newsfeedmodel
-                                                        .data!
-                                                        .data![index]
-                                                        .location ??
-                                                    "",
-                                                style: AppTextStyles.labelSmall,
-                                                overflow: TextOverflow.ellipsis,
+                                                  .copyWith(
+                                                fontSize: 13.sp,
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 17.0.w,
-                                            ),
-                                            Container(
-                                              height: 3.5.h,
-                                              width: 22.0.w,
-                                              decoration: BoxDecoration(
-                                                  color: AppColors.appthem,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          300)),
-                                              child: Center(
-                                                  child: Text(
-                                                "View ",
-                                                style: AppTextStyles.labelSmall
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .colorWhite),
-                                              )),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 24.0.w,
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      right: 5.0.w,
-                                      left: 5.0.w,
-                                      top: index == 0 ? 1.0.h : 2.0.h),
-                                  height: 6.0.h,
-                                  width: 100.w,
-                                  decoration: CustomDecorations.mainCon,
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        d == 1
-                                            ? const Icon(
-                                                Icons.favorite,
-                                                color: Colors.red,
-                                              )
-                                            : IconButton(
-                                                onPressed: () async {
-                                                  likeController.getPostLike(
+                                          ),
+                                          SizedBox(
+                                            width: 3.0.w,
+                                          ),
+                                          const Icon(Icons.comment_outlined),
+                                          // Image.asset(
+                                          //   AppImageResources.bed,
+                                          //   height: 4.0.h,
+                                          // ),
+                                          InkWell(
+                                            onTap: () async {
+                                              getLatestCommentsController
+                                                  .getLatestCommnets(
                                                       newsfeedController
                                                           .newsfeedmodel
                                                           .data!
                                                           .data![index]
-                                                          .id
-                                                          .toString(),
-                                                      uid!);
-
-                                                  _refresh();
-
-                                                  // print(
-                                                  //     "detector call ==========${newsfeedController.newsfeedmodel.data!.data![index].likesOnProperties?[0].isliked}");
-                                                  // setState(() {
-                                                  //   newsfeedController
-                                                  //       .getnewsfeed(pagekey);
-                                                  // });
-                                                },
-                                                icon: const Icon(
-                                                  Icons.favorite_border,
-                                                )),
-
-                                        // const Icon(Icons.favorite_border_outlined),
-                                        GestureDetector(
-                                          onTap: () {
-                                            likeController.getPostLike(
-                                                newsfeedController.newsfeedmodel
-                                                    .data!.data![index].id
-                                                    .toString(),
-                                                uid!);
-                                            setState(() {});
-                                          },
-                                          child: Text(
-                                            "Likee",
-                                            style: AppTextStyles.labelSmall
-                                                .copyWith(
-                                              fontSize: 13.sp,
+                                                          .id!);
+                                              await Future.delayed(
+                                                  const Duration(
+                                                      milliseconds: 400));
+                                              _showModelSheet(
+                                                  context,
+                                                  newsfeedController
+                                                      .newsfeedmodel
+                                                      .data!
+                                                      .data![index]
+                                                      .id!);
+                                            },
+                                            child: Text(
+                                              "Comment",
+                                              style: AppTextStyles.labelSmall,
                                             ),
                                           ),
-<<<<<<< HEAD
                                           SizedBox(
                                             width: 3.0.w,
                                           ),
@@ -882,113 +668,55 @@ class _NewsFeedState extends State<NewsFeed> {
                                                 _controllers[index],
                                             hintText: 'Write Comment....',
                                           ),
-=======
->>>>>>> 3dde0790e8a777140dde8f0da41a368a3a8a4d67
                                         ),
                                         SizedBox(
                                           width: 3.0.w,
                                         ),
-                                        const Icon(Icons.comment_outlined),
-                                        // Image.asset(
-                                        //   AppImageResources.bed,
-                                        //   height: 4.0.h,
-                                        // ),
-                                        InkWell(
-                                          onTap: () async {
-                                            getLatestCommentsController
-                                                .getLatestCommnets(
-                                                    newsfeedController
-                                                        .newsfeedmodel
-                                                        .data!
-                                                        .data![index]
-                                                        .id!);
-                                            await Future.delayed(const Duration(
-                                                milliseconds: 400));
-                                            _showModelSheet(
-                                                context,
-                                                newsfeedController.newsfeedmodel
-                                                    .data!.data![index].id!);
-                                          },
-                                          child: Text(
-                                            "Comment",
-                                            style: AppTextStyles.labelSmall,
+                                        Container(
+                                          height: 12.0.w,
+                                          width: 12.0.w,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.appthem,
+                                              borderRadius:
+                                                  BorderRadius.circular(300)),
+                                          child: Center(
+                                            child: IconButton(
+                                                color: AppColors.colorWhite,
+                                                onPressed: () {
+                                                  postCommentsController
+                                                      .postComments(
+                                                          index,
+                                                          newsfeedController
+                                                              .newsfeedmodel
+                                                              .data!
+                                                              .data![index]
+                                                              .id,
+                                                          uid,
+                                                          _controllers[index]
+                                                              .text);
+
+                                                  _controllers[index].clear();
+                                                },
+                                                icon: const Icon(
+                                                  Icons.send,
+                                                  size: 20,
+                                                )),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 3.0.w,
-                                        ),
-                                        const Icon(Icons.share),
-                                        // Image.asset(
-                                        //   AppImageResources.bed,
-                                        //   height: 3.0.h,
-                                        // ),
-                                        Text(
-                                          "Share",
-                                          style: AppTextStyles.labelSmall,
                                         )
-                                      ]),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      right: 4.0.w, left: 4.0.w, top: 2.0.h),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Expanded(
-                                        child: CustomTextField(
-                                          editingController:
-                                              _controllers[index],
-                                          hintText: 'Write Comment....',
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 3.0.w,
-                                      ),
-                                      Container(
-                                        height: 12.0.w,
-                                        width: 12.0.w,
-                                        decoration: BoxDecoration(
-                                            color: AppColors.appthem,
-                                            borderRadius:
-                                                BorderRadius.circular(300)),
-                                        child: Center(
-                                          child: IconButton(
-                                              color: AppColors.colorWhite,
-                                              onPressed: () {
-                                                postCommentsController
-                                                    .postComments(
-                                                        index,
-                                                        newsfeedController
-                                                            .newsfeedmodel
-                                                            .data!
-                                                            .data![index]
-                                                            .id,
-                                                        uid,
-                                                        _controllers[index]
-                                                            .text);
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              );
 
-                                                _controllers[index].clear();
-                                              },
-                                              icon: const Icon(
-                                                Icons.send,
-                                                size: 20,
-                                              )),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            );
-
-                            ///////////
-                          },
-                          itemCount: newsfeedController
-                              .newsfeedmodel.data?.data!.length,
-                        );
-                      }))
-        ],
+                              ///////////
+                            },
+                            itemCount: newsfeedController
+                                .newsfeedmodel.data?.data!.length,
+                          );
+                        }))
+          ],
+        ),
       )),
     );
   }

@@ -9,10 +9,8 @@ import 'package:prologic_29/data/Controllers/user_profile_section_controller/pro
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../data/Controllers/user_profile_section_controller/image_update_controller.dart';
 import '../../../data/Controllers/user_profile_section_controller/user_profile_controller.dart';
 import '../../../data/Models/user_profile_section_model/get_user_profile.dart';
 
@@ -27,7 +25,6 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   var profileController = Get.put(UserProfileController());
   var updateprofileController = Get.put(UpdateProfileController());
-  var updateImageController = Get.put(UpdateImageController());
 
   var fullNameController = TextEditingController();
 
@@ -48,17 +45,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String dob = 'Select Dob';
   String gender = 'Select Gender';
 
-  String? imguploadUrl;
-  geUploadtImgUrl() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    imguploadUrl = pref.getString("img");
-    print(
-        "uplaod image url from Model ${updateImageController.updateImageModel.data!.avatar}");
-  }
-
   @override
   void initState() {
-    geUploadtImgUrl();
     userNameController.text =
         profileController.userProfileData.data!.username.toString();
     fullNameController.text =
@@ -123,20 +111,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   radius: 90,
                                   // backgroundColor: Colors.transparent,
                                   backgroundImage: CachedNetworkImageProvider(
-                                      updateImageController
-                                                  .updateImageModel.data !=
-                                              null
-                                          ? updateImageController
-                                              .updateImageModel.data!.avatar
-                                              .toString()
-                                          : profileController.userProfileData
-                                                      .data!.avatar ==
-                                                  ''
-                                              ? "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4"
-                                              : profileController
-                                                  .userProfileData
-                                                  .data!
-                                                  .avatar!)),
+                                      profileController.userProfileData.data!
+                                                  .avatar ==
+                                              ''
+                                          ? "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4"
+                                          : profileController
+                                              .userProfileData.data!.avatar!)),
                               Positioned(
                                   bottom: 0.0,
                                   right: 0.0,

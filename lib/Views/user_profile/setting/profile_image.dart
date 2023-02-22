@@ -122,7 +122,6 @@ class _profileImageState extends State<profileImage> {
                           onPressed: () {
                             imageupdatecontroller
                                 .updateprofileimage(imageTemp!);
-                            Future.delayed(const Duration(milliseconds: 500));
                           },
                           text: 'Upload Image',
                         ),
