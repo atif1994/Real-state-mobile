@@ -39,8 +39,8 @@ class UpdateImageController extends GetxController {
       loadingupdateimage.value = false;
       Get.to(() => const SettingsScreen());
     } else {
-      loadingupdateimage.value = false;
       errorloadingupdateimage.value = res;
+      loadingupdateimage.value = false;
     }
   }
 

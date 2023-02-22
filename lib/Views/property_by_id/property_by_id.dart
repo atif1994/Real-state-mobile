@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Controllers/property_controllers/propertyby_id_controller.dart';
+import '../../utils/constants/app_urls.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/app_textstyles.dart';
@@ -31,7 +32,7 @@ class _PropertyByIDState extends State<PropertyByID> {
     print("**********************************************${widget.id}");
     return Scaffold(
         appBar: AppBar(
-          title: Text('Propertyy ', style: AppTextStyles.heading1),
+          title: Text('Property ', style: AppTextStyles.heading1),
           backgroundColor: AppColors.appthem,
         ),
         body: Obx(() => propertybyyidController.loadingPropertyByID.value
@@ -58,10 +59,8 @@ class _PropertyByIDState extends State<PropertyByID> {
                       SizedBox(
                         height: 35.0.h,
                         width: 100.0.w,
-                        child: Image.asset(
-                          AppImageResources.property,
-                          fit: BoxFit.cover,
-                        ),
+                        child: Image.network(
+                            "${AppUrls.baseUrl2}${propertybyyidController.propertybyIDmodel.data!.images!.toString()}"),
                       ),
                       // )),
                       SizedBox(
