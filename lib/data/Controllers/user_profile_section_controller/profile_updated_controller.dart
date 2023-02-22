@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:prologic_29/Views/Home/home.dart';
 import 'package:prologic_29/data/Models/user_profile_section_model/profile_updated.dart';
 import 'package:prologic_29/data/Services/user_profile_section_services/update_user_profile_services.dart';
 
@@ -19,6 +20,7 @@ class UpdateProfileController extends GetxController {
     if (res is Updateprofile) {
       loadingUpdateProfile.value = false;
       updateProfileData = res;
+      Get.off(() => const Home());
     } else {
       loadingUpdateProfile.value = false;
       errorLoadingUpdateProfile.value = res;

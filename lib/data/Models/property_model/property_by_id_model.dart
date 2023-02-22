@@ -107,9 +107,9 @@ class Data {
         country: json["country"] == null
             ? []
             : List<dynamic>.from(json["country"]!.map((x) => x)),
-        // state: json["state"] == null
-        //     ? []
-        //     : List<dynamic>.from(json["state"]!.map((x) => x)),
+        state: json["state"] == null
+            ? []
+            : List<dynamic>.from(json["state"]!.map((x) => x)),
         category: Category.fromJson(json["category"]),
         type: Type.fromJson(json["type"]),
         currency: Currency.fromJson(json["currency"]),

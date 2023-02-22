@@ -27,7 +27,6 @@ import '../../data/Controllers/Notification_Controller/Notification_Controller.d
 import '../../data/Controllers/property_controllers/cities_controller.dart';
 import '../../data/Services/local_notifications_service.dart';
 import '../../utils/constants/app_urls.dart';
-import '../AddProperty/add_property.dart';
 import 'home_screen.dart';
 
 class Home extends StatefulWidget {
@@ -274,7 +273,7 @@ class _HomeState extends State<Home> {
                                 AnimatedTextKit(
                                   animatedTexts: [
                                     TyperAnimatedText(
-                                      'Search for shops',
+                                      'Search for shoops',
                                       textStyle: AppTextStyles.labelSmall
                                           .copyWith(color: Colors.grey),
                                     ),
@@ -348,7 +347,7 @@ class _HomeState extends State<Home> {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        "Browse Properties",
+                                        "Browse Propertise",
                                         style: AppTextStyles.heading1.copyWith(
                                             fontFamily: AppFonts.nexaBold,
                                             fontSize: 16.sp,
@@ -943,7 +942,7 @@ class _HomeState extends State<Home> {
                                         child: SizedBox(
                                           width: 80.0.w,
                                           child: Text(
-                                              "Find your dream home from our Newly added properties",
+                                              "Find your dreaam home from our Newly added properties",
                                               style: AppTextStyles.labelSmall
                                                   .copyWith(fontSize: 9.sp)),
                                         ),
@@ -1256,24 +1255,19 @@ class _HomeState extends State<Home> {
                             )
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(() => const Property());
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(
-                                left: 3.0.w, right: 3.0.w, top: 1.0.h),
-                            height: 4.0.h,
-                            width: 100.0.w,
-                            decoration: BoxDecoration(
-                                color: AppColors.appthem,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Center(
-                              child: Text(
-                                "Add Property",
-                                style: AppTextStyles.heading1
-                                    .copyWith(color: Colors.white),
-                              ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: 3.0.w, right: 3.0.w, top: 1.0.h),
+                          height: 4.0.h,
+                          width: 100.0.w,
+                          decoration: BoxDecoration(
+                              color: AppColors.appthem,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              "Post an Ad",
+                              style: AppTextStyles.heading1
+                                  .copyWith(color: Colors.white),
                             ),
                           ),
                         )
@@ -1285,7 +1279,7 @@ class _HomeState extends State<Home> {
                   Container(
                       margin: EdgeInsets.only(
                           left: 3.0.w, right: 3.0.w, top: 1.0.h),
-                      height: 36.0.h,
+                      height: 43.0.h,
                       width: 100.0.w,
                       decoration: CustomDecorations.mainCon,
                       child: Obx(
@@ -1323,7 +1317,7 @@ class _HomeState extends State<Home> {
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(
-                                            left: 3.0.w, top: 1.h),
+                                            left: 3.0.w, top: 0.3.h),
                                         child: Text(
                                           "Find By Locations",
                                           style: AppTextStyles.heading1
@@ -1433,7 +1427,7 @@ class _HomeState extends State<Home> {
                                                                 Image(
                                                               image:
                                                                   NetworkImage(
-                                                                '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index].metadata![0].metaValue![0]}',
+                                                                '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index].metadata![0].metaValue![0] ?? ''}',
                                                               ),
                                                               fit: BoxFit.cover,
                                                             ),
@@ -1504,15 +1498,15 @@ class _HomeState extends State<Home> {
                                               );
                                             }),
                                       ),
-                                      // Padding(
-                                      //   padding: EdgeInsets.only(
-                                      //       top: 2.0.h,
-                                      //       left: 3.0.w,
-                                      //       right: 3.0.w),
-                                      //   child: const CustomButton(
-                                      //     text: "More Locations",
-                                      //   ),
-                                      // )
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 2.0.h,
+                                            left: 3.0.w,
+                                            right: 3.0.w),
+                                        child: const CustomButton(
+                                          text: "More Locations",
+                                        ),
+                                      )
                                     ],
                                   ),
                       )),
