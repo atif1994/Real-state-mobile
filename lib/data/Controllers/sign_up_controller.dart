@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/data/Services/signup_services/signup_services.dart';
@@ -45,7 +44,7 @@ class SignUpController extends GetxController {
         phoneNumberController.text);
     if (res is SignupModel) {
       isLoading(false);
-      Fluttertoast.showToast(msg: "");
+      // Fluttertoast.showToast(msg: "");
       Get.snackbar('Succfully Create Account', "");
       Get.to(SignIn());
       return res;
