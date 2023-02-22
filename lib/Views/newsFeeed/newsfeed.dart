@@ -123,7 +123,7 @@ class _NewsFeedState extends State<NewsFeed> {
                               _controllers.add(TextEditingController());
 
                               var d = newsfeedController
-                                  .newsfeedmodel.data!.data![index].isLiked;
+                                  .newsfeedmodel.data![index].isLiked;
 
                               return Column(
                                 children: [
@@ -165,7 +165,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                     .pid
                                                     .contains(newsfeedController
                                                         .newsfeedmodel
-                                                        .data!
                                                         .data![index]
                                                         .id)
                                                 //             || addwishistcontroller.getwishlistmodel.data![index].id == newsfeedController
@@ -196,18 +195,17 @@ class _NewsFeedState extends State<NewsFeed> {
                                                           .remove(
                                                               newsfeedController
                                                                   .newsfeedmodel
-                                                                  .data!
                                                                   .data![index]
                                                                   .id);
                                                       print(addwishistcontroller
                                                           .pid);
-                                                      addwishistcontroller
-                                                          .delwishlist(
-                                                              newsfeedController
-                                                                  .newsfeedmodel
-                                                                  .data!
-                                                                  .data![index]
-                                                                  .id);
+                                                      // addwishistcontroller
+                                                      //     .delwishlist(
+                                                      //         newsfeedController
+                                                      //             .newsfeedmodel
+                                                      //             .data!
+                                                      //             .data![index]
+                                                      //             .id);
                                                     },
                                                   )
                                                 : GestureDetector(
@@ -228,7 +226,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                                         child: Icon(
                                                           Icons
                                                               .favorite_outline,
-                                                          color: Colors.green,
+                                                          color: Colors.amber,
                                                         ),
                                                       ),
                                                     ),
@@ -237,7 +235,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                           .add(
                                                               newsfeedController
                                                                   .newsfeedmodel
-                                                                  .data!
                                                                   .data![index]
                                                                   .id);
                                                       addwishistcontroller
@@ -310,7 +307,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                     child: Text(
                                                   newsfeedController
                                                       .newsfeedmodel
-                                                      .data!
                                                       .data![index]
                                                       .id
                                                       .toString(),
@@ -322,7 +318,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                                 )),
                                               ),
                                               Text(
-                                                  " ${newsfeedController.newsfeedmodel.data!.data![index].price}",
+                                                  " ${newsfeedController.newsfeedmodel.data![index].price}",
                                                   style: AppTextStyles.heading1
                                                       .copyWith(
                                                           color: AppColors
@@ -336,11 +332,8 @@ class _NewsFeedState extends State<NewsFeed> {
                                             left: 2.0.w,
                                           ),
                                           child: Text(
-                                            newsfeedController
-                                                    .newsfeedmodel
-                                                    .data!
-                                                    .data![index]
-                                                    .description ??
+                                            newsfeedController.newsfeedmodel
+                                                    .data![index].description ??
                                                 "",
                                             style:
                                                 AppTextStyles.heading1.copyWith(
@@ -372,7 +365,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                               Text(
                                                 newsfeedController
                                                         .newsfeedmodel
-                                                        .data!
                                                         .data![index]
                                                         .numberBedroom ??
                                                     "",
@@ -392,7 +384,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                               Text(
                                                 newsfeedController
                                                         .newsfeedmodel
-                                                        .data!
                                                         .data![index]
                                                         .numberBathroom ??
                                                     "",
@@ -410,11 +401,8 @@ class _NewsFeedState extends State<NewsFeed> {
                                                 width: 2.0.w,
                                               ),
                                               Text(
-                                                newsfeedController
-                                                        .newsfeedmodel
-                                                        .data!
-                                                        .data![index]
-                                                        .square ??
+                                                newsfeedController.newsfeedmodel
+                                                        .data![index].square ??
                                                     "",
                                                 style: AppTextStyles.labelSmall
                                                     .copyWith(fontSize: 9.sp),
@@ -440,7 +428,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                 child: Text(
                                                   newsfeedController
                                                           .newsfeedmodel
-                                                          .data!
                                                           .data![index]
                                                           .location ??
                                                       "",
@@ -458,7 +445,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                   Get.to(() => PropertyByID(
                                                       id: newsfeedController
                                                           .newsfeedmodel
-                                                          .data!
                                                           .data![index]
                                                           .id));
                                                 },
@@ -508,7 +494,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                     likeController.getPostLike(
                                                         newsfeedController
                                                             .newsfeedmodel
-                                                            .data!
                                                             .data![index]
                                                             .id
                                                             .toString(),
@@ -523,7 +508,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                     likeController.getPostLike(
                                                         newsfeedController
                                                             .newsfeedmodel
-                                                            .data!
                                                             .data![index]
                                                             .id
                                                             .toString(),
@@ -547,7 +531,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                               likeController.getPostLike(
                                                   newsfeedController
                                                       .newsfeedmodel
-                                                      .data!
                                                       .data![index]
                                                       .id
                                                       .toString(),
@@ -576,7 +559,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                   .getLatestCommnets(
                                                       newsfeedController
                                                           .newsfeedmodel
-                                                          .data!
                                                           .data![index]
                                                           .id!);
                                               await Future.delayed(
@@ -586,7 +568,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                   context,
                                                   newsfeedController
                                                       .newsfeedmodel
-                                                      .data!
                                                       .data![index]
                                                       .id!);
                                             },
@@ -602,7 +583,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                             onTap: () {
                                               Share.share(newsfeedController
                                                   .newsfeedmodel
-                                                  .data!
                                                   .data![index]
                                                   .slugable!
                                                   .key!);
@@ -658,7 +638,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                           index,
                                                           newsfeedController
                                                               .newsfeedmodel
-                                                              .data!
                                                               .data![index]
                                                               .id,
                                                           uid,
@@ -681,8 +660,8 @@ class _NewsFeedState extends State<NewsFeed> {
 
                               ///////////
                             },
-                            itemCount: newsfeedController
-                                .newsfeedmodel.data?.data!.length,
+                            itemCount:
+                                newsfeedController.newsfeedmodel.data!.length,
                           );
                         }))
           ],
