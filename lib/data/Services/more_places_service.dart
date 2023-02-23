@@ -11,7 +11,7 @@ class GetPropertiesServices {
       var res = await BaseClientClass.get(url, '');
 
       if (res is http.Response) {
-        return allPropertiesResponseFromJson(res.body);
+        return newsfeedModelFromJson(res.body);
       } else {
         return res;
       }

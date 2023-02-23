@@ -4,10 +4,10 @@
 
 import 'dart:convert';
 
-PropertyById? propertyByIdFromJson(String str) =>
+PropertyById propertyByIdFromJson(String str) =>
     PropertyById.fromJson(json.decode(str));
 
-String propertyByIdToJson(PropertyById? data) => json.encode(data!.toJson());
+String propertyByIdToJson(PropertyById data) => json.encode(data.toJson());
 
 class PropertyById {
   PropertyById({
@@ -22,13 +22,13 @@ class PropertyById {
 
   factory PropertyById.fromJson(Map<String, dynamic> json) => PropertyById(
         error: json["error"],
-        data: Data.fromJson(json["data"]),
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
         message: json["message"],
       );
 
   Map<String, dynamic> toJson() => {
         "error": error,
-        "data": data!.toJson(),
+        "data": data?.toJson(),
         "message": message,
       };
 }
@@ -38,6 +38,7 @@ class Data {
     this.name,
     this.description,
     this.location,
+    this.images,
     this.numberBedroom,
     this.numberBathroom,
     this.square,
@@ -64,6 +65,7 @@ class Data {
   String? name;
   String? description;
   String? location;
+  Images? images;
   String? numberBedroom;
   String? numberBathroom;
   String? square;
@@ -90,6 +92,7 @@ class Data {
         name: json["name"],
         description: json["description"],
         location: json["location"],
+        images: json["images"] == null ? null : Images.fromJson(json["images"]),
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         square: json["square"],
@@ -103,16 +106,20 @@ class Data {
         stateId: json["state_id"],
         cityId: json["city_id"],
         currencyId: json["currency_id"],
-        city: City.fromJson(json["city"]),
+        city: json["city"] == null ? null : City.fromJson(json["city"]),
         country: json["country"] == null
             ? []
             : List<dynamic>.from(json["country"]!.map((x) => x)),
         state: json["state"] == null
             ? []
             : List<dynamic>.from(json["state"]!.map((x) => x)),
-        category: Category.fromJson(json["category"]),
-        type: Type.fromJson(json["type"]),
-        currency: Currency.fromJson(json["currency"]),
+        category: json["category"] == null
+            ? null
+            : Category.fromJson(json["category"]),
+        type: json["type"] == null ? null : Type.fromJson(json["type"]),
+        currency: json["currency"] == null
+            ? null
+            : Currency.fromJson(json["currency"]),
         features: json["features"] == null
             ? []
             : List<dynamic>.from(json["features"]!.map((x) => x)),
@@ -125,6 +132,7 @@ class Data {
         "name": name,
         "description": description,
         "location": location,
+        "images": images?.toJson(),
         "number_bedroom": numberBedroom,
         "number_bathroom": numberBathroom,
         "square": square,
@@ -138,13 +146,13 @@ class Data {
         "state_id": stateId,
         "city_id": cityId,
         "currency_id": currencyId,
-        "city": city!.toJson(),
+        "city": city?.toJson(),
         "country":
             country == null ? [] : List<dynamic>.from(country!.map((x) => x)),
         "state": state == null ? [] : List<dynamic>.from(state!.map((x) => x)),
-        "category": category!.toJson(),
-        "type": type!.toJson(),
-        "currency": currency!.toJson(),
+        "category": category?.toJson(),
+        "type": type?.toJson(),
+        "currency": currency?.toJson(),
         "features":
             features == null ? [] : List<dynamic>.from(features!.map((x) => x)),
         "facilities": facilities == null
@@ -173,8 +181,8 @@ class Category {
   String? status;
   String? order;
   String? isDefault;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   String? parentId;
   String? parentclass;
 
@@ -185,8 +193,8 @@ class Category {
         status: json["status"],
         order: json["order"],
         isDefault: json["is_default"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         parentId: json["parent_id"],
         parentclass: json["parentclass"],
       );
@@ -198,8 +206,8 @@ class Category {
         "status": status,
         "order": order,
         "is_default": isDefault,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "parent_id": parentId,
         "parentclass": parentclass,
       };
@@ -228,8 +236,8 @@ class City {
   String? order;
   String? isFeatured;
   String? status;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   String? slug;
 
   factory City.fromJson(Map<String, dynamic> json) => City(
@@ -241,8 +249,8 @@ class City {
         order: json["order"],
         isFeatured: json["is_featured"],
         status: json["status"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         slug: json["slug"],
       );
 
@@ -255,8 +263,8 @@ class City {
         "order": order,
         "is_featured": isFeatured,
         "status": status,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "slug": slug,
       };
 }
@@ -283,8 +291,8 @@ class Currency {
   String? order;
   String? isDefault;
   String? exchangeRate;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
 
   factory Currency.fromJson(Map<String, dynamic> json) => Currency(
         id: json["id"],
@@ -295,8 +303,8 @@ class Currency {
         order: json["order"],
         isDefault: json["is_default"],
         exchangeRate: json["exchange_rate"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -308,8 +316,40 @@ class Currency {
         "order": order,
         "is_default": isDefault,
         "exchange_rate": exchangeRate,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+      };
+}
+
+class Images {
+  Images({
+    this.the1,
+    this.the2,
+    this.the3,
+    this.the4,
+    this.the5,
+  });
+
+  String? the1;
+  String? the2;
+  String? the3;
+  String? the4;
+  String? the5;
+
+  factory Images.fromJson(Map<String, dynamic> json) => Images(
+        the1: json["1"],
+        the2: json["2"],
+        the3: json["3"],
+        the4: json["4"],
+        the5: json["5"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "1": the1,
+        "2": the2,
+        "3": the3,
+        "4": the4,
+        "5": the5,
       };
 }
 

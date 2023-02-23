@@ -41,8 +41,7 @@ class Moreplaces extends StatelessWidget {
                 : ListView.builder(
                     itemBuilder: ((context, index) {
                       if (index <
-                          moreplacescontroller
-                              .moreplaceresponse.data!.data!.length) {
+                          moreplacescontroller.moreplaceresponse.data!.length) {
                         return Column(
                           children: [
                             Center(
@@ -50,10 +49,7 @@ class Moreplaces extends StatelessWidget {
                                 onTap: () {
                                   Get.to(() => PropertyByID(
                                         id: moreplacescontroller
-                                            .moreplaceresponse
-                                            .data!
-                                            .data![index]
-                                            .id,
+                                            .moreplaceresponse.data![index].id,
                                       ));
                                 },
                                 child: Container(
@@ -83,7 +79,6 @@ class Moreplaces extends StatelessWidget {
                                                           Radius.circular(10)),
                                               child: moreplacescontroller
                                                           .moreplaceresponse
-                                                          .data!
                                                           .data![index]
                                                           .images ==
                                                       null
@@ -93,7 +88,7 @@ class Moreplaces extends StatelessWidget {
                                                       fit: BoxFit.cover,
                                                     )
                                                   : Image.network(
-                                                      '${AppUrls.baseUrl2}${moreplacescontroller.moreplaceresponse.data!.data![index].images!["1"].toString()}',
+                                                      '${AppUrls.baseUrl2}${moreplacescontroller.moreplaceresponse.data![index].images!.the1.toString()}',
                                                       fit: BoxFit.cover,
                                                     )
 
@@ -124,7 +119,6 @@ class Moreplaces extends StatelessWidget {
                                                   child: Text(
                                                 moreplacescontroller
                                                     .moreplaceresponse
-                                                    .data!
                                                     .data![index]
                                                     .type!
                                                     .name
@@ -139,7 +133,7 @@ class Moreplaces extends StatelessWidget {
                                               padding: const EdgeInsets.only(
                                                   right: 10),
                                               child: Text(
-                                                  "Rs  ${moreplacescontroller.moreplaceresponse.data!.data![index].price.toString()} PKR",
+                                                  "Rs  ${moreplacescontroller.moreplaceresponse.data![index].price.toString()} PKR",
                                                   style: AppTextStyles.heading1
                                                       .copyWith(
                                                           color: AppColors
@@ -154,7 +148,6 @@ class Moreplaces extends StatelessWidget {
                                           child: Text(
                                               moreplacescontroller
                                                   .moreplaceresponse
-                                                  .data!
                                                   .data![index]
                                                   .name
                                                   .toString(),
@@ -178,7 +171,6 @@ class Moreplaces extends StatelessWidget {
                                             Text(
                                               moreplacescontroller
                                                   .moreplaceresponse
-                                                  .data!
                                                   .data![index]
                                                   .numberBedroom
                                                   .toString(),
@@ -198,7 +190,6 @@ class Moreplaces extends StatelessWidget {
                                             Text(
                                               moreplacescontroller
                                                   .moreplaceresponse
-                                                  .data!
                                                   .data![index]
                                                   .numberBathroom
                                                   .toString(),
@@ -222,7 +213,6 @@ class Moreplaces extends StatelessWidget {
                                             Text(
                                               moreplacescontroller
                                                   .moreplaceresponse
-                                                  .data!
                                                   .data![index]
                                                   .square
                                                   .toString(),
@@ -250,7 +240,6 @@ class Moreplaces extends StatelessWidget {
                                               Text(
                                                 moreplacescontroller
                                                     .moreplaceresponse
-                                                    .data!
                                                     .data![index]
                                                     .location
                                                     .toString(),
@@ -278,8 +267,8 @@ class Moreplaces extends StatelessWidget {
                         );
                       }
                     }),
-                    itemCount: moreplacescontroller
-                            .moreplaceresponse.data!.data!.length +
-                        1)));
+                    itemCount:
+                        moreplacescontroller.moreplaceresponse.data!.length +
+                            1)));
   }
 }
