@@ -76,6 +76,7 @@ class Datum {
     this.assignerId,
     this.isDeleted,
     this.isLiked,
+    this.propertyImages,
     this.isWishlist,
     this.likesOnProperties,
     this.slugable,
@@ -126,6 +127,7 @@ class Datum {
   String? assignerId;
   String? isDeleted;
   int? isLiked;
+  List<String>? propertyImages;
   int? isWishlist;
   List<LikesOnProperty>? likesOnProperties;
   Slugable? slugable;
@@ -176,6 +178,9 @@ class Datum {
         assignerId: json["assigner_id"],
         isDeleted: json["is_deleted"],
         isLiked: json["is_liked"],
+        propertyImages: json["property_images"] == null
+            ? []
+            : List<String>.from(json["property_images"]!.map((x) => x)),
         isWishlist: json["is_wishlist"],
         likesOnProperties: json["likes_on_properties"] == null
             ? []
@@ -245,6 +250,9 @@ class Datum {
         "assigner_id": assignerId,
         "is_deleted": isDeleted,
         "is_liked": isLiked,
+        "property_images": propertyImages == null
+            ? []
+            : List<dynamic>.from(propertyImages!.map((x) => x)),
         "is_wishlist": isWishlist,
         "likes_on_properties": likesOnProperties == null
             ? []

@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:prologic_29/data/Models/NewsFeed_Model/newsfeed_model.dart';
 import 'package:prologic_29/data/Services/NewsFeed_Services/newsfeed_services.dart';
 
+import '../../../Views/Wishlist/favorites.dart';
+
 class NewsFeedController extends GetxController {
   RxBool loadingnewspost = false.obs;
   var newsfeedmodel = NewsfeedModel();
@@ -71,4 +73,5 @@ class NewsFeedController extends GetxController {
   //     likeerrorLoadingnewsfeed.value = res.toString();
   //   }
   // }
+  // manage remove wishlist
 }

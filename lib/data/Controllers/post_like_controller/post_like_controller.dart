@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:prologic_29/data/Models/NewsFeed_Model/newsfeed_model.dart';
 import 'package:prologic_29/data/Models/like_model.dart';
 import 'package:prologic_29/data/Services/post_like_services/post_like_services.dart';
@@ -48,4 +49,10 @@ class PostLikeController extends GetxController {
   //     errorLoadingnewsfeed.value = res.toString();
   //   }
   // }
+
+  RxInt myindex = 0.obs;
+  void myIndex(index) {
+    myindex.value = index;
+    print("controller  index===${myindex.value}");
+  }
 }

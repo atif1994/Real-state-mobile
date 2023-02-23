@@ -92,39 +92,39 @@ class Property {
 
   int? id;
   String? name;
-  dynamic description;
-  dynamic content;
-  dynamic location;
+  String? description;
+  String? content;
+  String? location;
   List<dynamic>? images;
   dynamic numberBedroom;
   dynamic numberBathroom;
   dynamic numberFloor;
   dynamic square;
-  dynamic price;
-  dynamic currencyId;
-  dynamic cityId;
+  String? price;
+  String? currencyId;
+  String? cityId;
   dynamic stateId;
   dynamic countryId;
   String? period;
-  dynamic authorId;
+  String? authorId;
   String? authorType;
-  dynamic categoryId;
+  String? categoryId;
   String? isFeatured;
   String? moderationStatus;
-  dynamic expireDate;
+  String? expireDate;
   String? autoRenew;
   String? neverExpired;
   dynamic latitude;
   dynamic longitude;
   String? typeId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   dynamic subcategoryId;
-  String? plotNumber;
-  String? streetNumber;
+  dynamic plotNumber;
+  dynamic streetNumber;
   String? sectorAndBlockName;
   dynamic assignedAgent;
-  dynamic assignerId;
+  String? assignerId;
   String? isDeleted;
   List<LikesOnProperty>? likesOnProperties;
 
@@ -158,12 +158,8 @@ class Property {
         latitude: json["latitude"],
         longitude: json["longitude"],
         typeId: json["type_id"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         subcategoryId: json["subcategory_id"],
         plotNumber: json["plot_number"],
         streetNumber: json["street_number"],
@@ -206,8 +202,8 @@ class Property {
         "latitude": latitude,
         "longitude": longitude,
         "type_id": typeId,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "subcategory_id": subcategoryId,
         "plot_number": plotNumber,
         "street_number": streetNumber,

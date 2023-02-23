@@ -77,7 +77,7 @@ class ChatScreen extends StatelessWidget {
                                 ],
                               ),
                             )
-                          : controller.chatModel.data == null
+                          : controller.conversationModel.data == null
                               ? Center(child: Text("No Chat Found"))
                               : FutureBuilder(
                                   future: controller

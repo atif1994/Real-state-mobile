@@ -29,6 +29,7 @@ class AddWishlistController extends GetxController {
   RxList pid = [].obs;
   int? uid;
 
+  RxBool Colorchangeprop = false.obs;
   @override
   void onInit() async {
     getloadwishlist.value = true;
@@ -72,10 +73,10 @@ class AddWishlistController extends GetxController {
       loadinggetwishlist.value = false;
       getwishlistmodel = res;
       print('@@@@@@@@@@');
-      // final data = getwishlistmodel.data as List<Datum>;
-      // data.forEach((e) {
-      //   pid.add(e.id);
-      // });
+      final data = getwishlistmodel.data as List<Datum>;
+      data.forEach((e) {
+        pid.add(e.id);
+      });
       getloadwishlist.value = false;
     } else {
       getloadwishlist.value = false;
