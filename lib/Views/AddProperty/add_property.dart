@@ -183,7 +183,7 @@ class _PropertyState extends State<Property>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.appthem,
-        title: Text("Add Property", style: AppTextStyles.appbar),
+        title: Text("Add Propertyy", style: AppTextStyles.appbar),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
