@@ -212,7 +212,7 @@ class CustomDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => const WishlistPage());
+                        Get.to(() => WishlistPage());
                       },
                       leading: Image.asset(
                         AppImageResources.wishlistsearches,
