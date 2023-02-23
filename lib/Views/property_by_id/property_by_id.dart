@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import '../../data/Controllers/property_controllers/propertyby_id_controller.dart';
 import '../../utils/constants/app_urls.dart';
 import '../../utils/constants/appcolors.dart';
@@ -27,6 +27,12 @@ class _PropertyByIDState extends State<PropertyByID> {
     super.initState();
   }
 
+  List imgList = [
+    "https://miro.medium.com/max/1200/0*s7vGN34hz5jJUYTm.png",
+    "https://flutter-kr.io/images/flutter-logo-sharing.png",
+    "https://miro.medium.com/max/1200/0*s7vGN34hz5jJUYTm.png",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-zURehKCPBJ20f1xCrvHdQbpEoTVk-Bzz8hWCdlXDfowi3wGzwp7gDnBC3YSsMsJ-xBs&usqp=CAU"
+  ];
   @override
   Widget build(BuildContext context) {
     print("**********************************************${widget.id}");
@@ -56,12 +62,47 @@ class _PropertyByIDState extends State<PropertyByID> {
                   ))
                 : Column(
                     children: [
-                      SizedBox(
-                        height: 35.0.h,
-                        width: 100.0.w,
-                        child: Image.network(
-                            "${AppUrls.baseUrl2}${propertybyyidController.propertybyIDmodel.data!.images!.toString()}"),
-                      ),
+                      Container(
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 194, 190, 190),
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10))),
+                          height: 30.0.h,
+                          width: 100.0.w,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: imgList.length,
+                            itemBuilder: (context, index) {
+                              print(
+                                  "list index    $index    list   ${imgList[index]}");
+                              return CarouselSlider(
+                                items: [
+                                  Container(
+                                    color: Colors.black,
+                                    height: 40.0.h,
+                                    width: 130.0.w,
+                                    child: Image.network(
+                                      imgList[index],
+                                    ),
+                                  ),
+                                ],
+                                options: CarouselOptions(
+                                  enlargeCenterPage: true,
+                                  autoPlay: true,
+                                  // aspectRatio: 16 / 9,
+                                  autoPlayCurve: Curves.fastOutSlowIn,
+                                  enableInfiniteScroll: true,
+                                  autoPlayAnimationDuration:
+                                      Duration(milliseconds: 800),
+                                  viewportFraction: 0.8,
+                                ),
+                              );
+                            },
+                          )
+                          // Image.network(
+                          //     "${AppUrls.baseUrl2}${propertybyyidController.propertybyIDmodel.data!.images!.the1.toString()}"),
+                          ),
                       // )),
                       SizedBox(
                         height: 1.0.h,
