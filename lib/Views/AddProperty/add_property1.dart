@@ -157,7 +157,7 @@ class _PropertyState extends State<Property>
                           child: Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: horizontalPadding),
-                        child: Text('I want to0',
+                        child: Text('I want to',
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
                       CupertinoSlidingSegmentedControl<int>(
@@ -234,7 +234,7 @@ class _PropertyState extends State<Property>
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: horizontalPadding),
-                              child: Text('Contentt',
+                              child: Text('Content',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ),
