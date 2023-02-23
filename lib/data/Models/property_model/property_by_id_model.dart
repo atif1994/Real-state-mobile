@@ -4,95 +4,94 @@
 
 import 'dart:convert';
 
-PropertyById propertyByIdFromJson(String str) =>
-    PropertyById.fromJson(json.decode(str));
+PropertyById propertyByIdFromJson(String str) => PropertyById.fromJson(json.decode(str));
 
 String propertyByIdToJson(PropertyById data) => json.encode(data.toJson());
 
 class PropertyById {
-  PropertyById({
-    this.error,
-    this.data,
-    this.message,
-  });
+    PropertyById({
+        this.error,
+        this.data,
+        this.message,
+    });
 
-  bool? error;
-  Data? data;
-  dynamic message;
+    bool? error;
+    Data? data;
+    dynamic message;
 
-  factory PropertyById.fromJson(Map<String, dynamic> json) => PropertyById(
+    factory PropertyById.fromJson(Map<String, dynamic> json) => PropertyById(
         error: json["error"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
         message: json["message"],
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "error": error,
         "data": data?.toJson(),
         "message": message,
-      };
+    };
 }
 
 class Data {
-  Data({
-    this.name,
-    this.description,
-    this.location,
-    this.images,
-    this.numberBedroom,
-    this.numberBathroom,
-    this.square,
-    this.numberFloor,
-    this.price,
-    this.sectorAndBlockName,
-    this.streetNumber,
-    this.plotNumber,
-    this.typeId,
-    this.categoryId,
-    this.stateId,
-    this.cityId,
-    this.currencyId,
-    this.city,
-    this.country,
-    this.state,
-    this.category,
-    this.type,
-    this.currency,
-    this.features,
-    this.facilities,
-  });
+    Data({
+        this.name,
+        this.description,
+        this.location,
+        this.images,
+        this.numberBedroom,
+        this.numberBathroom,
+        this.square,
+        this.numberFloor,
+        this.price,
+        this.sectorAndBlockName,
+        this.streetNumber,
+        this.plotNumber,
+        this.typeId,
+        this.categoryId,
+        this.stateId,
+        this.cityId,
+        this.currencyId,
+        this.city,
+        this.country,
+        this.state,
+        this.category,
+        this.type,
+        this.currency,
+        this.features,
+        this.facilities,
+    });
 
-  String? name;
-  String? description;
-  String? location;
-  Images? images;
-  String? numberBedroom;
-  String? numberBathroom;
-  String? square;
-  String? numberFloor;
-  String? price;
-  dynamic sectorAndBlockName;
-  dynamic streetNumber;
-  dynamic plotNumber;
-  String? typeId;
-  String? categoryId;
-  dynamic stateId;
-  String? cityId;
-  String? currencyId;
-  City? city;
-  List<dynamic>? country;
-  List<dynamic>? state;
-  Category? category;
-  Type? type;
-  Currency? currency;
-  List<dynamic>? features;
-  List<dynamic>? facilities;
+    String? name;
+    String? description;
+    String? location;
+    List<String>? images;
+    String? numberBedroom;
+    String? numberBathroom;
+    String? square;
+    String? numberFloor;
+    String? price;
+    String? sectorAndBlockName;
+    String? streetNumber;
+    String? plotNumber;
+    String? typeId;
+    String? categoryId;
+    dynamic stateId;
+    String? cityId;
+    String? currencyId;
+    City? city;
+    List<dynamic>? country;
+    List<dynamic>? state;
+    Category? category;
+    Type? type;
+    Currency? currency;
+    List<dynamic>? features;
+    List<dynamic>? facilities;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
         name: json["name"],
         description: json["description"],
         location: json["location"],
-        images: json["images"] == null ? null : Images.fromJson(json["images"]),
+        images: json["images"] == null ? [] : List<String>.from(json["images"]!.map((x) => x)),
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         square: json["square"],
@@ -107,32 +106,20 @@ class Data {
         cityId: json["city_id"],
         currencyId: json["currency_id"],
         city: json["city"] == null ? null : City.fromJson(json["city"]),
-        country: json["country"] == null
-            ? []
-            : List<dynamic>.from(json["country"]!.map((x) => x)),
-        state: json["state"] == null
-            ? []
-            : List<dynamic>.from(json["state"]!.map((x) => x)),
-        category: json["category"] == null
-            ? null
-            : Category.fromJson(json["category"]),
+        country: json["country"] == null ? [] : List<dynamic>.from(json["country"]!.map((x) => x)),
+        state: json["state"] == null ? [] : List<dynamic>.from(json["state"]!.map((x) => x)),
+        category: json["category"] == null ? null : Category.fromJson(json["category"]),
         type: json["type"] == null ? null : Type.fromJson(json["type"]),
-        currency: json["currency"] == null
-            ? null
-            : Currency.fromJson(json["currency"]),
-        features: json["features"] == null
-            ? []
-            : List<dynamic>.from(json["features"]!.map((x) => x)),
-        facilities: json["facilities"] == null
-            ? []
-            : List<dynamic>.from(json["facilities"]!.map((x) => x)),
-      );
+        currency: json["currency"] == null ? null : Currency.fromJson(json["currency"]),
+        features: json["features"] == null ? [] : List<dynamic>.from(json["features"]!.map((x) => x)),
+        facilities: json["facilities"] == null ? [] : List<dynamic>.from(json["facilities"]!.map((x) => x)),
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "name": name,
         "description": description,
         "location": location,
-        "images": images?.toJson(),
+        "images": images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
         "number_bedroom": numberBedroom,
         "number_bathroom": numberBathroom,
         "square": square,
@@ -147,46 +134,42 @@ class Data {
         "city_id": cityId,
         "currency_id": currencyId,
         "city": city?.toJson(),
-        "country":
-            country == null ? [] : List<dynamic>.from(country!.map((x) => x)),
+        "country": country == null ? [] : List<dynamic>.from(country!.map((x) => x)),
         "state": state == null ? [] : List<dynamic>.from(state!.map((x) => x)),
         "category": category?.toJson(),
         "type": type?.toJson(),
         "currency": currency?.toJson(),
-        "features":
-            features == null ? [] : List<dynamic>.from(features!.map((x) => x)),
-        "facilities": facilities == null
-            ? []
-            : List<dynamic>.from(facilities!.map((x) => x)),
-      };
+        "features": features == null ? [] : List<dynamic>.from(features!.map((x) => x)),
+        "facilities": facilities == null ? [] : List<dynamic>.from(facilities!.map((x) => x)),
+    };
 }
 
 class Category {
-  Category({
-    this.id,
-    this.name,
-    this.description,
-    this.status,
-    this.order,
-    this.isDefault,
-    this.createdAt,
-    this.updatedAt,
-    this.parentId,
-    this.parentclass,
-  });
+    Category({
+        this.id,
+        this.name,
+        this.description,
+        this.status,
+        this.order,
+        this.isDefault,
+        this.createdAt,
+        this.updatedAt,
+        this.parentId,
+        this.parentclass,
+    });
 
-  int? id;
-  String? name;
-  dynamic description;
-  String? status;
-  String? order;
-  String? isDefault;
-  String? createdAt;
-  String? updatedAt;
-  String? parentId;
-  String? parentclass;
+    int? id;
+    String? name;
+    dynamic description;
+    String? status;
+    String? order;
+    String? isDefault;
+    String? createdAt;
+    String? updatedAt;
+    String? parentId;
+    String? parentclass;
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
+    factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],
         name: json["name"],
         description: json["description"],
@@ -197,9 +180,9 @@ class Category {
         updatedAt: json["updated_at"],
         parentId: json["parent_id"],
         parentclass: json["parentclass"],
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "description": description,
@@ -210,37 +193,37 @@ class Category {
         "updated_at": updatedAt,
         "parent_id": parentId,
         "parentclass": parentclass,
-      };
+    };
 }
 
 class City {
-  City({
-    this.id,
-    this.name,
-    this.stateId,
-    this.countryId,
-    this.recordId,
-    this.order,
-    this.isFeatured,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-    this.slug,
-  });
+    City({
+        this.id,
+        this.name,
+        this.stateId,
+        this.countryId,
+        this.recordId,
+        this.order,
+        this.isFeatured,
+        this.status,
+        this.createdAt,
+        this.updatedAt,
+        this.slug,
+    });
 
-  int? id;
-  String? name;
-  String? stateId;
-  String? countryId;
-  dynamic recordId;
-  String? order;
-  String? isFeatured;
-  String? status;
-  String? createdAt;
-  String? updatedAt;
-  String? slug;
+    int? id;
+    String? name;
+    String? stateId;
+    String? countryId;
+    dynamic recordId;
+    String? order;
+    String? isFeatured;
+    String? status;
+    String? createdAt;
+    String? updatedAt;
+    String? slug;
 
-  factory City.fromJson(Map<String, dynamic> json) => City(
+    factory City.fromJson(Map<String, dynamic> json) => City(
         id: json["id"],
         name: json["name"],
         stateId: json["state_id"],
@@ -252,9 +235,9 @@ class City {
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
         slug: json["slug"],
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "state_id": stateId,
@@ -266,35 +249,35 @@ class City {
         "created_at": createdAt,
         "updated_at": updatedAt,
         "slug": slug,
-      };
+    };
 }
 
 class Currency {
-  Currency({
-    this.id,
-    this.title,
-    this.symbol,
-    this.isPrefixSymbol,
-    this.decimals,
-    this.order,
-    this.isDefault,
-    this.exchangeRate,
-    this.createdAt,
-    this.updatedAt,
-  });
+    Currency({
+        this.id,
+        this.title,
+        this.symbol,
+        this.isPrefixSymbol,
+        this.decimals,
+        this.order,
+        this.isDefault,
+        this.exchangeRate,
+        this.createdAt,
+        this.updatedAt,
+    });
 
-  int? id;
-  String? title;
-  String? symbol;
-  String? isPrefixSymbol;
-  String? decimals;
-  String? order;
-  String? isDefault;
-  String? exchangeRate;
-  String? createdAt;
-  String? updatedAt;
+    int? id;
+    String? title;
+    String? symbol;
+    String? isPrefixSymbol;
+    String? decimals;
+    String? order;
+    String? isDefault;
+    String? exchangeRate;
+    String? createdAt;
+    String? updatedAt;
 
-  factory Currency.fromJson(Map<String, dynamic> json) => Currency(
+    factory Currency.fromJson(Map<String, dynamic> json) => Currency(
         id: json["id"],
         title: json["title"],
         symbol: json["symbol"],
@@ -305,9 +288,9 @@ class Currency {
         exchangeRate: json["exchange_rate"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
         "symbol": symbol,
@@ -318,69 +301,37 @@ class Currency {
         "exchange_rate": exchangeRate,
         "created_at": createdAt,
         "updated_at": updatedAt,
-      };
-}
-
-class Images {
-  Images({
-    this.the1,
-    this.the2,
-    this.the3,
-    this.the4,
-    this.the5,
-  });
-
-  String? the1;
-  String? the2;
-  String? the3;
-  String? the4;
-  String? the5;
-
-  factory Images.fromJson(Map<String, dynamic> json) => Images(
-        the1: json["1"],
-        the2: json["2"],
-        the3: json["3"],
-        the4: json["4"],
-        the5: json["5"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "1": the1,
-        "2": the2,
-        "3": the3,
-        "4": the4,
-        "5": the5,
-      };
+    };
 }
 
 class Type {
-  Type({
-    this.id,
-    this.name,
-    this.slug,
-    this.order,
-    this.code,
-  });
+    Type({
+        this.id,
+        this.name,
+        this.slug,
+        this.order,
+        this.code,
+    });
 
-  int? id;
-  String? name;
-  String? slug;
-  String? order;
-  String? code;
+    int? id;
+    String? name;
+    String? slug;
+    String? order;
+    String? code;
 
-  factory Type.fromJson(Map<String, dynamic> json) => Type(
+    factory Type.fromJson(Map<String, dynamic> json) => Type(
         id: json["id"],
         name: json["name"],
         slug: json["slug"],
         order: json["order"],
         code: json["code"],
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "slug": slug,
         "order": order,
         "code": code,
-      };
+    };
 }

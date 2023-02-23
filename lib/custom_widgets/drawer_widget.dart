@@ -23,20 +23,20 @@ class CustomDrawer extends StatelessWidget {
   String fname;
   String lname;
   String email;
-  String img;
+  String loginBaseImage;
   CustomDrawer(
       {Key? key,
       required this.fname,
       required this.lname,
       required this.email,
-      required this.img})
+      required this.loginBaseImage})
       : super(key: key);
   final logoutController = Get.put(LogoutController());
   var updateImageController = Get.put(UpdateImageController());
 
   @override
   Widget build(BuildContext context) {
-    print("******************$img*********$email");
+    print(" Custom Drawer image login base ****$loginBaseImage*********$email");
     return Drawer(
       backgroundColor: AppColors.appthem,
       child: Column(
@@ -75,14 +75,9 @@ class CustomDrawer extends StatelessWidget {
                           borderRadius: BorderRadius.circular(300)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(300),
-                        child: img != ''
+                        child: loginBaseImage != ''
                             ? Image.network(
-                                updateImageController.updateImageModel.data !=
-                                        null
-                                    ? updateImageController
-                                        .updateImageModel.data!.avatar
-                                        .toString()
-                                    : img,
+                                loginBaseImage,
                                 fit: BoxFit.cover,
                               )
                             : Image.asset(
@@ -190,7 +185,7 @@ class CustomDrawer extends StatelessWidget {
                       onTap: () {
                         // Get.to(() => ProfileImageEdit());
                         Get.to(ProfilePages(
-                          uploadImgParamter: img,
+                          loginBaseImage: loginBaseImage,
                         ));
                       },
                       leading: Image.asset(
@@ -279,9 +274,7 @@ class CustomDrawer extends StatelessWidget {
                   //     ),
                   //   ),
                   // ),
-                  SizedBox(
-                    height: 1.0.h,
-                  ),
+
                   Container(
                     margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
                     height: 6.0.h,
@@ -297,7 +290,7 @@ class CustomDrawer extends StatelessWidget {
                         height: 3.0.h,
                       ),
                       title: Text(
-                        "Contact",
+                        "Contact Us",
                         style: AppTextStyles.heading1
                             .copyWith(color: AppColors.colorWhite),
                       ),
@@ -345,7 +338,7 @@ class CustomDrawer extends StatelessWidget {
                         height: 2.5.h,
                       ),
                       title: Text(
-                        "Notification",
+                        "Notifications",
                         style: AppTextStyles.heading1
                             .copyWith(color: AppColors.colorWhite),
                       ),
@@ -368,7 +361,7 @@ class CustomDrawer extends StatelessWidget {
                       title: GestureDetector(
                         onTap: () async {
                           //signout
-                          logoutController.logout();
+                          logoutalert(context);
                         },
                         child: Text(
                           "Logout",
@@ -385,5 +378,30 @@ class CustomDrawer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void logoutalert(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Logout'),
+            content: const Text('Do you want to logout'),
+            actions: [
+              ButtonBar(children: [
+                ElevatedButton(
+                    onPressed: () {
+                      logoutController.logout();
+                    },
+                    child: const Text('Confirm')),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Cancel'))
+              ])
+            ],
+          );
+        });
   }
 }

@@ -25,7 +25,7 @@ class ChatScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.appthem,
         title: Text(
-          "Security",
+          "Chat",
           style: AppTextStyles.heading1,
         ),
       ),

@@ -14,11 +14,10 @@ import 'package:sizer/sizer.dart';
 
 import '../../../data/Controllers/user_profile_section_controller/image_update_controller.dart';
 import '../../../data/Controllers/user_profile_section_controller/user_profile_controller.dart';
-import '../../../data/Models/user_profile_section_model/get_user_profile.dart';
 
 class SettingsScreen extends StatefulWidget {
-  final GetUserProfileResponse? getUserProfileResponse;
-  const SettingsScreen({super.key, this.getUserProfileResponse});
+  String? imgulrl;
+  SettingsScreen({super.key, this.imgulrl});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -52,8 +51,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   geUploadtImgUrl() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     imguploadUrl = pref.getString("img");
-    print(
-        "uplaod image url from Model ${updateImageController.updateImageModel.data!.avatar}");
   }
 
   @override
@@ -84,6 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("Settings Screen img url+++++ ${widget.imgulrl}");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -119,24 +117,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Stack(children: <Widget>[
-                              CircleAvatar(
-                                  radius: 90,
-                                  // backgroundColor: Colors.transparent,
-                                  backgroundImage: CachedNetworkImageProvider(
-                                      updateImageController
-                                                  .updateImageModel.data !=
-                                              null
-                                          ? updateImageController
-                                              .updateImageModel.data!.avatar
-                                              .toString()
-                                          : profileController.userProfileData
-                                                      .data!.avatar ==
-                                                  ''
-                                              ? "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4"
-                                              : profileController
-                                                  .userProfileData
-                                                  .data!
-                                                  .avatar!)),
+                              CircleAvatar(      
+                                radius: 90,
+                                // backgroundColor: Colors.transparent,
+                                backgroundImage: CachedNetworkImageProvider(
+                                  widget.imgulrl != null
+                                      ? "${widget.imgulrl}"
+                                      : imguploadUrl.toString(),
+                                ),
+                              ),
                               Positioned(
                                   bottom: 0.0,
                                   right: 0.0,

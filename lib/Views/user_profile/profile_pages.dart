@@ -16,8 +16,8 @@ import '../../utils/styles/app_textstyles.dart';
 import 'propertise/propertise_section.dart';
 
 class ProfilePages extends StatefulWidget {
-  ProfilePages({super.key, this.uploadImgParamter});
-  String? uploadImgParamter;
+  ProfilePages({super.key, this.loginBaseImage});
+  String? loginBaseImage;
   @override
   State<ProfilePages> createState() => _ProfilePagesState();
 }
@@ -46,6 +46,7 @@ class _ProfilePagesState extends State<ProfilePages> {
 
   @override
   Widget build(BuildContext context) {
+    print("profile page login base img url +++ ${widget.loginBaseImage}");
     return SafeArea(
         child: Scaffold(
             body: Obx(() => profileController.loadingUserProfile.value
@@ -121,8 +122,8 @@ class _ProfilePagesState extends State<ProfilePages> {
 
                                               backgroundImage:
                                                   CachedNetworkImageProvider(
-                                            widget.uploadImgParamter != ""
-                                                ? "${widget.uploadImgParamter}"
+                                            widget.loginBaseImage != ""
+                                                ? "${widget.loginBaseImage}"
                                                 : "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4",
                                           ))),
                                       SizedBox(
@@ -213,9 +214,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                                   onTap: () async {
                                     Get.to(
                                         () => SettingsScreen(
-                                              getUserProfileResponse:
-                                                  profileController
-                                                      .userProfileData,
+                                              imgulrl: widget.loginBaseImage,
                                             ),
                                         duration:
                                             const Duration(milliseconds: 600),
