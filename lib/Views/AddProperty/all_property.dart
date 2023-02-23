@@ -216,7 +216,7 @@ class _AllPropertyState extends State<AllProperty> {
                                                       const EdgeInsets.only(
                                                           top: 3.0, left: 0.6),
                                                   child: Text(
-                                                    "Description: ${myPropertiseController.myPropertiseResponse.data![index].description ?? ""}",
+                                                    "Descriptionn: ${myPropertiseController.myPropertiseResponse.data![index].description ?? ""}",
                                                     style: AppTextStyles.appbar
                                                         .copyWith(
                                                       color:
