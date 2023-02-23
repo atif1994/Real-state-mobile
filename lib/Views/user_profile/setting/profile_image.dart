@@ -19,6 +19,11 @@ class profileImage extends StatefulWidget {
 class _profileImageState extends State<profileImage> {
   var imageupdatecontroller = Get.put(UpdateImageController());
 
+  void autoRestartPage() async {
+    await Future.delayed(const Duration(seconds: 10));
+    setState(() {});
+  }
+
   File? imageTemp;
 
   ImagePicker imagePicker = ImagePicker();
@@ -39,6 +44,13 @@ class _profileImageState extends State<profileImage> {
         imageTemp = File(img.path);
       });
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    autoRestartPage();
+    super.initState();
   }
 
   @override

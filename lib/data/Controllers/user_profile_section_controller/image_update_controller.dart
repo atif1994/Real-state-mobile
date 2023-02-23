@@ -13,6 +13,7 @@ class UpdateImageController extends GetxController {
   String imagePath = "";
 
   var updateImageModel = UpdateimageResponse();
+ 
 
   @override
   void onInit() {

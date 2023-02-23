@@ -189,7 +189,9 @@ class CustomDrawer extends StatelessWidget {
                     child: ListTile(
                       onTap: () {
                         // Get.to(() => ProfileImageEdit());
-                        Get.to(ProfilePages());
+                        Get.to(ProfilePages(
+                          uploadImgParamter: img,
+                        ));
                       },
                       leading: Image.asset(
                         AppImageResources.profilesetting,
