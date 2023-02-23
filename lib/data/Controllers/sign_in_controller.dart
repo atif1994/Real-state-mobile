@@ -35,6 +35,12 @@ class SignInController extends GetxController {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+//Save user and pass Controller
+  void saveCredientials() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("email", emailController.text);
+    pref.setString("pass", passwordController.text);
+  }
 
   RxBool isLoading = false.obs;
   LoginModel loginModel = LoginModel();
@@ -56,6 +62,9 @@ class SignInController extends GetxController {
       print("rrr======$res-------");
       loginModel = loginModelFromJson(res);
       print("model --------${loginModel.data!.id}----");
+
+      //save Crediential
+      saveCredientials();
 
       //Data Store in Shared Pref...
       MySharedPreferences.storeUserData(

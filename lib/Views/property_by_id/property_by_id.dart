@@ -32,7 +32,9 @@ class _PropertyByIDState extends State<PropertyByID> {
     print("**********************************************${widget.id}");
     return Scaffold(
         appBar: AppBar(
-          title: Text('Property ', style: AppTextStyles.heading1),
+          title: Text(
+              propertybyyidController.propertybyIDmodel.data!.name ?? "",
+              style: AppTextStyles.heading1),
           backgroundColor: AppColors.appthem,
         ),
         body: Obx(() => propertybyyidController.loadingPropertyByID.value
@@ -56,11 +58,34 @@ class _PropertyByIDState extends State<PropertyByID> {
                   ))
                 : Column(
                     children: [
-                      SizedBox(
-                        height: 35.0.h,
+                      Container(
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            color: Color.fromARGB(255, 216, 212, 212)),
+                        height: 33.0.h,
                         width: 100.0.w,
-                        child: Image.network(
-                            "${AppUrls.baseUrl2}${propertybyyidController.propertybyIDmodel.data!.images!.toString()}"),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15)),
+                                height: 30.0.h,
+                                width: 85.0.w,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.network(
+                                      "${AppUrls.baseUrl2}${propertybyyidController.propertybyIDmodel.data!.images![index].toString()}"),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                       // )),
                       SizedBox(

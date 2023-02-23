@@ -21,7 +21,7 @@ class PropertiseSection extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.appthem,
         title: Text(
-          "Propertise",
+          "Properties",
           style: AppTextStyles.heading1,
         ),
       ),

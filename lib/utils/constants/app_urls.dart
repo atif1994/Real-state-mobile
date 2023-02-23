@@ -37,7 +37,6 @@ class AppUrls {
 
   static const String assignAgents = "v1/assign-agents";
   static const String getWishlist = "v1/wishlist/";
-  static const String delWishlist = "v1/delete-wishlist";
 
   //////////////////////commnets
   static const String getLatestComments = "v1/get-comments";
