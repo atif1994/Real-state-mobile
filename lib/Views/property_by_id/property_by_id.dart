@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
@@ -11,9 +12,13 @@ import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/app_textstyles.dart';
 
 class PropertyByID extends StatefulWidget {
+  PropertyByID({
+    super.key,
+    this.name,
+    this.id,
+  });
   int? id;
-
-  PropertyByID({super.key, this.id});
+  String? name;
 
   @override
   State<PropertyByID> createState() => _PropertyByIDState();
@@ -30,13 +35,43 @@ class _PropertyByIDState extends State<PropertyByID> {
 
   @override
   Widget build(BuildContext context) {
-    print("**********************************************${widget.id}");
+    var screenWidth = MediaQuery.of(context).size.width;
+    final oCcy = NumberFormat("##,##,###", "en_INR");
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+      ),
+    );
     return Scaffold(
         appBar: AppBar(
+
           title: Text(
               propertybyyidController.propertybyIDmodel.data?.name ?? "",
               style: AppTextStyles.heading1),
+
           backgroundColor: AppColors.appthem,
+        ),
+        backgroundColor: Colors.white,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Container(
+          padding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 0,
+          ),
+          width: screenWidth,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: const <Widget>[
+              FloatingWidget(
+                leadingIcon: Icons.mail,
+                txt: "Message",
+              ),
+              FloatingWidget(
+                leadingIcon: Icons.phone,
+                txt: "Call",
+              ),
+            ],
+          ),
         ),
         body: Obx(() => propertybyyidController.loadingPropertyByID.value
             ? const Center(
@@ -358,7 +393,6 @@ class _PropertyByIDState extends State<PropertyByID> {
 //                                     .propertybyIDmodel.data!.city!.createdAt
 //                                     .toString())),
 
-
 // Container(
 //             margin: EdgeInsets.only(
 //               right: 5.0.w,
@@ -408,3 +442,200 @@ class _PropertyByIDState extends State<PropertyByID> {
 //                   )
 //                 ]),
 //           ),
+
+class FloatingWidget extends StatelessWidget {
+  final IconData? leadingIcon;
+  final String? txt;
+  const FloatingWidget({
+    Key? key,
+    this.leadingIcon,
+    this.txt,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 55,
+      width: 150,
+      child: FloatingActionButton(
+        elevation: 5,
+        onPressed: () {},
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(75.0),
+        ),
+        heroTag: null,
+        child: Ink(
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(75.0),
+          ),
+          child: Container(
+            constraints: const BoxConstraints(
+              maxWidth: 300.0,
+              minHeight: 50.0,
+            ),
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  leadingIcon,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 80,
+                  child: Text(
+                    txt.toString(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+@override
+Widget build(BuildContext context) {
+  final oCcy = NumberFormat("##,##,###", "en_INR");
+  var screenWidth = MediaQuery.of(context).size.width;
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      GestureDetector(
+        onTap: () {
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => ItemDetailScreen(
+
+          //       imgpath_index,
+          //       imageList,
+          //     ),
+          //   ),
+          //  );
+        },
+        child: Container(
+          height: 160,
+          width: screenWidth,
+          padding: const EdgeInsets.only(left: 12, right: 12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            image: const DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage(" imageList[imgpath_index],"),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 10,
+                ),
+                child: Container(
+                  height: 50.0,
+                  width: 50.0,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: const Icon(
+                    Icons.favorite_border,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(
+          left: 10,
+          top: 15,
+          bottom: 10,
+        ),
+        child: Row(
+          children: const <Widget>[
+            Text(
+              " house.amount",
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              " house.address",
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ),
+      const Padding(
+        padding: EdgeInsets.only(
+          left: 10,
+          top: 0,
+          bottom: 10,
+        ),
+        child: Text(
+          "bedrooms / bathrooms /  ft\u00B2",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+class MenuWidget extends StatelessWidget {
+  final IconData? iconImg;
+  final Color? iconColor;
+  final Color? conBackColor;
+  final Function()? onbtnTap;
+
+  const MenuWidget({
+    Key? key,
+    @required this.iconImg,
+    @required this.iconColor,
+    this.conBackColor,
+    this.onbtnTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onbtnTap!();
+      },
+      child: Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+          color: conBackColor,
+          border: Border.all(
+            color: Colors.grey,
+          ),
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: Icon(
+          iconImg,
+          color: iconColor,
+        ),
+      ),
+    );
+  }
+}

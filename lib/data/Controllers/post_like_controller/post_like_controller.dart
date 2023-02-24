@@ -1,23 +1,28 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:prologic_29/data/Models/NewsFeed_Model/newsfeed_model.dart';
 import 'package:prologic_29/data/Models/like_model.dart';
 import 'package:prologic_29/data/Services/post_like_services/post_like_services.dart';
 
 class PostLikeController extends GetxController {
   RxBool loadingPostLike = false.obs;
+  RxInt likeCount = 0.obs;
   var likeModel = LikeModel();
-  var newsfeedModel = NewsfeedModel();
   RxString errorLoadingPostLike = ''.obs;
 
+  RxList likeIdsList = [].obs;
+
+  void removeLikeIds(propertyId) {
+    likeIdsList.remove(propertyId);
+  }
+
   getPostLike(propertyId, uid) async {
-    loadingPostLike.value = false;
+    loadingPostLike.value = true;
     errorLoadingPostLike.value = '';
     var res = await PostLikeServices.getPostLikeServicee(propertyId, uid);
-    loadingPostLike.value = true;
     if (res is LikeModel) {
+      print("api model++++++${res.isliked}");
       loadingPostLike.value = false;
       likeModel = res;
+      print("api model++++++ ${likeModel.isliked}");
     } else {
       loadingPostLike.value = false;
       errorLoadingPostLike.value = res.toString();
@@ -30,25 +35,8 @@ class PostLikeController extends GetxController {
     print(isLike);
   }
 
-//like
-  RxBool loadingnewspost = false.obs;
-  var newsfeedmodel = NewsfeedModel();
-  RxString errorLoadingnewsfeed = ''.obs;
-
   @override
-  void onInit() {
-    // getnewsfeedcomment();
-  }
-
-  // void getnewsfeedcomment() async {
-  //   errorLoadingnewsfeed.value = '';
-  //   var res = await NewsFeedService.getNewsFeedAPI();
-  //   if (res is NewsfeedModel) {
-  //     newsfeedmodel = res;
-  //   } else {
-  //     errorLoadingnewsfeed.value = res.toString();
-  //   }
-  // }
+  void onInit() {}
 
   RxInt myindex = 0.obs;
   void myIndex(index) {

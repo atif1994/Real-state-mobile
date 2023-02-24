@@ -6,7 +6,9 @@ class PropertyByIDController extends GetxController {
   RxBool loadingPropertyByID = false.obs;
   var propertybyIDmodel = PropertyById();
   RxString errorLoadingPropertyByID = ''.obs;
+
   // List<Images> images = [];
+
 
   void getPropertyById(int pid) async {
     print(pid);
