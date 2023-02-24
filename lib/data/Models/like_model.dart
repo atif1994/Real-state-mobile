@@ -10,7 +10,7 @@ String likeModelToJson(LikeModel data) => json.encode(data.toJson());
 
 class LikeModel {
   LikeModel({
-    this.deleted,
+    this.success,
     this.message,
     this.isliked,
     this.likeOcunt,
@@ -18,7 +18,7 @@ class LikeModel {
     this.property,
   });
 
-  bool? deleted;
+  bool? success;
   String? message;
   int? isliked;
   int? likeOcunt;
@@ -26,7 +26,7 @@ class LikeModel {
   List<Property>? property;
 
   factory LikeModel.fromJson(Map<String, dynamic> json) => LikeModel(
-        deleted: json["deleted"],
+        success: json["success"],
         message: json["message"],
         isliked: json["isliked"],
         likeOcunt: json["like_ocunt"],
@@ -38,7 +38,7 @@ class LikeModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "deleted": deleted,
+        "success": success,
         "message": message,
         "isliked": isliked,
         "like_ocunt": likeOcunt,
@@ -134,9 +134,7 @@ class Property {
         description: json["description"],
         content: json["content"],
         location: json["location"],
-        images: json["images"] == null
-            ? []
-            : List<dynamic>.from(json["images"]!.map((x) => x)),
+        images: json["images"],
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         numberFloor: json["number_floor"],
