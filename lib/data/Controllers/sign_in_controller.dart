@@ -15,6 +15,7 @@ import 'auth_controller.dart';
 
 class SignInController extends GetxController {
   int? userId;
+  RxBool isHidden = true.obs;
   @override
   void onInit() {
     alreadyCheckLogin();
