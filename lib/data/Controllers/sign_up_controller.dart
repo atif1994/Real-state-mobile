@@ -25,6 +25,7 @@ class SignUpController extends GetxController {
   RxBool isLoading = false.obs;
   var signupModel = SignupModel();
   RxString errSignup = ''.obs;
+  RxBool isHidden = true.obs;
 
   signUp() async {
     print(CountryController.text);

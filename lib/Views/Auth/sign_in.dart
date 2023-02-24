@@ -1,11 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/Services/constants.dart';
 import 'package:prologic_29/Views/Auth/sign_up.dart';
 import 'package:prologic_29/data/Controllers/forget_pass_controller.dart';
 import 'package:prologic_29/data/Controllers/sign_in_controller.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
-
+import 'package:email_validator/email_validator.dart';
 import '../../data/Services/constants.dart';
 
 class SignIn extends GetView<SignInController> {
@@ -73,26 +74,32 @@ class SignIn extends GetView<SignInController> {
                                             controller:
                                                 controller.emailController,
                                             validator: (String? value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Please enter your email';
-                                              }
-                                              return null;
+                                              return emailvalidator(value);
                                             },
                                           ),
                                           TextFormField(
+                                            obscureText:
+                                                controller.isHidden.value,
                                             showCursor: true,
-                                            decoration: const InputDecoration(
+                                            decoration: InputDecoration(
+                                                suffixIcon: GestureDetector(
+                                                  onTap: () {
+                                                    controller.isHidden.value =
+                                                        !controller
+                                                            .isHidden.value;
+                                                  },
+                                                  child: controller
+                                                          .isHidden.value
+                                                      ? Icon(
+                                                          Icons.visibility_off)
+                                                      : Icon(Icons.visibility),
+                                                ),
                                                 hintText: 'password'),
                                             controller:
                                                 controller.passwordController,
-                                            validator: (String? value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Please enter your password';
-                                              }
-                                              return null;
-                                            },
+                                            // validator: (String? value) {
+                                            //   return passwordvalidator(value);
+                                            // },
                                           ),
 
                                           Align(
@@ -119,11 +126,10 @@ class SignIn extends GetView<SignInController> {
                                               onTap: () {
                                                 if (_formkey.currentState!
                                                     .validate()) {
+                                                  print('............');
                                                   controller.signIn();
 
                                                   // print("Successfull");
-                                                } else {
-                                                  print("Unsuccessfull");
                                                 }
                                               },
                                               text: 'SIGN IN'),

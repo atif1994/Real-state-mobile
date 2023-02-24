@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:ui';
-
+import 'package:email_validator/email_validator.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/Services/constants.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/data/Controllers/sign_up_controller.dart';
 import 'package:sizer/sizer.dart';
@@ -130,23 +131,27 @@ class SignUp extends GetView<SignUpController> {
                                             InputDecoration(hintText: 'Email'),
                                         controller: controller.emailController,
                                         validator: (String? value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter your Email';
-                                          }
-                                          return null;
+                                          return emailvalidator(value);
                                         },
                                       ),
                                       TextFormField(
+                                        obscureText: controller.isHidden.value,
                                         showCursor: true,
                                         decoration: InputDecoration(
+                                            suffixIcon: GestureDetector(
+                                              onTap: () {
+                                                controller.isHidden.value =
+                                                    !controller.isHidden.value;
+                                              },
+                                              child: controller.isHidden.value
+                                                  ? Icon(Icons.visibility_off)
+                                                  : Icon(Icons.visibility),
+                                            ),
                                             hintText: 'Password'),
                                         controller:
                                             controller.passwordController,
                                         validator: (String? value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter your Password';
-                                          }
-                                          return null;
+                                          return passwordvalidator(value);
                                         },
                                       ),
                                     ]),

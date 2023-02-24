@@ -390,8 +390,9 @@ class _ProfilePagesState extends State<ProfilePages> {
 
                                 InkWell(
                                     onTap: () {
-                                      logoutController.logout();
-                                      Get.off(SignIn());
+                                      logoutalert(context);
+                                      // logoutController.logout();
+                                      // Get.off(SignIn());
                                     },
                                     child: Container(
                                         margin: EdgeInsets.only(top: 2.0.h),
@@ -422,5 +423,31 @@ class _ProfilePagesState extends State<ProfilePages> {
                               ]),
                             ),
                           ]))));
+  }
+
+  void logoutalert(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Logout'),
+            content: const Text('Do you want to logout'),
+            actions: [
+              ButtonBar(children: [
+                ElevatedButton(
+                    onPressed: () {
+                      logoutController.logout();
+                      Get.off(SignIn());
+                    },
+                    child: const Text('Confirm')),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Cancel'))
+              ])
+            ],
+          );
+        });
   }
 }
