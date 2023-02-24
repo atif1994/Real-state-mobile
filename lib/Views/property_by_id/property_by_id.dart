@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Controllers/property_controllers/propertyby_id_controller.dart';
@@ -43,7 +44,11 @@ class _PropertyByIDState extends State<PropertyByID> {
     );
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.name ?? "", style: AppTextStyles.heading1),
+
+          title: Text(
+              propertybyyidController.propertybyIDmodel.data?.name ?? "",
+              style: AppTextStyles.heading1),
+
           backgroundColor: AppColors.appthem,
         ),
         backgroundColor: Colors.white,
@@ -91,27 +96,32 @@ class _PropertyByIDState extends State<PropertyByID> {
                     children: [
                       Container(
                         decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            color: Color.fromARGB(255, 216, 212, 212)),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)),
+                          // color: Color.fromARGB(255, 216, 212, 212)
+                        ),
                         height: 33.0.h,
                         width: 100.0.w,
                         child: ListView.builder(
+                          itemCount: propertybyyidController
+                              .propertybyIDmodel.data!.images!.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 10),
+                              padding: const EdgeInsets.only(
+                                  left: 6, right: 6, top: 10, bottom: 10),
                               child: Container(
-                                decoration: BoxDecoration(
+                                decoration: CustomDecorations.con2.copyWith(
                                     borderRadius: BorderRadius.circular(15)),
-                                height: 30.0.h,
+                                height: 25.0.h,
                                 width: 85.0.w,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
                                   child: Image.network(
-                                      "${AppUrls.baseUrl2}${propertybyyidController.propertybyIDmodel.data!.images![index].toString()}"),
+                                    "${AppUrls.baseUrl2}${propertybyyidController.propertybyIDmodel.data!.images![index].toString()}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             );
