@@ -34,7 +34,7 @@ class Chating extends StatefulWidget {
 }
 
 class _ChatingState extends State<Chating> {
-  var chattController = Get.put(ChatController());
+  var chattController = Get.put(ConversationController());
   var chatController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   String uid = "";
@@ -93,8 +93,8 @@ class _ChatingState extends State<Chating> {
                     // chattController.chatModel.data!.length < 0
                     //     ? const Center(child: Text("Say Hi"))
                     //     :
-                    GetBuilder<ChatController>(
-                  init: ChatController(),
+                    GetBuilder<ConversationController>(
+                  init: ConversationController(),
                   initState: (_) {},
                   builder: (controller) {
                     return FutureBuilder(

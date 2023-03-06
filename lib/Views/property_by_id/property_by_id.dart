@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:prologic_29/Views/user_profile/chat/chatting_screen.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Controllers/property_controllers/propertyby_id_controller.dart';
+import '../../data/Controllers/sendchat_controller/send_chat_controller.dart';
 import '../../utils/constants/app_urls.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
@@ -33,6 +35,7 @@ class _PropertyByIDState extends State<PropertyByID> {
     super.initState();
   }
 
+  final sendChatController = Get.put(SendChatController());
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -44,11 +47,9 @@ class _PropertyByIDState extends State<PropertyByID> {
     );
     return Scaffold(
         appBar: AppBar(
-
           title: Text(
               propertybyyidController.propertybyIDmodel.data?.name ?? "",
               style: AppTextStyles.heading1),
-
           backgroundColor: AppColors.appthem,
         ),
         backgroundColor: Colors.white,
@@ -61,15 +62,67 @@ class _PropertyByIDState extends State<PropertyByID> {
           width: screenWidth,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const <Widget>[
-              FloatingWidget(
-                leadingIcon: Icons.mail,
-                txt: "Message",
-              ),
-              FloatingWidget(
-                leadingIcon: Icons.phone,
-                txt: "Call",
-              ),
+            children: [
+              SizedBox(
+                height: 55,
+                width: 150,
+                child: FloatingActionButton(
+                  elevation: 5,
+                  onPressed: () {
+                    sendChatController.getSendChatApi();
+                    Get.to(Chating());
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(75.0),
+                  ),
+                  heroTag: null,
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(75.0),
+                    ),
+                    child: Container(
+                      constraints: const BoxConstraints(
+                        maxWidth: 300.0,
+                        minHeight: 50.0,
+                      ),
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.message,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 80,
+                            child: Text(
+                              "Start Chat",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
+              // FloatingWidget(
+              //   onPressed: () {
+              //     print("object");
+              //     sendChatController.getSendChatApi();
+              //   },
+              //   leadingIcon: Icons.mail,
+              //   txt: "Start Chat",
+              // ),
+              // // FloatingWidget(
+              //   leadingIcon: Icons.phone,
+              //   txt: "Call",
+              // ),
             ],
           ),
         ),
@@ -446,8 +499,10 @@ class _PropertyByIDState extends State<PropertyByID> {
 class FloatingWidget extends StatelessWidget {
   final IconData? leadingIcon;
   final String? txt;
+  final Function? onPressed;
   const FloatingWidget({
     Key? key,
+    this.onPressed,
     this.leadingIcon,
     this.txt,
   }) : super(key: key);
@@ -458,7 +513,7 @@ class FloatingWidget extends StatelessWidget {
       width: 150,
       child: FloatingActionButton(
         elevation: 5,
-        onPressed: () {},
+        onPressed: onPressed!(),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(75.0),
         ),

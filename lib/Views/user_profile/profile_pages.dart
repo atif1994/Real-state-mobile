@@ -287,7 +287,7 @@ class _ProfilePagesState extends State<ProfilePages> {
 
                                 ////////////////////////////////////////////
 
-                                // Container(  
+                                // Container(
                                 //     margin: EdgeInsets.only(top: 2.0.h),
                                 //     height: 6.0.h,
                                 //     width: 100.0.w,
@@ -353,7 +353,7 @@ class _ProfilePagesState extends State<ProfilePages> {
 
                                 InkWell(
                                     onTap: () {
-                                      Get.to(() => ChatScreen(),
+                                      Get.to(() => ConversationScreen(),
                                           duration:
                                               const Duration(milliseconds: 600),
                                           transition: Transition.rightToLeft);

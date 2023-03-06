@@ -9,6 +9,7 @@ class CustomButton extends StatelessWidget {
   final String? text;
   final Function? onPressed;
   final bool isloading;
+  
   const CustomButton({
     this.text,
     this.onPressed,

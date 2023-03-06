@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Services/chat_services.dart';
 
-class ChatController extends GetxController {
+class ConversationController extends GetxController {
   int? conversationId;
   int uid = 0;
   RxBool loadChat = false.obs;
@@ -43,15 +43,21 @@ class ChatController extends GetxController {
   RxBool loadingConversation = false.obs;
   var conversationModel = Conversation();
   RxString errConversationLoad = ''.obs;
+  List<Chat> allConversation = [];
   getConversation(int uid) async {
     print("*****user id call in func*******************$uid");
     loadingConversation.value = true;
     errConversationLoad.value = '';
-    var res = await ChatServices.getConversationService(uid);
+    var res = await ConversationServices.getConversationService(uid);
     if (res is Conversation) {
       loadingConversation.value = false;
       loadingChat.value = false;
       conversationModel = res;
+      // for (int i = 0; i < conversationModel.data![1].chats!.length; i++) {
+      //   allConversation.add(conversationModel.data![i].chats![i]);
+
+      //   print('*****************************${allConversation[i].message}');
+      // }
     } else {
       loadingConversation.value = false;
       errConversationLoad.value = res.toString();
@@ -66,7 +72,7 @@ class ChatController extends GetxController {
   RxString errChatload = ''.obs;
   getChat(int conversationId) async {
     loadingChat.value = true;
-    var res = await ChatServices.getChatServiceAPI(conversationId);
+    var res = await ConversationServices.getChatServiceAPI(conversationId);
     if (res is ChatModel) {
       loadChat.value = false;
       loadingChat.value = false;
@@ -94,7 +100,8 @@ class ChatController extends GetxController {
   void sendMsgMethod(custId, agentId, msg, convId) async {
     loadingsend.value = true;
     errSendMsg.value = '';
-    var res = await ChatServices.sendMsgService(custId, agentId, msg, convId);
+    var res =
+        await ConversationServices.sendMsgService(custId, agentId, msg, convId);
     loadingsend.value = false;
     if (res is SendChatModel) {
       sendMsgModel = res;

@@ -173,8 +173,8 @@ class _HomeState extends State<Home> {
   ///////////////////////////get device token
 
   Future<void> getDeviceTokenToSendNotification() async {
-    final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-    final token = await _fcm.getToken();
+    final FirebaseMessaging fcm = FirebaseMessaging.instance;
+    final token = await fcm.getToken();
     //    dTokens.add(token);
     _saveDeviceTokenToFirebase(token.toString());
 
@@ -224,7 +224,9 @@ class _HomeState extends State<Home> {
                       padding: EdgeInsets.only(top: 1.0.h),
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => ProfilePages(),
+                          Get.to(
+                              () =>
+                                  ProfilePages(loginBaseImage: loginBaseImage),
                               transition: Transition.fadeIn,
                               duration: Duration(milliseconds: 600));
                         },

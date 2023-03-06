@@ -54,8 +54,8 @@ class Datum {
   String? customer;
   String? agent;
   String? status;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   List<Chat>? chats;
   Sendercustomer? sendercustomer;
   Recieveragent? recieveragent;
@@ -65,12 +65,8 @@ class Datum {
         customer: json["customer"],
         agent: json["agent"],
         status: json["status"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         chats: json["chats"] == null
             ? []
             : List<Chat>.from(json["chats"]!.map((x) => Chat.fromJson(x))),
@@ -87,8 +83,8 @@ class Datum {
         "customer": customer,
         "agent": agent,
         "status": status,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "chats": chats == null
             ? []
             : List<dynamic>.from(chats!.map((x) => x.toJson())),
@@ -119,8 +115,8 @@ class Chat {
   String? status;
   dynamic image;
   String? senderId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
 
   factory Chat.fromJson(Map<String, dynamic> json) => Chat(
         id: json["id"],
@@ -131,12 +127,8 @@ class Chat {
         status: json["status"],
         image: json["image"],
         senderId: json["sender_id"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -148,8 +140,8 @@ class Chat {
         "status": status,
         "image": image,
         "sender_id": senderId,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
       };
 }
 
@@ -189,20 +181,20 @@ class Recieveragent {
   String? email;
   dynamic emailVerifiedAt;
   String? mobileNo;
-  dynamic profileImage;
+  String? profileImage;
   dynamic dob;
   String? activeStatus;
   dynamic deletedAt;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   String? firstName;
   String? lastName;
   String? username;
   String? avatarId;
   String? superUser;
   String? manageSupers;
-  Permissions? permissions;
-  DateTime? lastLogin;
+  dynamic permissions;
+  String? lastLogin;
   dynamic stripeId;
   dynamic pmType;
   dynamic pmLastFour;
@@ -223,24 +215,16 @@ class Recieveragent {
         dob: json["dob"],
         activeStatus: json["active_status"],
         deletedAt: json["deleted_at"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         firstName: json["first_name"],
         lastName: json["last_name"],
         username: json["username"],
         avatarId: json["avatar_id"],
         superUser: json["super_user"],
         manageSupers: json["manage_supers"],
-        permissions: json["permissions"] == null
-            ? null
-            : Permissions.fromJson(json["permissions"]),
-        lastLogin: json["last_login"] == null
-            ? null
-            : DateTime.parse(json["last_login"]),
+        permissions: json["permissions"],
+        lastLogin: json["last_login"],
         stripeId: json["stripe_id"],
         pmType: json["pm_type"],
         pmLastFour: json["pm_last_four"],
@@ -262,16 +246,16 @@ class Recieveragent {
         "dob": dob,
         "active_status": activeStatus,
         "deleted_at": deletedAt,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "first_name": firstName,
         "last_name": lastName,
         "username": username,
         "avatar_id": avatarId,
         "super_user": superUser,
         "manage_supers": manageSupers,
-        "permissions": permissions?.toJson(),
-        "last_login": lastLogin?.toIso8601String(),
+        "permissions": permissions,
+        "last_login": lastLogin,
         "stripe_id": stripeId,
         "pm_type": pmType,
         "pm_last_four": pmLastFour,
@@ -285,8 +269,8 @@ class Recieveragent {
       };
 }
 
-class Permissions {
-  Permissions({
+class PermissionsClass {
+  PermissionsClass({
     this.consultIndex,
     this.consultCreate,
     this.consultEdit,
@@ -324,7 +308,8 @@ class Permissions {
   String? superuser;
   String? manageSupers;
 
-  factory Permissions.fromJson(Map<String, dynamic> json) => Permissions(
+  factory PermissionsClass.fromJson(Map<String, dynamic> json) =>
+      PermissionsClass(
         consultIndex: json["consult.index"],
         consultCreate: json["consult.create"],
         consultEdit: json["consult.edit"],
@@ -401,13 +386,13 @@ class Sendercustomer {
   dynamic dob;
   String? phone;
   String? credits;
-  dynamic confirmedAt;
+  String? confirmedAt;
   dynamic emailVerifyToken;
   String? isFeatured;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   dynamic profileImage;
-  dynamic addressId;
+  String? addressId;
   String? roleId;
   dynamic deletedAt;
   String? activeStatus;
@@ -427,12 +412,8 @@ class Sendercustomer {
         confirmedAt: json["confirmed_at"],
         emailVerifyToken: json["email_verify_token"],
         isFeatured: json["is_featured"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         profileImage: json["profile_image"],
         addressId: json["address_id"],
         roleId: json["role_id"],
@@ -455,8 +436,8 @@ class Sendercustomer {
         "confirmed_at": confirmedAt,
         "email_verify_token": emailVerifyToken,
         "is_featured": isFeatured,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "profile_image": profileImage,
         "address_id": addressId,
         "role_id": roleId,
