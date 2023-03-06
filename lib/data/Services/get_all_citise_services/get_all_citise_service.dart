@@ -1,18 +1,18 @@
+import 'package:prologic_29/data/Models/get_all_citiese/get_all_citise_response.dart';
+
 import '../../../utils/constants/app_urls.dart';
 import '../../../utils/constants/base_client.dart';
 //import '../../Models/Notification_Model/Notification_model.dart';
 import 'package:http/http.dart' as http;
 
-import '../../Models/Notification_Model/notification_model.dart';
-
-class NotificationsServices {
-  static Future<dynamic> getNotificationsServices(int uid) async {
-    var url = "${AppUrls.baseUrl}${AppUrls.notificationend}$uid";
+class GetAllCitiseServices {
+  static Future<dynamic> getAllCitise() async {
+    var url = "${AppUrls.baseUrl}${AppUrls.getAllCitise}";
     var res = await BaseClientClass.get(url, '');
 
     try {
       if (res is http.Response) {
-        return notificationModelFromJson(res.body);
+        return getAllCitiseResponseFromJson(res.body);
       } else {
         return res;
       }

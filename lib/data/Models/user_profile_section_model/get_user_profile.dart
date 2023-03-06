@@ -61,9 +61,9 @@ class Data {
   String? email;
   String? phone;
   String? avatar;
-  DateTime? dob;
-  String? gender;
-  String? description;
+  dynamic dob;
+  dynamic gender;
+  dynamic description;
   String? addressId;
   Address? address;
   String? credits;
@@ -77,7 +77,7 @@ class Data {
         email: json["email"],
         phone: json["phone"],
         avatar: json["avatar"],
-        dob: json["dob"] == null ? null : DateTime.parse(json["dob"]),
+        dob: json["dob"],
         gender: json["gender"],
         description: json["description"],
         addressId: json["address_id"],
@@ -95,7 +95,7 @@ class Data {
         "email": email,
         "phone": phone,
         "avatar": avatar,
-        "dob": dob?.toIso8601String(),
+        "dob": dob,
         "gender": gender,
         "description": description,
         "address_id": addressId,

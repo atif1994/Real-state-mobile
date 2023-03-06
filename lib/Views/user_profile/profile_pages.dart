@@ -52,153 +52,151 @@ class _ProfilePagesState extends State<ProfilePages> {
             body: Obx(() => profileController.loadingUserProfile.value
                 ? const Center(
                     child: CircularProgressIndicator(
-                      color: AppColors.appthem,
-                    ),
-                  )
-                : profileController.errorLoadingUserProfile.value != ''
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  profileController
-                                      .getUserProfile(profileController.uid!);
-                                },
-                                icon: const Icon(
-                                  Icons.refresh,
-                                  color: AppColors.appthem,
-                                )),
-                            SizedBox(
-                              height: 1.0.h,
-                            ),
-                            Text(profileController
-                                .errorLoadingUserProfile.value),
-                          ],
-                        ),
+                    color: AppColors.appthem,
+                  ))
+                : profileController.errorLoadingUserProfile.value != ""
+                    ? Column(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                profileController
+                                    .getUserProfile(profileController.uid ?? 0);
+                              },
+                              icon: const Icon(Icons.refresh)),
+                          Text(profileController.errorLoadingUserProfile.value),
+                        ],
                       )
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                            Container(
-                              height: 39.0.h,
-                              width: 100.0.w,
-                              color: AppColors.appthem,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          icon: const Icon(
-                                            Icons.arrow_back,
-                                            color: Colors.white,
-                                          )),
-                                      SizedBox(
-                                        width: 30.0.w,
-                                      ),
-                                      Text('Profile',
-                                          style: AppTextStyles.heading1
-                                              .copyWith(fontSize: 14.sp)),
-                                      const SizedBox()
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                          height: 35.0.w,
-                                          width: 35.0.w,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(300),
-                                              border: Border.all(
-                                                  color: Colors.white,
-                                                  width: 4)),
-                                          child: CircleAvatar(
+                            Flexible(
+                              child: Container(
+                                height: 39.0.h,
+                                width: 100.0.w,
+                                color: AppColors.appthem,
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            icon: const Icon(
+                                              Icons.arrow_back,
+                                              color: Colors.white,
+                                            )),
+                                        SizedBox(
+                                          width: 30.0.w,
+                                        ),
+                                        Text('Profile',
+                                            style: AppTextStyles.heading1
+                                                .copyWith(fontSize: 14.sp)),
+                                        const SizedBox()
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Container(
+                                            height: 35.0.w,
+                                            width: 35.0.w,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(300),
+                                                border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 4)),
+                                            child: CircleAvatar(
 
-                                              // backgroundColor: Colors.transparent,
+                                                // backgroundColor: Colors.transparent,
 
-                                              backgroundImage:
-                                                  CachedNetworkImageProvider(
-                                            widget.loginBaseImage != ""
-                                                ? "${widget.loginBaseImage}"
-                                                : "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4",
-                                          ))),
-                                      SizedBox(
-                                        height: 2.0.h,
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text(
-                                              "${profileController.userProfileData.data?.firstName ?? ""} ${profileController.userProfileData.data?.lastName ?? ""}",
-                                              style: AppTextStyles.heading1
-                                                  .copyWith(fontSize: 20.sp)),
-                                          SizedBox(
-                                            height: 1.0.h,
-                                          ),
-                                          Text(
-                                              profileController.userProfileData
-                                                      .data?.phone ??
-                                                  "",
-                                              style: AppTextStyles.heading1
-                                                  .copyWith(fontSize: 12.sp)),
-                                          SizedBox(
-                                            height: 1.0.h,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 6.0.w, right: 6.0.w),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                const Icon(
-                                                  Icons.email,
-                                                  color: Colors.white,
-                                                  size: 20,
-                                                ),
-                                                SizedBox(
-                                                  width: 3.0.w,
-                                                ),
-                                                Text(
-                                                    profileController
-                                                            .userProfileData
-                                                            .data!
-                                                            .email ??
-                                                        "",
-                                                    style: AppTextStyles
-                                                        .heading1
-                                                        .copyWith(
-                                                            fontSize: 12.sp)),
-                                                const Icon(
-                                                  Icons.location_city,
-                                                  color: Colors.white,
-                                                  size: 20,
-                                                ),
-                                                SizedBox(
-                                                  width: 3.0.w,
-                                                ),
-                                                Text(
-                                                    profileController
-                                                            .userProfileData
-                                                            .data!
-                                                            .address!
-                                                            .city ??
-                                                        "",
-                                                    style: AppTextStyles
-                                                        .heading1
-                                                        .copyWith(
-                                                            fontSize: 12.sp)),
-                                              ],
+                                                backgroundImage:
+                                                    CachedNetworkImageProvider(
+                                              widget.loginBaseImage != ""
+                                                  ? "${widget.loginBaseImage}"
+                                                  : "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4",
+                                            ))),
+                                        SizedBox(
+                                          height: 2.0.h,
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text(
+                                                profileController
+                                                        .userProfileData
+                                                        .data
+                                                        ?.name ??
+                                                    "",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(fontSize: 16.sp)),
+                                            SizedBox(
+                                              height: 1.0.h,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                            Text(
+                                                profileController
+                                                        .userProfileData
+                                                        .data
+                                                        ?.phone ??
+                                                    "",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(fontSize: 12.sp)),
+                                            SizedBox(
+                                              height: 1.0.h,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 6.0.w, right: 6.0.w),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  const Icon(
+                                                    Icons.email,
+                                                    color: Colors.white,
+                                                    size: 20,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 3.0.w,
+                                                  ),
+                                                  Text(
+                                                      profileController
+                                                              .userProfileData
+                                                              .data!
+                                                              .email ??
+                                                          "",
+                                                      style: AppTextStyles
+                                                          .heading1
+                                                          .copyWith(
+                                                              fontSize: 12.sp)),
+                                                  const Icon(
+                                                    Icons.location_city,
+                                                    color: Colors.white,
+                                                    size: 20,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 3.0.w,
+                                                  ),
+                                                  Text(
+                                                      profileController
+                                                              .userProfileData
+                                                              .data!
+                                                              .address!
+                                                              .city ??
+                                                          "",
+                                                      style: AppTextStyles
+                                                          .heading1
+                                                          .copyWith(
+                                                              fontSize: 12.sp)),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                             Container(
@@ -289,7 +287,7 @@ class _ProfilePagesState extends State<ProfilePages> {
 
                                 ////////////////////////////////////////////
 
-                                // Container(
+                                // Container(  
                                 //     margin: EdgeInsets.only(top: 2.0.h),
                                 //     height: 6.0.h,
                                 //     width: 100.0.w,

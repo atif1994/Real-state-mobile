@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "568971536785",
+    "project_id": "prologics-bfc35",
+    "storage_bucket": "prologics-bfc35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568971536785:android:4944de37c0467f19b6d230",
+        "android_client_info": {
+          "package_name": "com.example.prologic_29"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568971536785-vmr944ctthcehaebqo1ki4bpeica9nik.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkoRiFHNo9s4NGMLkHJnR3dl6aH2erguA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568971536785-vmr944ctthcehaebqo1ki4bpeica9nik.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

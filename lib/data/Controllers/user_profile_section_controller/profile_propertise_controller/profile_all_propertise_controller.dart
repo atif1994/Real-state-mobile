@@ -12,6 +12,7 @@ class ProfilePropertiseController extends GetxController {
 
   @override
   void onInit() {
+    loadingPropertise.value = true;
     loadData();
     super.onInit();
   }

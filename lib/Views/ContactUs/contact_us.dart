@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -109,52 +111,24 @@ class _ContactUsState extends State<ContactUs> {
                                   },
                                 ),
                     ),
-                    SizedBox(
-                      height: 2.0.h,
-                    ),
-                    CustomButton(
-                      text: 'Google Map',
-                      onPressed: () {
-                        //  makePostRequest();
-                      },
-                    ),
-                    SizedBox(
-                      height: 5.0.h,
-                    ),
-                    // ButtonTheme(
-                    //     height: 70,
-                    //     minWidth: 100,
-                    //     disabledColor: const Color.fromARGB(255, 1, 10, 18),
-                    //     child: ElevatedButton(
-                    //       child: const Text("GOOGLE MAP"),
-                    //       onPressed: () {
-                    //         Navigator.push(
-                    //             context,
-                    //             MaterialPageRoute(
-                    //                 builder: (context) => const MapSample()));
-                    //         //  var url = Uri.parse(
-                    //         // "https://www.google.com/maps/d/viewer?mid=1_xJhYeS2A83UaCE9C2gVhCnWijI&hl=en_US&ll=53.30462100000002%2C-6.328125&z=17");
-                    //       },
-                    //     )),
-
-                    //    Get in Touch With Usssssssssssss
-
                     // SizedBox(
                     //   height: 2.0.h,
                     // ),
-                    // InkWell(
-                    //     onTap: () {
-                    //       Get.to(() => Getintouch);
-                    //     },
-                    //     child: const Text('Get In Touch With Us'))
+                    // CustomButton(
+                    //   text: 'Google Map',
+                    //   onPressed: () {
+                    //     //  makePostRequest();
+                    //   },
+                    // ),
+                    SizedBox(
+                      height: 2.0.h,
+                    ),
 
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         height: 30.0.h,
                         width: 100.0.w,
-                        // decoration: const BoxDecoration(
-                        //     color: Color.fromARGB(255, 243, 184, 237)),
                         decoration: CustomDecorations.mainCon,
                         child: Column(children: [
                           Padding(
@@ -174,17 +148,13 @@ class _ContactUsState extends State<ContactUs> {
                             padding: const EdgeInsets.all(10.0),
                             child: Row(
                               children: [
-                                Container(
-                                  child: const Icon(
-                                    Icons.location_city,
-                                  ),
+                                const Icon(
+                                  Icons.location_city,
                                 ),
                                 SizedBox(
                                   width: 5.0.w,
                                 ),
-                                Container(
-                                  child: const Text('Bahria Town Phase 7'),
-                                )
+                                const Text('Bahria Town Phase 7')
                               ],
                             ),
                           ),
@@ -192,15 +162,11 @@ class _ContactUsState extends State<ContactUs> {
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: [
-                                Container(
-                                  child: const Icon(Icons.email),
-                                ),
+                                const Icon(Icons.email),
                                 SizedBox(
                                   width: 5.0.w,
                                 ),
-                                Container(
-                                  child: const Text('Abc@gmail.com'),
-                                )
+                                const Text('Abc@gmail.com')
                               ],
                             ),
                           ),
@@ -208,15 +174,11 @@ class _ContactUsState extends State<ContactUs> {
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: [
-                                Container(
-                                  child: const Icon(Icons.phone),
-                                ),
+                                const Icon(Icons.phone),
                                 SizedBox(
                                   width: 5.0.w,
                                 ),
-                                Container(
-                                  child: const Text('051-5678982'),
-                                )
+                                const Text('051-5678982')
                               ],
                             ),
                           )
@@ -231,15 +193,5 @@ class _ContactUsState extends State<ContactUs> {
         ),
       ),
     );
-  }
-
-  Future<void> makePostRequest() async {
-    final url = Uri.parse('http://realestate.tecrux.net/api/v1/contact');
-    final headers = {"Content-type": "application/json"};
-    const json =
-        '{"name":"Mari Hip0ckman","email":"zoron@mailionoator.com","subject":"Reprehenderit occaec","phone":"+1 (466) 595-2178","content":"Id commodo quia volu" }';
-    final response = await post(url, headers: headers, body: json);
-    print('Status code: ${response.statusCode}');
-    print('Body: ${response.body}');
   }
 }

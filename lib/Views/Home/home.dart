@@ -1,26 +1,29 @@
+// ignore_for_file: avoid_print, prefer_is_empty, prefer_const_constructors, unused_field
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Home/Profile/profile.dart';
 import 'package:prologic_29/Views/Home/more_places.dart';
-
 import 'package:prologic_29/Views/Notifications/notification_page.dart';
 import 'package:prologic_29/Views/Property_by_id/property_by_id.dart';
 import 'package:prologic_29/Views/blog/blog.dart';
-
+import 'package:prologic_29/Views/user_profile/profile_pages.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
+import 'package:prologic_29/data/Controllers/get_all_citise_controller/get_all_citise_con.dart';
 import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
 import 'package:prologic_29/utils/constants/image_resources.dart';
+import 'package:prologic_29/utils/constants/session_controller.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:intl/intl.dart';
-
 import '../../custom_widgets/drawer_widget.dart';
-import '../../data/Controllers/Notification_Controller/Notification_Controller.dart';
 import '../../data/Controllers/property_controllers/cities_controller.dart';
 import '../../data/Controllers/sign_in_controller.dart';
 import '../../data/Controllers/user_profile_section_controller/image_update_controller.dart';
@@ -36,12 +39,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final storage = FirebaseFirestore.instance.collection("devicetokens");
+  var deviceTokenToSendPushNotification = '';
   final f = DateFormat('yyyy-MM-dd');
   var dashboardController = Get.put(DashboardController());
   var citiesController = Get.put(CitiesController());
-  var notificationController = Get.put(Notificationcontroller());
+  // var notificationController = Get.put(Notificationcontroller());
   var newspostController = Get.put(DashboardController());
   var signinController = Get.put(SignInController());
+
+  var getAllCitise = Get.put(GetAllCitiseController());
   var updateImageController = Get.put(UpdateImageController());
 
   int? cid;
@@ -63,26 +70,6 @@ class _HomeState extends State<Home> {
     AppImageResources.commercial
   ];
 
-  final citieseImages = [
-    AppImageResources.islamabad,
-    AppImageResources.lahore,
-    AppImageResources.karachi,
-    AppImageResources.faisalabad,
-    AppImageResources.pindi,
-  ];
-
-  final testimonialImages = [
-    AppImageResources.img1,
-    AppImageResources.img2,
-    AppImageResources.img3,
-    AppImageResources.img1,
-    AppImageResources.img2,
-    AppImageResources.img3,
-    AppImageResources.img1,
-    AppImageResources.img2,
-    AppImageResources.img3,
-    AppImageResources.img3,
-  ];
   final bool _isContainerExpand = false;
   final int _navBarIndex = 0;
   final int _selectedIndex = 0;
@@ -124,18 +111,78 @@ class _HomeState extends State<Home> {
     getCityInfo();
     dashboardController.getFilteredPropertise(cid, 0);
     dashboardController.getFeaturedPropertise();
-    LocalNotificationsApi.init();
-    listenNotification();
+
+    //  listenNotification();
     geUploadtImgUrl();
     super.initState();
+
+    ///////////////////push notifications functions
+
+    // 1. This method call when app in terminated state and you get a notification
+    // when you click on notification app open from terminated state and you can get notification data in this method
+
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        if (kDebugMode) {
+          print("FirebaseMessaging.instance.getInitialMessage");
+        }
+        if (message != null) {
+          print("New Notification");
+          if (message.data['_id'] != null) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AllNotifications(
+                  payload: message.data['_id'],
+                ),
+              ),
+            );
+          }
+        }
+      },
+    );
+
+    // 2. This method only call when App in forground it mean app must be opened
+    FirebaseMessaging.onMessage.listen(
+      (message) {
+        print("FirebaseMessaging.onMessage.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data11 ${message.data}");
+          LocalNotificationsApi.createanddisplaynotification(message);
+        }
+      },
+    );
+
+    // 3. This method only call when App in background and not terminated(not closed)
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
+        print("FirebaseMessaging.onMessageOpenedApp.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data22 ${message.data['_id']}");
+        }
+      },
+    );
+
+    /////////////////get device token
+    getDeviceTokenToSendNotification();
   }
 
-  void listenNotification() => LocalNotificationsApi.onNotifications.stream
-      .listen(onClickedNotification);
+  ///////////////////////////get device token
 
-  void onClickedNotification(String? payload) => Get.to(() => AllNotifications(
-        payload: payload,
-      ));
+  Future<void> getDeviceTokenToSendNotification() async {
+    final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+    final token = await _fcm.getToken();
+    //    dTokens.add(token);
+    _saveDeviceTokenToFirebase(token.toString());
+
+    deviceTokenToSendPushNotification = token.toString();
+
+    SessionController().deviceToken = deviceTokenToSendPushNotification;
+    print("Token Value******************* $deviceTokenToSendPushNotification");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -172,48 +219,48 @@ class _HomeState extends State<Home> {
                       "Dashboard",
                       style: AppTextStyles.heading1.copyWith(fontSize: 14.sp),
                     )),
-
+                    const Spacer(),
                     Padding(
                       padding: EdgeInsets.only(top: 1.0.h),
-                      child: Stack(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(left: 1.0.w),
-                            height: 11.0.w,
-                            width: 12.0.w,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                          Container(
-                              margin: EdgeInsets.only(
-                                right: 6.0.w,
-                              ),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(() => ProfilePages(),
+                              transition: Transition.fadeIn,
+                              duration: Duration(milliseconds: 600));
+                        },
+                        child: Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 1.0.w),
                               height: 11.0.w,
                               width: 12.0.w,
                               decoration: BoxDecoration(
-                                  color: Colors.red,
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(10)),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: loginBaseImage != null
-                                    ? Image.network(
-                                        "$loginBaseImage",
-                                        // updateImageController
-                                        //             .updateImageModel.data !=
-                                        //         null
-                                        //     ? updateImageController
-                                        //         .updateImageModel.data!.avatar
-                                        //         .toString()
-                                        //     : "${AppUrls.baseUrl2}$imgurl",
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.asset(
-                                        "assets/person.jpg",
-                                        fit: BoxFit.cover,
-                                      ),
-                              ))
-                        ],
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(
+                                  right: 6.0.w,
+                                ),
+                                height: 11.0.w,
+                                width: 12.0.w,
+                                decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: loginBaseImage != null
+                                      ? Image.network(
+                                          "$loginBaseImage",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.asset(
+                                          "assets/person.jpg",
+                                          fit: BoxFit.cover,
+                                        ),
+                                ))
+                          ],
+                        ),
                       ),
                     ),
                     //   ],
@@ -229,57 +276,10 @@ class _HomeState extends State<Home> {
                     ),
                     background: Stack(
                       children: [
-                        // Container(
-                        //   height: 35.0.h,
-                        //   width: 100.0.w,
-                        //   decoration: const BoxDecoration(
-                        //       color: AppColors.appthem,
-                        //       borderRadius: BorderRadius.only(
-                        //           bottomRight: Radius.circular(30))),
-                        // ),
-                        // Container(
-                        //   margin: EdgeInsets.only(top: 10.0.h),
-                        //   height: 6.0.h,
-                        //   width: 100.0.w,
-                        //   // decoration: CustomDecorations.con2,
-                        //   child: ListView.builder(
-                        //       itemCount: labels.length,
-                        //       scrollDirection: Axis.horizontal,
-                        //       itemBuilder: (context, index) {
-                        //         return Padding(
-                        //           padding: EdgeInsets.only(
-                        //               top: 0.8.h,
-                        //               bottom: 0.8.h,
-                        //               left: index == 0 ? 9.0.w : 2.8.w),
-                        //           child: SizedBox(
-                        //             width: 25.0.w,
-                        //             child: ElevatedButton(
-                        //                 style: ElevatedButton.styleFrom(
-                        //                   shape: RoundedRectangleBorder(
-                        //                       borderRadius:
-                        //                           BorderRadius.circular(10)),
-                        //                   backgroundColor:
-                        //                       _selectedIndex == index
-                        //                           ? AppColors.colorWhite
-                        //                           : const Color.fromARGB(
-                        //                               255, 112, 114, 117),
-                        //                 ),
-                        //                 onPressed: () {
-                        //                   setState(() {
-                        //                     _selectedIndex = index;
-                        //                   });
-                        //                 },
-                        //                 child: Text(labels[index])),
-                        //           ),
-                        //         );
-                        //       }),
-                        // ),
                         InkWell(
                           onTap: () {
-                            // LocalNotificationsApi.showNotifications(
-                            //     title: "Prologics Notification",
-                            //     body: "abc",
-                            //     payload: 'real.state a');
+                            getAllCitise.getAllCitise();
+                            _showDialogue(context);
                           },
                           child: Container(
                             margin: EdgeInsets.only(
@@ -292,14 +292,14 @@ class _HomeState extends State<Home> {
                                 SizedBox(
                                   width: 3.0.w,
                                 ),
-                                const Icon(Icons.search),
+                                const Icon(Icons.ads_click),
                                 SizedBox(
                                   width: 3.0.w,
                                 ),
                                 AnimatedTextKit(
                                   animatedTexts: [
                                     TyperAnimatedText(
-                                      'Search for shoops',
+                                      'Tap for select citise',
                                       textStyle: AppTextStyles.labelSmall
                                           .copyWith(color: Colors.grey),
                                     ),
@@ -639,13 +639,6 @@ class _HomeState extends State<Home> {
                                                           .getFilteredPropertise(
                                                               cid,
                                                               _browsPropertyIndex1);
-
-                                                      //  dashboardController
-                                                      // .getFilteredPropertise(
-                                                      //     cid!,
-                                                      //     _browsPropertyIndex,
-                                                      //     dashboardController
-                                                      //         .type);
                                                     },
                                                     icon: const Icon(
                                                       Icons.refresh,
@@ -658,71 +651,20 @@ class _HomeState extends State<Home> {
                                                 ],
                                               )
                                             : _browsPropertyIndex1 == 0
-                                                ? Expanded(
-                                                    child: GridView.builder(
+                                                ? dashboardController
+                                                            .filteredPropertyModel
+                                                            .popular!
+                                                            .length ==
+                                                        0
+                                                    ? Center(
+                                                        child: Padding(
                                                         padding:
                                                             EdgeInsets.only(
-                                                          left: 5.0.w,
-                                                        ),
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        gridDelegate:
-                                                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                                maxCrossAxisExtent:
-                                                                    100,
-                                                                childAspectRatio:
-                                                                    1.5 / 2,
-                                                                crossAxisSpacing:
-                                                                    2,
-                                                                mainAxisSpacing:
-                                                                    10),
-                                                        itemCount:
-                                                            dashboardController
-                                                                .filteredPropertyModel
-                                                                .popular!
-                                                                .length,
-                                                        itemBuilder:
-                                                            (BuildContext ctx,
-                                                                index) {
-                                                          return Container(
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                                    top: 1.0.h,
-                                                                    bottom: 1.h,
-                                                                    left: 1.w),
-                                                            height: 4.0.h,
-                                                            width: 20.0.w,
-                                                            alignment: Alignment
-                                                                .center,
-
-                                                            decoration:
-                                                                CustomDecorations
-                                                                    .mainCon,
-                                                            // decoration: BoxDecoration(
-                                                            //     border: Border.all(
-                                                            //         color: Colors
-                                                            //             .grey),
-                                                            //     color: Colors
-                                                            //         .white,
-                                                            //     borderRadius:
-                                                            //         BorderRadius
-                                                            //             .circular(
-                                                            //                 10)
-
-                                                            //                 ),
-                                                            child: Center(
-                                                              child: Text(dashboardController
-                                                                      .filteredPropertyModel
-                                                                      .popular![
-                                                                          index]
-                                                                      .name ??
-                                                                  ''),
-                                                            ),
-                                                          );
-                                                        }),
-                                                  )
-                                                : _browsPropertyIndex1 == 1
-                                                    ? Expanded(
+                                                                top: 10.0.h),
+                                                        child: Text(
+                                                            "No Propertise Found"),
+                                                      ))
+                                                    : Expanded(
                                                         child: GridView.builder(
                                                             padding:
                                                                 EdgeInsets.only(
@@ -742,7 +684,7 @@ class _HomeState extends State<Home> {
                                                             itemCount:
                                                                 dashboardController
                                                                     .filteredPropertyModel
-                                                                    .types!
+                                                                    .popular!
                                                                     .length,
                                                             itemBuilder:
                                                                 (BuildContext
@@ -762,32 +704,47 @@ class _HomeState extends State<Home> {
                                                                 alignment:
                                                                     Alignment
                                                                         .center,
-                                                                // decoration: BoxDecoration(
-                                                                //     border: Border.all(
-                                                                //         color: Colors
-                                                                //             .grey),
-                                                                //     color: Colors
-                                                                //         .white,
-                                                                //     borderRadius:
-                                                                //         BorderRadius.circular(
-                                                                //             10)),
-
                                                                 decoration:
                                                                     CustomDecorations
                                                                         .mainCon,
                                                                 child: Center(
-                                                                  child: Text(dashboardController
-                                                                          .filteredPropertyModel
-                                                                          .types![
-                                                                              index]
-                                                                          .name ??
-                                                                      ''),
+                                                                  child:
+                                                                      Container(
+                                                                    margin: EdgeInsets.only(
+                                                                        left: 3.0
+                                                                            .w,
+                                                                        right: 3.0
+                                                                            .w),
+                                                                    // color: Colors
+                                                                    //     .red,
+                                                                    width:
+                                                                        50.0.w,
+                                                                    child: Text(dashboardController
+                                                                            .filteredPropertyModel
+                                                                            .popular![index]
+                                                                            .name ??
+                                                                        ''),
+                                                                  ),
                                                                 ),
                                                               );
                                                             }),
                                                       )
-                                                    : _browsPropertyIndex1 == 2
-                                                        ? Expanded(
+                                                : _browsPropertyIndex1 == 1
+                                                    ? dashboardController
+                                                                .filteredPropertyModel
+                                                                .types!
+                                                                .length ==
+                                                            0
+                                                        ? Center(
+                                                            child: Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top:
+                                                                        10.0.h),
+                                                            child: Text(
+                                                                "No Propertise Found"),
+                                                          ))
+                                                        : Expanded(
                                                             child: GridView
                                                                 .builder(
                                                                     padding:
@@ -811,7 +768,7 @@ class _HomeState extends State<Home> {
                                                                             10),
                                                                     itemCount: dashboardController
                                                                         .filteredPropertyModel
-                                                                        .locations!
+                                                                        .types!
                                                                         .length,
                                                                     itemBuilder:
                                                                         (BuildContext
@@ -829,25 +786,34 @@ class _HomeState extends State<Home> {
                                                                             20.0.w,
                                                                         alignment:
                                                                             Alignment.center,
-                                                                        // decoration: BoxDecoration(
-                                                                        //     border:
-                                                                        //         Border.all(color: Colors.grey),
-                                                                        //     color: Colors.white,
-                                                                        //     borderRadius: BorderRadius.circular(10)),
                                                                         decoration:
                                                                             CustomDecorations.mainCon,
-
                                                                         child:
                                                                             Center(
-                                                                          child:
-                                                                              Text(dashboardController.filteredPropertyModel.locations![index].sectorAndBlockName ?? ''),
+                                                                          child: Container(
+                                                                              margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
+                                                                              width: 50.0.w,
+                                                                              child: Text(dashboardController.filteredPropertyModel.types![index].name ?? '')),
                                                                         ),
                                                                       );
                                                                     }),
                                                           )
-                                                        : _browsPropertyIndex1 ==
-                                                                3
-                                                            ? Expanded(
+                                                    : _browsPropertyIndex1 == 2
+                                                        ? dashboardController
+                                                                    .filteredPropertyModel
+                                                                    .locations!
+                                                                    .length ==
+                                                                0
+                                                            ? Center(
+                                                                child: Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top: 10.0
+                                                                            .h),
+                                                                child: Text(
+                                                                    "No Propertise found"),
+                                                              ))
+                                                            : Expanded(
                                                                 child: GridView
                                                                     .builder(
                                                                         padding:
@@ -870,7 +836,7 @@ class _HomeState extends State<Home> {
                                                                                 10),
                                                                         itemCount: dashboardController
                                                                             .filteredPropertyModel
-                                                                            .areas!
+                                                                            .locations!
                                                                             .length,
                                                                         itemBuilder:
                                                                             (BuildContext ctx,
@@ -886,20 +852,62 @@ class _HomeState extends State<Home> {
                                                                                 20.0.w,
                                                                             alignment:
                                                                                 Alignment.center,
-                                                                            // decoration: BoxDecoration(
-                                                                            //     border: Border.all(color: Colors.grey),
-                                                                            //     color: Colors.white,
-                                                                            //     borderRadius: BorderRadius.circular(10)),
-
                                                                             decoration:
                                                                                 CustomDecorations.mainCon,
                                                                             child:
                                                                                 Center(
-                                                                              child: Text(dashboardController.filteredPropertyModel.areas![index].square ?? ''),
+                                                                              child: Container(margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w), width: 50.0.w, child: Text(dashboardController.filteredPropertyModel.locations![index].sectorAndBlockName ?? '')),
                                                                             ),
                                                                           );
                                                                         }),
                                                               )
+                                                        : _browsPropertyIndex1 ==
+                                                                3
+                                                            ? dashboardController
+                                                                        .filteredPropertyModel
+                                                                        .areas!
+                                                                        .length ==
+                                                                    0
+                                                                ? Center(
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsets.only(
+                                                                          top: 10.0
+                                                                              .h),
+                                                                      child: Text(
+                                                                          "No Propertise found"),
+                                                                    ),
+                                                                  )
+                                                                : Expanded(
+                                                                    child: GridView.builder(
+                                                                        padding: EdgeInsets.only(
+                                                                          left:
+                                                                              5.0.w,
+                                                                        ),
+                                                                        scrollDirection: Axis.horizontal,
+                                                                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 100, childAspectRatio: 1.5 / 2, crossAxisSpacing: 2, mainAxisSpacing: 10),
+                                                                        itemCount: dashboardController.filteredPropertyModel.areas!.length,
+                                                                        itemBuilder: (BuildContext ctx, index) {
+                                                                          return Container(
+                                                                            margin: EdgeInsets.only(
+                                                                                top: 1.0.h,
+                                                                                bottom: 1.h,
+                                                                                left: 1.w),
+                                                                            height:
+                                                                                4.0.h,
+                                                                            width:
+                                                                                20.0.w,
+                                                                            alignment:
+                                                                                Alignment.center,
+                                                                            decoration:
+                                                                                CustomDecorations.mainCon,
+                                                                            child:
+                                                                                Center(
+                                                                              child: Container(margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w), width: 50.0.w, child: Text(dashboardController.filteredPropertyModel.areas![index].square ?? '')),
+                                                                            ),
+                                                                          );
+                                                                        }),
+                                                                  )
                                                             : Container())
                                   ],
                                 ),
@@ -968,7 +976,7 @@ class _HomeState extends State<Home> {
                                         child: SizedBox(
                                           width: 80.0.w,
                                           child: Text(
-                                              "Find your dreaam home from our Newly added properties",
+                                              "Find your dream home from our Newly added properties",
                                               style: AppTextStyles.labelSmall
                                                   .copyWith(fontSize: 9.sp)),
                                         ),
@@ -1044,12 +1052,6 @@ class _HomeState extends State<Home> {
                                                               "${AppUrls.baseUrl2}${dashboardController.featuredPropertyModel.data!.data![index].images!.the1}",
                                                               fit: BoxFit.cover,
                                                             ),
-
-                                                            //     Image.asset(
-                                                            //   AppImageResources
-                                                            //       .property,
-                                                            //   fit: BoxFit.cover,
-                                                            // ),
                                                           ),
                                                         ),
                                                         SizedBox(
@@ -1180,11 +1182,6 @@ class _HomeState extends State<Home> {
                                                               Icons
                                                                   .landscape_outlined,
                                                             ),
-                                                            // Image.asset(
-                                                            //   AppImageResources
-                                                            //       .plots,
-                                                            //   height: 2.0.h,
-                                                            // ),
                                                             SizedBox(
                                                               width: 2.0.w,
                                                             ),
@@ -1244,6 +1241,7 @@ class _HomeState extends State<Home> {
                                         child: CustomButton(
                                           onPressed: () {
                                             Get.to(() => Moreplaces());
+                                            // Get.to(() => Moreplaces());
                                           },
                                           text: "More Places",
                                         ),
@@ -1305,7 +1303,7 @@ class _HomeState extends State<Home> {
                   Container(
                       margin: EdgeInsets.only(
                           left: 3.0.w, right: 3.0.w, top: 1.0.h),
-                      height: 43.0.h,
+                      // height: 38.0.h,
                       width: 100.0.w,
                       decoration: CustomDecorations.mainCon,
                       child: Obx(
@@ -1337,203 +1335,193 @@ class _HomeState extends State<Home> {
                                       ],
                                     ),
                                   )
-                                : Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 3.0.w, top: 0.3.h),
-                                        child: Text(
-                                          "Find By Locations",
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  fontFamily: AppFonts.nexaBold,
-                                                  fontSize: 16.sp,
-                                                  color: AppColors.appthem),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 3.0.w, top: 0.3.h),
-                                        child: SizedBox(
-                                          width: 80.0.w,
+                                : Padding(
+                                    padding: EdgeInsets.only(bottom: 1.5.h),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 3.0.w, top: 0.3.h),
                                           child: Text(
-                                              "Find your dream home from your dream location",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp)),
+                                            "Find By Locations",
+                                            style: AppTextStyles.heading1
+                                                .copyWith(
+                                                    fontFamily:
+                                                        AppFonts.nexaBold,
+                                                    fontSize: 16.sp,
+                                                    color: AppColors.appthem),
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            left: 1.0.w,
-                                            right: 1.0.w,
-                                            top: 1.0.h),
-                                        height: 26.0.h,
-                                        width: 100.0.w,
-                                        // color: Colors.red,
-                                        child: ListView.builder(
-                                            itemCount: citiesController
-                                                .citiesModel.data?.length,
-                                            padding: EdgeInsets.only(
-                                                top: 1.0.h, bottom: 1.0.h),
-                                            scrollDirection: Axis.horizontal,
-                                            itemBuilder: (context, index) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  citiesController
-                                                      .sendToCityWiseProperty(
-                                                          citiesController
-                                                              .citiesModel
-                                                              .data![index]
-                                                              .id,
-                                                          citiesController
-                                                              .citiesModel
-                                                              .data![index]
-                                                              .name);
-
-                                                  // PropertyByCityService
-                                                  //     .getPropertyByCityServiceImages(
-                                                  //         citiesController
-                                                  //             .citiesModel
-                                                  //             .data![index]!
-                                                  //             .id!);
-                                                },
-                                                child: Container(
-                                                  margin: EdgeInsets.only(
-                                                      left: index == 0
-                                                          ? 2.0.w
-                                                          : 3.0.w,
-                                                      right: index ==
-                                                              citiesController
-                                                                      .citiesModel
-                                                                      .data!
-                                                                      .length -
-                                                                  1
-                                                          ? 2.0.w
-                                                          : 0.0.w),
-                                                  height: 20.0.h,
-                                                  width: 50.0.w,
-                                                  decoration:
-                                                      CustomDecorations.mainCon,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Container(
-                                                          height: 15.0.h,
-                                                          width: 100.0.w,
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .only(
-                                                              topLeft: Radius
-                                                                  .circular(10),
-                                                              topRight: Radius
-                                                                  .circular(10),
-                                                            ),
-                                                          ),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                    .only(
-                                                              topLeft: Radius
-                                                                  .circular(10),
-                                                              topRight: Radius
-                                                                  .circular(10),
-                                                            ),
-                                                            child:
-                                                                // Image.asset(
-                                                                //     citieseImages[
-                                                                //             index]
-                                                                //         .toString()),
-
-                                                                Image(
-                                                              image:
-                                                                  NetworkImage(
-                                                                '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index].metadata![0].metaValue![0]}',
-                                                              ),
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          )),
-                                                      SizedBox(
-                                                        height: 2.0.h,
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 2.0.w,
-                                                          ),
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 3.0.w, top: 0.3.h),
+                                          child: SizedBox(
+                                            width: 80.0.w,
+                                            child: Text(
+                                                "Find your dream home from your dream location",
+                                                style: AppTextStyles.labelSmall
+                                                    .copyWith(fontSize: 9.sp)),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              left: 1.0.w,
+                                              right: 1.0.w,
+                                              top: 1.0.h),
+                                          height: 26.0.h,
+                                          width: 100.0.w,
+                                          //color: Colors.red,
+                                          child: ListView.builder(
+                                              itemCount: citiesController
+                                                  .citiesModel.data?.length,
+                                              padding: EdgeInsets.only(
+                                                  top: 1.0.h, bottom: 1.0.h),
+                                              scrollDirection: Axis.horizontal,
+                                              itemBuilder: (context, index) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    citiesController
+                                                        .sendToCityWiseProperty(
+                                                            citiesController
+                                                                .citiesModel
+                                                                .data![index]
+                                                                .id,
+                                                            citiesController
+                                                                .citiesModel
+                                                                .data![index]
+                                                                .name);
+                                                  },
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: index == 0
+                                                            ? 2.0.w
+                                                            : 3.0.w,
+                                                        right: index ==
                                                                 citiesController
                                                                         .citiesModel
-                                                                        .data![
-                                                                            index]
-                                                                        .name ??
-                                                                    '',
-                                                                style: AppTextStyles
-                                                                    .labelSmall,
+                                                                        .data!
+                                                                        .length -
+                                                                    1
+                                                            ? 2.0.w
+                                                            : 0.0.w),
+                                                    height: 20.0.h,
+                                                    width: 50.0.w,
+                                                    decoration:
+                                                        CustomDecorations
+                                                            .mainCon,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Container(
+                                                            height: 15.0.h,
+                                                            width: 100.0.w,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        10),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        10),
                                                               ),
-                                                              Text(
-                                                                "${citiesController.citiesModel.data![index].propertiesCount ?? ""} Propertise",
-                                                                style: AppTextStyles
-                                                                    .labelSmall
-                                                                    .copyWith(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        fontSize:
-                                                                            10.sp),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          const Spacer(),
-                                                          Container(
-                                                            height: 7.0.w,
-                                                            width: 7.0.w,
-                                                            decoration: BoxDecoration(
-                                                                color: AppColors
-                                                                    .appthem,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            300)),
-                                                            child: const Center(
-                                                                child: Icon(
-                                                              Icons
-                                                                  .arrow_forward_ios,
-                                                              color:
-                                                                  Colors.white,
-                                                              size: 14,
+                                                            ),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        10),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        10),
+                                                              ),
+                                                              child: Image(
+                                                                image:
+                                                                    NetworkImage(
+                                                                  '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index].metadata![0].metaValue![0]}',
+                                                                ),
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
                                                             )),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 2.0.w,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ],
+                                                        SizedBox(
+                                                          height: 2.0.h,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 2.0.w,
+                                                            ),
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  citiesController
+                                                                          .citiesModel
+                                                                          .data![
+                                                                              index]
+                                                                          .name ??
+                                                                      '',
+                                                                  style: AppTextStyles
+                                                                      .labelSmall,
+                                                                ),
+                                                                Text(
+                                                                  "${citiesController.citiesModel.data![index].propertiesCount ?? ""} Propertise",
+                                                                  style: AppTextStyles
+                                                                      .labelSmall
+                                                                      .copyWith(
+                                                                          color: Colors
+                                                                              .grey,
+                                                                          fontSize:
+                                                                              10.sp),
+                                                                )
+                                                              ],
+                                                            ),
+                                                            const Spacer(),
+                                                            Container(
+                                                              height: 7.0.w,
+                                                              width: 7.0.w,
+                                                              decoration: BoxDecoration(
+                                                                  color: AppColors
+                                                                      .appthem,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              300)),
+                                                              child:
+                                                                  const Center(
+                                                                      child:
+                                                                          Icon(
+                                                                Icons
+                                                                    .arrow_forward_ios,
+                                                                color: Colors
+                                                                    .white,
+                                                                size: 14,
+                                                              )),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 2.0.w,
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              );
-                                            }),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 2.0.h,
-                                            left: 3.0.w,
-                                            right: 3.0.w),
-                                        child: const CustomButton(
-                                          text: "More Locations",
+                                                );
+                                              }),
                                         ),
-                                      )
-                                    ],
+                                      ],
+                                    ),
                                   ),
                       )),
 
@@ -1659,13 +1647,7 @@ class _HomeState extends State<Home> {
                                                                   topRight: Radius
                                                                       .circular(
                                                                           10)),
-                                                          child:
-                                                              // Image.asset(
-                                                              //   testimonialImages[
-                                                              //       index],
-                                                              //   fit: BoxFit.cover,
-                                                              // ),
-                                                              Image.network(
+                                                          child: Image.network(
                                                             newspostController
                                                                     .newspostModel
                                                                     .data![
@@ -1799,97 +1781,120 @@ class _HomeState extends State<Home> {
             )),
       ),
     );
-    // return Scaffold(
-    //   body: CustomScrollView(
-    //     slivers: <Widget>[
-    //       SliverAppBar(
-    //         snap: false,
-    //         pinned: true,
-    //         floating: false,
-    //         flexibleSpace: const FlexibleSpaceBar(
-    //             centerTitle: true,
-    //             title: Text("HOME",
-    //                 style: TextStyle(
-    //                   color: Colors.white,
-    //                   fontSize: 16.0,
-    //                 ) //TextStyle
-    //                 ), //Text
-    //             background: Image(
-    //               image: NetworkImage(
-    //                   "https://images.unsplash.com/photo-1608555307638-992062b31329?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"),
-    //               //"assets\sincerely-media-p-NQlmGvFC8-unsplash.jpg",
-    //               fit: BoxFit.cover,
-    //             ) //Images.network
-    //             ),
-    //         expandedHeight: 230,
-    //         backgroundColor: Colors.orange[400],
-    //         leading: IconButton(
-    //             onPressed: () {
-    //               scaffoldKey.currentState!.openDrawer();
-    //             },
-    //             icon: const Icon(
-    //               Icons.menu,
-    //               color: Colors.white,
-    //             )),
-    //         // key: scaffoldKey,
-    //         // extendBody: true,
-    //         // appBar: AppBar(
-    //         //   title: const Text('Home'),
+  }
 
-    //         //  actions: [
-    //         //   IconButton(onPressed: (){
-    //         //     Get.to(MyHomePage());
-    //         //   }, icon: Icon(Icons.person,size: 30,))
-    //       ),
-    //     ],
-    //   ),
-    //   drawer: MyDrawer(),
-    //   // body: _selectedWidget.elementAt(_selectedIndex),
-    //   floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    //   floatingActionButton: FloatingActionButton(
-    //     child: const Icon(Icons.search, color: Colors.white),
-    //     onPressed: () {
-    //       Get.to(() => const Search());
-    //     },
-    //   ),
-    //   bottomNavigationBar: BottomAppBar(
-    //     shape: const CircularNotchedRectangle(),
-    //     elevation: 0,
-    //     color: primaryColor.withAlpha(255),
-    //     notchMargin: 10,
-    //     child: BottomNavigationBar(
-    //       elevation: 0,
-    //       backgroundColor: Colors.grey.withAlpha(0),
-    //       onTap: (index) {
-    //         setState(() {
-    //           _selectedIndex = index;
-    //         });
-    //       },
-    //       currentIndex: _selectedIndex,
-    //       showSelectedLabels: false,
-    //       showUnselectedLabels: false,
-    //       items: const [
-    //         BottomNavigationBarItem(
-    //           icon: Icon(
-    //             Icons.home_outlined,
-    //             color: Colors.white,
-    //             size: 20,
-    //           ),
-    //           label: 'Home',
-    //           activeIcon: Icon(Icons.home, color: Colors.white, size: 30),
-    //         ),
-    //         BottomNavigationBarItem(
-    //           icon: Icon(
-    //             Icons.person_outlined,
-    //             color: Colors.white,
-    //             size: 20,
-    //           ),
-    //           label: 'Profile',
-    //           activeIcon: Icon(Icons.person, color: Colors.white, size: 30),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
+  void _saveDeviceTokenToFirebase(String token) async {
+    // DeviceTokenModel _model = DeviceTokenModel(tokenn: token);
+    String id = DateTime.now().millisecond.toString();
+    await storage.add({"token": token});
+  }
+
+  void _showDialogue(BuildContext context) {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return Container(
+            decoration: BoxDecoration(
+                color: AppColors.colorWhite,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10))),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    "Select City",
+                    style: AppTextStyles.appbar.copyWith(
+                        color: AppColors.appthem, fontWeight: FontWeight.w700),
+                  ),
+                ),
+                SizedBox(
+                    height: 20.0.h,
+                    //  color: Colors.red,
+                    child: Obx(
+                      () => getAllCitise.allCitiseLoading.value
+                          ? Center(
+                              child: CircularProgressIndicator(
+                              color: AppColors.appthem,
+                            ))
+                          : getAllCitise.errorLoadingAllCitise.value != ''
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          getAllCitise.getAllCitise();
+                                        },
+                                        icon: Icon(Icons.refresh)),
+                                    SizedBox(
+                                      height: 1.0.h,
+                                    ),
+                                    Text(getAllCitise
+                                        .errorLoadingAllCitise.value),
+                                  ],
+                                )
+                              : ListView.builder(
+                                  itemCount:
+                                      getAllCitise.allCitise.data!.length,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          cityName = getAllCitise
+                                              .allCitise.data![index].name;
+                                        });
+
+                                        dashboardController
+                                            .getFilteredPropertise(
+                                                getAllCitise
+                                                    .allCitise.data![index].id,
+                                                _browsPropertyIndex1);
+
+                                        print(
+                                            "city id is  ${getAllCitise.allCitise.data![index].id}");
+
+                                        Navigator.pop(context);
+                                      },
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            margin:
+                                                EdgeInsets.only(left: 2.0.w),
+                                            color: Colors.white,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                getAllCitise.allCitise
+                                                        .data![index].name ??
+                                                    "",
+                                                style: AppTextStyles.appbar
+                                                    .copyWith(
+                                                        color:
+                                                            AppColors.appthem),
+                                              ),
+                                            ),
+                                          ),
+                                          index ==
+                                                  getAllCitise.allCitise.data!
+                                                          .length -
+                                                      1
+                                              ? SizedBox()
+                                              : Divider()
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                    ))
+              ],
+            ),
+          );
+        });
   }
 }

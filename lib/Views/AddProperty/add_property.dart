@@ -7,13 +7,13 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field_2.dart';
+import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/data/Controllers/addProperty_Controller.dart';
 import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
 import 'package:prologic_29/data/Models/addproperty_model/postDataProperty_model.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../data/Services/constants.dart';
-import '../../data/Services/property_services/addproperty_services.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
 
@@ -1318,56 +1318,127 @@ class _PropertyState extends State<Property>
 
                   //  myDivider(),
                   Padding(
-                    padding: const EdgeInsets.only(top: 1),
-                    child: MyButton(
-                        onTap: () {
-                          setState(() {
-                            AddPropertyServices.addPropertyAPI(
-                                name: titleController.text,
-                                disp: dispController.text,
-                                content: contentController.text,
-                                cityId: addPropertyController
-                                    .selectedValueCityId.value
-                                    .toString(),
-                                //type sell or rent
-                                typeId: iWantTo,
-                                categoryId: selectedPropertyCategory,
-                                location: locatController.text,
-                                block: sectorController.text,
-                                plotNo: plotNoController.text,
-                                streetNo: streetNoController.text,
-                                price: priceController.text,
-                                square: squareController.text,
-                                bedroomNo: selectedBedroom,
-                                bathNo: selectedBathroom,
-                                numberFloor: selectedFloor.toString(),
-                                feature: addFeaturesList,
-                                imageList: base64List
+                      padding: EdgeInsets.only(top: 1.h, bottom: 3.h),
+                      child: Obx(() => addPropertyController
+                              .loadingAddProperty.value
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.appthem,
+                              ),
+                            )
+                          : addPropertyController
+                                      .errorLoadingAddProperty.value !=
+                                  ""
+                              ? Container(
+                                  child: Column(children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          addPropertyController.getAddProperty(
+                                              titleController.text,
+                                              dispController.text,
+                                              contentController.text,
+                                              sectorController.text,
+                                              streetNoController.text,
+                                              plotNoController.text,
+                                              locatController.text,
+                                              addPropertyController
+                                                  .selectedValueCityId.value
+                                                  .toString(),
+                                              priceController.text,
+                                              squareController.text,
+                                              selectedFloor.toString(),
+                                              selectedBathroom,
+                                              selectedBedroom,
+                                              selectedPropertyCategory,
+                                              iWantTo,
+                                              addFeaturesList,
+                                              facilities,
+                                              base64List);
+                                        },
+                                        icon: const Icon(Icons.refresh)),
+                                    SizedBox(
+                                      height: 1.0.h,
+                                    ),
+                                    Text(addPropertyController
+                                        .errorLoadingAddProperty.value)
+                                  ]),
+                                )
+                              //  showDialogFunc(
+                              //     context,
+                              //     addPropertyController
+                              //         .errorLoadingAddProperty.value)
+                              : CustomButton(
+                                  // isloading:
+                                  //     addPropertyController.loadingAddProperty.value,
+                                  onPressed: () {
+                                    addPropertyController.getAddProperty(
+                                        titleController.text,
+                                        dispController.text,
+                                        contentController.text,
+                                        sectorController.text,
+                                        streetNoController.text,
+                                        plotNoController.text,
+                                        locatController.text,
+                                        addPropertyController
+                                            .selectedValueCityId.value
+                                            .toString(),
+                                        priceController.text,
+                                        squareController.text,
+                                        selectedFloor.toString(),
+                                        selectedBathroom,
+                                        selectedBedroom,
+                                        selectedPropertyCategory,
+                                        iWantTo,
+                                        addFeaturesList,
+                                        facilities,
+                                        base64List);
 
-                                // titleController.text,
-                                // dispController.text,
-                                // contentController.text,
-                                // sectorController.text,
-                                // streetNoController.text,
-                                // plotNoController.text,
-                                // locatController.text,
-                                // cityController.text,
-                                // stateController.text,
-                                // priceController.text,
-                                // currController.text,
-                                // squareController.text,
-                                // floorNoController.text,
-                                // selectedBathroom,
-                                // selectedBedroom,
-                                // categoryController.text,
-                                // typeController.text,
-                                // features,
-                                // facilities
-                                );
-                          });
-                        },
-                        text: 'Add Property'),
-                  ),
+                                    // setState(() {
+                                    //   // AddPropertyServices.addPropertyAPI(
+                                    //   //     name: titleController.text,
+                                    //   //     disp: dispController.text,
+                                    //   //     content: contentController.text,
+                                    //   //     cityId: addPropertyController
+                                    //   //         .selectedValueCityId.value
+                                    //   //         .toString(),
+                                    //   //     //type sell or rent
+                                    //   //     typeId: iWantTo,
+                                    //   //     categoryId: selectedPropertyCategory,
+                                    //   //     location: locatController.text,
+                                    //   //     block: sectorController.text,
+                                    //   //     plotNo: plotNoController.text,
+                                    //   //     streetNo: streetNoController.text,
+                                    //   //     price: priceController.text,
+                                    //   //     square: squareController.text,
+                                    //   //     bedroomNo: selectedBedroom,
+                                    //   //     bathNo: selectedBathroom,
+                                    //   //     numberFloor: selectedFloor.toString(),
+                                    //   //     feature: addFeaturesList,
+                                    //   //     imageList: base64List
+
+                                    //   //     // titleController.text,
+                                    //   //     // dispController.text,
+                                    //   //     // contentController.text,
+                                    //   //     // sectorController.text,
+                                    //   //     // streetNoController.text,
+                                    //   //     // plotNoController.text,
+                                    //   //     // locatController.text,
+                                    //   //     // cityController.text,
+                                    //   //     // stateController.text,
+                                    //   //     // priceController.text,
+                                    //   //     // currController.text,
+                                    //   //     // squareController.text,
+                                    //   //     // floorNoController.text,
+                                    //   //     // selectedBathroom,
+                                    //   //     // selectedBedroom,
+                                    //   //     // categoryController.text,
+                                    //   //     // typeController.text,
+                                    //   //     // features,
+                                    //   //     // facilities
+                                    //   //     );
+                                    // });
+                                  },
+                                  text: 'Add Property'))),
                 ],
               ),
             ],

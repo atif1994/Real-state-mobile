@@ -596,6 +596,10 @@
 //
 //     final profileMyPropertiseResponse = profileMyPropertiseResponseFromJson(jsonString);
 
+// To parse this JSON data, do
+//
+//     final profileMyPropertiseResponse = profileMyPropertiseResponseFromJson(jsonString);
+
 import 'dart:convert';
 
 ProfileMyPropertiseResponse profileMyPropertiseResponseFromJson(String str) =>
@@ -686,7 +690,7 @@ class Datum {
   String? description;
   String? content;
   String? location;
-  List<String>? images;
+  dynamic images;
   String? numberBedroom;
   String? numberBathroom;
   String? numberFloor;
@@ -718,9 +722,9 @@ class Datum {
   String? assignerId;
   String? isDeleted;
   String? isLiked;
-  City? city;
+  dynamic city;
   dynamic state;
-  Category? category;
+  dynamic category;
   dynamic type;
   Currency? currency;
   List<dynamic>? features;
@@ -732,9 +736,7 @@ class Datum {
         description: json["description"],
         content: json["content"],
         location: json["location"],
-        images: json["images"] == null
-            ? []
-            : List<String>.from(json["images"]!.map((x) => x)),
+        images: json["images"],
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         numberFloor: json["number_floor"],
@@ -766,11 +768,9 @@ class Datum {
         assignerId: json["assigner_id"],
         isDeleted: json["is_deleted"],
         isLiked: json["is_liked"],
-        city: json["city"] == null ? null : City.fromJson(json["city"]),
+        city: json["city"],
         state: json["state"],
-        category: json["category"] == null
-            ? null
-            : Category.fromJson(json["category"]),
+        category: json["category"],
         type: json["type"],
         currency: json["currency"] == null
             ? null
@@ -790,8 +790,7 @@ class Datum {
         "description": description,
         "content": content,
         "location": location,
-        "images":
-            images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
+        "images": images,
         "number_bedroom": numberBedroom,
         "number_bathroom": numberBathroom,
         "number_floor": numberFloor,
@@ -823,9 +822,9 @@ class Datum {
         "assigner_id": assignerId,
         "is_deleted": isDeleted,
         "is_liked": isLiked,
-        "city": city?.toJson(),
+        "city": city,
         "state": state,
-        "category": category?.toJson(),
+        "category": category,
         "type": type,
         "currency": currency?.toJson(),
         "features":
@@ -836,8 +835,8 @@ class Datum {
       };
 }
 
-class Category {
-  Category({
+class CategoryClass {
+  CategoryClass({
     this.id,
     this.name,
     this.description,
@@ -861,7 +860,7 @@ class Category {
   String? parentId;
   String? parentclass;
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
+  factory CategoryClass.fromJson(Map<String, dynamic> json) => CategoryClass(
         id: json["id"],
         name: json["name"],
         description: json["description"],
@@ -888,8 +887,8 @@ class Category {
       };
 }
 
-class City {
-  City({
+class CityClass {
+  CityClass({
     this.id,
     this.name,
     this.stateId,
@@ -915,7 +914,7 @@ class City {
   String? updatedAt;
   String? slug;
 
-  factory City.fromJson(Map<String, dynamic> json) => City(
+  factory CityClass.fromJson(Map<String, dynamic> json) => CityClass(
         id: json["id"],
         name: json["name"],
         stateId: json["state_id"],
@@ -1061,6 +1060,58 @@ class Pivot {
         "facility_id": facilityId,
         "reference_type": referenceType,
         "distance": distance,
+      };
+}
+
+class ImagesClass {
+  ImagesClass({
+    this.the1,
+    this.the2,
+    this.the3,
+    this.the4,
+    this.the5,
+    this.the6,
+    this.the7,
+    this.the8,
+    this.the9,
+    this.the10,
+  });
+
+  String? the1;
+  String? the2;
+  String? the3;
+  String? the4;
+  String? the5;
+  String? the6;
+  String? the7;
+  String? the8;
+  String? the9;
+  String? the10;
+
+  factory ImagesClass.fromJson(Map<String, dynamic> json) => ImagesClass(
+        the1: json["1"],
+        the2: json["2"],
+        the3: json["3"],
+        the4: json["4"],
+        the5: json["5"],
+        the6: json["6"],
+        the7: json["7"],
+        the8: json["8"],
+        the9: json["9"],
+        the10: json["10"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "1": the1,
+        "2": the2,
+        "3": the3,
+        "4": the4,
+        "5": the5,
+        "6": the6,
+        "7": the7,
+        "8": the8,
+        "9": the9,
+        "10": the10,
       };
 }
 

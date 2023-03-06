@@ -15,7 +15,6 @@ class AddProperrtyController extends GetxController {
   RxBool loadingAddProperty = false.obs;
   var addPropertyModel = AddPropertyModel();
   RxString errorLoadingAddProperty = ''.obs;
-
   void getAddProperty(
       name,
       disp,
@@ -25,9 +24,7 @@ class AddProperrtyController extends GetxController {
       plotNo,
       location,
       cityId,
-      stateId,
       price,
-      currency,
       square,
       numberFloor,
       bathNo,
@@ -37,6 +34,9 @@ class AddProperrtyController extends GetxController {
       feature,
       facilities,
       imageList) async {
+    errorLoadingAddProperty.value = "";
+    loadingAddProperty.value = true;
+    print("fun call loading_______${loadingAddProperty.value}");
     var res = await AddPropertyServices.addPropertyAPI(
         name: name,
         disp: disp,
@@ -46,9 +46,7 @@ class AddProperrtyController extends GetxController {
         plotNo: plotNo,
         location: location,
         cityId: cityId,
-        stateId: stateId,
         price: price,
-        currency: currency,
         square: square,
         numberFloor: numberFloor,
         bathNo: bathNo,
@@ -60,8 +58,10 @@ class AddProperrtyController extends GetxController {
         imageList: imageList);
     if (res is AddPropertyModel) {
       addPropertyModel = res;
+      loadingAddProperty.value = false;
     } else {
-      errorLoadingAddProperty.value = res.to();
+      loadingAddProperty.value = false;
+      errorLoadingAddProperty.value = res.toString();
     }
   }
 
@@ -71,6 +71,5 @@ class AddProperrtyController extends GetxController {
   void selectCityFun(newValue) {
     selectedValueCityId.value = newValue;
   }
-
 // Features List
 }

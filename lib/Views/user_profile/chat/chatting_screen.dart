@@ -6,9 +6,11 @@ import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/data/Controllers/chat_controller.dart';
 import 'package:prologic_29/data/Models/Chat_Model/chat_model.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
+import 'package:prologic_29/utils/constants/session_controller.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:pusher_client/pusher_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class Chating extends StatefulWidget {
@@ -18,7 +20,14 @@ class Chating extends StatefulWidget {
 
   String? customerId;
   String? agentId;
-  Chating({super.key, this.name, this.agentId, this.conId, this.customerId});
+  String? senderId;
+  Chating(
+      {super.key,
+      this.name,
+      this.agentId,
+      this.conId,
+      this.customerId,
+      this.senderId});
 
   @override
   State<Chating> createState() => _ChatingState();
@@ -28,20 +37,32 @@ class _ChatingState extends State<Chating> {
   var chattController = Get.put(ChatController());
   var chatController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  int uid = 0;
+  String uid = "";
   bool isTextFieldClicked = false;
 
   late PusherClient pusher;
+  var itsMe = true;
 
   @override
   void initState() {
     super.initState();
-
+    itsMe = SessionController().userId == widget.customerId;
+    getUserId();
     _initiatePusherSocketForMessaging();
 
     chattController.getChat(int.parse(widget.conId.toString()));
 
     _scrollDown();
+  }
+
+  void getUserId() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    setState(() {
+      uid = pref.getInt("userid").toString();
+    });
+
+    print("this is user id*************************$uid");
   }
 
   @override
@@ -87,28 +108,73 @@ class _ChatingState extends State<Chating> {
                               shrinkWrap: true,
                               itemCount: controller.chatModel.data?.length,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  margin: EdgeInsets.only(
-                                      top: 1.0.h,
-                                      bottom: .5.h,
-                                      left: 4.0.w,
-                                      right: 4.0.w),
-                                  decoration: BoxDecoration(
-                                      color: controller.uid ==
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                      left: uid ==
                                               controller.chatModel.data![index]
                                                   .senderId
-                                          ? Colors.red
-                                          : AppColors.appthem,
-                                      borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(10),
-                                          bottomLeft: Radius.circular(10))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Text(
-                                      controller
-                                              .chatModel.data?[index].message ??
-                                          "",
-                                      style: AppTextStyles.heading1,
+                                          ? 20.0.w
+                                          : 4.0.w,
+                                      right: uid ==
+                                              controller.chatModel.data![index]
+                                                  .senderId
+                                          ? 4.0.w
+                                          : 20.0.w),
+                                  child: SizedBox(
+                                    width: 50.0.w,
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                        top: 1.0.h,
+                                        bottom: .5.h,
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: uid ==
+                                                  controller.chatModel
+                                                      .data![index].senderId
+                                              ? AppColors.appthem
+                                              : AppColors.appthem
+                                                  .withOpacity(0.5),
+                                          borderRadius: const BorderRadius.only(
+                                              topRight: Radius.circular(10),
+                                              bottomLeft: Radius.circular(10))),
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 2.0.w,
+                                            top: 1.0.h,
+                                            bottom: 2.0.h),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              uid ==
+                                                      controller.chatModel
+                                                          .data![index].senderId
+                                                  ? "You"
+                                                  : controller
+                                                          .chatModel
+                                                          .data?[index]
+                                                          .user!
+                                                          .username ??
+                                                      "",
+                                              style: AppTextStyles.appbar,
+                                            ),
+                                            SizedBox(
+                                              height: 1.0.h,
+                                            ),
+                                            SizedBox(
+                                              // color: Colors.red,
+                                              width: 65.0.w,
+                                              child: Text(
+                                                controller.chatModel
+                                                        .data?[index].message ??
+                                                    "",
+                                                style: AppTextStyles.heading1,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 );
