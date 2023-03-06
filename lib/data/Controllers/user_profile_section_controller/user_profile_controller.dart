@@ -7,14 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserProfileController extends GetxController {
   @override
   void onInit() {
-    loadingUserProfileAPI.value = true;
+    loadingUserProfile.value = true;
     load();
     // TODO: implement onInit
     super.onInit();
   }
 
   RxBool loadingUserProfile = false.obs;
-  RxBool loadingUserProfileAPI = false.obs;
+
   RxString errorLoadingUserProfile = ''.obs;
   var userProfileData = GetUserProfileResponse();
   int? uid;
@@ -22,8 +22,8 @@ class UserProfileController extends GetxController {
   void load() async {
     // await Future.delayed(const Duration(seconds: 2));
     getUserId();
-    await Future.delayed(const Duration(milliseconds: 600));
-    getUserProfile(uid!);
+    await Future.delayed(const Duration(seconds: 1));
+    getUserProfile(uid ?? 0);
   }
 
 ///////////////////////////////////////////////////
@@ -41,13 +41,13 @@ class UserProfileController extends GetxController {
     errorLoadingUserProfile.value = "";
 
     var res = await USerProfileServices.getUserProfile(uid);
+    loadingUserProfile.value = false;
     if (res is GetUserProfileResponse) {
-      loadingUserProfileAPI.value = true;
       loadingUserProfile.value = false;
       userProfileData = res;
     } else {
       loadingUserProfile.value = false;
-      errorLoadingUserProfile.value = res;
+      errorLoadingUserProfile.value = res.toString();
     }
     update();
   }

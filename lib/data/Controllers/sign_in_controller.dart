@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/data/Models/signin_model.dart';
 import 'package:prologic_29/data/Models/user_model.dart';
+import 'package:prologic_29/utils/constants/session_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -88,6 +89,10 @@ class SignInController extends GetxController {
           loginModel.data!.email!,
           loginModel.data!.phone!,
           loginModel.data!.avatar!.url.toString());
+
+      SessionController().userId = loginModel.data!.id!.toString();
+
+      print(" User id ******************${SessionController().userId}");
       print(
           "image for login responsej==========${loginModel.data!.avatar!.url}");
       Get.find<AuthController>().isUserSignedIn();

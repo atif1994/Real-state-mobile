@@ -16,10 +16,14 @@ class DashboardController extends GetxController {
   int? cid;
   String? cityName;
   int catid = 0;
-
+  int? pagekey;
+  static const _pageSize = 6;
   @override
   void onInit() {
     loadData();
+    // pagingController.addPageRequestListener((pageKey) {
+    //   getPaginationPropertise();
+    // });
     super.onInit();
   }
 
@@ -55,6 +59,7 @@ class DashboardController extends GetxController {
     errorLoadingCities.value = '';
     var res = await FeaturedPropertyService.getCities();
     loadingCities.value = false;
+
     if (res is CitiesResponse) {
       citiesModel = res;
     } else {

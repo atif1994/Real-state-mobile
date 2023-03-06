@@ -1,7 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:prologic_29/Views/Property_by_id/property_by_id.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/data/Controllers/NewsFeed_Controller/newsfeed_controller.dart';
@@ -39,7 +40,7 @@ class _NewsFeedState extends State<NewsFeed> {
   int pagekey = 1;
   static const _pageSize = 20;
 
-  final PagingController _pagingController = PagingController(firstPageKey: 0);
+  // final PagingController _pagingController = PagingController(firstPageKey: 0);
   List<int> wishlish = [];
   // String link = 'http://realestate.tecrux.net/properties/nam-batao-g';
   @override
@@ -68,11 +69,19 @@ class _NewsFeedState extends State<NewsFeed> {
               child: Obx(
                 () => addwishistcontroller.pid.isEmpty
                     ? SizedBox()
-                    : Badge(
-                        label: Text(addwishistcontroller.pid.length.toString()),
-                        child: const Icon(
-                          Icons.favorite,
-                          size: 27,
+                    : InkWell(
+                        // onTap: () {
+                        //   Get.to(() => WishlistPage(),
+                        //       transition: Transition.fadeIn,
+                        //       duration: Duration(milliseconds: 600));
+                        // },
+                        child: Badge(
+                          label:
+                              Text(addwishistcontroller.pid.length.toString()),
+                          child: const Icon(
+                            Icons.favorite,
+                            size: 27,
+                          ),
                         ),
                       ),
               ))
@@ -89,9 +98,12 @@ class _NewsFeedState extends State<NewsFeed> {
           // ListView.builder(itemBuilder: itemBuilder)
 
           Obx(() => newsfeedController.newsfeedApiLoading.value
-              ? const Center(
-                  child: CircularProgressIndicator(
-                  color: AppColors.appthem,
+              ? Center(
+                  child: Padding(
+                  padding: EdgeInsets.only(top: 40.0.h),
+                  child: const CircularProgressIndicator(
+                    color: AppColors.appthem,
+                  ),
                 ))
               : newsfeedController.errorLoadingnewsfeed.value != ''
                   ? Center(
@@ -700,7 +712,7 @@ class _NewsFeedState extends State<NewsFeed> {
                             ///////////
                           },
                           itemCount:
-                              newsfeedController.newsfeedmodel.data!.length,
+                              newsfeedController.newsfeedmodel.data?.length,
                         );
                       }))
         ],

@@ -11,12 +11,13 @@ class AppUrls {
   static const String propertyByID = "v1/Propertybyid/";
   static const String propertyByCity = "v1/Properties-by-city/";
   static const String citiesLocation = "v1/properties-location";
-  static const String notificationend = "v1/notifications/1";
+  static const String notificationend = "v1/notifications/";
   static const String newspost = "v1/posts";
   static const String addProperty = "v1/add-property";
   static const String newsfeed = "v1/Properties";
   static const String forgetpass = "v1/password/forgot";
   static const String contacusend = "v1/contact";
+  static const String getAllCitise = "v1/cities";
   static const String postLikee = "v1/postlike";
   static const String postComments = "v1/postcomment";
   static const String newsfeedcomment = "v1/coment-property";

@@ -1,20 +1,34 @@
-import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:prologic_29/data/Services/app_bindings.dart';
-import 'package:sizer/sizer.dart';
+// ignore_for_file: avoid_print
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:prologic_29/data/Services/app_bindings.dart';
+import 'package:prologic_29/data/Services/local_notifications_service.dart';
+import 'package:sizer/sizer.dart';
 import 'Views/Auth/sign_in.dart';
 
-void main() async {
-  await Future.delayed(const Duration(milliseconds: 600));
-  WidgetsFlutterBinding.ensureInitialized();
-  var directory = await getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification!.title);
+}
 
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  LocalNotificationsApi.initialize();
   runApp(const MyApp());
 }
+
+// void listenNotification() =>
+//     LocalNotificationsApi.onNotifications.stream.listen(onClickedNotification);
+
+// void onClickedNotification(String? payload) => Get.to(() => AllNotifications(
+//       payload: payload,
+//     ));
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

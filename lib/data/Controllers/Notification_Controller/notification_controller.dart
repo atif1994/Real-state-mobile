@@ -13,12 +13,19 @@ class Notificationcontroller extends GetxController {
   RxString errorLoadingnotification = ''.obs;
   @override
   void onInit() {
-    getNotifications(userid);
-    getUserid();
-    // getPrpertyCitis();
+    loadingNotification.value = true;
+
+    LoadData();
     print("notification ================>>>>>>>>>>>>>>========");
     // getNotificationsWithoutPerm();
     super.onInit();
+  }
+
+  void LoadData() async {
+    getUserid();
+    await Future.delayed(Duration(milliseconds: 600));
+
+    getNotifications(userid);
   }
 
   void getUserid() async {
@@ -31,24 +38,24 @@ class Notificationcontroller extends GetxController {
   void getNotifications(userid) async {
     loadingNotification.value = true;
     errorLoadingnotification.value = '';
-    var res = await NotificationsServices.getNotificationsServices();
+    var res = await NotificationsServices.getNotificationsServices(userid);
     loadingNotification.value = false;
     if (res is NotificationModel) {
       notificationModel = res;
 
-      showNotification();
+      //   showNotification();
     } else {
       loadingNotification.value = false;
       errorLoadingnotification.value = res.toString();
     }
   }
 
-  void showNotification() {
-    for (int i = 0; i < notificationModel.data!.length; i++) {
-      LocalNotificationsApi.showNotifications(
-          title: "Prologics Notification",
-          body: notificationModel.data![i]!.description,
-          payload: 'real.state a');
-    }
-  }
+  // void showNotification() {
+  //   for (int i = 0; i < notificationModel.data!.length; i++) {
+  //     LocalNotificationsApi.showNotifications(
+  //         title: "Prologics Notification",
+  //         body: notificationModel.data![i]!.description,
+  //         payload: 'real.state a');
+  //   }
+  // }
 }

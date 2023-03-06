@@ -92,6 +92,8 @@ class AddPropertyServices {
       var res = await BaseClientClass.post(url, data);
       if (res is http.Response) {
         return addPropertyModelFromJson(res.body);
+      } else {
+        return res;
       }
     } catch (e) {
       return e;

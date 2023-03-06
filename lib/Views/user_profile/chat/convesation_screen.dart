@@ -133,6 +133,11 @@ class ChatScreen extends StatelessWidget {
                                                               .data![index]
                                                               .chats![index]
                                                               .agent,
+                                                          senderId: controller
+                                                              .conversationModel
+                                                              .data![index]
+                                                              .chats![index]
+                                                              .senderId,
                                                         ),
                                                     duration: const Duration(
                                                         milliseconds: 600),

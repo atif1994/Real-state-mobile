@@ -182,7 +182,7 @@ class CustomDrawer extends StatelessWidget {
                     width: 100.0.w,
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
-                      onTap: () {
+                      onTap: () async {
                         // Get.to(() => ProfileImageEdit());
                         Get.to(ProfilePages(
                           loginBaseImage: loginBaseImage,

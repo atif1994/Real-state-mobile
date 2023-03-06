@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
+import 'package:prologic_29/Views/Home/home.dart';
 import 'package:prologic_29/data/Services/signup_services/signup_services.dart';
 import '../Models/signup_model/signup_model.dart';
 
@@ -47,7 +48,7 @@ class SignUpController extends GetxController {
       isLoading(false);
       // Fluttertoast.showToast(msg: "");
       Get.snackbar('Succfully Create Account', "");
-      Get.to(SignIn());
+      Get.to(() => Home());
       return res;
     } else {
       isLoading(false);

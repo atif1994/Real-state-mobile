@@ -25,7 +25,6 @@ class FeaturedPropertyService {
       return e;
     }
   }
-
   // static Future<dynamic> filterApiCall() async {
   //   var url = "${AppUrls.baseUrl} ${AppUrls.filteredPropertise}";
   //   var res = BaseClientClass.get(url, '');

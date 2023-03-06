@@ -117,7 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Stack(children: <Widget>[
-                              CircleAvatar(      
+                              CircleAvatar(
                                 radius: 90,
                                 // backgroundColor: Colors.transparent,
                                 backgroundImage: CachedNetworkImageProvider(
