@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
@@ -10,6 +12,7 @@ import '../../utils/constants/app_urls.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/app_textstyles.dart';
+import '../user_profile/chat/chatting_screen.dart';
 
 class PropertyByID extends StatefulWidget {
   PropertyByID({
@@ -44,11 +47,9 @@ class _PropertyByIDState extends State<PropertyByID> {
     );
     return Scaffold(
         appBar: AppBar(
-
           title: Text(
               propertybyyidController.propertybyIDmodel.data?.name ?? "",
               style: AppTextStyles.heading1),
-
           backgroundColor: AppColors.appthem,
         ),
         backgroundColor: Colors.white,
@@ -61,15 +62,33 @@ class _PropertyByIDState extends State<PropertyByID> {
           width: screenWidth,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const <Widget>[
+            children: [
               FloatingWidget(
+                ontap: () {
+                  Get.to(() => Chating());
+                },
                 leadingIcon: Icons.mail,
-                txt: "Message",
+                txt: "Start Chat",
               ),
-              FloatingWidget(
-                leadingIcon: Icons.phone,
-                txt: "Call",
-              ),
+              // FloatingWidget(
+              //   ontap: () async {
+              //     print("hello");
+              //     const number = '08592119XXXX'; //set the number here
+              //     await FlutterPhoneDirectCaller.callNumber(number);
+              //   },
+              //   leadingIcon: Icons.phone,
+              //   txt: "Call",
+              // ),
+
+              CustomButton(
+                width: 40.0.w,
+                height: 6.0.h,
+                text: "Call",
+                onPressed: () async {
+                  const number = '08592119XXXX'; //set the number here
+                  await FlutterPhoneDirectCaller.callNumber(number);
+                },
+              )
             ],
           ),
         ),
@@ -191,19 +210,17 @@ class _PropertyByIDState extends State<PropertyByID> {
                           ),
                         ],
                       ),
-                      Container(
-                        child: Row(children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 0.5.h, left: 4.0.w),
-                            child: Text(
-                              "Descriptionn: ${propertybyyidController.propertybyIDmodel.data!.description ?? ""}",
-                              style: AppTextStyles.labelSmall.copyWith(
-                                color: AppColors.colorblack,
-                              ),
+                      Row(children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 0.5.h, left: 4.0.w),
+                          child: Text(
+                            "Descriptionn: ${propertybyyidController.propertybyIDmodel.data!.description ?? ""}",
+                            style: AppTextStyles.labelSmall.copyWith(
+                              color: AppColors.colorblack,
                             ),
                           ),
-                        ]),
-                      ),
+                        ),
+                      ]),
 
                       Column(
                         children: [
@@ -446,11 +463,10 @@ class _PropertyByIDState extends State<PropertyByID> {
 class FloatingWidget extends StatelessWidget {
   final IconData? leadingIcon;
   final String? txt;
-  const FloatingWidget({
-    Key? key,
-    this.leadingIcon,
-    this.txt,
-  }) : super(key: key);
+  final Function ontap;
+  const FloatingWidget(
+      {Key? key, this.leadingIcon, this.txt, required this.ontap})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -458,7 +474,9 @@ class FloatingWidget extends StatelessWidget {
       width: 150,
       child: FloatingActionButton(
         elevation: 5,
-        onPressed: () {},
+        onPressed: () {
+          ontap;
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(75.0),
         ),

@@ -173,8 +173,8 @@ class _HomeState extends State<Home> {
   ///////////////////////////get device token
 
   Future<void> getDeviceTokenToSendNotification() async {
-    final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-    final token = await _fcm.getToken();
+    final FirebaseMessaging fcm = FirebaseMessaging.instance;
+    final token = await fcm.getToken();
     //    dTokens.add(token);
     _saveDeviceTokenToFirebase(token.toString());
 
@@ -245,8 +245,9 @@ class _HomeState extends State<Home> {
                                 height: 11.0.w,
                                 width: 12.0.w,
                                 decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(10)),
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: loginBaseImage != null

@@ -78,7 +78,7 @@ class ChatScreen extends StatelessWidget {
                               ),
                             )
                           : controller.conversationModel.data == null
-                              ? Center(child: Text("No Chat Found"))
+                              ? const Center(child: Text("No Chat Found"))
                               : FutureBuilder(
                                   future: controller
                                       .getConversation(controller.uid),
@@ -90,7 +90,7 @@ class ChatScreen extends StatelessWidget {
                                     } else {
                                       return ListView.builder(
                                           itemCount: controller
-                                              .conversationModel.data?.length,
+                                              .conversationModel.data!.length,
                                           itemBuilder: (context, index) {
                                             var agentName = controller
                                                 .conversationModel
