@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -17,7 +15,6 @@ import '../../data/Controllers/wishlist_controller/add_wishlist_controller.dart'
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/custom_decorations.dart';
-import '../Wishlist/favorites.dart';
 
 class NewsFeed extends StatefulWidget {
   const NewsFeed({super.key});
@@ -28,7 +25,7 @@ class NewsFeed extends StatefulWidget {
 
 class _NewsFeedState extends State<NewsFeed> {
   var addwishistcontroller = Get.put(AddWishlistController());
-  bool _istoastsend = false;
+  final bool _istoastsend = false;
   int? uid;
   final bool _iswishlist = false;
   var scrollController = ScrollController();
@@ -39,8 +36,6 @@ class _NewsFeedState extends State<NewsFeed> {
   final List<TextEditingController> _controllers = [];
   int pagekey = 1;
   static const _pageSize = 20;
-
-  // final PagingController _pagingController = PagingController(firstPageKey: 0);
   List<int> wishlish = [];
   // String link = 'http://realestate.tecrux.net/properties/nam-batao-g';
   @override
@@ -68,20 +63,12 @@ class _NewsFeedState extends State<NewsFeed> {
               padding: EdgeInsets.only(right: 5.0.w, top: 2.0.h),
               child: Obx(
                 () => addwishistcontroller.pid.isEmpty
-                    ? SizedBox()
-                    : InkWell(
-                        // onTap: () {
-                        //   Get.to(() => WishlistPage(),
-                        //       transition: Transition.fadeIn,
-                        //       duration: Duration(milliseconds: 600));
-                        // },
-                        child: Badge(
-                          label:
-                              Text(addwishistcontroller.pid.length.toString()),
-                          child: const Icon(
-                            Icons.favorite,
-                            size: 27,
-                          ),
+                    ? const SizedBox()
+                    : Badge(
+                        label: Text(addwishistcontroller.pid.length.toString()),
+                        child: const Icon(
+                          Icons.favorite,
+                          size: 27,
                         ),
                       ),
               ))
@@ -98,12 +85,9 @@ class _NewsFeedState extends State<NewsFeed> {
           // ListView.builder(itemBuilder: itemBuilder)
 
           Obx(() => newsfeedController.newsfeedApiLoading.value
-              ? Center(
-                  child: Padding(
-                  padding: EdgeInsets.only(top: 40.0.h),
-                  child: const CircularProgressIndicator(
-                    color: AppColors.appthem,
-                  ),
+              ? const Center(
+                  child: CircularProgressIndicator(
+                  color: AppColors.appthem,
                 ))
               : newsfeedController.errorLoadingnewsfeed.value != ''
                   ? Center(
@@ -136,8 +120,6 @@ class _NewsFeedState extends State<NewsFeed> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             _controllers.add(TextEditingController());
-
-                            bool islike = false;
 
                             return Column(
                               children: [
@@ -185,20 +167,20 @@ class _NewsFeedState extends State<NewsFeed> {
                                                     ? GestureDetector(
                                                         child: Container(
                                                           decoration: BoxDecoration(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      27,
-                                                                      17,
-                                                                      17),
+                                                              color: const Color
+                                                                      .fromARGB(
+                                                                  255,
+                                                                  27,
+                                                                  17,
+                                                                  17),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           6)),
-                                                          child: Padding(
+                                                          child: const Padding(
                                                             padding:
-                                                                const EdgeInsets
-                                                                    .all(5.0),
+                                                                EdgeInsets.all(
+                                                                    5.0),
                                                             child: Icon(
                                                               Icons.favorite,
                                                               color:
@@ -238,20 +220,20 @@ class _NewsFeedState extends State<NewsFeed> {
                                                     : GestureDetector(
                                                         child: Container(
                                                           decoration: BoxDecoration(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      126,
-                                                                      124,
-                                                                      124),
+                                                              color: const Color
+                                                                      .fromARGB(
+                                                                  255,
+                                                                  126,
+                                                                  124,
+                                                                  124),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           6)),
-                                                          child: Padding(
+                                                          child: const Padding(
                                                             padding:
-                                                                const EdgeInsets
-                                                                    .all(5.0),
+                                                                EdgeInsets.all(
+                                                                    5.0),
                                                             child: Icon(
                                                               Icons
                                                                   .favorite_outline,
@@ -516,10 +498,15 @@ class _NewsFeedState extends State<NewsFeed> {
                                             GestureDetector(
                                               onTap: () {
                                                 Get.to(() => PropertyByID(
-                                                    id: newsfeedController
-                                                        .newsfeedmodel
-                                                        .data![index]
-                                                        .id));
+                                                      name: newsfeedController
+                                                          .newsfeedmodel
+                                                          .data![index]
+                                                          .name,
+                                                      id: newsfeedController
+                                                          .newsfeedmodel
+                                                          .data![index]
+                                                          .id,
+                                                    ));
                                               },
                                               child: Container(
                                                 height: 3.5.h,
@@ -561,44 +548,141 @@ class _NewsFeedState extends State<NewsFeed> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        GestureDetector(
-                                            onTap: () {
-                                              likeController.isliked();
-                                              likeController.myIndex(index);
-                                              print(
-                                                  "like model---${likeController.likeModel.isliked}  ==$index");
-                                            },
-                                            child: Obx(
-                                              () => likeController
-                                                          .myindex.value ==
-                                                      index
-                                                  ? Icon(
-                                                      Icons.favorite,
-                                                      color: Colors.red,
-                                                    )
-                                                  : Icon(
-                                                      Icons.favorite,
-                                                      color: Colors.grey,
+                                        likeController.likeIdsList.contains(
+                                                newsfeedController.newsfeedmodel
+                                                    .data![index].id)
+                                            ? GestureDetector(
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(6)),
+                                                      child: const Padding(
+                                                        padding:
+                                                            EdgeInsets.all(5.0),
+                                                        child: Icon(
+                                                          Icons.favorite_border,
+                                                          color: Colors.grey,
+                                                        ),
+                                                      ),
                                                     ),
-                                            )),
+                                                    SizedBox(
+                                                      width: 1.w,
+                                                    ),
+                                                    Text(
+                                                      "Like",
+                                                      style: AppTextStyles
+                                                          .labelSmall
+                                                          .copyWith(
+                                                        fontSize: 13.sp,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                onTap: () async {
+                                                  likeController.likeIdsList
+                                                      .remove(newsfeedController
+                                                          .newsfeedmodel
+                                                          .data![index]
+                                                          .id);
+
+                                                  // addwishistcontroller
+                                                  //             .delwishlistmodel
+                                                  //             .error ==
+                                                  //         true
+                                                  //     ? Fluttertoast
+                                                  //         .showToast(
+                                                  //             msg:
+                                                  //                 'not Deleted')
+                                                  //     : Fluttertoast
+                                                  //         .showToast(
+                                                  //             msg:
+                                                  //                 'Deleted');
+                                                  likeController.getPostLike(
+                                                      newsfeedController
+                                                          .newsfeedmodel
+                                                          .data![index]
+                                                          .id
+                                                          .toString(),
+                                                      uid!);
+                                                  print(
+                                                      "list++++${likeController.likeIdsList}");
+                                                  setState(() {});
+                                                },
+                                              )
+                                            : GestureDetector(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              6)),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Row(
+                                                      children: [
+                                                        const Icon(
+                                                          Icons.favorite,
+                                                          color: Colors.red,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 1.w,
+                                                        ),
+                                                        Text(
+                                                          "Like",
+                                                          style: AppTextStyles
+                                                              .labelSmall
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      14.sp,
+                                                                  color: Colors
+                                                                      .blue,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                onTap: () async {
+                                                  likeController.likeIdsList
+                                                      .add(newsfeedController
+                                                          .newsfeedmodel
+                                                          .data![index]
+                                                          .id);
+
+                                                  // addwishistcontroller
+                                                  //             .delwishlistmodel
+                                                  //             .error ==
+                                                  //         true
+                                                  //     ? Fluttertoast
+                                                  //         .showToast(
+                                                  //             msg:
+                                                  //                 'not Deleted')
+                                                  //     : Fluttertoast
+                                                  //         .showToast(
+                                                  //             msg:
+                                                  //                 'Deleted');
+                                                  likeController.getPostLike(
+                                                      newsfeedController
+                                                          .newsfeedmodel
+                                                          .data![index]
+                                                          .id
+                                                          .toString(),
+                                                      uid!);
+                                                  print(
+                                                      "list++++${likeController.likeIdsList}");
+
+                                                  setState(() {});
+                                                },
+                                              ),
+
                                         // const Icon(Icons.favorite_border_outlined),
-                                        GestureDetector(
-                                          onTap: () {
-                                            // likeController.getPostLike(
-                                            //     newsfeedController.newsfeedmodel
-                                            //         .data![index].id
-                                            //         .toString(),
-                                            //     uid!);
-                                            // setState(() {});
-                                          },
-                                          child: Text(
-                                            "Likee",
-                                            style: AppTextStyles.labelSmall
-                                                .copyWith(
-                                              fontSize: 13.sp,
-                                            ),
-                                          ),
-                                        ),
+
                                         SizedBox(
                                           width: 3.0.w,
                                         ),
@@ -712,7 +796,7 @@ class _NewsFeedState extends State<NewsFeed> {
                             ///////////
                           },
                           itemCount:
-                              newsfeedController.newsfeedmodel.data?.length,
+                              newsfeedController.newsfeedmodel.data!.length,
                         );
                       }))
         ],
@@ -876,8 +960,8 @@ class _NewsFeedState extends State<NewsFeed> {
         });
   }
 
-  toastshow(bool _istoastsend) {
-    _istoastsend
+  toastshow(bool istoastsend) {
+    istoastsend
         ? Fluttertoast.showToast(
             textColor: Colors.red.shade300,
             msg: 'Your property is not add into favourite cart')

@@ -19,6 +19,7 @@ class AppUrls {
   static const String contacusend = "v1/contact";
   static const String getAllCitise = "v1/cities";
   static const String postLikee = "v1/postlike";
+  static const String sendchat = "v1/send-chat";
   static const String postComments = "v1/postcomment";
   static const String newsfeedcomment = "v1/coment-property";
   static const String sendChat = "v1/send-chat";

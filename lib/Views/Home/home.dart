@@ -224,7 +224,9 @@ class _HomeState extends State<Home> {
                       padding: EdgeInsets.only(top: 1.0.h),
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => ProfilePages(),
+                          Get.to(
+                              () =>
+                                  ProfilePages(loginBaseImage: loginBaseImage),
                               transition: Transition.fadeIn,
                               duration: Duration(milliseconds: 600));
                         },
