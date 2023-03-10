@@ -42,15 +42,17 @@ class _ChatingState extends State<Chating> {
 
   late PusherClient pusher;
   var itsMe = true;
-
+  int? conversationId;
   @override
   void initState() {
     super.initState();
     itsMe = SessionController().userId == widget.customerId;
     getUserId();
     _initiatePusherSocketForMessaging();
+    conversationId = int.parse(widget.agentId.toString());
 
-    chattController.getChat(int.parse(widget.conId.toString()));
+    print("con id in chatting screen____ ${widget.conId!}");
+    chattController.getChat(int.parse(widget.conId!));
 
     _scrollDown();
   }
@@ -209,6 +211,8 @@ class _ChatingState extends State<Chating> {
                   )),
                   IconButton(
                       onPressed: () {
+                        print(
+                            "message send........ data before send  chat Api Call in coId= + ${int.parse(widget.conId.toString())} + agent= ${int.parse(widget.agentId.toString())} + customer =${int.parse(widget.customerId.toString())}");
                         chattController.sendMsgMethod(
                             int.parse(widget.customerId.toString()),
                             int.parse(widget.agentId.toString()),

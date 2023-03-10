@@ -151,6 +151,7 @@ class _PropertyState extends State<Property>
     'Play Ground',
     'Park',
   ];
+  List addedFeaturesList = [];
   List<dynamic> featuresList = [
     'Balcony',
     'Security Staff',
@@ -159,6 +160,10 @@ class _PropertyState extends State<Property>
     'Accessible by Road',
     'Sui Gas'
   ];
+
+  int? facilityid;
+  List addedFacilityList = [];
+  List facilitiesIdList = [];
   List<dynamic> addFeaturesList = [];
   List facilitiesList = [];
   List kmList = [];
@@ -1055,8 +1060,20 @@ class _PropertyState extends State<Property>
                         setState(() {
                           facilitiesList.add(dropdownvalue22);
                           kmList.add(km);
+                          if (dropdownvalue22 == "Mosque Nearby") {
+                            facilityid = 0;
+                          } else if (dropdownvalue22 == "Play Ground") {
+                            facilityid = 1;
+                          } else if (dropdownvalue22 == "Park") {
+                            facilityid = 2;
+                          }
+                          addedFacilityList
+                              .add({"id": facilityid, "distance": km});
+
                           // facilitiesList.clear();
                           // kmList.clear();
+                          // addedFacilityList.clear();
+                          print("faclity list added_____$addedFacilityList");
                         });
                       }
                     },
@@ -1109,8 +1126,10 @@ class _PropertyState extends State<Property>
                         checkBoxValue1 = value!;
                         if (checkBoxValue1 == true) {
                           addFeaturesList.add(featuresList[0]);
+                          addedFeaturesList.add(0);
                         } else {
                           addFeaturesList.remove("Balcony");
+                          addedFeaturesList.remove(0);
                         }
                       });
                     }),
@@ -1124,8 +1143,10 @@ class _PropertyState extends State<Property>
                         checkBoxValue2 = value!;
                         if (value == true) {
                           addFeaturesList.add(featuresList[1]);
+                          addedFeaturesList.add(1);
                         } else {
                           addFeaturesList.remove('Security Staff');
+                          addedFeaturesList.remove(1);
                         }
                       });
                     }),
@@ -1139,8 +1160,10 @@ class _PropertyState extends State<Property>
                         checkBoxValue3 = value!;
                         if (value == true) {
                           addFeaturesList.add(featuresList[2]);
+                          addedFeaturesList.add(2);
                         } else {
                           addFeaturesList.remove('Parking Area');
+                          addedFeaturesList.remove(2);
                         }
                       });
                     }),
@@ -1154,8 +1177,10 @@ class _PropertyState extends State<Property>
                         checkBoxValue4 = value!;
                         if (value == true) {
                           addFeaturesList.add(featuresList[3]);
+                          addedFeaturesList.add(3);
                         } else {
                           addFeaturesList.remove('Electricity');
+                          addedFeaturesList.remove(3);
                         }
                       });
                     }),
@@ -1169,8 +1194,10 @@ class _PropertyState extends State<Property>
                         checkBoxValue5 = value!;
                         if (value == true) {
                           addFeaturesList.add(featuresList[4]);
+                          addedFeaturesList.add(4);
                         } else {
                           addFeaturesList.remove('Accessible by Road');
+                          addedFeaturesList.remove(4);
                         }
                       });
                     }),
@@ -1184,10 +1211,10 @@ class _PropertyState extends State<Property>
                         checkBoxValue6 = value!;
                         if (value == true) {
                           addFeaturesList.add(featuresList[5]);
-                          print("Add Feature =====>>>$addFeaturesList");
+                          addedFeaturesList.add(5);
                         } else {
                           addFeaturesList.remove('Sui Gas');
-                          print("remove Feature =====>>>$addFeaturesList");
+                          addedFeaturesList.remove(5);
                         }
                       });
                     }),
@@ -1351,9 +1378,10 @@ class _PropertyState extends State<Property>
                                               selectedBedroom,
                                               selectedPropertyCategory,
                                               iWantTo,
-                                              addFeaturesList,
+                                              addedFeaturesList,
                                               facilities,
-                                              base64List);
+                                              base64List,
+                                              addedFacilityList);
                                         },
                                         icon: const Icon(Icons.refresh)),
                                     SizedBox(
@@ -1389,9 +1417,10 @@ class _PropertyState extends State<Property>
                                         selectedBedroom,
                                         selectedPropertyCategory,
                                         iWantTo,
-                                        addFeaturesList,
+                                        addedFeaturesList,
                                         facilities,
-                                        base64List);
+                                        base64List,
+                                        addedFacilityList);
 
                                     // setState(() {
                                     //   // AddPropertyServices.addPropertyAPI(

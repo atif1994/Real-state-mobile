@@ -13,6 +13,7 @@ class LikeModel {
     this.success,
     this.message,
     this.isliked,
+    this.likelist,
     this.likeOcunt,
     this.notdeleted,
     this.property,
@@ -21,6 +22,7 @@ class LikeModel {
   bool? success;
   String? message;
   int? isliked;
+  List<Likelist>? likelist;
   int? likeOcunt;
   bool? notdeleted;
   List<Property>? property;
@@ -29,6 +31,10 @@ class LikeModel {
         success: json["success"],
         message: json["message"],
         isliked: json["isliked"],
+        likelist: json["likelist"] == null
+            ? []
+            : List<Likelist>.from(
+                json["likelist"]!.map((x) => Likelist.fromJson(x))),
         likeOcunt: json["like_ocunt"],
         notdeleted: json["notdeleted"],
         property: json["property"] == null
@@ -41,11 +47,30 @@ class LikeModel {
         "success": success,
         "message": message,
         "isliked": isliked,
+        "likelist": likelist == null
+            ? []
+            : List<dynamic>.from(likelist!.map((x) => x.toJson())),
         "like_ocunt": likeOcunt,
         "notdeleted": notdeleted,
         "property": property == null
             ? []
             : List<dynamic>.from(property!.map((x) => x.toJson())),
+      };
+}
+
+class Likelist {
+  Likelist({
+    this.propertyId,
+  });
+
+  String? propertyId;
+
+  factory Likelist.fromJson(Map<String, dynamic> json) => Likelist(
+        propertyId: json["property_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "property_id": propertyId,
       };
 }
 
@@ -87,6 +112,7 @@ class Property {
     this.assignedAgent,
     this.assignerId,
     this.isDeleted,
+    this.isLiked,
     this.likesOnProperties,
   });
 
@@ -95,15 +121,15 @@ class Property {
   String? description;
   String? content;
   String? location;
-  List<dynamic>? images;
-  dynamic numberBedroom;
-  dynamic numberBathroom;
-  dynamic numberFloor;
-  dynamic square;
+  Images? images;
+  String? numberBedroom;
+  String? numberBathroom;
+  String? numberFloor;
+  String? square;
   String? price;
   String? currencyId;
   String? cityId;
-  dynamic stateId;
+  String? stateId;
   dynamic countryId;
   String? period;
   String? authorId;
@@ -113,19 +139,20 @@ class Property {
   String? moderationStatus;
   String? expireDate;
   String? autoRenew;
-  String? neverExpired;
+  dynamic neverExpired;
   dynamic latitude;
   dynamic longitude;
   String? typeId;
   String? createdAt;
   String? updatedAt;
   dynamic subcategoryId;
-  dynamic plotNumber;
-  dynamic streetNumber;
+  String? plotNumber;
+  String? streetNumber;
   String? sectorAndBlockName;
-  dynamic assignedAgent;
+  String? assignedAgent;
   String? assignerId;
   String? isDeleted;
+  String? isLiked;
   List<LikesOnProperty>? likesOnProperties;
 
   factory Property.fromJson(Map<String, dynamic> json) => Property(
@@ -134,7 +161,7 @@ class Property {
         description: json["description"],
         content: json["content"],
         location: json["location"],
-        images: json["images"],
+        images: json["images"] == null ? null : Images.fromJson(json["images"]),
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         numberFloor: json["number_floor"],
@@ -165,6 +192,7 @@ class Property {
         assignedAgent: json["assigned_agent"],
         assignerId: json["assigner_id"],
         isDeleted: json["is_deleted"],
+        isLiked: json["is_liked"],
         likesOnProperties: json["likes_on_properties"] == null
             ? []
             : List<LikesOnProperty>.from(json["likes_on_properties"]!
@@ -177,8 +205,7 @@ class Property {
         "description": description,
         "content": content,
         "location": location,
-        "images":
-            images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
+        "images": images?.toJson(),
         "number_bedroom": numberBedroom,
         "number_bathroom": numberBathroom,
         "number_floor": numberFloor,
@@ -209,9 +236,30 @@ class Property {
         "assigned_agent": assignedAgent,
         "assigner_id": assignerId,
         "is_deleted": isDeleted,
+        "is_liked": isLiked,
         "likes_on_properties": likesOnProperties == null
             ? []
             : List<dynamic>.from(likesOnProperties!.map((x) => x.toJson())),
+      };
+}
+
+class Images {
+  Images({
+    this.the1,
+    this.the2,
+  });
+
+  String? the1;
+  String? the2;
+
+  factory Images.fromJson(Map<String, dynamic> json) => Images(
+        the1: json["1"],
+        the2: json["2"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "1": the1,
+        "2": the2,
       };
 }
 

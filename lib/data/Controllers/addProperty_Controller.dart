@@ -33,10 +33,10 @@ class AddProperrtyController extends GetxController {
       typeId,
       feature,
       facilities,
-      imageList) async {
+      imageList,
+      addedFacilityList) async {
     errorLoadingAddProperty.value = "";
     loadingAddProperty.value = true;
-    print("fun call loading_______${loadingAddProperty.value}");
     var res = await AddPropertyServices.addPropertyAPI(
         name: name,
         disp: disp,
@@ -55,7 +55,8 @@ class AddProperrtyController extends GetxController {
         typeId: typeId,
         feature: feature,
         facilities: facilities,
-        imageList: imageList);
+        imageList: imageList,
+        addedFacilityList: addedFacilityList);
     if (res is AddPropertyModel) {
       addPropertyModel = res;
       loadingAddProperty.value = false;

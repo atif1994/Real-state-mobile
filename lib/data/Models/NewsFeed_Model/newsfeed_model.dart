@@ -82,6 +82,7 @@ class Datum {
     this.slugable,
     this.city,
     this.country,
+    this.agent,
     this.state,
     this.category,
     this.type,
@@ -103,7 +104,7 @@ class Datum {
   String? price;
   String? currencyId;
   String? cityId;
-  dynamic stateId;
+  String? stateId;
   dynamic countryId;
   String? period;
   String? authorId;
@@ -133,12 +134,13 @@ class Datum {
   Slugable? slugable;
   City? city;
   List<dynamic>? country;
-  List<dynamic>? state;
+  Agent? agent;
+  dynamic state;
   Category? category;
   Type? type;
   Currency? currency;
   List<Feature>? features;
-  List<dynamic>? facilities;
+  List<Facility>? facilities;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
@@ -193,9 +195,8 @@ class Datum {
         country: json["country"] == null
             ? []
             : List<dynamic>.from(json["country"]!.map((x) => x)),
-        // state: json["state"] == null
-        //     ? []
-        //     : List<dynamic>.from(json["state"]!.map((x) => x)),
+        agent: json["agent"] == null ? null : Agent.fromJson(json["agent"]),
+        state: json["state"],
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
@@ -209,7 +210,8 @@ class Datum {
                 json["features"]!.map((x) => Feature.fromJson(x))),
         facilities: json["facilities"] == null
             ? []
-            : List<dynamic>.from(json["facilities"]!.map((x) => x)),
+            : List<Facility>.from(
+                json["facilities"]!.map((x) => Facility.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -261,7 +263,8 @@ class Datum {
         "city": city?.toJson(),
         "country":
             country == null ? [] : List<dynamic>.from(country!.map((x) => x)),
-        "state": state == null ? [] : List<dynamic>.from(state!.map((x) => x)),
+        "agent": agent?.toJson(),
+        "state": state,
         "category": category?.toJson(),
         "type": type?.toJson(),
         "currency": currency?.toJson(),
@@ -270,7 +273,131 @@ class Datum {
             : List<dynamic>.from(features!.map((x) => x.toJson())),
         "facilities": facilities == null
             ? []
-            : List<dynamic>.from(facilities!.map((x) => x)),
+            : List<dynamic>.from(facilities!.map((x) => x.toJson())),
+      };
+}
+
+class Agent {
+  Agent({
+    this.id,
+    this.email,
+    this.emailVerifiedAt,
+    this.mobileNo,
+    this.profileImage,
+    this.dob,
+    this.activeStatus,
+    this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.firstName,
+    this.lastName,
+    this.username,
+    this.avatarId,
+    this.superUser,
+    this.manageSupers,
+    this.permissions,
+    this.lastLogin,
+    this.stripeId,
+    this.pmType,
+    this.pmLastFour,
+    this.trialEndsAt,
+    this.companyId,
+    this.addressId,
+    this.roleId,
+    this.deactivateMessage,
+    this.cityId,
+    this.mobileVerificationCode,
+  });
+
+  int? id;
+  String? email;
+  dynamic emailVerifiedAt;
+  String? mobileNo;
+  String? profileImage;
+  dynamic dob;
+  String? activeStatus;
+  dynamic deletedAt;
+  String? createdAt;
+  String? updatedAt;
+  String? firstName;
+  String? lastName;
+  String? username;
+  String? avatarId;
+  String? superUser;
+  String? manageSupers;
+  String? permissions;
+  String? lastLogin;
+  dynamic stripeId;
+  dynamic pmType;
+  dynamic pmLastFour;
+  dynamic trialEndsAt;
+  String? companyId;
+  String? addressId;
+  String? roleId;
+  String? deactivateMessage;
+  String? cityId;
+  dynamic mobileVerificationCode;
+
+  factory Agent.fromJson(Map<String, dynamic> json) => Agent(
+        id: json["id"],
+        email: json["email"],
+        emailVerifiedAt: json["email_verified_at"],
+        mobileNo: json["mobile_no"],
+        profileImage: json["profile_image"],
+        dob: json["dob"],
+        activeStatus: json["active_status"],
+        deletedAt: json["deleted_at"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
+        firstName: json["first_name"],
+        lastName: json["last_name"],
+        username: json["username"],
+        avatarId: json["avatar_id"],
+        superUser: json["super_user"],
+        manageSupers: json["manage_supers"],
+        permissions: json["permissions"],
+        lastLogin: json["last_login"],
+        stripeId: json["stripe_id"],
+        pmType: json["pm_type"],
+        pmLastFour: json["pm_last_four"],
+        trialEndsAt: json["trial_ends_at"],
+        companyId: json["company_id"],
+        addressId: json["address_id"],
+        roleId: json["role_id"],
+        deactivateMessage: json["deactivate_message"],
+        cityId: json["city_id"],
+        mobileVerificationCode: json["mobile_verification_code"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "email": email,
+        "email_verified_at": emailVerifiedAt,
+        "mobile_no": mobileNo,
+        "profile_image": profileImage,
+        "dob": dob,
+        "active_status": activeStatus,
+        "deleted_at": deletedAt,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+        "first_name": firstName,
+        "last_name": lastName,
+        "username": username,
+        "avatar_id": avatarId,
+        "super_user": superUser,
+        "manage_supers": manageSupers,
+        "permissions": permissions,
+        "last_login": lastLogin,
+        "stripe_id": stripeId,
+        "pm_type": pmType,
+        "pm_last_four": pmLastFour,
+        "trial_ends_at": trialEndsAt,
+        "company_id": companyId,
+        "address_id": addressId,
+        "role_id": roleId,
+        "deactivate_message": deactivateMessage,
+        "city_id": cityId,
+        "mobile_verification_code": mobileVerificationCode,
       };
 }
 
@@ -434,6 +561,76 @@ class Currency {
       };
 }
 
+class Facility {
+  Facility({
+    this.id,
+    this.name,
+    this.icon,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+    this.pivot,
+  });
+
+  int? id;
+  String? name;
+  String? icon;
+  String? status;
+  String? createdAt;
+  String? updatedAt;
+  FacilityPivot? pivot;
+
+  factory Facility.fromJson(Map<String, dynamic> json) => Facility(
+        id: json["id"],
+        name: json["name"],
+        icon: json["icon"],
+        status: json["status"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
+        pivot: json["pivot"] == null
+            ? null
+            : FacilityPivot.fromJson(json["pivot"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "icon": icon,
+        "status": status,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+        "pivot": pivot?.toJson(),
+      };
+}
+
+class FacilityPivot {
+  FacilityPivot({
+    this.referenceId,
+    this.facilityId,
+    this.referenceType,
+    this.distance,
+  });
+
+  String? referenceId;
+  String? facilityId;
+  String? referenceType;
+  String? distance;
+
+  factory FacilityPivot.fromJson(Map<String, dynamic> json) => FacilityPivot(
+        referenceId: json["reference_id"],
+        facilityId: json["facility_id"],
+        referenceType: json["reference_type"],
+        distance: json["distance"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "reference_id": referenceId,
+        "facility_id": facilityId,
+        "reference_type": referenceType,
+        "distance": distance,
+      };
+}
+
 class Feature {
   Feature({
     this.id,
@@ -447,14 +644,15 @@ class Feature {
   String? name;
   String? icon;
   String? status;
-  Pivot? pivot;
+  FeaturePivot? pivot;
 
   factory Feature.fromJson(Map<String, dynamic> json) => Feature(
         id: json["id"],
         name: json["name"],
         icon: json["icon"],
         status: json["status"],
-        pivot: json["pivot"] == null ? null : Pivot.fromJson(json["pivot"]),
+        pivot:
+            json["pivot"] == null ? null : FeaturePivot.fromJson(json["pivot"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -466,8 +664,8 @@ class Feature {
       };
 }
 
-class Pivot {
-  Pivot({
+class FeaturePivot {
+  FeaturePivot({
     this.propertyId,
     this.featureId,
   });
@@ -475,7 +673,7 @@ class Pivot {
   String? propertyId;
   String? featureId;
 
-  factory Pivot.fromJson(Map<String, dynamic> json) => Pivot(
+  factory FeaturePivot.fromJson(Map<String, dynamic> json) => FeaturePivot(
         propertyId: json["property_id"],
         featureId: json["feature_id"],
       );
@@ -493,6 +691,11 @@ class Images {
     this.the3,
     this.the4,
     this.the5,
+    this.the6,
+    this.the7,
+    this.the8,
+    this.the9,
+    this.the10,
   });
 
   String? the1;
@@ -500,6 +703,11 @@ class Images {
   String? the3;
   String? the4;
   String? the5;
+  String? the6;
+  String? the7;
+  String? the8;
+  String? the9;
+  String? the10;
 
   factory Images.fromJson(Map<String, dynamic> json) => Images(
         the1: json["1"],
@@ -507,6 +715,11 @@ class Images {
         the3: json["3"],
         the4: json["4"],
         the5: json["5"],
+        the6: json["6"],
+        the7: json["7"],
+        the8: json["8"],
+        the9: json["9"],
+        the10: json["10"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -515,6 +728,11 @@ class Images {
         "3": the3,
         "4": the4,
         "5": the5,
+        "6": the6,
+        "7": the7,
+        "8": the8,
+        "9": the9,
+        "10": the10,
       };
 }
 
@@ -570,6 +788,54 @@ class Slugable {
         "reference_id": referenceId,
         "reference_type": referenceType,
         "prefix": prefix,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+      };
+}
+
+class StateClass {
+  StateClass({
+    this.id,
+    this.name,
+    this.abbreviation,
+    this.countryId,
+    this.order,
+    this.isFeatured,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  int? id;
+  String? name;
+  String? abbreviation;
+  String? countryId;
+  String? order;
+  String? isFeatured;
+  String? status;
+  String? createdAt;
+  String? updatedAt;
+
+  factory StateClass.fromJson(Map<String, dynamic> json) => StateClass(
+        id: json["id"],
+        name: json["name"],
+        abbreviation: json["abbreviation"],
+        countryId: json["country_id"],
+        order: json["order"],
+        isFeatured: json["is_featured"],
+        status: json["status"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "abbreviation": abbreviation,
+        "country_id": countryId,
+        "order": order,
+        "is_featured": isFeatured,
+        "status": status,
         "created_at": createdAt,
         "updated_at": updatedAt,
       };

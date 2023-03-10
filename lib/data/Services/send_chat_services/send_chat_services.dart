@@ -1,5 +1,4 @@
 import 'package:prologic_29/data/Models/Chat_Model/sendchat_model.dart';
-import 'package:prologic_29/data/Models/get_all_citiese/get_all_citise_response.dart';
 
 import '../../../utils/constants/app_urls.dart';
 import '../../../utils/constants/base_client.dart';
@@ -7,8 +6,9 @@ import '../../../utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
 
 class SendChatServices {
-  static Future<dynamic> sendChatApi() async {
-    Map data = {"customer": 473, "agent": 14, "message": "hi"};
+  static Future<dynamic> sendChatApi(userId, agentId, msg) async {
+    print("api service--$userId:$agentId $msg");
+    Map data = {"customer": userId, "agent": agentId, "message": "$msg"};
 
     var url = "${AppUrls.baseUrl}${AppUrls.sendchat}";
     var res = await BaseClientClass.post(url, data);

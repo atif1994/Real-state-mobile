@@ -5,6 +5,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:prologic_29/data/Services/app_bindings.dart';
 import 'package:prologic_29/data/Services/local_notifications_service.dart';
 import 'package:sizer/sizer.dart';
@@ -18,6 +20,9 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  var directory = await getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
+  await Hive.openBox('likelist');
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   LocalNotificationsApi.initialize();
   runApp(const MyApp());
