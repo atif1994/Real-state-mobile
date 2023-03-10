@@ -33,7 +33,6 @@ class CustomDrawer extends StatelessWidget {
       : super(key: key);
   final logoutController = Get.put(LogoutController());
   var updateImageController = Get.put(UpdateImageController());
-
   @override
   Widget build(BuildContext context) {
     print(" Custom Drawer image login base ****$loginBaseImage*********$email");

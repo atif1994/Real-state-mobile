@@ -74,9 +74,9 @@ class AddWishlistController extends GetxController {
       getwishlistmodel = res;
       print('@@@@@@@@@@');
       final data = getwishlistmodel.data as List<Datum>;
-      data.forEach((e) {
+      for (var e in data) {
         pid.add(e.id);
-      });
+      }
       getloadwishlist.value = false;
     } else {
       getloadwishlist.value = false;

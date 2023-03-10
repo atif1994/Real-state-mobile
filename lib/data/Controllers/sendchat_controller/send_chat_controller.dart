@@ -9,9 +9,9 @@ class SendChatController extends GetxController {
   RxString errSendChat = ''.obs;
   var sendChatModel = SendChatModel();
 
-  getSendChatApi() async {
+  getSendChatApi({userId, agentId, msg}) async {
     loadingSendChat.value = true;
-    var res = await SendChatServices.sendChatApi();
+    var res = await SendChatServices.sendChatApi(userId, agentId, msg);
     if (res is SendChatModel) {
       loadingSendChat.value = false;
       sendChatModel = res;

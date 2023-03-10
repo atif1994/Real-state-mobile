@@ -187,751 +187,170 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        drawer: CustomDrawer(
-            fname: fname,
-            lname: lname,
-            email: email,
-            loginBaseImage: loginBaseImage ?? ""),
+      child: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          drawer: CustomDrawer(
+              fname: fname,
+              lname: lname,
+              email: email,
+              loginBaseImage: loginBaseImage ?? ""),
 
-        ///bottom nav bar end
-        body: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return <Widget>[
-                SliverAppBar(
-                  backgroundColor: AppColors.appthem,
-                  leading: IconButton(
-                      onPressed: () {
-                        // if (ZoomDrawer.of(context)!.isOpen()) {
-                        //   ZoomDrawer.of(context)!.close();
-                        // } else {
-                        //   ZoomDrawer.of(context)!.open();
-                        // }
-                        Scaffold.of(context).openDrawer();
-                      },
-                      icon: const Icon(Icons.dashboard)),
-                  actions: [
-                    const Spacer(),
-                    const Spacer(),
-                    Center(
-                        child: Text(
-                      "Dashboard",
-                      style: AppTextStyles.heading1.copyWith(fontSize: 14.sp),
-                    )),
-                    const Spacer(),
-                    Padding(
-                      padding: EdgeInsets.only(top: 1.0.h),
-                      child: InkWell(
-                        onTap: () {
-                          Get.to(
-                              () =>
-                                  ProfilePages(loginBaseImage: loginBaseImage),
-                              transition: Transition.fadeIn,
-                              duration: Duration(milliseconds: 600));
+          ///bottom nav bar end
+          body: NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return <Widget>[
+                  SliverAppBar(
+                    backgroundColor: AppColors.appthem,
+                    leading: IconButton(
+                        onPressed: () {
+                          // if (ZoomDrawer.of(context)!.isOpen()) {
+                          //   ZoomDrawer.of(context)!.close();
+                          // } else {
+                          //   ZoomDrawer.of(context)!.open();
+                          // }
+                          Scaffold.of(context).openDrawer();
                         },
-                        child: Stack(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 1.0.w),
-                              height: 11.0.w,
-                              width: 12.0.w,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(
-                                  right: 6.0.w,
-                                ),
+                        icon: const Icon(Icons.dashboard)),
+                    actions: [
+                      const Spacer(),
+                      const Spacer(),
+                      Center(
+                          child: Text(
+                        "Dashboard",
+                        style: AppTextStyles.heading1.copyWith(fontSize: 14.sp),
+                      )),
+                      const Spacer(),
+                      Padding(
+                        padding: EdgeInsets.only(top: 1.0.h),
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(
+                                () => ProfilePages(
+                                    loginBaseImage: loginBaseImage),
+                                transition: Transition.fadeIn,
+                                duration: Duration(milliseconds: 600));
+                          },
+                          child: Stack(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 1.0.w),
                                 height: 11.0.w,
                                 width: 12.0.w,
                                 decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: loginBaseImage != null
-                                      ? Image.network(
-                                          "$loginBaseImage",
-                                          fit: BoxFit.cover,
-                                        )
-                                      : Image.asset(
-                                          "assets/person.jpg",
-                                          fit: BoxFit.cover,
-                                        ),
-                                ))
-                          ],
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(
+                                    right: 6.0.w,
+                                  ),
+                                  height: 11.0.w,
+                                  width: 12.0.w,
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: loginBaseImage != null
+                                        ? Image.network(
+                                            "$loginBaseImage",
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.asset(
+                                            "assets/person.jpg",
+                                            fit: BoxFit.cover,
+                                          ),
+                                  ))
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    //   ],
-                    // )
-                  ],
-                  expandedHeight: 20.0.h,
-                  flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: true,
-                    title: Text(
-                      "",
-                      style: AppTextStyles.heading1
-                          .copyWith(fontFamily: AppFonts.nexaRegular),
-                    ),
-                    background: Stack(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            getAllCitise.getAllCitise();
-                            _showDialogue(context);
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(
-                                top: 12.0.h, left: 3.0.w, right: 3.0.w),
-                            height: 5.0.h,
-                            width: 100.0.w,
-                            decoration: CustomDecorations.con1,
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 3.0.w,
-                                ),
-                                const Icon(Icons.ads_click),
-                                SizedBox(
-                                  width: 3.0.w,
-                                ),
-                                AnimatedTextKit(
-                                  animatedTexts: [
-                                    TyperAnimatedText(
-                                      'Tap for select citise',
-                                      textStyle: AppTextStyles.labelSmall
-                                          .copyWith(color: Colors.grey),
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                Text(
-                                  "$cityName",
-                                  style: AppTextStyles.labelSmall,
-                                ),
-                                SizedBox(
-                                  width: 5.0.w,
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  floating: true,
-                  snap: true,
-                  pinned: true,
-                ),
-              ];
-            },
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  ///
-                  Container(
-                    margin:
-                        EdgeInsets.only(top: 2.0.h, left: 3.0.w, right: 3.0.w),
-                    height: 50.0.h,
-                    width: 100.0.w,
-                    decoration: CustomDecorations.mainCon,
-                    child: Obx(
-                      () => dashboardController.loadingfilteredPropertise.value
-                          ? const Center(
-                              child: CircularProgressIndicator(
-                              color: AppColors.appthem,
-                            ))
-                          : dashboardController
-                                      .errorLoadingFilteredPropertise.value !=
-                                  ''
-                              ? Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            dashboardController
-                                                .getFilteredPropertise(cid, 0);
-                                          },
-                                          icon: const Icon(
-                                            Icons.refresh,
-                                            color: AppColors.appthem,
-                                          )),
-                                      SizedBox(
-                                        height: 1.0.h,
+                      //   ],
+                      // )
+                    ],
+                    expandedHeight: 20.0.h,
+                    flexibleSpace: FlexibleSpaceBar(
+                      centerTitle: true,
+                      title: Text(
+                        "",
+                        style: AppTextStyles.heading1
+                            .copyWith(fontFamily: AppFonts.nexaRegular),
+                      ),
+                      background: Stack(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              getAllCitise.getAllCitise();
+                              _showDialogue(context);
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                  top: 12.0.h, left: 3.0.w, right: 3.0.w),
+                              height: 5.0.h,
+                              width: 100.0.w,
+                              decoration: CustomDecorations.con1,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 3.0.w,
+                                  ),
+                                  const Icon(Icons.ads_click),
+                                  SizedBox(
+                                    width: 3.0.w,
+                                  ),
+                                  AnimatedTextKit(
+                                    animatedTexts: [
+                                      TyperAnimatedText(
+                                        'Tap for select citise',
+                                        textStyle: AppTextStyles.labelSmall
+                                            .copyWith(color: Colors.grey),
                                       ),
-                                      Text(dashboardController
-                                          .errorLoadingFilteredPropertise
-                                          .value),
                                     ],
                                   ),
-                                )
-                              : Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "Browse Propertise",
-                                        style: AppTextStyles.heading1.copyWith(
-                                            fontFamily: AppFonts.nexaBold,
-                                            fontSize: 16.sp,
-                                            color: AppColors.appthem),
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          left: 3.0.w, right: 3.0.w),
-                                      height: 6.0.h,
-                                      width: 100.0.w,
-                                      child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: 3,
-                                          itemBuilder: (context, index) {
-                                            return Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: index == 0
-                                                        ? 0.0.w
-                                                        : 2.0.w),
-                                                child: ElevatedButton(
-                                                    style: ElevatedButton.styleFrom(
-                                                        backgroundColor:
-                                                            _browsPropertyIndex ==
-                                                                    index
-                                                                ? AppColors
-                                                                    .appthem
-                                                                : AppColors
-                                                                    .colorWhite),
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        _browsPropertyIndex =
-                                                            index;
-                                                        dashboardController
-                                                            .getFilteredPropertise(
-                                                                cid, index);
-                                                      });
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Image.asset(
-                                                            images[index],
-                                                            height: 2.0.h,
-                                                            color:
-                                                                _browsPropertyIndex ==
-                                                                        index
-                                                                    ? AppColors
-                                                                        .colorWhite
-                                                                    : AppColors
-                                                                        .colorblack),
-                                                        SizedBox(
-                                                          width: 0.8.w,
-                                                        ),
-                                                        Text(
-                                                          labels1[index],
-                                                          style: TextStyle(
-                                                              color: _browsPropertyIndex ==
-                                                                      index
-                                                                  ? AppColors
-                                                                      .colorWhite
-                                                                  : AppColors
-                                                                      .colorblack),
-                                                        )
-                                                      ],
-                                                    )),
-                                              ),
-                                            );
-                                          }),
-                                    ),
-                                    const Divider(),
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          left: 5.0.w, right: 3.0.w),
-                                      height: 5.0.h,
-                                      width: 100.0.w,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                _browsPropertyIndex1 = 0;
-                                              });
-                                            },
-                                            child: Container(
-                                              height: 3.5.h,
-                                              decoration: BoxDecoration(
-                                                color: _browsPropertyIndex1 == 0
-                                                    ? AppColors.appthem
-                                                        .withOpacity(0.4)
-                                                    : AppColors.colorWhite,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Center(
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 3.0.w,
-                                                      right: 3.0.w),
-                                                  child: Text(
-                                                    "Popular",
-                                                    style: AppTextStyles
-                                                        .heading1
-                                                        .copyWith(
-                                                            fontSize: 11.sp,
-                                                            color: _browsPropertyIndex1 ==
-                                                                    0
-                                                                ? AppColors
-                                                                    .appthem
-                                                                : AppColors
-                                                                    .colorblack),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                _browsPropertyIndex1 = 1;
-                                              });
-                                            },
-                                            child: Container(
-                                              height: 3.5.h,
-                                              decoration: BoxDecoration(
-                                                color: _browsPropertyIndex1 == 1
-                                                    ? AppColors.appthem
-                                                        .withOpacity(0.4)
-                                                    : AppColors.colorWhite,
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Center(
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 3.0.w,
-                                                      right: 3.0.w),
-                                                  child: Text(
-                                                    "Type",
-                                                    style: AppTextStyles
-                                                        .heading1
-                                                        .copyWith(
-                                                            fontSize: 11.sp,
-                                                            color: _browsPropertyIndex1 ==
-                                                                    1
-                                                                ? AppColors
-                                                                    .appthem
-                                                                : AppColors
-                                                                    .colorblack),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                _browsPropertyIndex1 = 2;
-                                                // dashboardController.type =
-                                                //     "location";
-                                              });
-                                            },
-                                            child: Container(
-                                              height: 3.5.h,
-                                              padding: EdgeInsets.only(
-                                                  left: 3.0.w, right: 3.0.w),
-                                              decoration: BoxDecoration(
-                                                color: _browsPropertyIndex1 == 2
-                                                    ? AppColors.appthem
-                                                        .withOpacity(0.4)
-                                                    : AppColors.colorWhite,
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Center(
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 3.0.w,
-                                                      right: 3.0.w),
-                                                  child: Text(
-                                                    "Location",
-                                                    style: AppTextStyles
-                                                        .heading1
-                                                        .copyWith(
-                                                            fontSize: 11.sp,
-                                                            color: _browsPropertyIndex1 ==
-                                                                    2
-                                                                ? AppColors
-                                                                    .appthem
-                                                                : AppColors
-                                                                    .colorblack),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                _browsPropertyIndex1 = 3;
-
-                                                //  dashboardController.type = "area";
-                                              });
-                                            },
-                                            child: Container(
-                                              height: 3.5.h,
-                                              decoration: BoxDecoration(
-                                                color: _browsPropertyIndex1 == 3
-                                                    ? AppColors.appthem
-                                                        .withOpacity(0.4)
-                                                    : AppColors.colorWhite,
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Center(
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 3.0.w,
-                                                      right: 3.0.w),
-                                                  child: Text(
-                                                    "Area Size",
-                                                    style: AppTextStyles
-                                                        .heading1
-                                                        .copyWith(
-                                                            fontSize: 11.sp,
-                                                            color: _browsPropertyIndex1 ==
-                                                                    3
-                                                                ? AppColors
-                                                                    .appthem
-                                                                : AppColors
-                                                                    .colorblack),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Obx(() => dashboardController
-                                            .loadingfilteredPropertise.value
-                                        ? const Center(
-                                            child: CircularProgressIndicator(
-                                            color: AppColors.appthem,
-                                          ))
-                                        : dashboardController
-                                                    .errorLoadingFilteredPropertise
-                                                    .value !=
-                                                ''
-                                            ? Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      dashboardController
-                                                          .getFilteredPropertise(
-                                                              cid,
-                                                              _browsPropertyIndex1);
-                                                    },
-                                                    icon: const Icon(
-                                                      Icons.refresh,
-                                                      color: AppColors.appthem,
-                                                    ),
-                                                  ),
-                                                  Text(dashboardController
-                                                      .errorLoadingFilteredPropertise
-                                                      .value),
-                                                ],
-                                              )
-                                            : _browsPropertyIndex1 == 0
-                                                ? dashboardController
-                                                            .filteredPropertyModel
-                                                            .popular!
-                                                            .length ==
-                                                        0
-                                                    ? Center(
-                                                        child: Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 10.0.h),
-                                                        child: Text(
-                                                            "No Propertise Found"),
-                                                      ))
-                                                    : Expanded(
-                                                        child: GridView.builder(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                              left: 5.0.w,
-                                                            ),
-                                                            scrollDirection:
-                                                                Axis.horizontal,
-                                                            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                                maxCrossAxisExtent:
-                                                                    100,
-                                                                childAspectRatio:
-                                                                    1.5 / 2,
-                                                                crossAxisSpacing:
-                                                                    2,
-                                                                mainAxisSpacing:
-                                                                    10),
-                                                            itemCount:
-                                                                dashboardController
-                                                                    .filteredPropertyModel
-                                                                    .popular!
-                                                                    .length,
-                                                            itemBuilder:
-                                                                (BuildContext
-                                                                        ctx,
-                                                                    index) {
-                                                              return Container(
-                                                                margin: EdgeInsets
-                                                                    .only(
-                                                                        top: 1.0
-                                                                            .h,
-                                                                        bottom:
-                                                                            1.h,
-                                                                        left: 1
-                                                                            .w),
-                                                                height: 4.0.h,
-                                                                width: 20.0.w,
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                decoration:
-                                                                    CustomDecorations
-                                                                        .mainCon,
-                                                                child: Center(
-                                                                  child:
-                                                                      Container(
-                                                                    margin: EdgeInsets.only(
-                                                                        left: 3.0
-                                                                            .w,
-                                                                        right: 3.0
-                                                                            .w),
-                                                                    // color: Colors
-                                                                    //     .red,
-                                                                    width:
-                                                                        50.0.w,
-                                                                    child: Text(dashboardController
-                                                                            .filteredPropertyModel
-                                                                            .popular![index]
-                                                                            .name ??
-                                                                        ''),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }),
-                                                      )
-                                                : _browsPropertyIndex1 == 1
-                                                    ? dashboardController
-                                                                .filteredPropertyModel
-                                                                .types!
-                                                                .length ==
-                                                            0
-                                                        ? Center(
-                                                            child: Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top:
-                                                                        10.0.h),
-                                                            child: Text(
-                                                                "No Propertise Found"),
-                                                          ))
-                                                        : Expanded(
-                                                            child: GridView
-                                                                .builder(
-                                                                    padding:
-                                                                        EdgeInsets
-                                                                            .only(
-                                                                      left:
-                                                                          5.0.w,
-                                                                    ),
-                                                                    scrollDirection:
-                                                                        Axis
-                                                                            .horizontal,
-                                                                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                                        maxCrossAxisExtent:
-                                                                            100,
-                                                                        childAspectRatio:
-                                                                            1.5 /
-                                                                                2,
-                                                                        crossAxisSpacing:
-                                                                            2,
-                                                                        mainAxisSpacing:
-                                                                            10),
-                                                                    itemCount: dashboardController
-                                                                        .filteredPropertyModel
-                                                                        .types!
-                                                                        .length,
-                                                                    itemBuilder:
-                                                                        (BuildContext
-                                                                                ctx,
-                                                                            index) {
-                                                                      return Container(
-                                                                        margin: EdgeInsets.only(
-                                                                            top:
-                                                                                1.0.h,
-                                                                            bottom: 1.h,
-                                                                            left: 1.w),
-                                                                        height:
-                                                                            4.0.h,
-                                                                        width:
-                                                                            20.0.w,
-                                                                        alignment:
-                                                                            Alignment.center,
-                                                                        decoration:
-                                                                            CustomDecorations.mainCon,
-                                                                        child:
-                                                                            Center(
-                                                                          child: Container(
-                                                                              margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
-                                                                              width: 50.0.w,
-                                                                              child: Text(dashboardController.filteredPropertyModel.types![index].name ?? '')),
-                                                                        ),
-                                                                      );
-                                                                    }),
-                                                          )
-                                                    : _browsPropertyIndex1 == 2
-                                                        ? dashboardController
-                                                                    .filteredPropertyModel
-                                                                    .locations!
-                                                                    .length ==
-                                                                0
-                                                            ? Center(
-                                                                child: Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        top: 10.0
-                                                                            .h),
-                                                                child: Text(
-                                                                    "No Propertise found"),
-                                                              ))
-                                                            : Expanded(
-                                                                child: GridView
-                                                                    .builder(
-                                                                        padding:
-                                                                            EdgeInsets
-                                                                                .only(
-                                                                          left:
-                                                                              5.0.w,
-                                                                        ),
-                                                                        scrollDirection:
-                                                                            Axis
-                                                                                .horizontal,
-                                                                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                                            maxCrossAxisExtent:
-                                                                                100,
-                                                                            childAspectRatio: 1.5 /
-                                                                                2,
-                                                                            crossAxisSpacing:
-                                                                                2,
-                                                                            mainAxisSpacing:
-                                                                                10),
-                                                                        itemCount: dashboardController
-                                                                            .filteredPropertyModel
-                                                                            .locations!
-                                                                            .length,
-                                                                        itemBuilder:
-                                                                            (BuildContext ctx,
-                                                                                index) {
-                                                                          return Container(
-                                                                            margin: EdgeInsets.only(
-                                                                                top: 1.0.h,
-                                                                                bottom: 1.h,
-                                                                                left: 1.w),
-                                                                            height:
-                                                                                4.0.h,
-                                                                            width:
-                                                                                20.0.w,
-                                                                            alignment:
-                                                                                Alignment.center,
-                                                                            decoration:
-                                                                                CustomDecorations.mainCon,
-                                                                            child:
-                                                                                Center(
-                                                                              child: Container(margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w), width: 50.0.w, child: Text(dashboardController.filteredPropertyModel.locations![index].sectorAndBlockName ?? '')),
-                                                                            ),
-                                                                          );
-                                                                        }),
-                                                              )
-                                                        : _browsPropertyIndex1 ==
-                                                                3
-                                                            ? dashboardController
-                                                                        .filteredPropertyModel
-                                                                        .areas!
-                                                                        .length ==
-                                                                    0
-                                                                ? Center(
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsets.only(
-                                                                          top: 10.0
-                                                                              .h),
-                                                                      child: Text(
-                                                                          "No Propertise found"),
-                                                                    ),
-                                                                  )
-                                                                : Expanded(
-                                                                    child: GridView.builder(
-                                                                        padding: EdgeInsets.only(
-                                                                          left:
-                                                                              5.0.w,
-                                                                        ),
-                                                                        scrollDirection: Axis.horizontal,
-                                                                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 100, childAspectRatio: 1.5 / 2, crossAxisSpacing: 2, mainAxisSpacing: 10),
-                                                                        itemCount: dashboardController.filteredPropertyModel.areas!.length,
-                                                                        itemBuilder: (BuildContext ctx, index) {
-                                                                          return Container(
-                                                                            margin: EdgeInsets.only(
-                                                                                top: 1.0.h,
-                                                                                bottom: 1.h,
-                                                                                left: 1.w),
-                                                                            height:
-                                                                                4.0.h,
-                                                                            width:
-                                                                                20.0.w,
-                                                                            alignment:
-                                                                                Alignment.center,
-                                                                            decoration:
-                                                                                CustomDecorations.mainCon,
-                                                                            child:
-                                                                                Center(
-                                                                              child: Container(margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w), width: 50.0.w, child: Text(dashboardController.filteredPropertyModel.areas![index].square ?? '')),
-                                                                            ),
-                                                                          );
-                                                                        }),
-                                                                  )
-                                                            : Container())
-                                  ],
-                                ),
+                                  const Spacer(),
+                                  Text(
+                                    "$cityName",
+                                    style: AppTextStyles.labelSmall,
+                                  ),
+                                  SizedBox(
+                                    width: 5.0.w,
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
+                    floating: true,
+                    snap: true,
+                    pinned: true,
                   ),
-
-                  ///constructio cost calculater
-
-                  Container(
-                      height: 53.0.h,
-                      width: 100.0.w,
-                      decoration: CustomDecorations.mainCon,
+                ];
+              },
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ///
+                    Container(
                       margin: EdgeInsets.only(
                           top: 2.0.h, left: 3.0.w, right: 3.0.w),
-                      child: Obx(() {
-                        return dashboardController
-                                .loadingFeaturedPropertise.value
+                      height: 50.0.h,
+                      width: 100.0.w,
+                      decoration: CustomDecorations.mainCon,
+                      child: Obx(
+                        () => dashboardController
+                                .loadingfilteredPropertise.value
                             ? const Center(
                                 child: CircularProgressIndicator(
                                 color: AppColors.appthem,
                               ))
                             : dashboardController
-                                        .errorLoadingFeaturedPropertise.value !=
+                                        .errorLoadingFilteredPropertise.value !=
                                     ''
                                 ? Center(
                                     child: Column(
@@ -941,7 +360,8 @@ class _HomeState extends State<Home> {
                                         IconButton(
                                             onPressed: () {
                                               dashboardController
-                                                  .getFeaturedPropertise();
+                                                  .getFilteredPropertise(
+                                                      cid, 0);
                                             },
                                             icon: const Icon(
                                               Icons.refresh,
@@ -951,7 +371,7 @@ class _HomeState extends State<Home> {
                                           height: 1.0.h,
                                         ),
                                         Text(dashboardController
-                                            .errorLoadingFeaturedPropertise
+                                            .errorLoadingFilteredPropertise
                                             .value),
                                       ],
                                     ),
@@ -963,7 +383,7 @@ class _HomeState extends State<Home> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          "Explore Good Places",
+                                          "Browse Propertise",
                                           style: AppTextStyles.heading1
                                               .copyWith(
                                                   fontFamily: AppFonts.nexaBold,
@@ -971,382 +391,565 @@ class _HomeState extends State<Home> {
                                                   color: AppColors.appthem),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 3.0.w, top: 0.3.h),
-                                        child: SizedBox(
-                                          width: 80.0.w,
-                                          child: Text(
-                                              "Find your dream home from our Newly added properties",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp)),
-                                        ),
-                                      ),
                                       Container(
                                         margin: EdgeInsets.only(
-                                            top: 1.0.h,
-                                            left: 2.0.w,
-                                            right: 2.0.w),
-                                        height: 34.0.h,
+                                            left: 3.0.w, right: 3.0.w),
+                                        height: 6.0.h,
                                         width: 100.0.w,
-                                        //color: Colors.red,
                                         child: ListView.builder(
-                                            padding:
-                                                EdgeInsets.only(bottom: 1.0.h),
-                                            itemCount: 3,
-                                            // dashboardController
-                                            //     .featuredPropertyModel
-                                            //     .data!
-                                            //     .data!
-                                            //     .length,
                                             scrollDirection: Axis.horizontal,
+                                            itemCount: 3,
                                             itemBuilder: (context, index) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  Get.to(() => PropertyByID(
-                                                        id: dashboardController
-                                                            .featuredPropertyModel
-                                                            .data!
-                                                            .data![index]
-                                                            .id,
-                                                      ));
-                                                },
-                                                child: Container(
-                                                    width: 59.0.w,
-                                                    margin: EdgeInsets.only(
-                                                        left: index == 0
-                                                            ? 1.0.w
-                                                            : 3.0.w),
-                                                    alignment: Alignment.center,
-                                                    decoration:
-                                                        CustomDecorations
-                                                            .mainCon,
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Container(
-                                                          height: 14.0.h,
-                                                          width: 100.0.w,
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                                  //    color: Colors.red,
-                                                                  borderRadius: BorderRadius.only(
-                                                                      topLeft: Radius
-                                                                          .circular(
-                                                                              10),
-                                                                      topRight:
-                                                                          Radius.circular(
-                                                                              10))),
-                                                          child: ClipRRect(
-                                                            borderRadius: const BorderRadius
-                                                                    .only(
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        10),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        10)),
-                                                            child:
-                                                                Image.network(
-                                                              "${AppUrls.baseUrl2}${dashboardController.featuredPropertyModel.data!.data![index].images!.the1}",
-                                                              fit: BoxFit.cover,
-                                                            ),
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: index == 0
+                                                          ? 0.0.w
+                                                          : 2.0.w),
+                                                  child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                          backgroundColor:
+                                                              _browsPropertyIndex ==
+                                                                      index
+                                                                  ? AppColors
+                                                                      .appthem
+                                                                  : AppColors
+                                                                      .colorWhite),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          _browsPropertyIndex =
+                                                              index;
+                                                          dashboardController
+                                                              .getFilteredPropertise(
+                                                                  cid, index);
+                                                        });
+                                                      },
+                                                      child: Row(
+                                                        children: [
+                                                          Image.asset(
+                                                              images[index],
+                                                              height: 2.0.h,
+                                                              color: _browsPropertyIndex ==
+                                                                      index
+                                                                  ? AppColors
+                                                                      .colorWhite
+                                                                  : AppColors
+                                                                      .colorblack),
+                                                          SizedBox(
+                                                            width: 0.8.w,
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 1.0.h,
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: [
-                                                            Container(
-                                                              height: 3.5.h,
-                                                              width: 22.0.w,
-                                                              decoration: BoxDecoration(
-                                                                  color: AppColors
-                                                                      .appthem,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              300)),
-                                                              child: Center(
-                                                                  child: Text(
-                                                                dashboardController
-                                                                        .featuredPropertyModel
-                                                                        .data!
-                                                                        .data![
-                                                                            index]
-                                                                        .type!
-                                                                        .name ??
-                                                                    "",
-                                                                style: AppTextStyles
-                                                                    .labelSmall
-                                                                    .copyWith(
-                                                                        color: AppColors
-                                                                            .colorWhite),
-                                                              )),
-                                                            ),
-                                                            Flexible(
-                                                              child: Text(
-                                                                  "Rs  ${dashboardController.featuredPropertyModel.data!.data![index].price ?? ""} PKR",
-                                                                  style: AppTextStyles
-                                                                      .heading1
-                                                                      .copyWith(
-                                                                          color: AppColors
-                                                                              .colorblack,
-                                                                          fontSize:
-                                                                              10.sp)),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 2.0.w,
-                                                                  top: 1.0.h),
-                                                          child: Text(
-                                                              dashboardController
-                                                                      .featuredPropertyModel
-                                                                      .data!
-                                                                      .data![
-                                                                          index]
-                                                                      .name ??
-                                                                  "",
-                                                              style:
-                                                                  AppTextStyles
-                                                                      .heading1
-                                                                      .copyWith(
-                                                                color: AppColors
-                                                                    .colorblack,
-                                                              )),
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 2.0.w,
-                                                            ),
-                                                            Image.asset(
-                                                              AppImageResources
-                                                                  .bed,
-                                                              height: 2.0.h,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 2.0.w,
-                                                            ),
-                                                            Text(
-                                                              dashboardController
-                                                                      .featuredPropertyModel
-                                                                      .data!
-                                                                      .data![
-                                                                          index]
-                                                                      .numberBedroom ??
-                                                                  "",
-                                                              style: AppTextStyles
-                                                                  .labelSmall
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          9.sp),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 2.0.w,
-                                                            ),
-                                                            Image.asset(
-                                                              AppImageResources
-                                                                  .bath,
-                                                              height: 2.0.h,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 2.0.w,
-                                                            ),
-                                                            Text(
-                                                              dashboardController
-                                                                      .featuredPropertyModel
-                                                                      .data!
-                                                                      .data![
-                                                                          index]
-                                                                      .numberBathroom ??
-                                                                  "",
-                                                              style: AppTextStyles
-                                                                  .labelSmall
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          9.sp),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 2.0.w,
-                                                            ),
-                                                            const Icon(
-                                                              Icons
-                                                                  .landscape_outlined,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 2.0.w,
-                                                            ),
-                                                            Text(
-                                                              dashboardController
-                                                                      .featuredPropertyModel
-                                                                      .data!
-                                                                      .data![
-                                                                          index]
-                                                                      .square ??
-                                                                  "",
-                                                              style: AppTextStyles
-                                                                  .labelSmall
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          9.sp),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        const Divider(),
-                                                        Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 2.0.w,
-                                                            ),
-                                                            Image.asset(
-                                                              AppImageResources
-                                                                  .plots,
-                                                              height: 2.0.h,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 2.0.w,
-                                                            ),
-                                                            Text(
-                                                              dashboardController
-                                                                      .featuredPropertyModel
-                                                                      .data!
-                                                                      .data![
-                                                                          index]
-                                                                      .location ??
-                                                                  "",
-                                                              style: AppTextStyles
-                                                                  .labelSmall,
-                                                            ),
-                                                          ],
-                                                        )
-                                                      ],
-                                                    )),
+                                                          Text(
+                                                            labels1[index],
+                                                            style: TextStyle(
+                                                                color: _browsPropertyIndex ==
+                                                                        index
+                                                                    ? AppColors
+                                                                        .colorWhite
+                                                                    : AppColors
+                                                                        .colorblack),
+                                                          )
+                                                        ],
+                                                      )),
+                                                ),
                                               );
                                             }),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 3.0.w,
-                                            right: 3.0.w,
-                                            top: 1.0.h),
-                                        child: CustomButton(
-                                          onPressed: () {
-                                            Get.to(() => Moreplaces());
-                                            // Get.to(() => Moreplaces());
-                                          },
-                                          text: "More Places",
+                                      const Divider(),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 5.0.w, right: 3.0.w),
+                                        height: 5.0.h,
+                                        width: 100.0.w,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _browsPropertyIndex1 = 0;
+                                                  // dashboardController.type =
+                                                  //     'popular';
+                                                });
+                                              },
+                                              child: Container(
+                                                height: 3.5.h,
+                                                decoration: BoxDecoration(
+                                                  color: _browsPropertyIndex1 ==
+                                                          0
+                                                      ? AppColors.appthem
+                                                          .withOpacity(0.4)
+                                                      : AppColors.colorWhite,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 3.0.w,
+                                                        right: 3.0.w),
+                                                    child: Text(
+                                                      "Popular",
+                                                      style: AppTextStyles.heading1
+                                                          .copyWith(
+                                                              fontSize: 11.sp,
+                                                              color: _browsPropertyIndex1 == 0
+                                                                  ? AppColors
+                                                                      .appthem
+                                                                  : AppColors
+                                                                      .colorblack),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _browsPropertyIndex1 = 1;
+                                                });
+                                              },
+                                              child: Container(
+                                                height: 3.5.h,
+                                                decoration: BoxDecoration(
+                                                  color: _browsPropertyIndex1 ==
+                                                          1
+                                                      ? AppColors.appthem
+                                                          .withOpacity(0.4)
+                                                      : AppColors.colorWhite,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 3.0.w,
+                                                        right: 3.0.w),
+                                                    child: Text(
+                                                      "Type",
+                                                      style: AppTextStyles.heading1
+                                                          .copyWith(
+                                                              fontSize: 11.sp,
+                                                              color: _browsPropertyIndex1 == 1
+                                                                  ? AppColors
+                                                                      .appthem
+                                                                  : AppColors
+                                                                      .colorblack),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _browsPropertyIndex1 = 2;
+                                                  // dashboardController.type =
+                                                  //     "location";
+                                                });
+                                              },
+                                              child: Container(
+                                                height: 3.5.h,
+                                                padding: EdgeInsets.only(
+                                                    left: 3.0.w, right: 3.0.w),
+                                                decoration: BoxDecoration(
+                                                  color: _browsPropertyIndex1 ==
+                                                          2
+                                                      ? AppColors.appthem
+                                                          .withOpacity(0.4)
+                                                      : AppColors.colorWhite,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 3.0.w,
+                                                        right: 3.0.w),
+                                                    child: Text(
+                                                      "Location",
+                                                      style: AppTextStyles.heading1
+                                                          .copyWith(
+                                                              fontSize: 11.sp,
+                                                              color: _browsPropertyIndex1 == 2
+                                                                  ? AppColors
+                                                                      .appthem
+                                                                  : AppColors
+                                                                      .colorblack),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _browsPropertyIndex1 = 3;
+
+                                                  //  dashboardController.type = "area";
+                                                });
+                                              },
+                                              child: Container(
+                                                height: 3.5.h,
+                                                decoration: BoxDecoration(
+                                                  color: _browsPropertyIndex1 ==
+                                                          3
+                                                      ? AppColors.appthem
+                                                          .withOpacity(0.4)
+                                                      : AppColors.colorWhite,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 3.0.w,
+                                                        right: 3.0.w),
+                                                    child: Text(
+                                                      "Area Size",
+                                                      style: AppTextStyles.heading1
+                                                          .copyWith(
+                                                              fontSize: 11.sp,
+                                                              color: _browsPropertyIndex1 == 3
+                                                                  ? AppColors
+                                                                      .appthem
+                                                                  : AppColors
+                                                                      .colorblack),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      )
-                                    ],
-                                  );
-                      })),
-
-                  //post an add
-                  Container(
-                    margin:
-                        EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 2.0.h),
-                    height: 20.0.h,
-                    width: 100.0.w,
-                    decoration: CustomDecorations.mainCon,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              AppImageResources.house,
-                              height: 12.0.h,
-                            ),
-                            SizedBox(
-                              width: 2.0.w,
-                            ),
-                            SizedBox(
-                              width: 40.0.w,
-                              child: Text(
-                                "Looking to sell or rent out your property",
-                                style: AppTextStyles.labelSmall
-                                    .copyWith(fontSize: 11.sp),
-                              ),
-                            )
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: 3.0.w, right: 3.0.w, top: 1.0.h),
-                          height: 4.0.h,
-                          width: 100.0.w,
-                          decoration: BoxDecoration(
-                              color: AppColors.appthem,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              "Post an Ad",
-                              style: AppTextStyles.heading1
-                                  .copyWith(color: Colors.white),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-
-                  ///cites/locations
-                  Container(
-                      margin: EdgeInsets.only(
-                          left: 3.0.w, right: 3.0.w, top: 1.0.h),
-                      // height: 38.0.h,
-                      width: 100.0.w,
-                      decoration: CustomDecorations.mainCon,
-                      child: Obx(
-                        () => dashboardController.loadingCities.value
-                            ? const Center(
-                                child: CircularProgressIndicator(
-                                color: AppColors.appthem,
-                              ))
-                            : dashboardController.errorLoadingCities.value != ''
-                                ? Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              dashboardController
-                                                  .getPrpertyCitis();
-                                            },
-                                            icon: const Icon(
-                                              Icons.refresh,
+                                      ),
+                                      Obx(() => dashboardController
+                                              .loadingfilteredPropertise.value
+                                          ? const Center(
+                                              child: CircularProgressIndicator(
                                               color: AppColors.appthem,
-                                            )),
-                                        SizedBox(
-                                          height: 1.0.h,
-                                        ),
-                                        Text(dashboardController
-                                            .errorLoadingCities.value),
-                                      ],
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: EdgeInsets.only(bottom: 1.5.h),
-                                    child: Column(
+                                            ))
+                                          : dashboardController
+                                                      .errorLoadingFilteredPropertise
+                                                      .value !=
+                                                  ''
+                                              ? Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        dashboardController
+                                                            .getFilteredPropertise(
+                                                                cid,
+                                                                _browsPropertyIndex1);
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.refresh,
+                                                        color:
+                                                            AppColors.appthem,
+                                                      ),
+                                                    ),
+                                                    Text(dashboardController
+                                                        .errorLoadingFilteredPropertise
+                                                        .value),
+                                                  ],
+                                                )
+                                              : _browsPropertyIndex1 == 0
+                                                  ? dashboardController
+                                                              .filteredPropertyModel
+                                                              .popular!
+                                                              .length ==
+                                                          0
+                                                      ? Center(
+                                                          child: Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 10.0.h),
+                                                          child: Text(
+                                                              "No Propertise Found"),
+                                                        ))
+                                                      : Expanded(
+                                                          child:
+                                                              GridView.builder(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .only(
+                                                                    left: 5.0.w,
+                                                                  ),
+                                                                  scrollDirection:
+                                                                      Axis
+                                                                          .horizontal,
+                                                                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                      maxCrossAxisExtent:
+                                                                          100,
+                                                                      childAspectRatio:
+                                                                          1.5 /
+                                                                              2,
+                                                                      crossAxisSpacing:
+                                                                          2,
+                                                                      mainAxisSpacing:
+                                                                          10),
+                                                                  itemCount: dashboardController
+                                                                      .filteredPropertyModel
+                                                                      .popular!
+                                                                      .length,
+                                                                  itemBuilder:
+                                                                      (BuildContext
+                                                                              ctx,
+                                                                          index) {
+                                                                    return Container(
+                                                                      margin: EdgeInsets.only(
+                                                                          top: 1.0
+                                                                              .h,
+                                                                          bottom: 1
+                                                                              .h,
+                                                                          left:
+                                                                              1.w),
+                                                                      height:
+                                                                          4.0.h,
+                                                                      width:
+                                                                          20.0.w,
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      decoration:
+                                                                          CustomDecorations
+                                                                              .mainCon,
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Container(
+                                                                          margin: EdgeInsets.only(
+                                                                              left: 3.0.w,
+                                                                              right: 3.0.w),
+                                                                          // color: Colors
+                                                                          //     .red,
+                                                                          width:
+                                                                              50.0.w,
+                                                                          child:
+                                                                              Text(dashboardController.filteredPropertyModel.popular![index].name ?? ''),
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }),
+                                                        )
+                                                  : _browsPropertyIndex1 == 1
+                                                      ? dashboardController
+                                                                  .filteredPropertyModel
+                                                                  .types!
+                                                                  .length ==
+                                                              0
+                                                          ? Center(
+                                                              child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 10.0
+                                                                          .h),
+                                                              child: Text(
+                                                                  "No Propertise Found"),
+                                                            ))
+                                                          : Expanded(
+                                                              child: GridView
+                                                                  .builder(
+                                                                      padding:
+                                                                          EdgeInsets
+                                                                              .only(
+                                                                        left: 5.0
+                                                                            .w,
+                                                                      ),
+                                                                      scrollDirection:
+                                                                          Axis
+                                                                              .horizontal,
+                                                                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                          maxCrossAxisExtent:
+                                                                              100,
+                                                                          childAspectRatio: 1.5 /
+                                                                              2,
+                                                                          crossAxisSpacing:
+                                                                              2,
+                                                                          mainAxisSpacing:
+                                                                              10),
+                                                                      itemCount: dashboardController
+                                                                          .filteredPropertyModel
+                                                                          .types!
+                                                                          .length,
+                                                                      itemBuilder:
+                                                                          (BuildContext ctx,
+                                                                              index) {
+                                                                        return Container(
+                                                                          margin: EdgeInsets.only(
+                                                                              top: 1.0.h,
+                                                                              bottom: 1.h,
+                                                                              left: 1.w),
+                                                                          height:
+                                                                              4.0.h,
+                                                                          width:
+                                                                              20.0.w,
+                                                                          alignment:
+                                                                              Alignment.center,
+                                                                          decoration:
+                                                                              CustomDecorations.mainCon,
+                                                                          child:
+                                                                              Center(
+                                                                            child: Container(
+                                                                                margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
+                                                                                width: 50.0.w,
+                                                                                child: Text(dashboardController.filteredPropertyModel.types![index].name ?? '')),
+                                                                          ),
+                                                                        );
+                                                                      }),
+                                                            )
+                                                      : _browsPropertyIndex1 ==
+                                                              2
+                                                          ? dashboardController
+                                                                      .filteredPropertyModel
+                                                                      .locations!
+                                                                      .length ==
+                                                                  0
+                                                              ? Center(
+                                                                  child:
+                                                                      Padding(
+                                                                  padding: EdgeInsets
+                                                                      .only(
+                                                                          top: 10.0
+                                                                              .h),
+                                                                  child: Text(
+                                                                      "No Propertise found"),
+                                                                ))
+                                                              : Expanded(
+                                                                  child: GridView
+                                                                      .builder(
+                                                                          padding: EdgeInsets
+                                                                              .only(
+                                                                            left:
+                                                                                5.0.w,
+                                                                          ),
+                                                                          scrollDirection: Axis
+                                                                              .horizontal,
+                                                                          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                              maxCrossAxisExtent:
+                                                                                  100,
+                                                                              childAspectRatio: 1.5 /
+                                                                                  2,
+                                                                              crossAxisSpacing:
+                                                                                  2,
+                                                                              mainAxisSpacing:
+                                                                                  10),
+                                                                          itemCount: dashboardController
+                                                                              .filteredPropertyModel
+                                                                              .locations!
+                                                                              .length,
+                                                                          itemBuilder:
+                                                                              (BuildContext ctx, index) {
+                                                                            return Container(
+                                                                              margin: EdgeInsets.only(top: 1.0.h, bottom: 1.h, left: 1.w),
+                                                                              height: 4.0.h,
+                                                                              width: 20.0.w,
+                                                                              alignment: Alignment.center,
+                                                                              decoration: CustomDecorations.mainCon,
+                                                                              child: Center(
+                                                                                child: Container(margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w), width: 50.0.w, child: Text(dashboardController.filteredPropertyModel.locations![index].sectorAndBlockName ?? '')),
+                                                                              ),
+                                                                            );
+                                                                          }),
+                                                                )
+                                                          : _browsPropertyIndex1 ==
+                                                                  3
+                                                              ? dashboardController
+                                                                          .filteredPropertyModel
+                                                                          .areas!
+                                                                          .length ==
+                                                                      0
+                                                                  ? Center(
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            EdgeInsets.only(top: 10.0.h),
+                                                                        child: Text(
+                                                                            "No Propertise found"),
+                                                                      ),
+                                                                    )
+                                                                  : Expanded(
+                                                                      child: GridView.builder(
+                                                                          padding: EdgeInsets.only(
+                                                                            left:
+                                                                                5.0.w,
+                                                                          ),
+                                                                          scrollDirection: Axis.horizontal,
+                                                                          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 100, childAspectRatio: 1.5 / 2, crossAxisSpacing: 2, mainAxisSpacing: 10),
+                                                                          itemCount: dashboardController.filteredPropertyModel.areas!.length,
+                                                                          itemBuilder: (BuildContext ctx, index) {
+                                                                            return Container(
+                                                                              margin: EdgeInsets.only(top: 1.0.h, bottom: 1.h, left: 1.w),
+                                                                              height: 4.0.h,
+                                                                              width: 20.0.w,
+                                                                              alignment: Alignment.center,
+                                                                              decoration: CustomDecorations.mainCon,
+                                                                              child: Center(
+                                                                                child: Container(margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w), width: 50.0.w, child: Text(dashboardController.filteredPropertyModel.areas![index].square ?? '')),
+                                                                              ),
+                                                                            );
+                                                                          }),
+                                                                    )
+                                                              : Container())
+                                    ],
+                                  ),
+                      ),
+                    ),
+
+                    ///constructio cost calculater
+
+                    Container(
+                        height: 53.0.h,
+                        width: 100.0.w,
+                        decoration: CustomDecorations.mainCon,
+                        margin: EdgeInsets.only(
+                            top: 2.0.h, left: 3.0.w, right: 3.0.w),
+                        child: Obx(() {
+                          return dashboardController
+                                  .loadingFeaturedPropertise.value
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                  color: AppColors.appthem,
+                                ))
+                              : dashboardController
+                                          .errorLoadingFeaturedPropertise
+                                          .value !=
+                                      ''
+                                  ? Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                              onPressed: () {
+                                                dashboardController
+                                                    .getFeaturedPropertise();
+                                              },
+                                              icon: const Icon(
+                                                Icons.refresh,
+                                                color: AppColors.appthem,
+                                              )),
+                                          SizedBox(
+                                            height: 1.0.h,
+                                          ),
+                                          Text(dashboardController
+                                              .errorLoadingFeaturedPropertise
+                                              .value),
+                                        ],
+                                      ),
+                                    )
+                                  : Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 3.0.w, top: 0.3.h),
+                                          padding: const EdgeInsets.all(8.0),
                                           child: Text(
-                                            "Find By Locations",
+                                            "Explore Good Places",
                                             style: AppTextStyles.heading1
                                                 .copyWith(
                                                     fontFamily:
@@ -1361,286 +964,70 @@ class _HomeState extends State<Home> {
                                           child: SizedBox(
                                             width: 80.0.w,
                                             child: Text(
-                                                "Find your dream home from your dream location",
+                                                "Find your dream home from our Newly added properties",
                                                 style: AppTextStyles.labelSmall
                                                     .copyWith(fontSize: 9.sp)),
                                           ),
                                         ),
                                         Container(
                                           margin: EdgeInsets.only(
-                                              left: 1.0.w,
-                                              right: 1.0.w,
-                                              top: 1.0.h),
-                                          height: 26.0.h,
+                                              top: 1.0.h,
+                                              left: 2.0.w,
+                                              right: 2.0.w),
+                                          height: 34.0.h,
                                           width: 100.0.w,
                                           //color: Colors.red,
                                           child: ListView.builder(
-                                              itemCount: citiesController
-                                                  .citiesModel.data?.length,
                                               padding: EdgeInsets.only(
-                                                  top: 1.0.h, bottom: 1.0.h),
+                                                  bottom: 1.0.h),
+                                              itemCount: 3,
+                                              // dashboardController
+                                              //     .featuredPropertyModel
+                                              //     .data!
+                                              //     .data!
+                                              //     .length,
                                               scrollDirection: Axis.horizontal,
                                               itemBuilder: (context, index) {
                                                 return GestureDetector(
                                                   onTap: () {
-                                                    citiesController
-                                                        .sendToCityWiseProperty(
-                                                            citiesController
-                                                                .citiesModel
-                                                                .data![index]
-                                                                .id,
-                                                            citiesController
-                                                                .citiesModel
-                                                                .data![index]
-                                                                .name);
+                                                    Get.to(() => PropertyByID(
+                                                          id: dashboardController
+                                                              .featuredPropertyModel
+                                                              .data!
+                                                              .data![index]
+                                                              .id,
+                                                        ));
                                                   },
                                                   child: Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: index == 0
-                                                            ? 2.0.w
-                                                            : 3.0.w,
-                                                        right: index ==
-                                                                citiesController
-                                                                        .citiesModel
-                                                                        .data!
-                                                                        .length -
-                                                                    1
-                                                            ? 2.0.w
-                                                            : 0.0.w),
-                                                    height: 20.0.h,
-                                                    width: 50.0.w,
-                                                    decoration:
-                                                        CustomDecorations
-                                                            .mainCon,
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Container(
-                                                            height: 15.0.h,
+                                                      width: 59.0.w,
+                                                      margin: EdgeInsets.only(
+                                                          left: index == 0
+                                                              ? 1.0.w
+                                                              : 3.0.w),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      decoration:
+                                                          CustomDecorations
+                                                              .mainCon,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Container(
+                                                            height: 14.0.h,
                                                             width: 100.0.w,
                                                             decoration:
                                                                 const BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .only(
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        10),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        10),
-                                                              ),
-                                                            ),
+                                                                    //    color: Colors.red,
+                                                                    borderRadius: BorderRadius.only(
+                                                                        topLeft:
+                                                                            Radius.circular(
+                                                                                10),
+                                                                        topRight:
+                                                                            Radius.circular(10))),
                                                             child: ClipRRect(
-                                                              borderRadius:
-                                                                  const BorderRadius
-                                                                      .only(
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        10),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        10),
-                                                              ),
-                                                              child: Image(
-                                                                image:
-                                                                    NetworkImage(
-                                                                  '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index].metadata![0].metaValue![0]}',
-                                                                ),
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              ),
-                                                            )),
-                                                        SizedBox(
-                                                          height: 2.0.h,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 2.0.w,
-                                                            ),
-                                                            Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  citiesController
-                                                                          .citiesModel
-                                                                          .data![
-                                                                              index]
-                                                                          .name ??
-                                                                      '',
-                                                                  style: AppTextStyles
-                                                                      .labelSmall,
-                                                                ),
-                                                                Text(
-                                                                  "${citiesController.citiesModel.data![index].propertiesCount ?? ""} Propertise",
-                                                                  style: AppTextStyles
-                                                                      .labelSmall
-                                                                      .copyWith(
-                                                                          color: Colors
-                                                                              .grey,
-                                                                          fontSize:
-                                                                              10.sp),
-                                                                )
-                                                              ],
-                                                            ),
-                                                            const Spacer(),
-                                                            Container(
-                                                              height: 7.0.w,
-                                                              width: 7.0.w,
-                                                              decoration: BoxDecoration(
-                                                                  color: AppColors
-                                                                      .appthem,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              300)),
-                                                              child:
-                                                                  const Center(
-                                                                      child:
-                                                                          Icon(
-                                                                Icons
-                                                                    .arrow_forward_ios,
-                                                                color: Colors
-                                                                    .white,
-                                                                size: 14,
-                                                              )),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 2.0.w,
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              }),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                      )),
-
-                  ///prologics 29
-
-                  Container(
-                    margin:
-                        EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 2.0.h),
-                    //  height: 50.0.h,
-                    width: 120.0.w,
-                    decoration: CustomDecorations.mainCon,
-                    child: Obx(
-                      (() => newspostController.loadingnewspost.value
-                          ? const Center(
-                              child: CircularProgressIndicator(
-                              color: AppColors.appthem,
-                            ))
-                          : newspostController.errorLoadingnewspost.value != ''
-                              ? Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            newspostController.getnewspost();
-                                          },
-                                          icon: const Icon(
-                                            Icons.refresh,
-                                            color: AppColors.appthem,
-                                          )),
-                                      SizedBox(
-                                        height: 1.0.h,
-                                      ),
-                                      Text(newspostController
-                                          .errorLoadingnewspost.value),
-                                    ],
-                                  ),
-                                )
-                              : Container(
-                                  margin: const EdgeInsets.only(bottom: 5),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 3.0.w,
-                                          top: 0.3.h,
-                                        ),
-                                        child: Text(
-                                          "ProLogic 29",
-                                          style: AppTextStyles.heading1
-                                              .copyWith(
-                                                  fontFamily: AppFonts.nexaBold,
-                                                  fontSize: 16.sp,
-                                                  color: AppColors.appthem),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 3.0.w, top: 0.3.h),
-                                        child: SizedBox(
-                                          width: 85.0.w,
-                                          child: Text(
-                                              "Let us help you navigate the renting, buying, selling & investing experience",
-                                              style: AppTextStyles.labelSmall
-                                                  .copyWith(fontSize: 9.sp)),
-                                        ),
-                                      ),
-                                      Container(
-                                        height: 35.0.h,
-                                        margin: EdgeInsets.only(
-                                            left: 2.0.w,
-                                            right: 2.0.w,
-                                            top: 1.0.h,
-                                            bottom: 1.0.h),
-                                        width: 100.0.w,
-                                        //    color: Colors.red,
-                                        child: ListView.builder(
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: 3,
-                                            itemBuilder: (context, index) {
-                                              return Container(
-                                                margin: EdgeInsets.only(
-                                                    left: index == 0
-                                                        ? 2.0.w
-                                                        : 2.0.w,
-                                                    right: index ==
-                                                            newspostController
-                                                                    .newspostModel
-                                                                    .data!
-                                                                    .length -
-                                                                1
-                                                        ? 2.0.w
-                                                        : 0.0.w,
-                                                    bottom: 0.5.h),
-                                                width: 60.0.w,
-                                                decoration:
-                                                    CustomDecorations.mainCon,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      height: 15.0.h,
-                                                      width: 100.0.w,
-                                                      decoration: const BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          10),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          10))),
-                                                      child: ClipRRect(
-                                                          borderRadius:
-                                                              const BorderRadius
+                                                              borderRadius: const BorderRadius
                                                                       .only(
                                                                   topLeft: Radius
                                                                       .circular(
@@ -1648,138 +1035,742 @@ class _HomeState extends State<Home> {
                                                                   topRight: Radius
                                                                       .circular(
                                                                           10)),
-                                                          child: Image.network(
-                                                            newspostController
-                                                                    .newspostModel
-                                                                    .data![
-                                                                        index]!
-                                                                    .image ??
-                                                                '',
-                                                            fit: BoxFit.cover,
-                                                          )),
+                                                              child:
+                                                                  Image.network(
+                                                                "${AppUrls.baseUrl2}${dashboardController.featuredPropertyModel.data!.data![index].images!.the1}",
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 1.0.h,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
+                                                            children: [
+                                                              Container(
+                                                                height: 3.5.h,
+                                                                width: 22.0.w,
+                                                                decoration: BoxDecoration(
+                                                                    color: AppColors
+                                                                        .appthem,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            300)),
+                                                                child: Center(
+                                                                    child: Text(
+                                                                  dashboardController
+                                                                          .featuredPropertyModel
+                                                                          .data!
+                                                                          .data![
+                                                                              index]
+                                                                          .type!
+                                                                          .name ??
+                                                                      "",
+                                                                  style: AppTextStyles
+                                                                      .labelSmall
+                                                                      .copyWith(
+                                                                          color:
+                                                                              AppColors.colorWhite),
+                                                                )),
+                                                              ),
+                                                              Flexible(
+                                                                child: Text(
+                                                                    "Rs  ${dashboardController.featuredPropertyModel.data!.data![index].price ?? ""} PKR",
+                                                                    style: AppTextStyles
+                                                                        .heading1
+                                                                        .copyWith(
+                                                                            color:
+                                                                                AppColors.colorblack,
+                                                                            fontSize: 10.sp)),
+                                                              )
+                                                            ],
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 2.0.w,
+                                                                    top: 1.0.h),
+                                                            child: Text(
+                                                                dashboardController
+                                                                        .featuredPropertyModel
+                                                                        .data!
+                                                                        .data![
+                                                                            index]
+                                                                        .name ??
+                                                                    "",
+                                                                style: AppTextStyles
+                                                                    .heading1
+                                                                    .copyWith(
+                                                                  color: AppColors
+                                                                      .colorblack,
+                                                                )),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              SizedBox(
+                                                                width: 2.0.w,
+                                                              ),
+                                                              Image.asset(
+                                                                AppImageResources
+                                                                    .bed,
+                                                                height: 2.0.h,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 2.0.w,
+                                                              ),
+                                                              Text(
+                                                                dashboardController
+                                                                        .featuredPropertyModel
+                                                                        .data!
+                                                                        .data![
+                                                                            index]
+                                                                        .numberBedroom ??
+                                                                    "",
+                                                                style: AppTextStyles
+                                                                    .labelSmall
+                                                                    .copyWith(
+                                                                        fontSize:
+                                                                            9.sp),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 2.0.w,
+                                                              ),
+                                                              Image.asset(
+                                                                AppImageResources
+                                                                    .bath,
+                                                                height: 2.0.h,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 2.0.w,
+                                                              ),
+                                                              Text(
+                                                                dashboardController
+                                                                        .featuredPropertyModel
+                                                                        .data!
+                                                                        .data![
+                                                                            index]
+                                                                        .numberBathroom ??
+                                                                    "",
+                                                                style: AppTextStyles
+                                                                    .labelSmall
+                                                                    .copyWith(
+                                                                        fontSize:
+                                                                            9.sp),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 2.0.w,
+                                                              ),
+                                                              const Icon(
+                                                                Icons
+                                                                    .landscape_outlined,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 2.0.w,
+                                                              ),
+                                                              Text(
+                                                                dashboardController
+                                                                        .featuredPropertyModel
+                                                                        .data!
+                                                                        .data![
+                                                                            index]
+                                                                        .square ??
+                                                                    "",
+                                                                style: AppTextStyles
+                                                                    .labelSmall
+                                                                    .copyWith(
+                                                                        fontSize:
+                                                                            9.sp),
+                                                              )
+                                                            ],
+                                                          ),
+                                                          const Divider(),
+                                                          Row(
+                                                            children: [
+                                                              SizedBox(
+                                                                width: 2.0.w,
+                                                              ),
+                                                              Image.asset(
+                                                                AppImageResources
+                                                                    .plots,
+                                                                height: 2.0.h,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 2.0.w,
+                                                              ),
+                                                              Text(
+                                                                dashboardController
+                                                                        .featuredPropertyModel
+                                                                        .data!
+                                                                        .data![
+                                                                            index]
+                                                                        .location ??
+                                                                    "",
+                                                                style: AppTextStyles
+                                                                    .labelSmall,
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      )),
+                                                );
+                                              }),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 3.0.w,
+                                              right: 3.0.w,
+                                              top: 1.0.h),
+                                          child: CustomButton(
+                                            onPressed: () {
+                                              Get.to(() => Moreplaces());
+                                              // Get.to(() => Moreplaces());
+                                            },
+                                            text: "More Places",
+                                          ),
+                                        )
+                                      ],
+                                    );
+                        })),
+
+                    //post an add
+                    Container(
+                      margin: EdgeInsets.only(
+                          left: 3.0.w, right: 3.0.w, top: 2.0.h),
+                      height: 20.0.h,
+                      width: 100.0.w,
+                      decoration: CustomDecorations.mainCon,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                AppImageResources.house,
+                                height: 12.0.h,
+                              ),
+                              SizedBox(
+                                width: 2.0.w,
+                              ),
+                              SizedBox(
+                                width: 40.0.w,
+                                child: Text(
+                                  "Looking to sell or rent out your property",
+                                  style: AppTextStyles.labelSmall
+                                      .copyWith(fontSize: 11.sp),
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                                left: 3.0.w, right: 3.0.w, top: 1.0.h),
+                            height: 4.0.h,
+                            width: 100.0.w,
+                            decoration: BoxDecoration(
+                                color: AppColors.appthem,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                              child: Text(
+                                "Post an Ad",
+                                style: AppTextStyles.heading1
+                                    .copyWith(color: Colors.white),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+
+                    ///cites/locations
+                    Container(
+                        margin: EdgeInsets.only(
+                            left: 3.0.w, right: 3.0.w, top: 1.0.h),
+                        // height: 38.0.h,
+                        width: 100.0.w,
+                        decoration: CustomDecorations.mainCon,
+                        child: Obx(
+                          () => dashboardController.loadingCities.value
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                  color: AppColors.appthem,
+                                ))
+                              : dashboardController.errorLoadingCities.value !=
+                                      ''
+                                  ? Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                              onPressed: () {
+                                                dashboardController
+                                                    .getPrpertyCitis();
+                                              },
+                                              icon: const Icon(
+                                                Icons.refresh,
+                                                color: AppColors.appthem,
+                                              )),
+                                          SizedBox(
+                                            height: 1.0.h,
+                                          ),
+                                          Text(dashboardController
+                                              .errorLoadingCities.value),
+                                        ],
+                                      ),
+                                    )
+                                  : Padding(
+                                      padding: EdgeInsets.only(bottom: 1.5.h),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 3.0.w, top: 0.3.h),
+                                            child: Text(
+                                              "Find By Locations",
+                                              style: AppTextStyles.heading1
+                                                  .copyWith(
+                                                      fontFamily:
+                                                          AppFonts.nexaBold,
+                                                      fontSize: 16.sp,
+                                                      color: AppColors.appthem),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 3.0.w, top: 0.3.h),
+                                            child: SizedBox(
+                                              width: 80.0.w,
+                                              child: Text(
+                                                  "Find your dream home from your dream location",
+                                                  style: AppTextStyles
+                                                      .labelSmall
+                                                      .copyWith(
+                                                          fontSize: 9.sp)),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                left: 1.0.w,
+                                                right: 1.0.w,
+                                                top: 1.0.h),
+                                            height: 26.0.h,
+                                            width: 100.0.w,
+                                            //color: Colors.red,
+                                            child: ListView.builder(
+                                                itemCount: citiesController
+                                                    .citiesModel.data?.length,
+                                                padding: EdgeInsets.only(
+                                                    top: 1.0.h, bottom: 1.0.h),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemBuilder: (context, index) {
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      citiesController
+                                                          .sendToCityWiseProperty(
+                                                              citiesController
+                                                                  .citiesModel
+                                                                  .data![index]
+                                                                  .id,
+                                                              citiesController
+                                                                  .citiesModel
+                                                                  .data![index]
+                                                                  .name);
+                                                    },
+                                                    child: Container(
+                                                      margin: EdgeInsets.only(
+                                                          left: index == 0
+                                                              ? 2.0.w
+                                                              : 3.0.w,
+                                                          right: index ==
+                                                                  citiesController
+                                                                          .citiesModel
+                                                                          .data!
+                                                                          .length -
+                                                                      1
+                                                              ? 2.0.w
+                                                              : 0.0.w),
+                                                      height: 20.0.h,
+                                                      width: 50.0.w,
+                                                      decoration:
+                                                          CustomDecorations
+                                                              .mainCon,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Container(
+                                                              height: 15.0.h,
+                                                              width: 100.0.w,
+                                                              decoration:
+                                                                  const BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          10),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          10),
+                                                                ),
+                                                              ),
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          10),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          10),
+                                                                ),
+                                                                child: Image(
+                                                                  image:
+                                                                      NetworkImage(
+                                                                    '${AppUrls.baseUrl2}${citiesController.citiesModel.data![index].metadata![0].metaValue![0]}',
+                                                                  ),
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                ),
+                                                              )),
+                                                          SizedBox(
+                                                            height: 2.0.h,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              SizedBox(
+                                                                width: 2.0.w,
+                                                              ),
+                                                              Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    citiesController
+                                                                            .citiesModel
+                                                                            .data![index]
+                                                                            .name ??
+                                                                        '',
+                                                                    style: AppTextStyles
+                                                                        .labelSmall,
+                                                                  ),
+                                                                  Text(
+                                                                    "${citiesController.citiesModel.data![index].propertiesCount ?? ""} Propertise",
+                                                                    style: AppTextStyles
+                                                                        .labelSmall
+                                                                        .copyWith(
+                                                                            color:
+                                                                                Colors.grey,
+                                                                            fontSize: 10.sp),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                              const Spacer(),
+                                                              Container(
+                                                                height: 7.0.w,
+                                                                width: 7.0.w,
+                                                                decoration: BoxDecoration(
+                                                                    color: AppColors
+                                                                        .appthem,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            300)),
+                                                                child:
+                                                                    const Center(
+                                                                        child:
+                                                                            Icon(
+                                                                  Icons
+                                                                      .arrow_forward_ios,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: 14,
+                                                                )),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 2.0.w,
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                    SizedBox(
-                                                      height: 1.0.h,
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        SizedBox(
-                                                          width: 2.0.w,
-                                                        ),
-                                                        const Icon(
-                                                          Icons.date_range,
-                                                          color:
-                                                              AppColors.appthem,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 2.0.w,
-                                                        ),
-                                                        Text(
-                                                          DateFormat(
-                                                                  'dd.MM.yyyy')
-                                                              .format(DateTime.parse(
-                                                                  newspostController
+                                                  );
+                                                }),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                        )),
+
+                    ///prologics 29
+
+                    Container(
+                      margin: EdgeInsets.only(
+                          left: 3.0.w, right: 3.0.w, top: 2.0.h),
+                      //  height: 50.0.h,
+                      width: 120.0.w,
+                      decoration: CustomDecorations.mainCon,
+                      child: Obx(
+                        (() => newspostController.loadingnewspost.value
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                color: AppColors.appthem,
+                              ))
+                            : newspostController.errorLoadingnewspost.value !=
+                                    ''
+                                ? Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              newspostController.getnewspost();
+                                            },
+                                            icon: const Icon(
+                                              Icons.refresh,
+                                              color: AppColors.appthem,
+                                            )),
+                                        SizedBox(
+                                          height: 1.0.h,
+                                        ),
+                                        Text(newspostController
+                                            .errorLoadingnewspost.value),
+                                      ],
+                                    ),
+                                  )
+                                : Container(
+                                    margin: const EdgeInsets.only(bottom: 5),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            left: 3.0.w,
+                                            top: 0.3.h,
+                                          ),
+                                          child: Text(
+                                            "ProLogic 29",
+                                            style: AppTextStyles.heading1
+                                                .copyWith(
+                                                    fontFamily:
+                                                        AppFonts.nexaBold,
+                                                    fontSize: 16.sp,
+                                                    color: AppColors.appthem),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 3.0.w, top: 0.3.h),
+                                          child: SizedBox(
+                                            width: 85.0.w,
+                                            child: Text(
+                                                "Let us help you navigate the renting, buying, selling & investing experience",
+                                                style: AppTextStyles.labelSmall
+                                                    .copyWith(fontSize: 9.sp)),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 35.0.h,
+                                          margin: EdgeInsets.only(
+                                              left: 2.0.w,
+                                              right: 2.0.w,
+                                              top: 1.0.h,
+                                              bottom: 1.0.h),
+                                          width: 100.0.w,
+                                          //    color: Colors.red,
+                                          child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: 3,
+                                              itemBuilder: (context, index) {
+                                                return Container(
+                                                  margin: EdgeInsets.only(
+                                                      left: index == 0
+                                                          ? 2.0.w
+                                                          : 2.0.w,
+                                                      right: index ==
+                                                              newspostController
+                                                                      .newspostModel
+                                                                      .data!
+                                                                      .length -
+                                                                  1
+                                                          ? 2.0.w
+                                                          : 0.0.w,
+                                                      bottom: 0.5.h),
+                                                  width: 60.0.w,
+                                                  decoration:
+                                                      CustomDecorations.mainCon,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        height: 15.0.h,
+                                                        width: 100.0.w,
+                                                        decoration: const BoxDecoration(
+                                                            borderRadius: BorderRadius.only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        10),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        10))),
+                                                        child: ClipRRect(
+                                                            borderRadius: const BorderRadius
+                                                                    .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        10),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        10)),
+                                                            child:
+                                                                Image.network(
+                                                              newspostController
                                                                       .newspostModel
                                                                       .data![
                                                                           index]!
-                                                                      .createdAt
-                                                                      .toString())),
-                                                          style: AppTextStyles
-                                                              .labelSmall
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      10.sp),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 2.0.w,
-                                                          right: 2.0.w,
-                                                          top: 1.0.h),
-                                                      child: Text(
-                                                        newspostController
-                                                                .newspostModel
-                                                                .data![index]!
-                                                                .name ??
-                                                            "",
-                                                        style: AppTextStyles
-                                                            .heading1
-                                                            .copyWith(
-                                                                color: AppColors
-                                                                    .appthem),
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
+                                                                      .image ??
+                                                                  '',
+                                                              fit: BoxFit.cover,
+                                                            )),
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 2.0.w,
-                                                          right: 2.0.w,
-                                                          top: 1.0.h),
-                                                      child: Text(
-                                                          // "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities."
-                                                          "",
-                                                          style: AppTextStyles
-                                                              .labelSmall
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      8.sp)),
-                                                    ),
-                                                    Center(
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          Get.to(() => Blog(),
-                                                              transition:
-                                                                  Transition
-                                                                      .rightToLeft,
-                                                              duration:
-                                                                  const Duration(
-                                                                      milliseconds:
-                                                                          600));
-                                                        },
-                                                        child: Container(
-                                                          height: 4.0.h,
-                                                          width: 30.0.w,
-                                                          decoration: BoxDecoration(
-                                                              color: AppColors
-                                                                  .appthem,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8)),
-                                                          child: Center(
-                                                              child: Text(
-                                                            "Continue",
+                                                      SizedBox(
+                                                        height: 1.0.h,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 2.0.w,
+                                                          ),
+                                                          const Icon(
+                                                            Icons.date_range,
+                                                            color: AppColors
+                                                                .appthem,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 2.0.w,
+                                                          ),
+                                                          Text(
+                                                            DateFormat(
+                                                                    'dd.MM.yyyy')
+                                                                .format(DateTime.parse(newspostController
+                                                                    .newspostModel
+                                                                    .data![
+                                                                        index]!
+                                                                    .createdAt
+                                                                    .toString())),
                                                             style: AppTextStyles
                                                                 .labelSmall
                                                                 .copyWith(
-                                                                    color: AppColors
-                                                                        .colorWhite),
-                                                          )),
+                                                                    fontSize:
+                                                                        10.sp),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 2.0.w,
+                                                                right: 2.0.w,
+                                                                top: 1.0.h),
+                                                        child: Text(
+                                                          newspostController
+                                                                  .newspostModel
+                                                                  .data![index]!
+                                                                  .name ??
+                                                              "",
+                                                          style: AppTextStyles
+                                                              .heading1
+                                                              .copyWith(
+                                                                  color: AppColors
+                                                                      .appthem),
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                         ),
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 1.0.h,
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            }),
-                                      ),
-                                    ],
-                                  ),
-                                )),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 2.0.w,
+                                                                right: 2.0.w,
+                                                                top: 1.0.h),
+                                                        child: Text(
+                                                            // "Are you tired of real estate malpractices? Do you know that 60% of the existing horizontal projects nationwide are unapproved? It is common knowledge that the real estate sector in Pakistan is replete with scams. Many individuals have lost their hard-earned savings to fraudulent schemes, which were initially presented as lucrative investment opportunities."
+                                                            "",
+                                                            style: AppTextStyles
+                                                                .labelSmall
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        8.sp)),
+                                                      ),
+                                                      Center(
+                                                        child: InkWell(
+                                                          onTap: () {
+                                                            Get.to(() => Blog(),
+                                                                transition:
+                                                                    Transition
+                                                                        .rightToLeft,
+                                                                duration:
+                                                                    const Duration(
+                                                                        milliseconds:
+                                                                            600));
+                                                          },
+                                                          child: Container(
+                                                            height: 4.0.h,
+                                                            width: 30.0.w,
+                                                            decoration: BoxDecoration(
+                                                                color: AppColors
+                                                                    .appthem,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8)),
+                                                            child: Center(
+                                                                child: Text(
+                                                              "Continue",
+                                                              style: AppTextStyles
+                                                                  .labelSmall
+                                                                  .copyWith(
+                                                                      color: AppColors
+                                                                          .colorWhite),
+                                                            )),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 1.0.h,
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              }),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 2.0.h,
-                  )
-                ],
-              ),
-            )),
+                    SizedBox(
+                      height: 2.0.h,
+                    )
+                  ],
+                ),
+              )),
+        ),
       ),
     );
   }

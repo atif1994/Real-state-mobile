@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field, avoid_print, unused_element, unused_local_variable, use_build_context_synchronously
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -39,7 +39,7 @@ class _NewsFeedState extends State<NewsFeed> {
   int pagekey = 1;
   static const _pageSize = 20;
   List<int> wishlish = [];
-  // String link = 'http://realestate.tecrux.net/properties/nam-batao-g';
+
   @override
   void initState() {
     super.initState();
@@ -261,13 +261,93 @@ class _NewsFeedState extends State<NewsFeed> {
                                                               ? Fluttertoast
                                                                   .showToast(
                                                                       msg:
-                                                                          'not Added')
+                                                                          'not Added in wishlist')
                                                               : Fluttertoast
                                                                   .showToast(
                                                                       msg:
-                                                                          'Added');
+                                                                          'Added to wishlist');
                                                         },
-                                                      ))),
+                                                      ))
+                                            // newsfeedController
+                                            //             .newsfeedmodel
+                                            //             .data![index]
+                                            //             .isWishlist ==
+                                            //         1
+                                            // ? GestureDetector(
+                                            //     child: Container(
+                                            //       decoration: BoxDecoration(
+                                            //           color:
+                                            //               Color.fromARGB(
+                                            //                   255,
+                                            //                   27,
+                                            //                   17,
+                                            //                   17),
+                                            //           borderRadius:
+                                            //               BorderRadius
+                                            //                   .circular(
+                                            //                       6)),
+                                            //       child: Padding(
+                                            //         padding:
+                                            //             const EdgeInsets
+                                            //                 .all(5.0),
+                                            //         child: Icon(
+                                            //           Icons.favorite,
+                                            //           color: Colors.amber,
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //     onTap: () async {
+                                            //       addwishistcontroller
+                                            //           .delwishlist(
+                                            //               newsfeedController
+                                            //                   .newsfeedmodel
+                                            //                   .data![
+                                            //                       index]
+                                            //                   .id);
+                                            //       await Future.delayed(
+                                            //           Duration(
+                                            //               milliseconds:
+                                            //                   600));
+                                            //       newsfeedController
+                                            //           .getnewsfeed();
+                                            //     },
+                                            //   )
+                                            // : GestureDetector(
+                                            //     child: Container(
+                                            //       decoration: BoxDecoration(
+                                            //           color:
+                                            //               Color.fromARGB(
+                                            //                   255,
+                                            //                   126,
+                                            //                   124,
+                                            //                   124),
+                                            //           borderRadius:
+                                            //               BorderRadius
+                                            //                   .circular(
+                                            //                       6)),
+                                            //       child: Padding(
+                                            //         padding:
+                                            //             const EdgeInsets
+                                            //                 .all(5.0),
+                                            //         child: Icon(
+                                            //           Icons
+                                            //               .favorite_outline,
+                                            //           color: Colors.amber,
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //     onTap: () async {
+                                            //       addwishistcontroller
+                                            //           .postwishlist();
+                                            //       await Future.delayed(
+                                            //           Duration(
+                                            //               milliseconds:
+                                            //                   500));
+                                            //       newsfeedController
+                                            //           .getnewsfeed();
+                                            //     },
+                                            //   )
+                                            ),
                                       ]),
                                       SizedBox(
                                         width: 2.0.h,
@@ -428,6 +508,13 @@ class _NewsFeedState extends State<NewsFeed> {
                                                           .newsfeedmodel
                                                           .data![index]
                                                           .id,
+                                                      agentId:
+                                                          newsfeedController
+                                                              .newsfeedmodel
+                                                              .data![index]
+                                                              .agent!
+                                                              .id,
+                                                      userId: uid,
                                                     ));
                                               },
                                               child: Container(
@@ -470,118 +557,118 @@ class _NewsFeedState extends State<NewsFeed> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        likeController.likeIdsList.contains(
-                                                newsfeedController.newsfeedmodel
-                                                    .data![index].id)
-                                            ? GestureDetector(
-                                                child: Row(
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(6)),
-                                                      child: const Padding(
-                                                        padding:
-                                                            EdgeInsets.all(5.0),
-                                                        child: Icon(
-                                                          Icons.favorite_border,
-                                                          color: Colors.grey,
+                                        Obx(
+                                          () => likeController.likeIdsList2
+                                                  .contains(newsfeedController
+                                                      .newsfeedmodel
+                                                      .data![index]
+                                                      .id)
+                                              ? GestureDetector(
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6)),
+                                                        child: const Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  5.0),
+                                                          child: Icon(
+                                                            Icons.favorite,
+                                                            color: Colors
+                                                                .redAccent,
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 1.w,
-                                                    ),
-                                                    Text(
-                                                      "Like",
-                                                      style: AppTextStyles
-                                                          .labelSmall
-                                                          .copyWith(
-                                                        fontSize: 13.sp,
+                                                      SizedBox(
+                                                        width: 1.w,
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                onTap: () async {
-                                                  likeController.likeIdsList
-                                                      .remove(newsfeedController
-                                                          .newsfeedmodel
-                                                          .data![index]
-                                                          .id);
-
-                                                  likeController.getPostLike(
-                                                      newsfeedController
-                                                          .newsfeedmodel
-                                                          .data![index]
-                                                          .id
-                                                          .toString(),
-                                                      uid!);
-                                                  print(
-                                                      "list++++${likeController.likeIdsList}");
-                                                  setState(() {});
-                                                },
-                                              )
-                                            : GestureDetector(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              6)),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Row(
-                                                      children: [
-                                                        const Icon(
-                                                          Icons.favorite,
-                                                          color: Colors.red,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 1.w,
-                                                        ),
-                                                        Text(
-                                                          "Like",
-                                                          style: AppTextStyles
-                                                              .labelSmall
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      14.sp,
-                                                                  color: Colors
-                                                                      .blue,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400),
-                                                        ),
-                                                      ],
+                                                      Text(
+                                                        "Like",
+                                                        style: AppTextStyles
+                                                            .labelSmall
+                                                            .copyWith(
+                                                                fontSize: 13.sp,
+                                                                color:
+                                                                    Colors.blue,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  onTap: () async {
+                                                    likeController.getPostLike(
+                                                        newsfeedController
+                                                            .newsfeedmodel
+                                                            .data![index]
+                                                            .id
+                                                            .toString(),
+                                                        uid!);
+                                                    print(
+                                                        "Gesture lIKE++++${likeController.likeIdsList2}");
+                                                    setState(() {});
+                                                  },
+                                                )
+                                              : GestureDetector(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(6)),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      child: Row(
+                                                        children: [
+                                                          const Icon(
+                                                            Icons
+                                                                .favorite_border,
+                                                            color: Colors.grey,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 1.w,
+                                                          ),
+                                                          Text(
+                                                            "Like",
+                                                            style: AppTextStyles
+                                                                .labelSmall
+                                                                .copyWith(
+                                                              fontSize: 13.sp,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
+                                                  onTap: () async {
+                                                    likeController.getPostLike(
+                                                        newsfeedController
+                                                            .newsfeedmodel
+                                                            .data![index]
+                                                            .id
+                                                            .toString(),
+                                                        uid!);
+                                                    print(
+                                                        "Gesture UnlIKE++++${likeController.likeIdsList2}");
+
+                                                    setState(() {});
+                                                  },
                                                 ),
-                                                onTap: () async {
-                                                  likeController.likeIdsList
-                                                      .add(newsfeedController
-                                                          .newsfeedmodel
-                                                          .data![index]
-                                                          .id);
+                                        ), // const Icon(Icons.favorite_border_outlined),
 
-                                                  likeController.getPostLike(
-                                                      newsfeedController
-                                                          .newsfeedmodel
-                                                          .data![index]
-                                                          .id
-                                                          .toString(),
-                                                      uid!);
-                                                  print(
-                                                      "list++++${likeController.likeIdsList}");
-
-                                                  setState(() {});
-                                                },
-                                              ),
                                         SizedBox(
                                           width: 3.0.w,
                                         ),
                                         const Icon(Icons.comment_outlined),
+                                        // Image.asset(
+                                        //   AppImageResources.bed,
+                                        //   height: 4.0.h,
+                                        // ),
                                         InkWell(
                                           onTap: () async {
                                             getLatestCommentsController
@@ -592,10 +679,10 @@ class _NewsFeedState extends State<NewsFeed> {
                                                         .id!);
                                             await Future.delayed(const Duration(
                                                 milliseconds: 400));
-                                            _showModelSheet(
-                                                context,
-                                                newsfeedController.newsfeedmodel
-                                                    .data![index].id!);
+                                            // _showModelSheet(
+                                            //     context,
+                                            //     newsfeedController.newsfeedmodel
+                                            //         .data![index].id!);
                                           },
                                           child: Text(
                                             "Comment",
@@ -613,7 +700,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                 .slugable!
                                                 .key!);
                                           },
-                                          // ignore: avoid_unnecessary_containers
                                           child: Container(
                                             child: Row(
                                               children: [
@@ -643,7 +729,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                         child: CustomTextField(
                                           editingController:
                                               _controllers[index],
-                                          hintText: ' ',
+                                          hintText: 'Write Comment....',
                                         ),
                                       ),
                                       SizedBox(
@@ -700,165 +786,165 @@ class _NewsFeedState extends State<NewsFeed> {
     return Fluttertoast.showToast(msg: message);
   }
 
-  void _refresh() {
-    newsfeedController.getnewsfeed();
-  }
+  // void _refresh() {
+  //   newsfeedController.getnewsfeed();
+  // }
 
-  void _showModelSheet(BuildContext context, int pid) {
-    showModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (context) {
-          return Container(
-            height: 30.0.h,
-            width: 100.0.w,
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10))),
-            child: Container(
-                margin: const EdgeInsets.all(10),
-                height: 20.0.h,
-                width: 100.0.w,
-                //   color: Colors.red,
-                child: Obx(
-                  () => getLatestCommentsController.loadingCommnets.value
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                          color: AppColors.appthem,
-                        ))
-                      : getLatestCommentsController.error.value != ""
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      getLatestCommentsController
-                                          .getLatestCommnets(pid);
-                                    },
-                                    icon: const Icon(Icons.refresh)),
-                                SizedBox(
-                                  height: 1.0.h,
-                                ),
-                                Text(getLatestCommentsController.error.value),
-                              ],
-                            )
-                          : getLatestCommentsController
-                                  .commnetsModel.data!.isEmpty
-                              ? const Center(child: Text("No Commnets Yet"))
-                              : ListView.builder(
-                                  itemCount: getLatestCommentsController
-                                      .commnetsModel.data!.length,
-                                  itemBuilder: (context, index) {
-                                    bool d = false;
-                                    return Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: 12.0.w,
-                                                width: 12.0.w,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            300)),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          300),
-                                                  child: Image.asset(
-                                                      "assets/user.png"),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 3.0.w,
-                                              ),
-                                              Expanded(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.grey[200],
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10)),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              getLatestCommentsController
-                                                                      .commnetsModel
-                                                                      .data![
-                                                                          index]
-                                                                      .user!
-                                                                      .username ??
-                                                                  "",
-                                                              style: AppTextStyles
-                                                                  .appbar
-                                                                  .copyWith(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 70.0.w,
-                                                              child: Text(
-                                                                getLatestCommentsController
-                                                                        .commnetsModel
-                                                                        .data![
-                                                                            index]
-                                                                        .comment ??
-                                                                    "",
-                                                                maxLines: 4,
-                                                                style:
-                                                                    AppTextStyles
-                                                                        .appbar
-                                                                        .copyWith(
-                                                                  color: Colors
-                                                                      .black,
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        const Divider()
-                                      ],
-                                    );
-                                  }),
-                )),
-          );
-        });
-  }
+  // void _showModelSheet(BuildContext context, int pid) {
+  //   showModalBottomSheet(
+  //       backgroundColor: Colors.transparent,
+  //       context: context,
+  //       builder: (context) {
+  //         return Container(
+  //           height: 30.0.h,
+  //           width: 100.0.w,
+  //           decoration: const BoxDecoration(
+  //               color: Colors.white,
+  //               borderRadius: BorderRadius.only(
+  //                   topLeft: Radius.circular(10),
+  //                   topRight: Radius.circular(10))),
+  //           child: Container(
+  //               margin: const EdgeInsets.all(10),
+  //               height: 20.0.h,
+  //               width: 100.0.w,
+  //               //   color: Colors.red,
+  //               child: Obx(
+  //                 () => getLatestCommentsController.loadingCommnets.value
+  //                     ? const Center(
+  //                         child: CircularProgressIndicator(
+  //                         color: AppColors.appthem,
+  //                       ))
+  //                     : getLatestCommentsController.error.value != ""
+  //                         ? Column(
+  //                             mainAxisAlignment: MainAxisAlignment.center,
+  //                             children: [
+  //                               IconButton(
+  //                                   onPressed: () {
+  //                                     getLatestCommentsController
+  //                                         .getLatestCommnets(pid);
+  //                                   },
+  //                                   icon: const Icon(Icons.refresh)),
+  //                               SizedBox(
+  //                                 height: 1.0.h,
+  //                               ),
+  //                               Text(getLatestCommentsController.error.value),
+  //                             ],
+  //                           )
+  //                         : getLatestCommentsController
+  //                                 .commnetsModel.data!.isEmpty
+  //                             ? const Center(child: Text("No Commnets Yet"))
+  //                             : ListView.builder(
+  //                                 itemCount: getLatestCommentsController
+  //                                     .commnetsModel.data!.length,
+  //                                 itemBuilder: (context, index) {
+  //                                   bool d = false;
+  //                                   return Column(
+  //                                     children: [
+  //                                       Padding(
+  //                                         padding: const EdgeInsets.all(8.0),
+  //                                         child: Row(
+  //                                           children: [
+  //                                             Container(
+  //                                               height: 12.0.w,
+  //                                               width: 12.0.w,
+  //                                               decoration: BoxDecoration(
+  //                                                   borderRadius:
+  //                                                       BorderRadius.circular(
+  //                                                           300)),
+  //                                               child: ClipRRect(
+  //                                                 borderRadius:
+  //                                                     BorderRadius.circular(
+  //                                                         300),
+  //                                                 child: Image.asset(
+  //                                                     "assets/user.png"),
+  //                                               ),
+  //                                             ),
+  //                                             SizedBox(
+  //                                               width: 3.0.w,
+  //                                             ),
+  //                                             Expanded(
+  //                                               child: Container(
+  //                                                 decoration: BoxDecoration(
+  //                                                     color: Colors.grey[200],
+  //                                                     borderRadius:
+  //                                                         BorderRadius.circular(
+  //                                                             10)),
+  //                                                 child: Padding(
+  //                                                   padding:
+  //                                                       const EdgeInsets.all(
+  //                                                           8.0),
+  //                                                   child: Row(
+  //                                                     crossAxisAlignment:
+  //                                                         CrossAxisAlignment
+  //                                                             .start,
+  //                                                     children: [
+  //                                                       Column(
+  //                                                         crossAxisAlignment:
+  //                                                             CrossAxisAlignment
+  //                                                                 .start,
+  //                                                         children: [
+  //                                                           Text(
+  //                                                             getLatestCommentsController
+  //                                                                     .commnetsModel
+  //                                                                     .data![
+  //                                                                         index]
+  //                                                                     .user!
+  //                                                                     .username ??
+  //                                                                 "",
+  //                                                             style: AppTextStyles
+  //                                                                 .appbar
+  //                                                                 .copyWith(
+  //                                                                     color: Colors
+  //                                                                         .black,
+  //                                                                     fontWeight:
+  //                                                                         FontWeight
+  //                                                                             .bold),
+  //                                                           ),
+  //                                                           SizedBox(
+  //                                                             width: 70.0.w,
+  //                                                             child: Text(
+  //                                                               getLatestCommentsController
+  //                                                                       .commnetsModel
+  //                                                                       .data![
+  //                                                                           index]
+  //                                                                       .comment ??
+  //                                                                   "",
+  //                                                               maxLines: 4,
+  //                                                               style:
+  //                                                                   AppTextStyles
+  //                                                                       .appbar
+  //                                                                       .copyWith(
+  //                                                                 color: Colors
+  //                                                                     .black,
+  //                                                               ),
+  //                                                             ),
+  //                                                           )
+  //                                                         ],
+  //                                                       ),
+  //                                                     ],
+  //                                                   ),
+  //                                                 ),
+  //                                               ),
+  //                                             )
+  //                                           ],
+  //                                         ),
+  //                                       ),
+  //                                       const Divider()
+  //                                     ],
+  //                                   );
+  //                                 }),
+  //               )),
+  //         );
+  //       });
+  // }
 
-  toastshow(bool istoastsend) {
-    istoastsend
-        ? Fluttertoast.showToast(
-            textColor: Colors.red.shade300,
-            msg: 'Your property is not add into favourite cart')
-        : Fluttertoast.showToast(
-            textColor: Colors.green.shade300,
-            msg: 'Your property add into favourite cart');
-  }
+  // toastshow(bool istoastsend) {
+  //   istoastsend
+  //       ? Fluttertoast.showToast(
+  //           textColor: Colors.red.shade300,
+  //           msg: 'Your property is not add into favourite cart')
+  //       : Fluttertoast.showToast(
+  //           textColor: Colors.green.shade300,
+  //           msg: 'Your property add into favourite cart');
+  // }
 }
