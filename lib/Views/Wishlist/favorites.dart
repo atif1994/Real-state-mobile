@@ -1,16 +1,12 @@
+// ignore_for_file: must_be_immutable, avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Views/Wishlist/wishlist_properties.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../custom_widgets/custom_button.dart';
-import '../../data/Controllers/NewsFeed_Controller/newsfeed_controller.dart';
 import '../../data/Controllers/wishlist_controller/add_wishlist_controller.dart';
 import '../../utils/constants/image_resources.dart';
-import '../../utils/styles/custom_decorations.dart';
 import '../Property_by_id/property_by_id.dart';
 
 class WishlistPage extends StatelessWidget {
@@ -184,19 +180,20 @@ class WishlistPage extends StatelessWidget {
                                                         child: GestureDetector(
                                                           child: Container(
                                                             decoration: BoxDecoration(
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        255,
-                                                                        27,
-                                                                        17,
-                                                                        17),
+                                                                color: const Color
+                                                                        .fromARGB(
+                                                                    255,
+                                                                    27,
+                                                                    17,
+                                                                    17),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
                                                                             6)),
-                                                            child: Padding(
+                                                            child:
+                                                                const Padding(
                                                               padding:
-                                                                  const EdgeInsets
+                                                                  EdgeInsets
                                                                       .all(5.0),
                                                               child: Icon(
                                                                 Icons.favorite,
@@ -225,7 +222,7 @@ class WishlistPage extends StatelessWidget {
                                                                     .id);
                                                           },
                                                         ))
-                                                    : SizedBox())
+                                                    : const SizedBox())
                                               ]),
                                               SizedBox(
                                                 width: 2.0.h,
@@ -528,21 +525,22 @@ class WishlistPage extends StatelessWidget {
                                                               GestureDetector(
                                                             child: Container(
                                                               decoration: BoxDecoration(
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          27,
-                                                                          17,
-                                                                          17),
+                                                                  color: const Color
+                                                                          .fromARGB(
+                                                                      255,
+                                                                      27,
+                                                                      17,
+                                                                      17),
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
                                                                               6)),
-                                                              child: Padding(
+                                                              child:
+                                                                  const Padding(
                                                                 padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        5.0),
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            5.0),
                                                                 child: Icon(
                                                                   Icons
                                                                       .favorite,
@@ -570,7 +568,7 @@ class WishlistPage extends StatelessWidget {
                                                                       .id);
                                                             },
                                                           ))
-                                                      : SizedBox())
+                                                      : const SizedBox())
                                                 ]),
                                                 SizedBox(
                                                   width: 2.0.h,

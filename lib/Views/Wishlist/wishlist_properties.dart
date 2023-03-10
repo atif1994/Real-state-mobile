@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+// ignore_for_file: must_be_immutable
 
-import '../../utils/constants/appcolors.dart';
+import 'package:flutter/material.dart';
 
 class WishlistProperties extends StatelessWidget {
   WishlistProperties({super.key});

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_is_empty, prefer_const_constructors, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_is_empty, prefer_const_constructors, prefer_const_constructors_in_immutables, avoid_print
 
 import 'dart:convert';
 
@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Views/Home/home.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/data/Controllers/agent_controller/agent_controller.dart';
 import 'package:prologic_29/data/Controllers/user_profile_section_controller/profile_propertise_controller/profile_all_propertise_controller.dart';
@@ -55,6 +54,7 @@ class _PropertiseSectionState extends State<PropertiseSection> {
   }
 
   @override
+  // ignore: override_on_non_overriding_member
   final bool _value = false;
 
   @override

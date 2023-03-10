@@ -463,8 +463,6 @@ class _HomeState extends State<Home> {
                                             onTap: () {
                                               setState(() {
                                                 _browsPropertyIndex1 = 0;
-                                                // dashboardController.type =
-                                                //     'popular';
                                               });
                                             },
                                             child: Container(

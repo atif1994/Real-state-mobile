@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
@@ -104,7 +106,7 @@ class Blog extends StatelessWidget {
                 // ),
                 Obx(
                   () => newspostController.loadingnewspost.value
-                      ? Center(
+                      ? const Center(
                           child: CircularProgressIndicator(
                           color: AppColors.appthem,
                         ))
@@ -115,7 +117,7 @@ class Blog extends StatelessWidget {
                                     onPressed: () {
                                       newspostController.getnewspost();
                                     },
-                                    icon: Icon(Icons.refresh)),
+                                    icon: const Icon(Icons.refresh)),
                                 SizedBox(
                                   height: 2.0.h,
                                 ),

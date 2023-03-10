@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:get/state_manager.dart';
 import 'package:prologic_29/data/Models/Chat_Model/chat_model.dart';
 import 'package:prologic_29/data/Models/Chat_Model/conversation_model.dart';

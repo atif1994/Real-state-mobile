@@ -23,13 +23,6 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-// void listenNotification() =>
-//     LocalNotificationsApi.onNotifications.stream.listen(onClickedNotification);
-
-// void onClickedNotification(String? payload) => Get.to(() => AllNotifications(
-//       payload: payload,
-//     ));
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
