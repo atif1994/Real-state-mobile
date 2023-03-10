@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: must_be_immutable, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
@@ -9,17 +9,20 @@ class CustomButton extends StatelessWidget {
   final String? text;
   final Function? onPressed;
   final bool isloading;
-  
-  const CustomButton({
-    this.text,
-    this.onPressed,
-    this.isloading = false,
-  });
+  double? height;
+  double? width;
+  CustomButton(
+      {super.key,
+      this.text,
+      this.onPressed,
+      this.isloading = false,
+      this.height,
+      this.width});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 100.0.w,
-      height: 5.2.h,
+      width: width ?? 100.0.w,
+      height: height ?? 5.2.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.appthem,
@@ -41,31 +44,3 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
-
-// ignore_for_file: use_key_in_widget_constructors
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:prologic_29/utils/constants/appcolors.dart';
-
-// class CustomButton extends StatelessWidget {
-//   final String? text;
-//   final Function? onPressed;
-
-//   const CustomButton({this.text, this.onPressed});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ElevatedButton(
-//       style: ElevatedButton.styleFrom(
-//           backgroundColor: AppColors.appthem,
-//           shape:
-//               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-//       child: Text(text ?? ""),
-//       onPressed: () {
-//         onPressed;
-//       },
-//     );
-//   }
-// }

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +8,6 @@ import 'package:prologic_29/Views/Auth/sign_up.dart';
 import 'package:prologic_29/data/Controllers/forget_pass_controller.dart';
 import 'package:prologic_29/data/Controllers/sign_in_controller.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
-import 'package:email_validator/email_validator.dart';
 import '../../data/Services/constants.dart';
 
 class SignIn extends GetView<SignInController> {
@@ -90,9 +91,10 @@ class SignIn extends GetView<SignInController> {
                                                   },
                                                   child: controller
                                                           .isHidden.value
-                                                      ? Icon(
+                                                      ? const Icon(
                                                           Icons.visibility_off)
-                                                      : Icon(Icons.visibility),
+                                                      : const Icon(
+                                                          Icons.visibility),
                                                 ),
                                                 hintText: 'password'),
                                             controller:

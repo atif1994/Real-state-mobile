@@ -9,6 +9,8 @@
 //   }
 // }
 
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/data/Controllers/property_controllers/my_property_controller.dart';
@@ -57,9 +59,6 @@ class _AllPropertyState extends State<AllProperty> {
           SizedBox(
             height: 2.0.h,
           ),
-
-          // ListView.builder(itemBuilder: itemBuilder)
-
           Obx(() => myPropertiseController.loadingMyPropertise.value
               ? const Center(
                   child: CircularProgressIndicator(
@@ -99,10 +98,6 @@ class _AllPropertyState extends State<AllProperty> {
                                         "${AppUrls.baseUrl2}${myPropertiseController.myPropertiseResponse.data![index].images![index]}",
                                         fit: BoxFit.cover,
                                       ),
-                                      //   Image.asset(
-                                      // AppImageResources.property,
-
-                                      // ),
                                     ),
                                   ),
                                   SizedBox(
@@ -199,14 +194,10 @@ class _AllPropertyState extends State<AllProperty> {
                                       ),
                                     ),
                                   ),
-                                  // SizedBox(
-                                  //   height: 0.0.h,
-                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 10.0),
                                     child: Container(
                                       child: Row(
-                                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
                                           Column(
                                             children: [
@@ -231,24 +222,6 @@ class _AllPropertyState extends State<AllProperty> {
                                           SizedBox(
                                             width: 24.4.w,
                                           ),
-                                          // Container(
-                                          //   height: 4.0.h,
-                                          //   width: 19.0.w,
-                                          //   decoration: BoxDecoration(
-                                          //       color: AppColors.appthem,
-                                          //       borderRadius:
-                                          //           BorderRadius.circular(300)),
-                                          //   child: Center(
-                                          //       child: Text(
-                                          //     " View ",
-                                          //     style: AppTextStyles.labelSmall
-                                          //         .copyWith(
-                                          //             color: AppColors.colorWhite,
-                                          //             fontSize: 19,
-                                          //             fontWeight:
-                                          //                 FontWeight.w500),
-                                          //   )),
-                                          // ),
                                         ],
                                       ),
                                     ),
@@ -282,7 +255,6 @@ class _AllPropertyState extends State<AllProperty> {
                                           ),
                                         ),
                                       ]),
-
                                       Row(children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
@@ -404,7 +376,6 @@ class _AllPropertyState extends State<AllProperty> {
                                           ),
                                         ),
                                       ]),
-
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             left: 8.9, top: 4.0),
@@ -439,26 +410,6 @@ class _AllPropertyState extends State<AllProperty> {
                                           ],
                                         ),
                                       ),
-
-                                      // Row(
-                                      //   children: [
-                                      //     Padding(
-                                      //       padding: const EdgeInsets.all(4.0),
-                                      //       child: Text(
-                                      //         myPropertiseController
-                                      //             .myPropertiseResponse
-                                      //             .data![index]!
-                                      //             .city!
-                                      //             .createdAt
-                                      //             .toString(),
-                                      //         style: AppTextStyles.heading1
-                                      //             .copyWith(
-                                      //           color: AppColors.colorblack,
-                                      //         ),
-                                      //       ),
-                                      //     ),
-                                      //   ],
-                                      // ),
                                     ],
                                   )
                                 ],

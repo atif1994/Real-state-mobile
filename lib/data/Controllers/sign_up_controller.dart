@@ -1,6 +1,7 @@
+// ignore_for_file: avoid_print, non_constant_identifier_names, unused_field
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/Views/Home/home.dart';
 import 'package:prologic_29/data/Services/signup_services/signup_services.dart';
 import '../Models/signup_model/signup_model.dart';
@@ -47,61 +48,16 @@ class SignUpController extends GetxController {
     if (res is SignupModel) {
       isLoading(false);
       // Fluttertoast.showToast(msg: "");
-      Get.snackbar('Succfully Create Account', "");
-      Get.to(() => Home());
+      Get.snackbar(
+        'Succfully Create Account',
+        "",
+      );
+      Get.to(() => const Home());
       return res;
     } else {
       isLoading(false);
       errSignup.value = res;
       return res;
     }
-
-//https://test.ditllcae.com/backend/public/api/
-    // dio.Response response = await dio.Dio().post(
-    //   'https://realestate.tecrux.net/api/v1/register',
-    //   data: {
-    //     'email': emailController.text.trim(),
-    //     'password': passwordController.text.trim(),
-    //     'username': UserController.text.trim(),
-    //     'first_name': firstNameController.text.trim(),
-    //     'last_name': lastNameController.text.trim(),
-    //     'country': CountryController.text.trim(),
-    //     'state': SateController.text.trim(),
-    //     'city': CityController.text.trim(),
-    //     'phone': phoneNumberController.text.trim(),
-    //     'role_id': 4,
-    //   },
-    // );
-
-    // final data = response.data;
-
-    // if (data['error'] == false) {
-    //   Fluttertoast.showToast(msg: 'Authorised');
-    //   isLoading(false);
-    //   final user = data['data'];
-    //   MySharedPreferences.storeUserData(
-    //       userModel: UserModel(
-    //     userId: user['id'],
-    //     // phone: user['phone'],
-    //     userName: user['username'],
-    //     firstname: user['first_name'],
-    //     lastname: user['last_name'],
-    //     email: user['email'],
-    //     // city: user['city'],
-    //     // country: user['country'],
-    //     // state: user['state'],
-    //   ));
-    //   Get.find<AuthController>().isUserSignedIn();
-
-    //   Get.snackbar('Signed In', 'User is signed in');
-    // }
-
-    // // print(data['data']);
-
-    // else {
-    //   Fluttertoast.showToast(msg: ':UnAuthorised');
-    //   isLoading(false);
-    //   print("error");
-    // }
   }
 }

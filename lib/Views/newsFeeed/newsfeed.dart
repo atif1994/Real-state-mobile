@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, avoid_print, unused_element, unused_local_variable, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -265,87 +267,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                                                       msg:
                                                                           'Added');
                                                         },
-                                                      ))
-                                            // newsfeedController
-                                            //             .newsfeedmodel
-                                            //             .data![index]
-                                            //             .isWishlist ==
-                                            //         1
-                                            // ? GestureDetector(
-                                            //     child: Container(
-                                            //       decoration: BoxDecoration(
-                                            //           color:
-                                            //               Color.fromARGB(
-                                            //                   255,
-                                            //                   27,
-                                            //                   17,
-                                            //                   17),
-                                            //           borderRadius:
-                                            //               BorderRadius
-                                            //                   .circular(
-                                            //                       6)),
-                                            //       child: Padding(
-                                            //         padding:
-                                            //             const EdgeInsets
-                                            //                 .all(5.0),
-                                            //         child: Icon(
-                                            //           Icons.favorite,
-                                            //           color: Colors.amber,
-                                            //         ),
-                                            //       ),
-                                            //     ),
-                                            //     onTap: () async {
-                                            //       addwishistcontroller
-                                            //           .delwishlist(
-                                            //               newsfeedController
-                                            //                   .newsfeedmodel
-                                            //                   .data![
-                                            //                       index]
-                                            //                   .id);
-                                            //       await Future.delayed(
-                                            //           Duration(
-                                            //               milliseconds:
-                                            //                   600));
-                                            //       newsfeedController
-                                            //           .getnewsfeed();
-                                            //     },
-                                            //   )
-                                            // : GestureDetector(
-                                            //     child: Container(
-                                            //       decoration: BoxDecoration(
-                                            //           color:
-                                            //               Color.fromARGB(
-                                            //                   255,
-                                            //                   126,
-                                            //                   124,
-                                            //                   124),
-                                            //           borderRadius:
-                                            //               BorderRadius
-                                            //                   .circular(
-                                            //                       6)),
-                                            //       child: Padding(
-                                            //         padding:
-                                            //             const EdgeInsets
-                                            //                 .all(5.0),
-                                            //         child: Icon(
-                                            //           Icons
-                                            //               .favorite_outline,
-                                            //           color: Colors.amber,
-                                            //         ),
-                                            //       ),
-                                            //     ),
-                                            //     onTap: () async {
-                                            //       addwishistcontroller
-                                            //           .postwishlist();
-                                            //       await Future.delayed(
-                                            //           Duration(
-                                            //               milliseconds:
-                                            //                   500));
-                                            //       newsfeedController
-                                            //           .getnewsfeed();
-                                            //     },
-                                            //   )
-                                            ),
+                                                      ))),
                                       ]),
                                       SizedBox(
                                         width: 2.0.h,
@@ -588,18 +510,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                           .data![index]
                                                           .id);
 
-                                                  // addwishistcontroller
-                                                  //             .delwishlistmodel
-                                                  //             .error ==
-                                                  //         true
-                                                  //     ? Fluttertoast
-                                                  //         .showToast(
-                                                  //             msg:
-                                                  //                 'not Deleted')
-                                                  //     : Fluttertoast
-                                                  //         .showToast(
-                                                  //             msg:
-                                                  //                 'Deleted');
                                                   likeController.getPostLike(
                                                       newsfeedController
                                                           .newsfeedmodel
@@ -655,18 +565,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                           .data![index]
                                                           .id);
 
-                                                  // addwishistcontroller
-                                                  //             .delwishlistmodel
-                                                  //             .error ==
-                                                  //         true
-                                                  //     ? Fluttertoast
-                                                  //         .showToast(
-                                                  //             msg:
-                                                  //                 'not Deleted')
-                                                  //     : Fluttertoast
-                                                  //         .showToast(
-                                                  //             msg:
-                                                  //                 'Deleted');
                                                   likeController.getPostLike(
                                                       newsfeedController
                                                           .newsfeedmodel
@@ -680,17 +578,10 @@ class _NewsFeedState extends State<NewsFeed> {
                                                   setState(() {});
                                                 },
                                               ),
-
-                                        // const Icon(Icons.favorite_border_outlined),
-
                                         SizedBox(
                                           width: 3.0.w,
                                         ),
                                         const Icon(Icons.comment_outlined),
-                                        // Image.asset(
-                                        //   AppImageResources.bed,
-                                        //   height: 4.0.h,
-                                        // ),
                                         InkWell(
                                           onTap: () async {
                                             getLatestCommentsController
@@ -722,6 +613,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                                 .slugable!
                                                 .key!);
                                           },
+                                          // ignore: avoid_unnecessary_containers
                                           child: Container(
                                             child: Row(
                                               children: [
@@ -751,7 +643,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                         child: CustomTextField(
                                           editingController:
                                               _controllers[index],
-                                          hintText: 'Write Comment....',
+                                          hintText: ' ',
                                         ),
                                       ),
                                       SizedBox(

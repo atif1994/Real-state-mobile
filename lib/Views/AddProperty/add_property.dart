@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, non_constant_identifier_names, avoid_unnecessary_containers
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:io' as Io;
@@ -357,46 +359,6 @@ class _PropertyState extends State<Property>
                                 ))
                     ],
                   ),
-
-                  // Row(
-                  //   children: [
-                  //     const Icon(Icons.location_on_outlined),
-                  //     Expanded(
-                  //         child: Padding(
-                  //       padding: const EdgeInsets.symmetric(
-                  //           horizontal: horizontalPadding),
-                  //       child: Column(
-                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         children: [
-                  //           const Text('City',
-                  //               textScaleFactor: 1.25,
-                  //               style: TextStyle(fontWeight: FontWeight.bold)),
-                  //           //   Text('Islamabad',
-                  //           //       style: TextStyle(color: AppColors.appthem)),
-                  //           // Padding(
-                  //           //   padding: const EdgeInsets.all(10),
-                  //           //   child: DropdownButton(
-                  //           //       isExpanded: true,
-                  //           //       value: dropdownvalue,
-                  //           //       items: items.map((String items) {
-                  //           //         return DropdownMenuItem(
-                  //           //           value: items,
-                  //           //           child: Text(items.toString()),
-                  //           //         );
-                  //           //       }).toList(),
-                  //           //       onChanged: (String? newValue) {
-                  //           //         setState(() {
-                  //           //           selectedValueCity = newValue!;
-                  //           //         });
-                  //           //       }),
-                  //           // ),
-
-                  //         ],
-                  //       ),
-                  //     )),
-                  //     const Icon(Icons.arrow_forward_ios),
-                  //   ],
-                  // ),
                   myDivider(),
                   SizedBox(
                     height: 120,
@@ -714,8 +676,7 @@ class _PropertyState extends State<Property>
                               child: Text(items),
                             );
                           }).toList(),
-                          // After selecting the desired option,it will
-                          // change button value to selected value
+
                           onChanged: (String? newValue) {
                             setState(() {
                               dropdownvalue = newValue!;
@@ -825,36 +786,6 @@ class _PropertyState extends State<Property>
                           },
                         ),
                       ),
-                      // Wrap(
-                      //   alignment: WrapAlignment.center,
-                      //   children: bathroomList
-                      //       .map((e) => Padding(
-                      //             padding:
-                      //                 const EdgeInsets.symmetric(horizontal: 5),
-                      //             child: GestureDetector(
-                      //               onTap: () {
-                      //                 setState(() {
-                      //                   selectedBathroom = e;
-                      //                 });
-                      //               },
-                      //               child: Chip(
-                      //                 backgroundColor: selectedFloor == e
-                      //                     ? AppColors.appthem
-                      //                     : Colors.grey[200],
-                      //                 label: Padding(
-                      //                   padding: const EdgeInsets.symmetric(
-                      //                       horizontal: 5),
-                      //                   child: Text(e,
-                      //                       style: TextStyle(
-                      //                           color: selectedFloor == e
-                      //                               ? Colors.white
-                      //                               : Colors.black)),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ))
-                      //       .toList(),
-                      // ),
                     ],
                   ),
                   myDivider(),
@@ -872,36 +803,6 @@ class _PropertyState extends State<Property>
                           )),
                         ],
                       ),
-                      // Wrap(
-                      //   alignment: WrapAlignment.center,
-                      //   children: floorList
-                      //       .map((e) => Padding(
-                      //             padding:
-                      //                 const EdgeInsets.symmetric(horizontal: 5),
-                      //             child: GestureDetector(
-                      //               onTap: () {
-                      //                 setState(() {
-                      //                   selectedFloor = e;
-                      //                 });
-                      //               },
-                      //               child: Chip(
-                      //                 backgroundColor: selectedFloor == e
-                      //                     ? AppColors.appthem
-                      //                     : Colors.grey[200],
-                      //                 label: Padding(
-                      //                   padding: const EdgeInsets.symmetric(
-                      //                       horizontal: 5),
-                      //                   child: Text(e,
-                      //                       style: TextStyle(
-                      //                           color: selectedFloor == e
-                      //                               ? Colors.white
-                      //                               : Colors.black)),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ))
-                      //       .toList(),
-                      // ),
                       SizedBox(
                         height: 12.h,
                         child: ListView.builder(
@@ -951,7 +852,6 @@ class _PropertyState extends State<Property>
                 ],
               ),
               myDivider(),
-
               SizedBox(
                 height: 15.h,
                 width: 120.w,
@@ -1055,8 +955,6 @@ class _PropertyState extends State<Property>
                         setState(() {
                           facilitiesList.add(dropdownvalue22);
                           kmList.add(km);
-                          // facilitiesList.clear();
-                          // kmList.clear();
                         });
                       }
                     },
@@ -1065,35 +963,6 @@ class _PropertyState extends State<Property>
               SizedBox(
                 height: 2.0.h,
               ),
-              // Row(
-              //   children: [
-              //     const Text('Type',
-              //         style: TextStyle(fontWeight: FontWeight.bold)),
-              //     SizedBox(
-              //       height: 3.0.h,
-              //     ),
-              //   ],
-              // ),
-
-              //myDivider(),
-              // Column(
-              //   children: [
-              //     Row(
-              //       children: const [
-              //         Expanded(
-              //           child: Padding(
-              //             padding: EdgeInsets.symmetric(
-              //                 horizontal: horizontalPadding),
-              //             child: Text('Type',
-              //                 style: TextStyle(fontWeight: FontWeight.bold)),
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //     const MyTextField2(),
-              //   ],
-              // ),
-
               SizedBox(
                 height: 1.0.h,
               ),
@@ -1266,57 +1135,8 @@ class _PropertyState extends State<Property>
                 ],
               ),
               myDivider(),
-              // Row(
-              //   children: const [
-              //     Text('Category',
-              //         style: TextStyle(fontWeight: FontWeight.bold)),
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 1.5.h,
-              // ),
               Column(
                 children: [
-                  // DecoratedBox(
-                  //   // decoration: CustomDecorations.mainCon,
-                  //   decoration: BoxDecoration(
-
-                  //       // borderRadius: BorderRadius.circular(5),
-                  //       borderRadius:
-                  //           const BorderRadius.all(Radius.circular(10)),
-                  //       color: const Color.fromARGB(255, 241, 239, 239),
-                  //       border: Border.all(
-                  //           color: const Color.fromARGB(255, 168, 166, 166),
-                  //           width: 1)),
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(8.0),
-                  //     child: DropdownButton(
-                  //       isExpanded: true,
-                  //       // Initial Value
-                  //       value: dropdownvalue3,
-
-                  //       // Down Arrow Icon
-                  //       icon: const Icon(Icons.keyboard_arrow_down),
-
-                  //       // Array list of items
-                  //       items: newitems.map((String items) {
-                  //         return DropdownMenuItem(
-                  //           value: items,
-                  //           child: Text(items),
-                  //         );
-                  //       }).toList(),
-                  //       // After selecting the desired option,it will
-                  //       // change button value to selected value
-                  //       onChanged: (String? newValue) {
-                  //         setState(() {
-                  //           dropdownvalue3 = newValue!;
-                  //         });
-                  //       },
-                  //     ),
-                  //   ),
-                  // ),
-
-                  //  myDivider(),
                   Padding(
                       padding: EdgeInsets.only(top: 1.h, bottom: 3.h),
                       child: Obx(() => addPropertyController
@@ -1363,13 +1183,7 @@ class _PropertyState extends State<Property>
                                         .errorLoadingAddProperty.value)
                                   ]),
                                 )
-                              //  showDialogFunc(
-                              //     context,
-                              //     addPropertyController
-                              //         .errorLoadingAddProperty.value)
                               : CustomButton(
-                                  // isloading:
-                                  //     addPropertyController.loadingAddProperty.value,
                                   onPressed: () {
                                     addPropertyController.getAddProperty(
                                         titleController.text,
@@ -1392,51 +1206,6 @@ class _PropertyState extends State<Property>
                                         addFeaturesList,
                                         facilities,
                                         base64List);
-
-                                    // setState(() {
-                                    //   // AddPropertyServices.addPropertyAPI(
-                                    //   //     name: titleController.text,
-                                    //   //     disp: dispController.text,
-                                    //   //     content: contentController.text,
-                                    //   //     cityId: addPropertyController
-                                    //   //         .selectedValueCityId.value
-                                    //   //         .toString(),
-                                    //   //     //type sell or rent
-                                    //   //     typeId: iWantTo,
-                                    //   //     categoryId: selectedPropertyCategory,
-                                    //   //     location: locatController.text,
-                                    //   //     block: sectorController.text,
-                                    //   //     plotNo: plotNoController.text,
-                                    //   //     streetNo: streetNoController.text,
-                                    //   //     price: priceController.text,
-                                    //   //     square: squareController.text,
-                                    //   //     bedroomNo: selectedBedroom,
-                                    //   //     bathNo: selectedBathroom,
-                                    //   //     numberFloor: selectedFloor.toString(),
-                                    //   //     feature: addFeaturesList,
-                                    //   //     imageList: base64List
-
-                                    //   //     // titleController.text,
-                                    //   //     // dispController.text,
-                                    //   //     // contentController.text,
-                                    //   //     // sectorController.text,
-                                    //   //     // streetNoController.text,
-                                    //   //     // plotNoController.text,
-                                    //   //     // locatController.text,
-                                    //   //     // cityController.text,
-                                    //   //     // stateController.text,
-                                    //   //     // priceController.text,
-                                    //   //     // currController.text,
-                                    //   //     // squareController.text,
-                                    //   //     // floorNoController.text,
-                                    //   //     // selectedBathroom,
-                                    //   //     // selectedBedroom,
-                                    //   //     // categoryController.text,
-                                    //   //     // typeController.text,
-                                    //   //     // features,
-                                    //   //     // facilities
-                                    //   //     );
-                                    // });
                                   },
                                   text: 'Add Property'))),
                 ],
@@ -1573,22 +1342,6 @@ class _PropertyState extends State<Property>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                // GestureDetector(
-                //   onTap: (() {
-                //     cameraimg();
-                //   }),
-                //   child: Column(
-                //     children: [
-                //       Mycontainer(Icons.camera_alt),
-                //       Text(
-                //         'Camera',
-                //         style: AppTextStyles.labelSmall.copyWith(
-                //             fontSize: 13.sp, fontWeight: FontWeight.bold),
-                //       )
-                //     ],
-                //   ),
-                // ),
-
                 GestureDetector(
                     onTap: () {
                       selectImages();
