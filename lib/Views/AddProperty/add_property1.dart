@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
@@ -579,8 +581,7 @@ class _PropertyState extends State<Property>
                               child: Text(items),
                             );
                           }).toList(),
-                          // After selecting the desired option,it will
-                          // change button value to selected value
+
                           onChanged: (String? newValue) {
                             setState(() {
                               dropdownvalue = newValue!;
@@ -787,15 +788,6 @@ class _PropertyState extends State<Property>
                   ),
                 ],
               ),
-              // Center(
-              //   child: Padding(
-              //     padding: const EdgeInsets.only(top: 7),
-              //     child: CustomButton(
-              //       onPressed: () {},
-              //       text: "Browse More Properties",
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: MyButton(onTap: () {}, text: 'Add New'),
@@ -981,8 +973,7 @@ class _PropertyState extends State<Property>
                             child: Text(items),
                           );
                         }).toList(),
-                        // After selecting the desired option,it will
-                        // change button value to selected value
+
                         onChanged: (String? newValue) {
                           setState(() {
                             dropdownvalue3 = newValue!;

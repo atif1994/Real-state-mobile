@@ -22,19 +22,19 @@ class ChangePasswordController extends GetxController {
     uid = prefs.getInt('userid');
   }
 
-  void changepassword(String password) async {
+  void changepassword(String oldPass, String password) async {
     loadingchangepassword = true.obs;
     errorloadingchangepassword = ''.obs;
 
-    var res =
-        await ChangePasswordServices.profilechangePassword(uid!, password);
-
+    var res = await ChangePasswordServices.profilechangePassword(
+        uid!, password, oldPass);
+    loadingchangepassword.value = false;
     if (res is ChangePasswordResponse) {
       print(uid);
       profilechangepassword = res;
       Fluttertoast.showToast(msg: profilechangepassword.message.toString());
     } else {
-      errorloadingchangepassword.value = res;
+      errorloadingchangepassword.value = res.toString();
       loadingchangepassword.value = false;
     }
   }

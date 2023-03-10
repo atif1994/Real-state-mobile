@@ -6,8 +6,9 @@ import '../../../../utils/constants/app_urls.dart';
 import '../../../Models/user_profile_section_model/security_related_models/change_password_model.dart';
 
 class ChangePasswordServices {
-  static Future<dynamic> profilechangePassword(int uid, String password) async {
-    Map data = {"password": password};
+  static Future<dynamic> profilechangePassword(
+      int uid, String password, String oldPass) async {
+    Map data = {"password": password, "old_password": oldPass};
     var url = "${AppUrls.baseUrl}${AppUrls.changePassword}$uid";
     var res = await BaseClientClass.post(url, data);
 

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'package:prologic_29/Views/area_guide/properties_areaguide.dart';
 // import 'package:prologic_29/Views/Drawer/about_us.dart';
@@ -423,39 +425,3 @@ class AreaGuide extends StatelessWidget {
     );
   }
 }
-// #242423
-
-// class searchBox extends StatelessWidget {
-//   const searchBox({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: const EdgeInsets.symmetric(
-//         horizontal: 25,
-//         vertical: 3,
-//       ),
-
-//       decoration: BoxDecoration(
-//           color: AppColors.appthem, borderRadius: BorderRadius.circular(25)),
-
-//       // ignore: prefer_const_constructors
-//       child: TextField(
-//         decoration: const InputDecoration(
-//           contentPadding: EdgeInsets.only(top: 0),
-//           suffix: Icon(
-//             Icons.search,
-//             color: AppColors.colorWhite,
-//             size: 21,
-//           ),
-//           prefixIconConstraints: BoxConstraints(maxHeight: 20, minWidth: 25),
-//           border: InputBorder.none,
-//           hintText: '   Search',
-//           hintStyle: TextStyle(color: AppColors.colorWhite),
-//         ),
-//       ),
-//     );
-//   }
-// }

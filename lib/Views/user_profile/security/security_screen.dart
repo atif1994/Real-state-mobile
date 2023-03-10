@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, prefer_const_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -11,6 +13,7 @@ import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
 class SecurityScreen extends StatelessWidget {
+  var oldPasswardController = TextEditingController();
   var newPasswardController = TextEditingController();
   var confirmPasswardController = TextEditingController();
   var changepasswordController = Get.put(ChangePasswordController());
@@ -31,86 +34,112 @@ class SecurityScreen extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(top: 2.0.h, left: 3.0.w, right: 3.0.w),
-            height: 38.0.h,
+            // height: 38.0.h,
             width: 100.0.w,
             decoration: CustomDecorations.mainCon,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Security",
-                    style: AppTextStyles.heading1.copyWith(
-                        color: AppColors.appthem,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w800),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 2.0.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Security",
+                      style: AppTextStyles.heading1.copyWith(
+                          color: AppColors.appthem,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w800),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: 4.0.w, right: 4.0.w, top: 1.0.h),
-                  child: Text(
-                    "New Passward",
-                    style: AppTextStyles.heading1.copyWith(
-                        color: AppColors.appthem,
-                        fontSize: 14.sp,
-                        fontFamily: AppFonts.nexaBook),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: 4.0.w, right: 4.0.w, top: 1.0.h),
-                  child:
-                      CustomTextField(editingController: newPasswardController),
-                ),
 
-                ////////////////////////////////////////////////////
-
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: 4.0.w, right: 4.0.w, top: 1.0.h),
-                  child: Text(
-                    "Confirm Passward",
-                    style: AppTextStyles.heading1.copyWith(
-                        color: AppColors.appthem,
-                        fontSize: 14.sp,
-                        fontFamily: AppFonts.nexaBook),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: 4.0.w, right: 4.0.w, top: 1.0.h),
-                  child: CustomTextField(
-                    editingController: confirmPasswardController,
-                  ),
-                ),
-
-                Padding(
+                  Padding(
                     padding:
-                        EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 2.0.h),
-                    child: Obx(
-                      () => changepasswordController.loadingchangepassword.value
-                          ? Center(
-                              child: CircularProgressIndicator(
-                              color: AppColors.appthem,
-                            ))
-                          : CustomButton(
-                              onPressed: () {
-                                if (newPasswardController.text ==
-                                    confirmPasswardController.text) {
-                                  changepasswordController.changepassword(
-                                      confirmPasswardController.text);
-                                } else {
-                                  Fluttertoast.showToast(
-                                      msg: 'Password is not same');
-                                  print('not correct');
-                                }
-                              },
-                              text: "Update Passward",
-                            ),
-                    ))
-              ],
+                        EdgeInsets.only(left: 4.0.w, right: 4.0.w, top: 1.0.h),
+                    child: Text(
+                      "Old Passward",
+                      style: AppTextStyles.heading1.copyWith(
+                          color: AppColors.appthem,
+                          fontSize: 14.sp,
+                          fontFamily: AppFonts.nexaBook),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 4.0.w, right: 4.0.w, top: 1.0.h),
+                    child: CustomTextField(
+                        editingController: oldPasswardController),
+                  ),
+                  //////////////////////////////////////////////////////////
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 4.0.w, right: 4.0.w, top: 1.0.h),
+                    child: Text(
+                      "New Passward",
+                      style: AppTextStyles.heading1.copyWith(
+                          color: AppColors.appthem,
+                          fontSize: 14.sp,
+                          fontFamily: AppFonts.nexaBook),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 4.0.w, right: 4.0.w, top: 1.0.h),
+                    child: CustomTextField(
+                        editingController: newPasswardController),
+                  ),
+
+                  ////////////////////////////////////////////////////
+
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 4.0.w, right: 4.0.w, top: 1.0.h),
+                    child: Text(
+                      "Confirm Passward",
+                      style: AppTextStyles.heading1.copyWith(
+                          color: AppColors.appthem,
+                          fontSize: 14.sp,
+                          fontFamily: AppFonts.nexaBook),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 4.0.w, right: 4.0.w, top: 1.0.h),
+                    child: CustomTextField(
+                      editingController: confirmPasswardController,
+                    ),
+                  ),
+
+                  Padding(
+                      padding: EdgeInsets.only(
+                          left: 3.0.w, right: 3.0.w, top: 2.0.h),
+                      child: Obx(
+                        () =>
+                            changepasswordController.loadingchangepassword.value
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                    color: AppColors.appthem,
+                                  ))
+                                : CustomButton(
+                                    onPressed: () {
+                                      if (newPasswardController.text ==
+                                          confirmPasswardController.text) {
+                                        changepasswordController.changepassword(
+                                            oldPasswardController.text,
+                                            confirmPasswardController.text);
+                                      } else {
+                                        Fluttertoast.showToast(
+                                            msg: 'Password is not same');
+                                        print('not correct');
+                                      }
+
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                    text: "Update Passward",
+                                  ),
+                      ))
+                ],
+              ),
             ),
           ),
         ],

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, must_be_immutable
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -56,7 +58,7 @@ class _AllNotificationsState extends State<AllNotifications> {
                           .errorLoadingnotification.value),
                     ],
                   )
-                : notificationsController.notificationModel.data!.length == 0
+                : notificationsController.notificationModel.data!.isEmpty
                     ? Center(
                         child: Text(
                         "No Notifications Found",

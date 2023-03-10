@@ -1,14 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../custom_widgets/custom_textfield.dart';
 import '../../data/Controllers/comments_controller/get_latest_commnets_controller.dart';
 import '../../data/Controllers/comments_controller/post_comments_controller.dart';
 import '../../data/Controllers/post_like_controller/post_like_controller.dart';
 import '../../data/Controllers/property_bycity_controller.dart';
-import '../../utils/constants/app_urls.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/app_textstyles.dart';
