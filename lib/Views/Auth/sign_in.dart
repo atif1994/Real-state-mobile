@@ -10,11 +10,25 @@ import 'package:prologic_29/data/Controllers/sign_in_controller.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import '../../data/Services/constants.dart';
 
-class SignIn extends GetView<SignInController> {
-  SignIn({Key? key}) : super(key: key);
+class SignIn extends StatefulWidget {
+  const SignIn({Key? key}) : super(key: key);
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
   final _formkey = GlobalKey<FormState>();
+
   final signController = Get.put(SignInController());
+
+  var controller = Get.put(SignInController());
+
   final forgetPassController = Get.put(ForgetPassController());
+
+  List<String> items = ['--Select Role--', 'Agent', 'Customer'];
+
+  String dropdownvalue = '--Select Role--';
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +138,23 @@ class SignIn extends GetView<SignInController> {
                                                           color: Colors.red),
                                                     ),
                                                   ))),
+                                          DropdownButton<String>(
+                                              isExpanded: true,
+                                              value: dropdownvalue,
+                                              onChanged: (String? val) {
+                                                setState(() {
+                                                  dropdownvalue =
+                                                      val.toString();
+                                                });
+                                              },
+                                              items: items.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                );
+                                              }).toList()),
                                           MyButton(
                                               onTap: () {
                                                 if (_formkey.currentState!

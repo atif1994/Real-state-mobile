@@ -3,8 +3,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/Views/AboutUs/about_us.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
+import 'package:prologic_29/Views/ContactUs/contact_us.dart';
+import 'package:prologic_29/Views/Home/home.dart';
 import 'package:prologic_29/Views/user_profile/chat/convesation_screen.dart';
+import 'package:prologic_29/Views/user_profile/properties%20feed/properties_feed.dart';
 import 'package:prologic_29/Views/user_profile/security/security_screen.dart';
 import 'package:prologic_29/Views/user_profile/setting/settings_screen.dart';
 import 'package:prologic_29/data/Controllers/logout_controller.dart';
@@ -14,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../../data/Controllers/user_profile_section_controller/image_update_controller.dart';
 import '../../utils/constants/appcolors.dart';
+import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/app_textstyles.dart';
 import 'propertise/propertise_section.dart';
 
@@ -206,156 +211,13 @@ class _ProfilePagesState extends State<ProfilePages> {
                                   top: 1.0.h, left: 2.0.w, right: 2.0.w),
                               height: 55.0.h,
                               width: 100.0.w,
-                              //  color: Colors.red,
-                              child: Column(children: [
-                                ////////////////////////////////////////////
+                              child: SingleChildScrollView(
+                                child: Column(children: [
+                                  ////////////////////////////////////////////
 
-                                InkWell(
-                                  onTap: () async {
-                                    Get.to(
-                                        () => SettingsScreen(
-                                              imgulrl: widget.loginBaseImage,
-                                            ),
-                                        duration:
-                                            const Duration(milliseconds: 600),
-                                        transition: Transition.rightToLeft);
-                                  },
-                                  child: Container(
-                                      margin: EdgeInsets.only(top: 2.0.h),
-                                      height: 6.0.h,
-                                      width: 100.0.w,
-                                      decoration: CustomDecorations.mainCon,
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            width: 3.0.w,
-                                          ),
-                                          const Icon(
-                                            Icons.settings,
-                                            color: AppColors.appthem,
-                                          ),
-                                          SizedBox(
-                                            width: 6.0.w,
-                                          ),
-                                          Text("Settings",
-                                              style: AppTextStyles.heading1
-                                                  .copyWith(
-                                                      fontSize: 12.sp,
-                                                      color:
-                                                          AppColors.appthem)),
-                                        ],
-                                      )),
-                                ),
-
-                                ////////////////////////////////////////////
-
-                                InkWell(
-                                  onTap: () {
-                                    Get.to(() => PropertiseSection(),
-                                        duration:
-                                            const Duration(milliseconds: 600),
-                                        transition: Transition.rightToLeft);
-                                  },
-                                  child: Container(
-                                      margin: EdgeInsets.only(top: 2.0.h),
-                                      height: 6.0.h,
-                                      width: 100.0.w,
-                                      decoration: CustomDecorations.mainCon,
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            width: 3.0.w,
-                                          ),
-                                          const Icon(
-                                            Icons.landslide,
-                                            color: AppColors.appthem,
-                                          ),
-                                          SizedBox(
-                                            width: 6.0.w,
-                                          ),
-                                          Text("Properties",
-                                              style: AppTextStyles.heading1
-                                                  .copyWith(
-                                                      fontSize: 12.sp,
-                                                      color:
-                                                          AppColors.appthem)),
-                                        ],
-                                      )),
-                                ),
-
-                                ////////////////////////////////////////////
-
-                                // Container(
-                                //     margin: EdgeInsets.only(top: 2.0.h),
-                                //     height: 6.0.h,
-                                //     width: 100.0.w,
-                                //     decoration: CustomDecorations.mainCon,
-                                //     child: Row(
-                                //       crossAxisAlignment: CrossAxisAlignment.center,
-                                //       children: [
-                                //         SizedBox(
-                                //           width: 3.0.w,
-                                //         ),
-                                //         const Icon(
-                                //           Icons.note_add,
-                                //           color: AppColors.appthem,
-                                //         ),
-                                //         SizedBox(
-                                //           width: 6.0.w,
-                                //         ),
-                                //         Text("Add Property",
-                                //             style: AppTextStyles.heading1.copyWith(
-                                //                 fontSize: 12.sp, color: AppColors.appthem)),
-                                //       ],
-                                //     )),
-
-                                ////////////////////////////////////////////
-
-                                InkWell(
-                                  onTap: () {
-                                    Get.to(() => SecurityScreen(),
-                                        duration:
-                                            const Duration(milliseconds: 600),
-                                        transition: Transition.rightToLeft);
-                                  },
-                                  child: Container(
-                                      margin: EdgeInsets.only(top: 2.0.h),
-                                      height: 6.0.h,
-                                      width: 100.0.w,
-                                      decoration: CustomDecorations.mainCon,
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            width: 3.0.w,
-                                          ),
-                                          const Icon(
-                                            Icons.lock,
-                                            color: AppColors.appthem,
-                                          ),
-                                          SizedBox(
-                                            width: 6.0.w,
-                                          ),
-                                          Text("Security",
-                                              style: AppTextStyles.heading1
-                                                  .copyWith(
-                                                      fontSize: 12.sp,
-                                                      color:
-                                                          AppColors.appthem)),
-                                        ],
-                                      )),
-                                ),
-
-                                ////////////////////////////////////////////
-
-                                InkWell(
+                                  InkWell(
                                     onTap: () {
-                                      Get.to(() => ConversationScreen(),
+                                      Get.to(() => const Home(),
                                           duration:
                                               const Duration(milliseconds: 600),
                                           transition: Transition.rightToLeft);
@@ -366,33 +228,37 @@ class _ProfilePagesState extends State<ProfilePages> {
                                         width: 100.0.w,
                                         decoration: CustomDecorations.mainCon,
                                         child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                width: 3.0.w,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 3.0.w,
+                                            ),
+                                            const Icon(
+                                              Icons.home,
+                                              color: AppColors.appthem,
+                                            ),
+                                            SizedBox(
+                                              width: 6.0.w,
+                                            ),
+                                            Text("Home",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        fontSize: 12.sp,
+                                                        color:
+                                                            AppColors.appthem)),
+                                          ],
+                                        )),
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      Get.to(
+                                          () => SettingsScreen(
+                                                imgulrl: widget.loginBaseImage,
                                               ),
-                                              const Icon(
-                                                Icons.chat,
-                                                color: AppColors.appthem,
-                                              ),
-                                              SizedBox(
-                                                width: 6.0.w,
-                                              ),
-                                              Text("Chat",
-                                                  style: AppTextStyles.heading1
-                                                      .copyWith(
-                                                          fontSize: 12.sp,
-                                                          color: AppColors
-                                                              .appthem)),
-                                            ]))),
-                                ////////////////////////////////////////////
-
-                                InkWell(
-                                    onTap: () {
-                                      logoutalert(context);
-                                      // logoutController.logout();
-                                      // Get.off(SignIn());
+                                          duration:
+                                              const Duration(milliseconds: 600),
+                                          transition: Transition.rightToLeft);
                                     },
                                     child: Container(
                                         margin: EdgeInsets.only(top: 2.0.h),
@@ -400,27 +266,314 @@ class _ProfilePagesState extends State<ProfilePages> {
                                         width: 100.0.w,
                                         decoration: CustomDecorations.mainCon,
                                         child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                width: 3.0.w,
-                                              ),
-                                              const Icon(
-                                                Icons.logout,
-                                                color: AppColors.appthem,
-                                              ),
-                                              SizedBox(
-                                                width: 6.0.w,
-                                              ),
-                                              Text("Logout",
-                                                  style: AppTextStyles.heading1
-                                                      .copyWith(
-                                                          fontSize: 12.sp,
-                                                          color: AppColors
-                                                              .appthem)),
-                                            ]))),
-                              ]),
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 3.0.w,
+                                            ),
+                                            const Icon(
+                                              Icons.settings,
+                                              color: AppColors.appthem,
+                                            ),
+                                            SizedBox(
+                                              width: 6.0.w,
+                                            ),
+                                            Text("Settings",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        fontSize: 12.sp,
+                                                        color:
+                                                            AppColors.appthem)),
+                                          ],
+                                        )),
+                                  ),
+
+                                  ////////////////////////////////////////////
+
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(() => PropertiseSection(),
+                                          duration:
+                                              const Duration(milliseconds: 600),
+                                          transition: Transition.rightToLeft);
+                                    },
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 2.0.h),
+                                        height: 6.0.h,
+                                        width: 100.0.w,
+                                        decoration: CustomDecorations.mainCon,
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 3.0.w,
+                                            ),
+                                            const Icon(
+                                              Icons.landslide,
+                                              color: AppColors.appthem,
+                                            ),
+                                            SizedBox(
+                                              width: 6.0.w,
+                                            ),
+                                            Text("Properties",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        fontSize: 12.sp,
+                                                        color:
+                                                            AppColors.appthem)),
+                                          ],
+                                        )),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(() => const AboutUs(),
+                                          duration:
+                                              const Duration(milliseconds: 600),
+                                          transition: Transition.rightToLeft);
+                                    },
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 2.0.h),
+                                        height: 6.0.h,
+                                        width: 100.0.w,
+                                        decoration: CustomDecorations.mainCon,
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 3.0.w,
+                                            ),
+                                            Image.asset(
+                                              AppImageResources.aboutUs,
+                                              color: AppColors.colorblack,
+                                              height: 3.0.h,
+                                            ),
+                                            SizedBox(
+                                              width: 6.0.w,
+                                            ),
+                                            Text("About Us",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        fontSize: 12.sp,
+                                                        color:
+                                                            AppColors.appthem)),
+                                          ],
+                                        )),
+                                  ),
+
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(() => const ContactUs(),
+                                          duration:
+                                              const Duration(milliseconds: 600),
+                                          transition: Transition.rightToLeft);
+                                    },
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 2.0.h),
+                                        height: 6.0.h,
+                                        width: 100.0.w,
+                                        decoration: CustomDecorations.mainCon,
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 3.0.w,
+                                            ),
+                                            Image.asset(
+                                              AppImageResources.contact,
+                                              height: 3.0.h,
+                                            ),
+                                            SizedBox(
+                                              width: 6.0.w,
+                                            ),
+                                            Text("Contact Us",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        fontSize: 12.sp,
+                                                        color:
+                                                            AppColors.appthem)),
+                                          ],
+                                        )),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(() => const PropertiesFeed(),
+                                          duration:
+                                              const Duration(milliseconds: 600),
+                                          transition: Transition.rightToLeft);
+                                    },
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 2.0.h),
+                                        height: 6.0.h,
+                                        width: 100.0.w,
+                                        decoration: CustomDecorations.mainCon,
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 3.0.w,
+                                            ),
+                                            Image.asset(
+                                              AppImageResources.newFeed,
+                                              height: 2.5.h,
+                                            ),
+                                            SizedBox(
+                                              width: 6.0.w,
+                                            ),
+                                            Text("Properties Feed",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        fontSize: 12.sp,
+                                                        color:
+                                                            AppColors.appthem)),
+                                          ],
+                                        )),
+                                  ),
+
+                                  ////////////////////////////////////////////
+
+                                  // Container(
+                                  //     margin: EdgeInsets.only(top: 2.0.h),
+                                  //     height: 6.0.h,
+                                  //     width: 100.0.w,
+                                  //     decoration: CustomDecorations.mainCon,
+                                  //     child: Row(
+                                  //       crossAxisAlignment: CrossAxisAlignment.center,
+                                  //       children: [
+                                  //         SizedBox(
+                                  //           width: 3.0.w,
+                                  //         ),
+                                  //         const Icon(
+                                  //           Icons.note_add,
+                                  //           color: AppColors.appthem,
+                                  //         ),
+                                  //         SizedBox(
+                                  //           width: 6.0.w,
+                                  //         ),
+                                  //         Text("Add Property",
+                                  //             style: AppTextStyles.heading1.copyWith(
+                                  //                 fontSize: 12.sp, color: AppColors.appthem)),
+                                  //       ],
+                                  //     )),
+
+                                  ////////////////////////////////////////////
+
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(() => SecurityScreen(),
+                                          duration:
+                                              const Duration(milliseconds: 600),
+                                          transition: Transition.rightToLeft);
+                                    },
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 2.0.h),
+                                        height: 6.0.h,
+                                        width: 100.0.w,
+                                        decoration: CustomDecorations.mainCon,
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 3.0.w,
+                                            ),
+                                            const Icon(
+                                              Icons.lock,
+                                              color: AppColors.appthem,
+                                            ),
+                                            SizedBox(
+                                              width: 6.0.w,
+                                            ),
+                                            Text("Security",
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        fontSize: 12.sp,
+                                                        color:
+                                                            AppColors.appthem)),
+                                          ],
+                                        )),
+                                  ),
+
+                                  ////////////////////////////////////////////
+
+                                  InkWell(
+                                      onTap: () {
+                                        Get.to(() => ConversationScreen(),
+                                            duration: const Duration(
+                                                milliseconds: 600),
+                                            transition: Transition.rightToLeft);
+                                      },
+                                      child: Container(
+                                          margin: EdgeInsets.only(top: 2.0.h),
+                                          height: 6.0.h,
+                                          width: 100.0.w,
+                                          decoration: CustomDecorations.mainCon,
+                                          child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  width: 3.0.w,
+                                                ),
+                                                const Icon(
+                                                  Icons.chat,
+                                                  color: AppColors.appthem,
+                                                ),
+                                                SizedBox(
+                                                  width: 6.0.w,
+                                                ),
+                                                Text("Chat",
+                                                    style: AppTextStyles
+                                                        .heading1
+                                                        .copyWith(
+                                                            fontSize: 12.sp,
+                                                            color: AppColors
+                                                                .appthem)),
+                                              ]))),
+                                  ////////////////////////////////////////////
+
+                                  InkWell(
+                                      onTap: () {
+                                        logoutalert(context);
+                                        // logoutController.logout();
+                                        // Get.off(SignIn());
+                                      },
+                                      child: Container(
+                                          margin: EdgeInsets.only(top: 2.0.h),
+                                          height: 6.0.h,
+                                          width: 100.0.w,
+                                          decoration: CustomDecorations.mainCon,
+                                          child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  width: 3.0.w,
+                                                ),
+                                                const Icon(
+                                                  Icons.logout,
+                                                  color: AppColors.appthem,
+                                                ),
+                                                SizedBox(
+                                                  width: 6.0.w,
+                                                ),
+                                                Text("Logout",
+                                                    style: AppTextStyles
+                                                        .heading1
+                                                        .copyWith(
+                                                            fontSize: 12.sp,
+                                                            color: AppColors
+                                                                .appthem)),
+                                              ]))),
+                                  const SizedBox(
+                                    height: 15,
+                                  )
+                                ]),
+                              ),
                             ),
                           ]))));
   }

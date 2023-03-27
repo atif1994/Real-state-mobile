@@ -12,15 +12,31 @@ import '../../data/Controllers/auth_controller.dart';
 import '../../My Widgets/my_button.dart';
 import '../../data/Services/constants.dart';
 
-class SignUp extends GetView<SignUpController> {
+class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   final _formkey = GlobalKey<FormState>();
-  SignUp({Key? key}) : super(key: key);
 
   @override
   String countryValue = "";
+
   String stateValue = "";
+
   String cityValue = "";
+
   String address = "";
+
+  List<String> items = ['--Select Role--', 'Agent', 'Customer'];
+
+  String dropdownvalue = '--Select Role--';
+
+  var controller = Get.put(SignUpController());
+
   @override
   Widget build(BuildContext context) {
     GlobalKey<CSCPickerState> cscPickerKey = GlobalKey();
@@ -263,6 +279,25 @@ class SignUp extends GetView<SignUpController> {
                                       // });
                                     },
                                   ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  DropdownButton<String>(
+                                      isExpanded: true,
+                                      value: dropdownvalue,
+                                      onChanged: (String? val) {
+                                        setState(() {
+                                          dropdownvalue = val.toString();
+                                        });
+                                      },
+                                      items: items
+                                          .map<DropdownMenuItem<String>>(
+                                              (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList()),
                                   SizedBox(
                                     height: 4.h,
                                   ),
