@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:prologic_29/data/Services/app_bindings.dart';
 import 'package:prologic_29/data/Services/local_notifications_service.dart';
 import 'package:sizer/sizer.dart';
+
 import 'Views/Auth/sign_in.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             )),
-        home: SignIn(),
+        home: const SignIn(),
       );
     });
     /////////////////////////

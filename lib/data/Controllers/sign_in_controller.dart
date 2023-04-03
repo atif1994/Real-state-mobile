@@ -1,9 +1,12 @@
+// ignore_for_file: avoid_print, non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:prologic_29/Agent/views/dashboard.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/data/Models/signin_model.dart';
 import 'package:prologic_29/data/Models/user_model.dart';
@@ -33,7 +36,7 @@ class SignInController extends GetxController {
       Get.to(const Home());
       //  Get.to(() => const MainScreen());
     } else {
-      Get.to(SignIn());
+      Get.to(const SignIn());
     }
   }
 
@@ -50,13 +53,17 @@ class SignInController extends GetxController {
   LoginModel loginModel = LoginModel();
   String? imgUrl;
 
-  signIn() async {
+  signIn(String Userrole) async {
+    print("**************************$Userrole");
     isLoading.value = true;
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
         'POST', Uri.parse('https://realestate.tecrux.solutions/api/v1/login'));
-    request.body = json.encode(
-        {"email": emailController.text, "password": passwordController.text});
+    request.body = json.encode({
+      "email": emailController.text,
+      "password": passwordController.text,
+      "role": Userrole
+    });
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -99,10 +106,15 @@ class SignInController extends GetxController {
       print(
           "image for login responsej==========${loginModel.data!.avatar!.url}");
       Get.find<AuthController>().isUserSignedIn();
-      Get.snackbar('Signed In', 'User is signed in');
-      Fluttertoast.showToast(msg: 'Authorised');
+      // Get.snackbar('Signed In', 'User is signed in');
+
       isLoading.value = false;
-      Get.to(const Home());
+
+      Userrole == 'Customer'
+          ? loginModel.role == "customer"
+              ? Get.to(const Home())
+              : Get.to(const AgentDashboard())
+          : Get.snackbar("Alert", "Invalid Role Selected");
     } else {
       isLoading.value = false;
       print(response.reasonPhrase);

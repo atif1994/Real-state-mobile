@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -68,7 +69,8 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                 () => addwishistcontroller.pid.isEmpty
                     ? const SizedBox()
                     : Badge(
-                        label: Text(addwishistcontroller.pid.length.toString()),
+                        badgeContent:
+                            Text(addwishistcontroller.pid.length.toString()),
                         child: const Icon(
                           Icons.favorite,
                           size: 27,
@@ -428,6 +430,30 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                             SizedBox(
                                               width: 2.0.w,
                                             ),
+                                            GestureDetector(
+                                              onTap: () {},
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(6.0),
+                                                  child: Row(
+                                                    children: [
+                                                      const Icon(Icons.message),
+                                                      SizedBox(
+                                                        width: 1.w,
+                                                      ),
+                                                      const Text('Message')
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const Spacer(),
                                             Image.asset(
                                               AppImageResources.bed,
                                               height: 2.0.h,
@@ -729,7 +755,7 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                               ],
                                             ),
                                           ),
-                                        )
+                                        ),
                                       ]),
                                 ),
                                 Padding(

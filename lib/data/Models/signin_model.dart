@@ -13,22 +13,26 @@ class LoginModel {
   LoginModel({
     this.success,
     this.message,
+    this.role,
     this.data,
   });
 
   bool? success;
   String? message;
+  String? role;
   Data? data;
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
         success: json["success"],
         message: json["message"],
+        role: json["role"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
+        "role": role,
         "data": data?.toJson(),
       };
 }

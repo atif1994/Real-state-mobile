@@ -7,12 +7,6 @@ import 'package:prologic_29/data/Services/signup_services/signup_services.dart';
 import '../Models/signup_model/signup_model.dart';
 
 class SignUpController extends GetxController {
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-  }
-
   final _formkey = GlobalKey<FormState>();
 
   final TextEditingController firstNameController = TextEditingController();
@@ -29,7 +23,7 @@ class SignUpController extends GetxController {
   RxString errSignup = ''.obs;
   RxBool isHidden = true.obs;
 
-  signUp() async {
+  signUp(String userRole) async {
     print(CountryController.text);
     print(CityController.text);
     print(SateController.text);
@@ -44,7 +38,8 @@ class SignUpController extends GetxController {
         CountryController.text,
         SateController.text,
         CityController.text,
-        phoneNumberController.text);
+        phoneNumberController.text,
+        userRole);
     if (res is SignupModel) {
       isLoading(false);
       // Fluttertoast.showToast(msg: "");

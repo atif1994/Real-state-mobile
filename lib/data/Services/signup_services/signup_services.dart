@@ -17,6 +17,7 @@ class SignupServices {
     state,
     city,
     phone,
+    role
   ) async {
     Map data = {
       "email": email,
@@ -28,7 +29,8 @@ class SignupServices {
       "state": state,
       "city": city,
       "phone": phone,
-      "role_id": 4
+      "role_id": 4,
+      "role":role
     };
 
     var url = "${AppUrls.baseUrl}${AppUrls.postLikee}";

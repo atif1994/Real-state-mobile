@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/Agent/views/dashboard.dart';
 
 import 'package:prologic_29/Views/blog/blog.dart';
 
@@ -248,6 +249,344 @@ class CustomDrawer extends StatelessWidget {
                     ),
                   ),
 
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.logout,
+                        color: AppColors.colorWhite,
+                      ),
+                      title: GestureDetector(
+                        onTap: () async {
+                          //signout
+                          logoutalert(context);
+                        },
+                        child: Text(
+                          "Logout",
+                          style: AppTextStyles.heading1
+                              .copyWith(color: AppColors.colorWhite),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.logout,
+                        color: AppColors.colorWhite,
+                      ),
+                      title: GestureDetector(
+                        onTap: () async {
+                          //signout
+                          Get.to(const AgentDashboard());
+                        },
+                        child: Text(
+                          "Agent Dashboard",
+                          style: AppTextStyles.heading1
+                              .copyWith(color: AppColors.colorWhite),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  void logoutalert(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Logout'),
+            content: const Text('Do you want to logout'),
+            actions: [
+              ButtonBar(children: [
+                ElevatedButton(
+                    onPressed: () {
+                      logoutController.logout();
+                    },
+                    child: const Text('Confirm')),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Cancel'))
+              ])
+            ],
+          );
+        });
+  }
+}
+
+class AgentDrawer extends StatelessWidget {
+  String fname;
+  String lname;
+  String email;
+  String loginBaseImage;
+  AgentDrawer(
+      {Key? key,
+      required this.fname,
+      required this.lname,
+      required this.email,
+      required this.loginBaseImage})
+      : super(key: key);
+  final logoutController = Get.put(LogoutController());
+  var updateImageController = Get.put(UpdateImageController());
+  @override
+  Widget build(BuildContext context) {
+    print(" Custom Drawer image login base ****$loginBaseImage*********$email");
+    return Drawer(
+      backgroundColor: AppColors.appthem,
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 4.5.w, right: 3.0.w, top: 2.0.h),
+                width: 100.0.w,
+                height: 29.0.h,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                    left: 3.w, right: 4.w, top: 2.0.h, bottom: 0.5),
+                width: 100.0.w,
+                height: 28.0.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color.fromARGB(255, 53, 56, 61),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 3.0.h,
+                    ),
+                    Container(
+                      height: 30.0.w,
+                      width: 30.0.w,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 4),
+                          borderRadius: BorderRadius.circular(300)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(300),
+                        child: loginBaseImage != ''
+                            ? Image.network(
+                                loginBaseImage,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
+                                "assets/user.png",
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 2.0.h,
+                    ),
+                    fname == '' && lname == ''
+                        ? Text(
+                            "Ahmad khan",
+                            style: AppTextStyles.heading1.copyWith(
+                                fontSize: 16.sp, fontFamily: AppFonts.nexaBold),
+                          )
+                        : Text(
+                            "$fname$lname",
+                            style: AppTextStyles.heading1.copyWith(
+                                fontSize: 16.sp, fontFamily: AppFonts.nexaBold),
+                          ),
+                    Text(
+                      email,
+                      style: AppTextStyles.heading1.copyWith(
+                          fontSize: 12.sp, fontFamily: AppFonts.nexaBook),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          // const Divider(
+          //   color: AppColors.colorWhite,
+          // ),
+          SizedBox(
+            height: 1.0.h,
+          ),
+          SizedBox(
+            height: 62.0.h,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  //add property
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: () {
+                        Get.to(() => const Property());
+                      },
+                      leading: Image.asset(
+                        AppImageResources.aboutUs,
+                        color: AppColors.colorWhite,
+                        height: 2.0.h,
+                      ),
+                      title: Text(
+                        "About",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
+                  //prologic blog
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: () {
+                        Get.to(() => Blog());
+                      },
+                      leading: Image.asset(
+                        AppImageResources.blogger,
+                        color: AppColors.colorWhite,
+                        height: 3.0.h,
+                      ),
+                      title: Text(
+                        "Dealer Page",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
+                  //profile
+
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: () async {
+                        // Get.to(() => ProfileImageEdit());
+                        Get.to(ProfilePages(
+                          loginBaseImage: loginBaseImage,
+                        ));
+                      },
+                      leading: const Icon(
+                        Icons.chat,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        "Chat",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
+
+                  //wishlist
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: () {
+                        Get.to(() => WishlistPage());
+                      },
+                      leading: Image.asset(
+                        AppImageResources.newFeed,
+                        color: AppColors.colorWhite,
+                        height: 3.0.h,
+                      ),
+                      title: Text(
+                        "Properties Feed",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: (() {
+                        Get.to(() => AllNotifications());
+                      }),
+                      leading: Image.asset(
+                        color: AppColors.colorWhite,
+                        AppImageResources.Expirepost,
+                        height: 2.5.h,
+                      ),
+                      title: Text(
+                        "Expired Posts",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: (() {
+                        Get.to(() => AllNotifications());
+                      }),
+                      leading: Image.asset(
+                        color: AppColors.colorWhite,
+                        AppImageResources.Referral,
+                        height: 2.5.h,
+                      ),
+                      title: Text(
+                        "Referrals",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: 2.0.h,
                   ),

@@ -1,5 +1,8 @@
+// ignore_for_file: unused_field
+
 import 'dart:async';
 
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -67,7 +70,8 @@ class _NewsFeedState extends State<NewsFeed> {
                 () => addwishistcontroller.pid.isEmpty
                     ? const SizedBox()
                     : Badge(
-                        label: Text(addwishistcontroller.pid.length.toString()),
+                        badgeContent:
+                            Text(addwishistcontroller.pid.length.toString()),
                         child: const Icon(
                           Icons.favorite,
                           size: 27,

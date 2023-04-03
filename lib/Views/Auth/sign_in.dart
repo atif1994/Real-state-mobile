@@ -160,7 +160,8 @@ class _SignInState extends State<SignIn> {
                                                 if (_formkey.currentState!
                                                     .validate()) {
                                                   print('............');
-                                                  controller.signIn();
+                                                  controller
+                                                      .signIn(dropdownvalue);
 
                                                   // print("Successfull");
                                                 }
@@ -212,11 +213,12 @@ class _SignInState extends State<SignIn> {
                                                 // Get.find<AuthController>()
                                                 //     .isSignInScreen
                                                 //     .value = false;
-                                                signController.signIn();
+                                                signController
+                                                    .signIn(dropdownvalue);
                                               },
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  Get.to(SignUp());
+                                                  Get.to(const SignUp());
                                                 },
                                                 child: const Text(
                                                   'Don\'t have and account?\nCreate account',

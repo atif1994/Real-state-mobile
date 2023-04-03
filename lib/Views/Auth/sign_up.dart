@@ -304,7 +304,7 @@ class _SignUpState extends State<SignUp> {
                                   MyButton(
                                       onTap: () {
                                         if (_formkey.currentState!.validate()) {
-                                          controller.signUp();
+                                          controller.signUp(dropdownvalue);
                                           // print("Successfull");
                                         } else {
                                           print("Unsuccessfull");
