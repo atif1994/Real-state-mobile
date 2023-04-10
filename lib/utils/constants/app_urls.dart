@@ -36,6 +36,7 @@ class AppUrls {
 
   static const String profileAllPropertise = "v1/my-properties/";
   static const String getAllAgents = "v1/get-agents/";
+  static const String agentResferral = "v1/myreferrals/";
 
   static const String assignAgents = "v1/assign-agents";
   static const String getWishlist = "v1/wishlist/";

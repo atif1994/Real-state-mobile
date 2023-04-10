@@ -11,6 +11,7 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Views/AddProperty/add_property.dart';
+import '../Views/Agent/Agent_Drawer/get_all_referrals.dart';
 import '../Views/Notifications/notification_page.dart';
 import '../Views/user_profile/profile_pages.dart';
 import '../Views/Wishlist/favorites.dart';
@@ -553,7 +554,7 @@ class AgentDrawer extends StatelessWidget {
                       }),
                       leading: Image.asset(
                         color: AppColors.colorWhite,
-                        AppImageResources.Expirepost,
+                        AppImageResources.expirepost,
                         height: 2.5.h,
                       ),
                       title: Text(
@@ -573,11 +574,11 @@ class AgentDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: (() {
-                        Get.to(() => AllNotifications());
+                        Get.to(() => GetReferral());
                       }),
                       leading: Image.asset(
                         color: AppColors.colorWhite,
-                        AppImageResources.Referral,
+                        AppImageResources.referral,
                         height: 2.5.h,
                       ),
                       title: Text(

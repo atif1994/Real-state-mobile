@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -63,21 +62,22 @@ class _NewsFeedState extends State<NewsFeed> {
       appBar: AppBar(
         title: Text('News Feed ', style: AppTextStyles.heading1),
         backgroundColor: AppColors.appthem,
-        actions: [
-          Padding(
-              padding: EdgeInsets.only(right: 5.0.w, top: 2.0.h),
-              child: Obx(
-                () => addwishistcontroller.pid.isEmpty
-                    ? const SizedBox()
-                    : Badge(
-                        badgeContent:
-                            Text(addwishistcontroller.pid.length.toString()),
-                        child: const Icon(
-                          Icons.favorite,
-                          size: 27,
-                        ),
-                      ),
-              ))
+        actions: const [
+          // Padding(
+          //     padding: EdgeInsets.only(right: 5.0.w, top: 2.0.h),
+          //     child: Obx(
+          //       () => addwishistcontroller.pid.isEmpty
+          //           ? const SizedBox()
+          //           :
+          //            Badge(
+          //               badgeContent:
+          //                   Text(addwishistcontroller.pid.length.toString()),
+          //               child: const Icon(
+          //                 Icons.favorite,
+          //                 size: 27,
+          //               ),
+          //             ),
+          //     ))
         ],
         //---------------------------------------
       ),

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -14,6 +13,7 @@ import 'package:sizer/sizer.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../data/Controllers/post_like_controller/post_like_controller.dart';
+import '../../../data/Controllers/sendchat_controller/send_chat_controller.dart';
 import '../../../data/Controllers/wishlist_controller/add_wishlist_controller.dart';
 import '../../../utils/constants/appcolors.dart';
 import '../../../utils/constants/image_resources.dart';
@@ -28,6 +28,7 @@ class PropertiesFeed extends StatefulWidget {
 
 class _PropertiesFeedState extends State<PropertiesFeed> {
   var addwishistcontroller = Get.put(AddWishlistController());
+  var sendchatcontroller = Get.put(SendChatController());
   final bool _istoastsend = false;
   int? uid;
   final bool _iswishlist = false;
@@ -37,6 +38,7 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
   final likeController = Get.put(PostLikeController());
   var getLatestCommentsController = Get.put(GetLatestCommnets());
   TextEditingController filtercontroller = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
   final List<TextEditingController> _controllers = [];
   int pagekey = 1;
   static const _pageSize = 20;
@@ -62,21 +64,21 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
       appBar: AppBar(
         title: Text('Properties Feed ', style: AppTextStyles.heading1),
         backgroundColor: AppColors.appthem,
-        actions: [
-          Padding(
-              padding: EdgeInsets.only(right: 5.0.w, top: 2.0.h),
-              child: Obx(
-                () => addwishistcontroller.pid.isEmpty
-                    ? const SizedBox()
-                    : Badge(
-                        badgeContent:
-                            Text(addwishistcontroller.pid.length.toString()),
-                        child: const Icon(
-                          Icons.favorite,
-                          size: 27,
-                        ),
-                      ),
-              ))
+        actions: const [
+          // Padding(
+          //     padding: EdgeInsets.only(right: 5.0.w, top: 2.0.h),
+          //     child: Obx(
+          //       () => addwishistcontroller.pid.isEmpty
+          //           ? const SizedBox()
+          //           : Badge(
+          //               badgeContent:
+          //                   Text(addwishistcontroller.pid.length.toString()),
+          //               child: const Icon(
+          //                 Icons.favorite,
+          //                 size: 27,
+          //               ),
+          //             ),
+          //     ))
         ],
         //---------------------------------------
       ),
@@ -431,7 +433,10 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                               width: 2.0.w,
                                             ),
                                             GestureDetector(
-                                              onTap: () {},
+                                              onTap: () {
+                                                showmessagedialog(
+                                                    context, index);
+                                              },
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                     border: Border.all(),
@@ -826,6 +831,102 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
     return Fluttertoast.showToast(msg: message);
   }
 
+  showmessagedialog(BuildContext context, index) {
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return SimpleDialog(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                      sendchatcontroller.showbutton.value = false;
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 6),
+                      decoration: const BoxDecoration(
+                          color: Colors.red, shape: BoxShape.circle),
+                      child: const Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Icon(
+                            Icons.close,
+                            color: Color.fromARGB(255, 197, 190, 190),
+                            size: 16,
+                          )),
+                    ),
+                  ),
+                ],
+              ),
+              const Text(
+                'Message to agent',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxHeight: 300.0,
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'message',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide()),
+                    disabledBorder: const UnderlineInputBorder(),
+                  ),
+                  maxLines: null,
+                  controller: _messageController,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      sendchatcontroller.loadingSendChat.value
+                          ? const CircularProgressIndicator()
+                          : ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 51, 140, 182)),
+                              onPressed: () {
+                                sendchatcontroller.getSendChatApi(
+                                    agentId: newsfeedController
+                                        .newsfeedmodel.data![index].agent!.id,
+                                    msg: _messageController.text,
+                                    userId: uid);
+                              },
+                              child: const Text('Send')),
+                      if (sendchatcontroller.showbutton.value) ...[
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    const Color.fromARGB(255, 103, 181, 218)),
+                            onPressed: () {
+                              print(sendchatcontroller
+                                  .sendChatModel.data![index].customer);
+                            },
+                            child: const Text('View Chat'))
+                      ]
+                    ],
+                  )),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          );
+        });
+  }
   // void _refresh() {
   //   newsfeedController.getnewsfeed();
   // }
