@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:prologic_29/My%20Widgets/tag_widget.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/data/Controllers/NewsFeed_Controller/newsfeed_controller.dart';
 import 'package:prologic_29/data/Controllers/comments_controller/get_latest_commnets_controller.dart';
@@ -143,6 +144,13 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                             DateTime dateTime = DateTime.parse(dateTimeString);
                             String formattedDate =
                                 DateFormat('dd-MM-yyyy').format(dateTime);
+                            List<String> tags = propertypostController
+                                .propertypostmodel.data![index].tags
+                                .toString()
+                                .split(',')
+                                .map((tag) => tag.trim())
+                                .toList();
+
                             // List<String> tags = propertypostController
                             //     .propertypostmodel.data![index].tags;
                             _controllers.add(TextEditingController());
@@ -231,12 +239,7 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                               ],
                                             ),
                                           ),
-                                          //--------------------Tags
-                                          Text(propertypostController
-                                              .propertypostmodel
-                                              .data![index]
-                                              .tags
-                                              .toString()),
+
                                           //-------------------Title
                                           Padding(
                                             padding: const EdgeInsets.only(
@@ -248,6 +251,17 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                               style: const TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w500),
+                                            ),
+                                          ),
+                                          //--------------------Tags
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Wrap(
+                                              spacing: 5,
+                                              runSpacing: 2,
+                                              children: tags
+                                                  .map((tag) => Tag(label: tag))
+                                                  .toList(),
                                             ),
                                           ),
                                           //---------------------Image
@@ -460,10 +474,17 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                                                   .propertypostmodel
                                                                   .data![index]
                                                                   .id!);
+
                                                       await Future.delayed(
                                                           const Duration(
                                                               milliseconds:
                                                                   400));
+                                                      _showModelSheet(
+                                                          context,
+                                                          propertypostController
+                                                              .propertypostmodel
+                                                              .data![index]
+                                                              .id!);
                                                     },
                                                     child: Row(
                                                       children: [
@@ -515,8 +536,11 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                     children: [
                                       Expanded(
                                         child: Container(
-                                          color: const Color.fromARGB(
-                                              255, 222, 222, 222),
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromARGB(
+                                                  255, 222, 222, 222),
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
                                           child: CustomTextField(
                                             editingController:
                                                 _controllers[index],
@@ -559,7 +583,7 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                       )
                                     ],
                                   ),
-                                )
+                                ),
                               ],
                             );
 
@@ -1240,6 +1264,7 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
 
                             ///////////
                           },
+                          padding: const EdgeInsets.only(bottom: 15),
                           itemCount: propertypostController
                               .propertypostmodel.data!.length,
                         );
@@ -1354,153 +1379,153 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
   //   newsfeedController.getnewsfeed();
   // }
 
-  // void _showModelSheet(BuildContext context, int pid) {
-  //   showModalBottomSheet(
-  //       backgroundColor: Colors.transparent,
-  //       context: context,
-  //       builder: (context) {
-  //         return Container(
-  //           height: 30.0.h,
-  //           width: 100.0.w,
-  //           decoration: const BoxDecoration(
-  //               color: Colors.white,
-  //               borderRadius: BorderRadius.only(
-  //                   topLeft: Radius.circular(10),
-  //                   topRight: Radius.circular(10))),
-  //           child: Container(
-  //               margin: const EdgeInsets.all(10),
-  //               height: 20.0.h,
-  //               width: 100.0.w,
-  //               //   color: Colors.red,
-  //               child: Obx(
-  //                 () => getLatestCommentsController.loadingCommnets.value
-  //                     ? const Center(
-  //                         child: CircularProgressIndicator(
-  //                         color: AppColors.appthem,
-  //                       ))
-  //                     : getLatestCommentsController.error.value != ""
-  //                         ? Column(
-  //                             mainAxisAlignment: MainAxisAlignment.center,
-  //                             children: [
-  //                               IconButton(
-  //                                   onPressed: () {
-  //                                     getLatestCommentsController
-  //                                         .getLatestCommnets(pid);
-  //                                   },
-  //                                   icon: const Icon(Icons.refresh)),
-  //                               SizedBox(
-  //                                 height: 1.0.h,
-  //                               ),
-  //                               Text(getLatestCommentsController.error.value),
-  //                             ],
-  //                           )
-  //                         : getLatestCommentsController
-  //                                 .commnetsModel.data!.isEmpty
-  //                             ? const Center(child: Text("No Commnets Yet"))
-  //                             : ListView.builder(
-  //                                 itemCount: getLatestCommentsController
-  //                                     .commnetsModel.data!.length,
-  //                                 itemBuilder: (context, index) {
-  //                                   bool d = false;
-  //                                   return Column(
-  //                                     children: [
-  //                                       Padding(
-  //                                         padding: const EdgeInsets.all(8.0),
-  //                                         child: Row(
-  //                                           children: [
-  //                                             Container(
-  //                                               height: 12.0.w,
-  //                                               width: 12.0.w,
-  //                                               decoration: BoxDecoration(
-  //                                                   borderRadius:
-  //                                                       BorderRadius.circular(
-  //                                                           300)),
-  //                                               child: ClipRRect(
-  //                                                 borderRadius:
-  //                                                     BorderRadius.circular(
-  //                                                         300),
-  //                                                 child: Image.asset(
-  //                                                     "assets/user.png"),
-  //                                               ),
-  //                                             ),
-  //                                             SizedBox(
-  //                                               width: 3.0.w,
-  //                                             ),
-  //                                             Expanded(
-  //                                               child: Container(
-  //                                                 decoration: BoxDecoration(
-  //                                                     color: Colors.grey[200],
-  //                                                     borderRadius:
-  //                                                         BorderRadius.circular(
-  //                                                             10)),
-  //                                                 child: Padding(
-  //                                                   padding:
-  //                                                       const EdgeInsets.all(
-  //                                                           8.0),
-  //                                                   child: Row(
-  //                                                     crossAxisAlignment:
-  //                                                         CrossAxisAlignment
-  //                                                             .start,
-  //                                                     children: [
-  //                                                       Column(
-  //                                                         crossAxisAlignment:
-  //                                                             CrossAxisAlignment
-  //                                                                 .start,
-  //                                                         children: [
-  //                                                           Text(
-  //                                                             getLatestCommentsController
-  //                                                                     .commnetsModel
-  //                                                                     .data![
-  //                                                                         index]
-  //                                                                     .user!
-  //                                                                     .username ??
-  //                                                                 "",
-  //                                                             style: AppTextStyles
-  //                                                                 .appbar
-  //                                                                 .copyWith(
-  //                                                                     color: Colors
-  //                                                                         .black,
-  //                                                                     fontWeight:
-  //                                                                         FontWeight
-  //                                                                             .bold),
-  //                                                           ),
-  //                                                           SizedBox(
-  //                                                             width: 70.0.w,
-  //                                                             child: Text(
-  //                                                               getLatestCommentsController
-  //                                                                       .commnetsModel
-  //                                                                       .data![
-  //                                                                           index]
-  //                                                                       .comment ??
-  //                                                                   "",
-  //                                                               maxLines: 4,
-  //                                                               style:
-  //                                                                   AppTextStyles
-  //                                                                       .appbar
-  //                                                                       .copyWith(
-  //                                                                 color: Colors
-  //                                                                     .black,
-  //                                                               ),
-  //                                                             ),
-  //                                                           )
-  //                                                         ],
-  //                                                       ),
-  //                                                     ],
-  //                                                   ),
-  //                                                 ),
-  //                                               ),
-  //                                             )
-  //                                           ],
-  //                                         ),
-  //                                       ),
-  //                                       const Divider()
-  //                                     ],
-  //                                   );
-  //                                 }),
-  //               )),
-  //         );
-  //       });
-  // }
+  void _showModelSheet(BuildContext context, int pid) {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return Container(
+            height: 30.0.h,
+            width: 100.0.w,
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10))),
+            child: Container(
+                margin: const EdgeInsets.all(10),
+                height: 20.0.h,
+                width: 100.0.w,
+                //   color: Colors.red,
+                child: Obx(
+                  () => getLatestCommentsController.loadingCommnets.value
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                          color: AppColors.appthem,
+                        ))
+                      : getLatestCommentsController.error.value != ""
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      getLatestCommentsController
+                                          .getLatestCommnets(pid);
+                                    },
+                                    icon: const Icon(Icons.refresh)),
+                                SizedBox(
+                                  height: 1.0.h,
+                                ),
+                                Text(getLatestCommentsController.error.value),
+                              ],
+                            )
+                          : getLatestCommentsController
+                                  .commnetsModel.data!.isEmpty
+                              ? const Center(child: Text("No Commnets Yet"))
+                              : ListView.builder(
+                                  itemCount: getLatestCommentsController
+                                      .commnetsModel.data!.length,
+                                  itemBuilder: (context, index) {
+                                    bool d = false;
+                                    return Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                height: 12.0.w,
+                                                width: 12.0.w,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            300)),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          300),
+                                                  child: Image.asset(
+                                                      "assets/user.png"),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 3.0.w,
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.grey[200],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              getLatestCommentsController
+                                                                      .commnetsModel
+                                                                      .data![
+                                                                          index]
+                                                                      .user!
+                                                                      .username ??
+                                                                  "",
+                                                              style: AppTextStyles
+                                                                  .appbar
+                                                                  .copyWith(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 70.0.w,
+                                                              child: Text(
+                                                                getLatestCommentsController
+                                                                        .commnetsModel
+                                                                        .data![
+                                                                            index]
+                                                                        .comment ??
+                                                                    "",
+                                                                maxLines: 4,
+                                                                style:
+                                                                    AppTextStyles
+                                                                        .appbar
+                                                                        .copyWith(
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        const Divider()
+                                      ],
+                                    );
+                                  }),
+                )),
+          );
+        });
+  }
 
   // toastshow(bool istoastsend) {
   //   istoastsend
