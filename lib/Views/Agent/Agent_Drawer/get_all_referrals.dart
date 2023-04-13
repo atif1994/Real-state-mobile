@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
@@ -50,6 +52,18 @@ class GetReferral extends StatelessWidget {
                               child: TextFormField(
                                 controller: referfieldcontroller,
                                 decoration: InputDecoration(
+                                    suffix: InkWell(
+                                      onTap: () {
+                                        Clipboard.setData(ClipboardData(
+                                            text: referfieldcontroller.text));
+                                      },
+                                      child: const Text(
+                                        'Copy',
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 213, 214, 218)),
+                                      ),
+                                    ),
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(25))),
@@ -73,75 +87,79 @@ class GetReferral extends StatelessWidget {
                   ],
                 )),
             Expanded(
-              child: Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25))),
-                  // height: 60.0.h,
-                  child: getreferral.getrefferalload.value
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                          color: AppColors.appthem,
-                        ))
-                      : getreferral.getrefferalerrormsg != '' 
-                          ? Center(
-                              child: Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Container(
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(25))),
+              // height: 60.0.h,
+              child: Obx(() => getreferral.getrefferalload.value
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                      color: AppColors.appthem,
+                    ))
+                  : getreferral.getrefferalerrormsg != ''
+                      ? Center(
+                          child: Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      getreferral.getrefferal();
+                                    },
+                                    icon: const Icon(
+                                      Icons.refresh,
+                                      color: AppColors.appthem,
+                                    )),
+                                SizedBox(
+                                  height: 1.0.h,
+                                ),
+                                Text(getreferral.getrefferalerrormsg.value),
+                              ],
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: getreferral.referral.data!.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 8),
+                              height: 70,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey.shade300),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
                                   children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          getreferral.getrefferal();
-                                        },
-                                        icon: const Icon(
-                                          Icons.refresh,
-                                          color: AppColors.appthem,
-                                        )),
-                                    SizedBox(
-                                      height: 1.0.h,
+                                    const CircleAvatar(
+                                        radius: 28,
+                                        backgroundImage:
+                                            AssetImage(AppImageResources.abt)
+                                        // NetworkImage("${AppUrls.baseUrl2}${getreferral.referral.data![index].avatar['url']}"),
+                                        ),
+                                    const SizedBox(
+                                      width: 10,
                                     ),
-                                    Text(getreferral.getrefferalerrormsg.value),
+                                    Text(
+                                      "${getreferral.referral.data![index].firstName!} ${getreferral.referral.data![index].firstName!}",
+                                      style: const TextStyle(fontSize: 16),
+                                    )
                                   ],
                                 ),
                               ),
-                            )
-                          : ListView.builder(
-                              itemCount: getreferral.referral.data!.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 8),
-                                  height: 70,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.grey.shade300),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        const CircleAvatar(
-                                            radius: 28,
-                                            backgroundImage: AssetImage(
-                                                AppImageResources.abt)
-                                            // NetworkImage("${AppUrls.baseUrl2}${getreferral.referral.data![index].avatar['url']}"),
-                                            ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          "${getreferral.referral.data![index].firstName!} ${getreferral.referral.data![index].firstName!}",
-                                          style: const TextStyle(fontSize: 16),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            )),
-            )
+                            );
+                          },
+                        )),
+            ))
           ],
         ));
+  }
+
+  showcopydata() {
+    Fluttertoast.showToast(msg: referfieldcontroller.text);
   }
 }
