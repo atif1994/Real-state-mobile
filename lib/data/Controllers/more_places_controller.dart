@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import '../Models/more_places_model.dart';
 import '../Services/more_places_service.dart';
@@ -14,7 +13,6 @@ class MorePlacesController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     getplacesdata();
   }

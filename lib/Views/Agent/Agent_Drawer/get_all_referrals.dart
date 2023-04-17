@@ -56,6 +56,8 @@ class GetReferral extends StatelessWidget {
                                       onTap: () {
                                         Clipboard.setData(ClipboardData(
                                             text: referfieldcontroller.text));
+
+                                        showcopydata();
                                       },
                                       child: const Text(
                                         'Copy',
@@ -160,6 +162,8 @@ class GetReferral extends StatelessWidget {
   }
 
   showcopydata() {
-    Fluttertoast.showToast(msg: referfieldcontroller.text);
+    Fluttertoast.showToast(
+        msg: '${referfieldcontroller.text} is copied',
+        gravity: ToastGravity.TOP);
   }
 }

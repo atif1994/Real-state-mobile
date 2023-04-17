@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:prologic_29/Agent/views/dashboard.dart';
+import 'package:prologic_29/Views/Agent/dashboard.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/data/Models/signin_model.dart';
 import 'package:prologic_29/data/Models/user_model.dart';

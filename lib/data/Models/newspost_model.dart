@@ -11,15 +11,15 @@ String newspostToJson(Newspost? data) => json.encode(data!.toJson());
 class Newspost {
   Newspost({
     this.data,
-    this.links,
-    this.meta,
+    //  this.links,
+    // this.meta,
     this.error,
     this.message,
   });
 
   List<Datum?>? data;
-  Links? links;
-  Meta? meta;
+  // Links? links;
+  // Meta? meta;
   bool? error;
   dynamic message;
 
@@ -27,8 +27,8 @@ class Newspost {
         data: json["data"] == null
             ? []
             : List<Datum?>.from(json["data"]!.map((x) => Datum.fromJson(x))),
-        links: Links.fromJson(json["links"]),
-        meta: Meta.fromJson(json["meta"]),
+        // links: Links.fromJson(json["links"]),
+        // meta: Meta.fromJson(json["meta"]),
         error: json["error"],
         message: json["message"],
       );
@@ -37,8 +37,8 @@ class Newspost {
         "data": data == null
             ? []
             : List<dynamic>.from(data!.map((x) => x!.toJson())),
-        "links": links!.toJson(),
-        "meta": meta!.toJson(),
+        //    "links": links!.toJson(),
+        //  "meta": meta!.toJson(),
         "error": error,
         "message": message,
       };
@@ -52,7 +52,7 @@ class Datum {
     this.description,
     this.image,
     this.categories,
-    this.tags,
+    //this.tags,
     this.createdAt,
     this.updatedAt,
   });
@@ -63,7 +63,7 @@ class Datum {
   String? description;
   String? image;
   List<Category?>? categories;
-  List<dynamic>? tags;
+  //List<dynamic>? tags;
   String? createdAt;
   String? updatedAt;
 
@@ -77,9 +77,9 @@ class Datum {
             ? []
             : List<Category?>.from(
                 json["categories"]!.map((x) => Category.fromJson(x))),
-        tags: json["tags"] == null
-            ? []
-            : List<dynamic>.from(json["tags"]!.map((x) => x)),
+        // tags: json["tags"] == null
+        //     ? []
+        //     : List<dynamic>.from(json["tags"]!.map((x) => x)),
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
       );
@@ -93,7 +93,7 @@ class Datum {
         "categories": categories == null
             ? []
             : List<dynamic>.from(categories!.map((x) => x!.toJson())),
-        "tags": tags == null ? [] : List<dynamic>.from(tags!.map((x) => x)),
+        // "tags": tags == null ? [] : List<dynamic>.from(tags!.map((x) => x)),
         "created_at": createdAt,
         "updated_at": updatedAt,
       };
