@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Agent/views/dashboard.dart';
+import 'package:prologic_29/Agent/views/dealer_post/dealer_post.dart';
+import 'package:prologic_29/Views/Agent/Agent_Drawer/expiry_posts.dart';
+import 'package:prologic_29/Views/Agent/dashboard.dart';
 
 import 'package:prologic_29/Views/blog/blog.dart';
 
@@ -549,8 +551,34 @@ class AgentDrawer extends StatelessWidget {
                     width: 100.0.w,
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
+                      onTap: () async {
+                        // Get.to(() => ProfileImageEdit());
+                        Get.to(DealerPostScreen());
+                      },
+                      leading: const Icon(
+                        Icons.post_add,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        "Dealer Post",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
                       onTap: (() {
-                        Get.to(() => AllNotifications());
+                        Get.to(() => Expiryppost());
                       }),
                       leading: Image.asset(
                         color: AppColors.colorWhite,

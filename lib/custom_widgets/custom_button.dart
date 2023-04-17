@@ -9,7 +9,7 @@ class CustomButton extends StatelessWidget {
   final String? text;
   final Function? onPressed;
   final bool isloading;
-  
+
   const CustomButton({
     this.text,
     this.onPressed,
@@ -19,7 +19,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 100.0.w,
-      height: 5.2.h,
+      height: 6.0.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.appthem,
@@ -27,7 +27,9 @@ class CustomButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10))),
         child: isloading
             ? const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
               )
             : Text(
                 text.toString(),
