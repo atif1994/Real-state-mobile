@@ -101,7 +101,7 @@ class Data {
         avatarId: json["avatar_id"],
         dob: json["dob"],
         phone: json["phone"],
-        credits: json["credits"],
+        // credits: json["credits"],
         confirmedAt: json["confirmed_at"],
         emailVerifyToken: json["email_verify_token"],
         isFeatured: json["is_featured"],

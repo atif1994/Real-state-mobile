@@ -448,7 +448,7 @@ class AgentDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => const Property());
+                        // Get.to(() => const Property());
                       },
                       leading: Image.asset(
                         AppImageResources.aboutUs,
@@ -473,7 +473,7 @@ class AgentDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => Blog());
+                        // Get.to(() => Blog());
                       },
                       leading: Image.asset(
                         AppImageResources.blogger,
@@ -500,9 +500,9 @@ class AgentDrawer extends StatelessWidget {
                     child: ListTile(
                       onTap: () async {
                         // Get.to(() => ProfileImageEdit());
-                        Get.to(ProfilePages(
-                          loginBaseImage: loginBaseImage,
-                        ));
+                        // Get.to(ProfilePages(
+                        //   loginBaseImage: loginBaseImage,
+                        // ));
                       },
                       leading: const Icon(
                         Icons.chat,
@@ -527,7 +527,7 @@ class AgentDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => WishlistPage());
+                        // Get.to(() => WishlistPage());
                       },
                       leading: Image.asset(
                         AppImageResources.newFeed,
@@ -553,7 +553,7 @@ class AgentDrawer extends StatelessWidget {
                     child: ListTile(
                       onTap: () async {
                         // Get.to(() => ProfileImageEdit());
-                        Get.to(DealerPostScreen());
+                        Get.to(const DealerPostScreen());
                       },
                       leading: const Icon(
                         Icons.post_add,

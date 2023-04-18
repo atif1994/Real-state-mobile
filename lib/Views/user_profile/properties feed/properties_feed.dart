@@ -276,17 +276,15 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                             height: 32.h,
                                             margin: const EdgeInsets.only(
                                                 top: 9, bottom: 9),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(9),
-                                                  child: Image.network(
-                                                      '${AppUrls.assetbaseUrl}${propertypostController.propertypostmodel.data![index].imagePath}'),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(9),
+                                              child: Center(
+                                                child: Image.network(
+                                                  '${AppUrls.assetbaseUrl}${propertypostController.propertypostmodel.data![index].imagePath}',
+                                                  fit: BoxFit.cover,
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           ),
                                           //----------------------Description
