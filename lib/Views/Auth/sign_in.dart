@@ -26,7 +26,7 @@ class _SignInState extends State<SignIn> {
 
   final forgetPassController = Get.put(ForgetPassController());
 
-  List<String> items = ['--Select Role--', 'Agent', 'Customer'];
+  List<String> items = ['--Select Role--', 'agent', 'customer'];
 
   String dropdownvalue = '--Select Role--';
 

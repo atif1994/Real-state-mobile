@@ -97,7 +97,7 @@ class SignInController extends GetxController {
           loginModel.data!.firstName!,
           loginModel.data!.lastName!,
           loginModel.data!.email!,
-          loginModel.data!.phone!,
+          loginModel.data!.phone ?? '098888',
           loginModel.data!.avatar!.url.toString());
 
       SessionController().userId = loginModel.data!.id!.toString();
@@ -110,11 +110,12 @@ class SignInController extends GetxController {
 
       isLoading.value = false;
 
-      Userrole == 'Customer'
-          ? loginModel.role == "customer"
-              ? Get.to(const Home())
-              : Get.to(const AgentDashboard())
-          : Get.snackbar("Alert", "Invalid Role Selected");
+      Userrole == 'customer'
+          // ? loginModel.role == "customer"
+          ? Get.to(const Home())
+          : Userrole == 'agent'
+              ? Get.to(const AgentDashboard())
+              : Get.snackbar("Alert", "Invalid Role Selected");
     } else {
       isLoading.value = false;
       print(response.reasonPhrase);

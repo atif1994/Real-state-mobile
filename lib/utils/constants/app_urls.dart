@@ -16,7 +16,7 @@ class AppUrls {
   static const String propertyByCity = "v1/Properties-by-city/";
   static const String citiesLocation = "v1/properties-location";
   static const String notificationend = "v1/notifications/";
-  static const String newspost = "v1/posts";
+  static const String newspost = "v1/post";
   static const String addProperty = "v1/add-property";
   static const String newsfeed = "v1/Properties";
   static const String forgetpass = "v1/password/forgot";
