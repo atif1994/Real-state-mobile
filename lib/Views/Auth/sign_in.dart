@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Services/constants.dart';
 import 'package:prologic_29/Views/Auth/sign_up.dart';
@@ -160,9 +161,14 @@ class _SignInState extends State<SignIn> {
                                                 if (_formkey.currentState!
                                                     .validate()) {
                                                   print('............');
-                                                  controller
-                                                      .signIn(dropdownvalue);
-
+                                                  if (dropdownvalue ==
+                                                      '--Select Role--') {
+                                                    Fluttertoast.showToast(
+                                                        msg: 'Select Role');
+                                                  } else {
+                                                    controller
+                                                        .signIn(dropdownvalue);
+                                                  }
                                                   // print("Successfull");
                                                 }
                                               },

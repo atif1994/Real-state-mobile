@@ -44,7 +44,7 @@ class SignUpController extends GetxController {
       isLoading(false);
       // Fluttertoast.showToast(msg: "");
       Get.snackbar(
-        'Succfully Create Account',
+        'Successfully Create Account',
         "",
       );
       Get.to(() => const Home());

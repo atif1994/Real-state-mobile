@@ -145,22 +145,40 @@ class _DealerPostScreenState extends State<DealerPostScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                IconButton(
-                    onPressed: () {
-                      _pickImage(ImageSource.camera);
-                    },
-                    icon: const Icon(
-                      Icons.camera_alt_rounded,
-                      color: AppColors.appthem,
-                    )),
-                IconButton(
-                    onPressed: () {
-                      _pickImage(ImageSource.gallery);
-                    },
-                    icon: const Icon(
-                      Icons.image,
-                      color: AppColors.appthem,
-                    ))
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          _pickImage(ImageSource.camera);
+                        },
+                        icon: const Icon(
+                          Icons.camera_alt_rounded,
+                          color: AppColors.appthem,
+                        )),
+                    const Text('Camera'),
+                    const SizedBox(
+                      height: 20,
+                    )
+                  ],
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          _pickImage(ImageSource.gallery);
+                        },
+                        icon: const Icon(
+                          Icons.image,
+                          color: AppColors.appthem,
+                        )),
+                    const Text('Gallery'),
+                    const SizedBox(
+                      height: 20,
+                    )
+                  ],
+                ),
               ],
             ),
           );

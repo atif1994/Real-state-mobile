@@ -424,7 +424,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                                             SizedBox(
                                               width: 6.0.w,
                                             ),
-                                            Text("Properties Feed",
+                                            Text("Social Feed",
                                                 style: AppTextStyles.heading1
                                                     .copyWith(
                                                         fontSize: 12.sp,
@@ -590,7 +590,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                 ElevatedButton(
                     onPressed: () {
                       logoutController.logout();
-                      Get.off(SignIn());
+                      Get.off(const SignIn());
                     },
                     child: const Text('Confirm')),
                 ElevatedButton(

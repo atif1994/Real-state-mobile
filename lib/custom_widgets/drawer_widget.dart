@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Agent/views/dealer_post/dealer_post.dart';
+import 'package:prologic_29/Views/AboutUs/about_us.dart';
 import 'package:prologic_29/Views/Agent/Agent_Drawer/expiry_posts.dart';
-import 'package:prologic_29/Views/Agent/dashboard.dart';
 
 import 'package:prologic_29/Views/blog/blog.dart';
 
@@ -278,29 +278,6 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
-                    height: 6.0.h,
-                    width: 100.0.w,
-                    color: const Color.fromARGB(255, 53, 56, 61),
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.logout,
-                        color: AppColors.colorWhite,
-                      ),
-                      title: GestureDetector(
-                        onTap: () async {
-                          //signout
-                          Get.to(const AgentDashboard());
-                        },
-                        child: Text(
-                          "Agent Dashboard",
-                          style: AppTextStyles.heading1
-                              .copyWith(color: AppColors.colorWhite),
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -448,7 +425,7 @@ class AgentDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        // Get.to(() => const Property());
+                        Get.to(() => const AboutUs());
                       },
                       leading: Image.asset(
                         AppImageResources.aboutUs,

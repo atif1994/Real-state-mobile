@@ -60,7 +60,7 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Properties Feed ', style: AppTextStyles.heading1),
+        title: Text('Social Feed ', style: AppTextStyles.heading1),
         backgroundColor: AppColors.appthem,
         actions: const [
           // Padding(
@@ -280,14 +280,20 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                               borderRadius:
                                                   BorderRadius.circular(9),
                                               child: Center(
-                                                child: Image.network(
-                                                  '${AppUrls.assetbaseUrl}${propertypostController.propertypostmodel.data![index].imagePath}',
-                                                  fit: BoxFit.cover,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    showimage(index);
+                                                  },
+                                                  child: Image.network(
+                                                    '${AppUrls.assetbaseUrl}${propertypostController.propertypostmodel.data![index].imagePath}',
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
                                           //----------------------Description
+
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 10),
@@ -560,17 +566,17 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                           child: IconButton(
                                               color: AppColors.colorWhite,
                                               onPressed: () {
-                                                postCommentsController
-                                                    .postComments(
-                                                        index,
-                                                        propertypostController
-                                                            .propertypostmodel
-                                                            .data![index]
-                                                            .id,
-                                                        uid,
-                                                        _controllers[index]
-                                                            .text);
-
+                                                  postCommentsController
+                                                      .postComments(
+                                                          index,
+                                                          propertypostController
+                                                              .propertypostmodel
+                                                              .data![index]
+                                                              .id,
+                                                          uid,
+                                                          _controllers[index]
+                                                              .text);
+                                             
                                                 _controllers[index].clear();
                                               },
                                               icon: const Icon(
@@ -1272,6 +1278,45 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
     );
   }
 
+  showimage(index) {
+    showDialog(
+        barrierLabel: 'Social Feed',
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.zero,
+            contentPadding: EdgeInsets.zero,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            content: Builder(
+              builder: (context) {
+                // Get available height and width of the build area of this widget. Make a choice depending on the size.
+
+                return InteractiveViewer(
+                  child: Image.network(
+                    '${AppUrls.assetbaseUrl}${propertypostController.propertypostmodel.data![index].imagePath}',
+                    height: 100.h,
+                    width: 100.w,
+                  ),
+                );
+              },
+            ),
+          );
+        });
+    // return showGeneralDialog(
+    //     barrierColor: Colors.grey,
+    //     context: context,
+    //     pageBuilder: (BuildContext buildContext, Animation animation,
+    //         Animation secondaryAnimation) {
+    //       return Dialog(
+    //           backgroundColor: Colors.white,
+    //           child: Image.network(
+    //             '${AppUrls.assetbaseUrl}${propertypostController.propertypostmodel.data![index].imagePath}',
+    //             width: double.infinity,
+    //           ));
+    //     });
+  }
+
   showToast(String message) {
     return Fluttertoast.showToast(msg: message);
   }
@@ -1383,144 +1428,156 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
         context: context,
         builder: (context) {
           return Container(
-            height: 30.0.h,
+            height: 40.0.h,
             width: 100.0.w,
             decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10))),
-            child: Container(
-                margin: const EdgeInsets.all(10),
-                height: 20.0.h,
-                width: 100.0.w,
-                //   color: Colors.red,
-                child: Obx(
-                  () => getLatestCommentsController.loadingCommnets.value
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                          color: AppColors.appthem,
-                        ))
-                      : getLatestCommentsController.error.value != ""
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      getLatestCommentsController
-                                          .getLatestCommnets(pid);
-                                    },
-                                    icon: const Icon(Icons.refresh)),
-                                SizedBox(
-                                  height: 1.0.h,
-                                ),
-                                Text(getLatestCommentsController.error.value),
-                              ],
-                            )
-                          : getLatestCommentsController
-                                  .commnetsModel.data!.isEmpty
-                              ? const Center(child: Text("No Commnets Yet"))
-                              : ListView.builder(
-                                  itemCount: getLatestCommentsController
-                                      .commnetsModel.data!.length,
-                                  itemBuilder: (context, index) {
-                                    bool d = false;
-                                    return Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: 12.0.w,
-                                                width: 12.0.w,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            300)),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          300),
-                                                  child: Image.asset(
-                                                      "assets/user.png"),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 3.0.w,
-                                              ),
-                                              Expanded(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.grey[200],
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  'All Comments',
+                  style: TextStyle(fontSize: 18),
+                ),
+                const Divider(),
+                Container(
+                    margin: const EdgeInsets.all(10),
+                    height: 20.0.h,
+                    width: 100.0.w,
+                    //   color: Colors.red,
+                    child: Obx(
+                      () => getLatestCommentsController.loadingCommnets.value
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                              color: AppColors.appthem,
+                            ))
+                          : getLatestCommentsController.error.value != ""
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          getLatestCommentsController
+                                              .getLatestCommnets(pid);
+                                        },
+                                        icon: const Icon(Icons.refresh)),
+                                    SizedBox(
+                                      height: 1.0.h,
+                                    ),
+                                    Text(getLatestCommentsController
+                                        .error.value),
+                                  ],
+                                )
+                              : getLatestCommentsController
+                                      .commnetsModel.data!.isEmpty
+                                  ? const Center(child: Text("No Commnets Yet"))
+                                  : ListView.builder(
+                                      itemCount: getLatestCommentsController
+                                          .commnetsModel.data!.length,
+                                      itemBuilder: (context, index) {
+                                        bool d = false;
+                                        return Column(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    height: 12.0.w,
+                                                    width: 12.0.w,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(300)),
+                                                    child: ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              10)),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Column(
+                                                              300),
+                                                      child: Image.asset(
+                                                          "assets/user.png"),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 3.0.w,
+                                                  ),
+                                                  Expanded(
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              Colors.grey[200],
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10)),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Row(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Text(
-                                                              getLatestCommentsController
-                                                                      .commnetsModel
-                                                                      .data![
-                                                                          index]
-                                                                      .user!
-                                                                      .username ??
-                                                                  "",
-                                                              style: AppTextStyles
-                                                                  .appbar
-                                                                  .copyWith(
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  getLatestCommentsController
+                                                                          .commnetsModel
+                                                                          .data![
+                                                                              index]
+                                                                          .user!
+                                                                          .username ??
+                                                                      "",
+                                                                  style: AppTextStyles.appbar.copyWith(
                                                                       color: Colors
                                                                           .black,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 70.0.w,
-                                                              child: Text(
-                                                                getLatestCommentsController
-                                                                        .commnetsModel
-                                                                        .data![
-                                                                            index]
-                                                                        .comment ??
-                                                                    "",
-                                                                maxLines: 4,
-                                                                style:
-                                                                    AppTextStyles
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 70.0.w,
+                                                                  child: Text(
+                                                                    getLatestCommentsController
+                                                                            .commnetsModel
+                                                                            .data![index]
+                                                                            .comment ??
+                                                                        "",
+                                                                    maxLines: 4,
+                                                                    style: AppTextStyles
                                                                         .appbar
                                                                         .copyWith(
-                                                                  color: Colors
-                                                                      .black,
-                                                                ),
-                                                              ),
-                                                            )
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
                                                           ],
                                                         ),
-                                                      ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        const Divider()
-                                      ],
-                                    );
-                                  }),
-                )),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            const Divider()
+                                          ],
+                                        );
+                                      }),
+                    )),
+              ],
+            ),
           );
         });
   }

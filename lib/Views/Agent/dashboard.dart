@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/Views/AboutUs/about_us.dart';
 import 'package:prologic_29/custom_widgets/drawer_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -77,120 +77,215 @@ class _AgentDashboardState extends State<AgentDashboard> {
                   ),
                 ];
               },
-              body: SingleChildScrollView(
-                child: Container(
-                  margin: const EdgeInsets.all(15),
-                  child: StaggeredGrid.count(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    children: [
-                      StaggeredGridTile.count(
-                          crossAxisCellCount: 1,
-                          mainAxisCellCount: 1,
-                          child: gridcontainer(
-                              Image.asset(
-                                AppImageResources.aboutUs,
-                                color: AppColors.appthem,
-                                height: 4.0.h,
-                              ),
-                              "About")),
-                      StaggeredGridTile.count(
-                          crossAxisCellCount: 1,
-                          mainAxisCellCount: 1.2,
-                          child: gridcontainer(
-                              Image.asset(
-                                AppImageResources.blogger,
-                                color: AppColors.appthem,
-                                height: 4.0.h,
-                              ),
-                              "Dealer Page")),
-                      StaggeredGridTile.count(
-                          crossAxisCellCount: 1,
-                          mainAxisCellCount: 1.1,
-                          child: gridcontainer(
-                              const Icon(
-                                Icons.chat,
-                                color: AppColors.appthem,
-                                size: 30,
-                              ),
-                              "Chat")),
-                      StaggeredGridTile.count(
-                          crossAxisCellCount: 1,
-                          mainAxisCellCount: 1.1,
-                          child: gridcontainer(
-                              Image.asset(
-                                AppImageResources.newFeed,
-                                color: AppColors.appthem,
-                                height: 3.5.h,
-                              ),
-                              "Properties Feed")),
-                      StaggeredGridTile.count(
-                          crossAxisCellCount: 1,
-                          mainAxisCellCount: 1.2,
-                          child: StaggeredGridTile.count(
-                            crossAxisCellCount: 1,
-                            mainAxisCellCount: 1.3,
-                            child: GestureDetector(
-                                onTap: () {
-                                  Get.to(const DealerPostScreen());
-                                },
-                                child: gridcontainer(
-                                    const Icon(
-                                      Icons.post_add,
-                                      color: AppColors.appthem,
-                                      size: 30,
-                                    ),
-                                    "Dealer Post")),
-                          )),
-                      StaggeredGridTile.count(
-                          crossAxisCellCount: 1,
-                          mainAxisCellCount: 1.2,
-                          child: GestureDetector(
-                              onTap: () {
-                                Get.to(() => Expiryppost());
-                              },
-                              child: gridcontainer(
-                                  Image.asset(
-                                    color: AppColors.appthem,
-                                    AppImageResources.expirepost,
-                                    height: 5.0.h,
-                                  ),
-                                  "Expired Posts"))),
-                      StaggeredGridTile.count(
-                          crossAxisCellCount: 1,
-                          mainAxisCellCount: 1.3,
-                          child: GestureDetector(
-                              onTap: () {
-                                Get.to(() => GetReferral());
-                              },
-                              child: gridcontainer(
-                                Image.asset(
-                                  color: AppColors.appthem,
-                                  AppImageResources.referral,
-                                  height: 4.h,
-                                ),
-                                "Referrals",
-                              ))),
-                      StaggeredGridTile.count(
-                          crossAxisCellCount: 1,
-                          mainAxisCellCount: 1.2,
-                          child: GestureDetector(
-                              onTap: () {
-                                logoutalert(context);
-                              },
-                              child: gridcontainer(
-                                const Icon(
-                                  Icons.logout,
-                                  color: AppColors.appthem,
-                                  size: 30,
-                                ),
-                                "Logout",
-                              ))),
-                    ],
-                  ),
+              body: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 8.0,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(() => const AboutUs());
+                      },
+                      child: gridcontainer(
+                          Image.asset(
+                            AppImageResources.aboutUs,
+                            color: AppColors.appthem,
+                            height: 4.0.h,
+                          ),
+                          "About"),
+                    ),
+                    GestureDetector(
+                        onTap: () {},
+                        child: gridcontainer(
+                            Image.asset(
+                              AppImageResources.blogger,
+                              color: AppColors.appthem,
+                              height: 4.0.h,
+                            ),
+                            "Dealer Page")),
+                    GestureDetector(
+                        onTap: () {},
+                        child: gridcontainer(
+                            const Icon(
+                              Icons.chat,
+                              color: AppColors.appthem,
+                              size: 30,
+                            ),
+                            "Chat")),
+                    GestureDetector(
+                        onTap: () {},
+                        child: gridcontainer(
+                            Image.asset(
+                              AppImageResources.newFeed,
+                              color: AppColors.appthem,
+                              height: 3.5.h,
+                            ),
+                            "Properties Feed")),
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(const DealerPostScreen());
+                        },
+                        child: gridcontainer(
+                            const Icon(
+                              Icons.post_add,
+                              color: AppColors.appthem,
+                              size: 30,
+                            ),
+                            "Dealer Post")),
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(() => Expiryppost());
+                        },
+                        child: gridcontainer(
+                            Image.asset(
+                              color: AppColors.appthem,
+                              AppImageResources.expirepost,
+                              height: 5.0.h,
+                            ),
+                            "Expired Posts")),
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(() => GetReferral());
+                        },
+                        child: gridcontainer(
+                            Image.asset(
+                              color: AppColors.appthem,
+                              AppImageResources.referral,
+                              height: 4.h,
+                            ),
+                            "Referrals")),
+                    GestureDetector(
+                        onTap: () {
+                          logoutalert(context);
+                        },
+                        child: gridcontainer(
+                            const Icon(
+                              Icons.logout,
+                              color: AppColors.appthem,
+                              size: 30,
+                            ),
+                            "Logout")),
+                  ],
                 ),
-              ))),
+              )
+              // SingleChildScrollView(
+              //   child: Container(
+              //     margin: const EdgeInsets.all(15),
+              //     child: StaggeredGrid.count(
+              //       crossAxisCount: 2,
+              //       mainAxisSpacing: 12,
+              //       crossAxisSpacing: 12,
+              //       children: [
+              //         StaggeredGridTile.count(
+              //             crossAxisCellCount: 1,
+              //             mainAxisCellCount: 1,
+              //             child: gridcontainer(
+              // Image.asset(
+              //   AppImageResources.aboutUs,
+              //   color: AppColors.appthem,
+              //   height: 4.0.h,
+              // ),
+              //                 "About")),
+              //         StaggeredGridTile.count(
+              //             crossAxisCellCount: 1,
+              //             mainAxisCellCount: 1.2,
+              //             child: gridcontainer(
+              //                 Image.asset(
+              //                   AppImageResources.blogger,
+              //                   color: AppColors.appthem,
+              //                   height: 4.0.h,
+              //                 ),
+              //                 "Dealer Page")),
+              //         StaggeredGridTile.count(
+              //             crossAxisCellCount: 1,
+              //             mainAxisCellCount: 1.1,
+              //             child: gridcontainer(
+              //                 const Icon(
+              //                   Icons.chat,
+              //                   color: AppColors.appthem,
+              //                   size: 30,
+              //                 ),
+              //                 "Chat")),
+              //         StaggeredGridTile.count(
+              //             crossAxisCellCount: 1,
+              //             mainAxisCellCount: 1.1,
+              //             child: gridcontainer(
+              //                 Image.asset(
+              //                   AppImageResources.newFeed,
+              //                   color: AppColors.appthem,
+              //                   height: 3.5.h,
+              //                 ),
+              //                 "Properties Feed")),
+              //         StaggeredGridTile.count(
+              //             crossAxisCellCount: 1,
+              //             mainAxisCellCount: 1.2,
+              //             child: StaggeredGridTile.count(
+              //               crossAxisCellCount: 1,
+              //               mainAxisCellCount: 1.3,
+              //               child: GestureDetector(
+              //                   onTap: () {
+              //                     Get.to(const DealerPostScreen());
+              //                   },
+              //                   child: gridcontainer(
+              //                       const Icon(
+              //                         Icons.post_add,
+              //                         color: AppColors.appthem,
+              //                         size: 30,
+              //                       ),
+              //                       "Dealer Post")),
+              //             )),
+              //         StaggeredGridTile.count(
+              //             crossAxisCellCount: 1,
+              //             mainAxisCellCount: 1.2,
+              //             child: GestureDetector(
+              //                 onTap: () {
+              //                   Get.to(() => Expiryppost());
+              //                 },
+              //                 child: gridcontainer(
+              //                     Image.asset(
+              //                       color: AppColors.appthem,
+              //                       AppImageResources.expirepost,
+              //                       height: 5.0.h,
+              //                     ),
+              //                     "Expired Posts"))),
+              //         StaggeredGridTile.count(
+              //             crossAxisCellCount: 1,
+              //             mainAxisCellCount: 1.3,
+              //             child: GestureDetector(
+              //                 onTap: () {
+              //                   Get.to(() => GetReferral());
+              //                 },
+              //                 child: gridcontainer(
+              //                   Image.asset(
+              //                     color: AppColors.appthem,
+              //                     AppImageResources.referral,
+              //                     height: 4.h,
+              //                   ),
+              //                   "Referrals",
+              //                 ))),
+              //         StaggeredGridTile.count(
+              //             crossAxisCellCount: 1,
+              //             mainAxisCellCount: 1.2,
+              //             child: GestureDetector(
+              //                 onTap: () {
+              //                   logoutalert(context);
+              //                 },
+              //                 child: gridcontainer(
+              //                   const Icon(
+              //                     Icons.logout,
+              //                     color: AppColors.appthem,
+              //                     size: 30,
+              //                   ),
+              //                   "Logout",
+              //                 ))),
+              //       ],
+              //     ),
+              //   ),
+              // )
+              )),
     );
   }
 

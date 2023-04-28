@@ -43,95 +43,130 @@ class Expiryppost extends StatelessWidget {
                   decoration: CustomDecorations.mainCon,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Row(
+                    child: Column(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Name",
+                                style: AppTextStyles.appbar.copyWith(
+                                    color: AppColors.colorblack,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                              SizedBox(
+                                width: 27.w,
+                              ),
+                              SizedBox(
+                                width: 50.w,
+                                child: Text(
+                                  data![index].name ?? "",
+                                  maxLines: 2,
+                                  style: AppTextStyles.appbar
+                                      .copyWith(color: AppColors.colorblack),
+                                ),
+                              ),
+                            ]),
+                        Row(
                           children: [
-                            Text(
-                              "Name",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
                             Text(
                               "Sector Block",
                               style: AppTextStyles.appbar.copyWith(
                                   color: AppColors.colorblack,
                                   fontWeight: FontWeight.w800),
                             ),
-                            Text(
-                              "City",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            Text(
-                              "Price",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            Text(
-                              "Total Bedrooms",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            Text(
-                              "Total Bathrooms",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            Text(
-                              "Satus",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        //////////////////////////
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
                             SizedBox(
-                              width: 40.0.w,
-                              child: Text(
-                                data![index].name ?? "",
-                                maxLines: 2,
-                                style: AppTextStyles.appbar
-                                    .copyWith(color: AppColors.colorblack),
-                              ),
+                              width: 15.w,
                             ),
                             Text(
                               data[index].sectorAndBlockName ?? "",
                               style: AppTextStyles.appbar
                                   .copyWith(color: AppColors.colorblack),
                             ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "City",
+                              style: AppTextStyles.appbar.copyWith(
+                                  color: AppColors.colorblack,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                            SizedBox(
+                              width: 31.w,
+                            ),
                             Text(
                               data[index].city!.name ?? "",
                               style: AppTextStyles.appbar
                                   .copyWith(color: AppColors.colorblack),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Price",
+                              style: AppTextStyles.appbar.copyWith(
+                                  color: AppColors.colorblack,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                            SizedBox(
+                              width: 29.w,
                             ),
                             Text(
                               "${data[index].price ?? ""}/PKR",
                               style: AppTextStyles.appbar
                                   .copyWith(color: AppColors.colorblack),
                             ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Total Bedrooms",
+                              style: AppTextStyles.appbar.copyWith(
+                                  color: AppColors.colorblack,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                            SizedBox(
+                              width: 8.w,
+                            ),
                             Text(
                               data[index].numberBedroom ?? "",
                               style: AppTextStyles.appbar
                                   .copyWith(color: AppColors.colorblack),
                             ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Total Bathrooms",
+                              style: AppTextStyles.appbar.copyWith(
+                                  color: AppColors.colorblack,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                            SizedBox(
+                              width: 6.5.w,
+                            ),
                             Text(
                               data[index].numberBathroom ?? "",
                               style: AppTextStyles.appbar
                                   .copyWith(color: AppColors.colorblack),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Satus",
+                              style: AppTextStyles.appbar.copyWith(
+                                  color: AppColors.colorblack,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                            SizedBox(
+                              width: 27.w,
                             ),
                             Text(
                               data[index].city!.status ?? "",
@@ -140,6 +175,54 @@ class Expiryppost extends StatelessWidget {
                             ),
                           ],
                         ),
+                        // SizedBox(
+                        //   width: 10.w,
+                        // ),
+                        // //////////////////////////
+                        // Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: [
+                        //     SizedBox(
+                        //       width: 40.0.w,
+                        //       child: Text(
+                        //         data[index].name ?? "",
+                        //         maxLines: 2,
+                        //         style: AppTextStyles.appbar
+                        //             .copyWith(color: AppColors.colorblack),
+                        //       ),
+                        //     ),
+                        //     Text(
+                        //       data[index].sectorAndBlockName ?? "",
+                        //       style: AppTextStyles.appbar
+                        //           .copyWith(color: AppColors.colorblack),
+                        //     ),
+                        //     Text(
+                        //       data[index].city!.name ?? "",
+                        //       style: AppTextStyles.appbar
+                        //           .copyWith(color: AppColors.colorblack),
+                        //     ),
+                        //     Text(
+                        //       "${data[index].price ?? ""}/PKR",
+                        //       style: AppTextStyles.appbar
+                        //           .copyWith(color: AppColors.colorblack),
+                        //     ),
+                        //     Text(
+                        //       data[index].numberBedroom ?? "",
+                        //       style: AppTextStyles.appbar
+                        //           .copyWith(color: AppColors.colorblack),
+                        //     ),
+                        //     Text(
+                        //       data[index].numberBathroom ?? "",
+                        //       style: AppTextStyles.appbar
+                        //           .copyWith(color: AppColors.colorblack),
+                        //     ),
+                        //     Text(
+                        //       data[index].city!.status ?? "",
+                        //       style: AppTextStyles.appbar
+                        //           .copyWith(color: AppColors.colorblack),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),

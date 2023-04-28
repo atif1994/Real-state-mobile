@@ -3,12 +3,12 @@
 import 'dart:ui';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Services/constants.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/data/Controllers/sign_up_controller.dart';
 import 'package:sizer/sizer.dart';
-import '../../data/Controllers/auth_controller.dart';
 import '../../My Widgets/my_button.dart';
 import '../../data/Services/constants.dart';
 
@@ -31,7 +31,7 @@ class _SignUpState extends State<SignUp> {
 
   String address = "";
 
-  List<String> items = ['--Select Role--', 'Agent', 'Customer'];
+  List<String> items = ['--Select Role--', 'agent', 'customer'];
 
   String dropdownvalue = '--Select Role--';
 
@@ -304,7 +304,13 @@ class _SignUpState extends State<SignUp> {
                                   MyButton(
                                       onTap: () {
                                         if (_formkey.currentState!.validate()) {
-                                          controller.signUp(dropdownvalue);
+                                          if (dropdownvalue ==
+                                              '--Select Role--') {
+                                            Fluttertoast.showToast(
+                                                msg: 'Select Role');
+                                          } else {
+                                            controller.signUp(dropdownvalue);
+                                          }
                                           // print("Successfull");
                                         } else {
                                           print("Unsuccessfull");
@@ -343,9 +349,9 @@ class _SignUpState extends State<SignUp> {
                                       color: Colors.grey, thickness: 1.5),
                                   TextButton(
                                       onPressed: () {
-                                        Get.find<AuthController>()
-                                            .isSignInScreen
-                                            .value = true;
+                                        // Get.find<AuthController>()
+                                        //     .isSignInScreen
+                                        //     .value = true;
                                       },
                                       child: GestureDetector(
                                         onTap: () {

@@ -16,10 +16,10 @@ import 'package:http/http.dart' as http;
 
 import '../../Views/Home/home.dart';
 import '../Services/my_shared_preferences.dart';
-import 'auth_controller.dart';
 
 class SignInController extends GetxController {
   int? userId;
+  String? urole;
   RxBool isHidden = true.obs;
 
   @override
@@ -32,8 +32,14 @@ class SignInController extends GetxController {
   void alreadyCheckLogin() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     userId = pref.getInt("userid");
+    urole = pref.getString("role");
+
     if (userId != null) {
-      Get.to(const Home());
+      if (urole == 'customer') {
+        Get.to(const Home());
+      } else {
+        Get.to(const AgentDashboard());
+      }
       //  Get.to(() => const MainScreen());
     } else {
       Get.to(const SignIn());
@@ -43,10 +49,11 @@ class SignInController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 //Save user and pass Controller
-  void saveCredientials() async {
+  void saveCredientials(role) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("email", emailController.text);
     pref.setString("pass", passwordController.text);
+    pref.setString('role', role);
   }
 
   RxBool isLoading = false.obs;
@@ -75,7 +82,7 @@ class SignInController extends GetxController {
       print("model --------${loginModel.data!.id}----");
 
       //save Crediential
-      saveCredientials();
+      saveCredientials(Userrole);
       final box = Hive.box("likelist");
       await box.put("uid", loginModel.data!.id!);
       //Data Store in Shared Pref...
@@ -105,7 +112,7 @@ class SignInController extends GetxController {
       print(" User id ******************${SessionController().userId}");
       print(
           "image for login responsej==========${loginModel.data!.avatar!.url}");
-      Get.find<AuthController>().isUserSignedIn();
+      // Get.find<AuthController>().isUserSignedIn();
       // Get.snackbar('Signed In', 'User is signed in');
 
       isLoading.value = false;
