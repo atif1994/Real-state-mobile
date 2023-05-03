@@ -17,8 +17,6 @@ import '../../data/Services/constants.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/styles/app_textstyles.dart';
 
-import '../newsFeeed/newsfeed.dart';
-
 class Property extends StatefulWidget {
   const Property({Key? key}) : super(key: key);
 
@@ -189,14 +187,14 @@ class _PropertyState extends State<Property>
       appBar: AppBar(
         backgroundColor: AppColors.appthem,
         title: Text("Add Property", style: AppTextStyles.appbar),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Get.to(() => const NewsFeed());
-            },
-          ),
-        ],
+        // actions: <Widget>[
+        // IconButton(
+        //   icon: const Icon(Icons.add),
+        //   onPressed: () {
+        //     Get.to(() => const NewsFeed());
+        //   },
+        // ),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -319,7 +317,7 @@ class _PropertyState extends State<Property>
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ),
-                          )
+                          ),
                         ],
                       ),
                       Obx(() => addPropertyController.loadingAddProperty.value
@@ -1057,24 +1055,34 @@ class _PropertyState extends State<Property>
                 child: MyButton(
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          facilitiesList.add(dropdownvalue22);
-                          kmList.add(km);
-                          if (dropdownvalue22 == "Mosque Nearby") {
-                            facilityid = 0;
-                          } else if (dropdownvalue22 == "Play Ground") {
-                            facilityid = 1;
-                          } else if (dropdownvalue22 == "Park") {
-                            facilityid = 2;
-                          }
-                          addedFacilityList
-                              .add({"id": facilityid, "distance": km});
+                        if (dropdownvalue22 == 'Select Facility') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  duration: Duration(seconds: 2),
+                                  behavior: SnackBarBehavior.floating,
+                                  backgroundColor:
+                                      Color.fromARGB(255, 38, 80, 153),
+                                  content: Text('Please Select facility')));
+                        } else {
+                          setState(() {
+                            facilitiesList.add(dropdownvalue22);
+                            kmList.add(km);
+                            if (dropdownvalue22 == "Mosque Nearby") {
+                              facilityid = 0;
+                            } else if (dropdownvalue22 == "Play Ground") {
+                              facilityid = 1;
+                            } else if (dropdownvalue22 == "Park") {
+                              facilityid = 2;
+                            }
+                            addedFacilityList
+                                .add({"id": facilityid, "distance": km});
 
-                          // facilitiesList.clear();
-                          // kmList.clear();
-                          // addedFacilityList.clear();
-                          print("faclity list added_____$addedFacilityList");
-                        });
+                            // facilitiesList.clear();
+                            // kmList.clear();
+                            // addedFacilityList.clear();
+                            print("faclity list added_____$addedFacilityList");
+                          });
+                        }
                       }
                     },
                     text: 'Add New'),
@@ -1242,22 +1250,36 @@ class _PropertyState extends State<Property>
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(top: 20, bottom: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('Add Photos'),
-                          SizedBox(
-                            width: 10.w,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 15),
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 224, 222, 222),
+                            border: Border.all(),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text('Add Photos'),
+                              SizedBox(
+                                width: 2.w,
+                              ),
+                              const Icon(Icons.image)
+                            ],
                           ),
-                          const Icon(Icons.image)
-                        ],
+                        ),
                       ),
                     ),
                   ),
                   imageFileList!.isEmpty
                       ? const Padding(
                           padding: EdgeInsets.all(18.0),
-                          child: Text("Please select image"),
+                          child: Text(
+                            "Your images are here",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 136, 135, 135)),
+                          ),
                         )
                       : Container(
                           decoration: BoxDecoration(
@@ -1500,6 +1522,8 @@ class _PropertyState extends State<Property>
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
+        int cityid = 0;
+        String cityname = '';
         return AlertDialog(
           title: const Text('Select City'),
           content: SizedBox(
@@ -1513,9 +1537,10 @@ class _PropertyState extends State<Property>
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: GestureDetector(
                       onTap: () {
+                        cityname = citiese[index];
                         addPropertyController.selectedValueCityId.value = index;
-                        addPropertyController.selectedValueCity.value =
-                            citiese[index];
+                        // addPropertyController.selectedValueCity.value =
+                        //     citiese[index];
                       },
                       child: Obx(() => Chip(
                             backgroundColor: addPropertyController
@@ -1557,6 +1582,7 @@ class _PropertyState extends State<Property>
                 'Submit',
               ),
               onPressed: () {
+                addPropertyController.selectedValueCity.value = cityname;
                 Navigator.of(context).pop();
               },
             ),
@@ -1624,6 +1650,7 @@ class _PropertyState extends State<Property>
                       Get.back();
                     },
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Mycontainer(Icons.image),
                         Text(

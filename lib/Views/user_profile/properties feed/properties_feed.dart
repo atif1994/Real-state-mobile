@@ -566,17 +566,17 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                           child: IconButton(
                                               color: AppColors.colorWhite,
                                               onPressed: () {
-                                                  postCommentsController
-                                                      .postComments(
-                                                          index,
-                                                          propertypostController
-                                                              .propertypostmodel
-                                                              .data![index]
-                                                              .id,
-                                                          uid,
-                                                          _controllers[index]
-                                                              .text);
-                                             
+                                                postCommentsController
+                                                    .postComments(
+                                                        index,
+                                                        propertypostController
+                                                            .propertypostmodel
+                                                            .data![index]
+                                                            .id,
+                                                        uid,
+                                                        _controllers[index]
+                                                            .text);
+
                                                 _controllers[index].clear();
                                               },
                                               icon: const Icon(

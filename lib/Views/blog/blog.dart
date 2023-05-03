@@ -126,6 +126,7 @@ class Blog extends StatelessWidget {
                               ],
                             )
                           : ListView.builder(
+                              padding: const EdgeInsets.only(bottom: 20),
                               primary: false,
                               shrinkWrap: true,
                               itemCount:

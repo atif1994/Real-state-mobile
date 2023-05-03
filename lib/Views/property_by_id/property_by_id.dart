@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:prologic_29/Views/user_profile/chat/convesation_screen.dart';
-import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../data/Controllers/property_controllers/propertyby_id_controller.dart';
 import '../../data/Controllers/sendchat_controller/send_chat_controller.dart';
 import '../../utils/constants/app_urls.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/app_textstyles.dart';
+import '../../utils/styles/custom_decorations.dart';
 
 class PropertyByID extends StatefulWidget {
   PropertyByID({super.key, this.name, this.id, this.agentId, this.userId});
@@ -39,11 +37,7 @@ class _PropertyByIDState extends State<PropertyByID> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     final oCcy = NumberFormat("##,##,###", "en_INR");
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-      ),
-    );
+
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -171,13 +165,17 @@ class _PropertyByIDState extends State<PropertyByID> {
                         height: 33.0.h,
                         width: 100.0.w,
                         child: ListView.builder(
+                          padding: const EdgeInsets.only(right: 6),
                           itemCount: propertybyyidController
                               .propertybyIDmodel.data!.images!.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 6, right: 6, top: 10, bottom: 10),
+                              padding: EdgeInsets.only(
+                                  left: index == 0 ? 12 : 6,
+                                  right: 6,
+                                  top: 10,
+                                  bottom: 10),
                               child: Container(
                                 decoration: CustomDecorations.con2.copyWith(
                                     borderRadius: BorderRadius.circular(15)),
