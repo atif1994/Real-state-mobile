@@ -401,7 +401,10 @@ class _ProfilePagesState extends State<ProfilePages> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Get.to(() => const PropertiesFeed(),
+                                      Get.to(
+                                          () => PropertiesFeed(
+                                                hide: false,
+                                              ),
                                           duration:
                                               const Duration(milliseconds: 600),
                                           transition: Transition.rightToLeft);

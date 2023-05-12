@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Views/AboutUs/about_us.dart';
+import 'package:prologic_29/Agent/views/about_agent.dart';
+import 'package:prologic_29/Views/user_profile/properties%20feed/properties_feed.dart';
 import 'package:prologic_29/custom_widgets/drawer_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -87,7 +88,7 @@ class _AgentDashboardState extends State<AgentDashboard> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => const AboutUs());
+                        Get.to(() => const AboutAgent());
                       },
                       child: gridcontainer(
                           Image.asset(
@@ -116,7 +117,9 @@ class _AgentDashboardState extends State<AgentDashboard> {
                             ),
                             "Chat")),
                     GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => PropertiesFeed(hide: true));
+                        },
                         child: gridcontainer(
                             Image.asset(
                               AppImageResources.newFeed,

@@ -3,7 +3,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:prologic_29/Views/Agent/dashboard.dart';
@@ -62,6 +61,7 @@ class SignInController extends GetxController {
 
   signIn(String Userrole) async {
     print("**************************$Userrole");
+    // AppEasyloading.apploading();
     isLoading.value = true;
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
@@ -77,6 +77,7 @@ class SignInController extends GetxController {
     var res = await response.stream.bytesToString();
     if (response.statusCode < 201) {
       isLoading.value = false;
+      // AppEasyloading.appsuccessmsg('Successfully Login');
       print("rrr======$res-------");
       loginModel = loginModelFromJson(res);
       print("model --------${loginModel.data!.id}----");
@@ -126,7 +127,8 @@ class SignInController extends GetxController {
     } else {
       isLoading.value = false;
       print(response.reasonPhrase);
-      Fluttertoast.showToast(msg: 'Unauthorised');
+      // AppEasyloading.apperrormsg('Unauthorised');
+      // Fluttertoast.showToast(msg: 'Unauthorised');
     }
 
 /////

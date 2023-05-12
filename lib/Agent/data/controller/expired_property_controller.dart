@@ -1,14 +1,19 @@
 import 'package:flutter/foundation.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Agent/data/services/expired_properties_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/expired_post_model.dart';
+import '../models/marksold_model.dart';
+import '../models/repost_model.dart';
 
 class ExpiredPropertyController extends GetxController {
   RxBool expiredpost = false.obs;
   RxString expiredpostmsg = ''.obs;
   var expiredproperties = Expiredproperties();
+  var soldproperties = Soldproperties();
+  var repostproperties = Repostproperties();
   int? uid;
 
   @override
@@ -23,7 +28,7 @@ class ExpiredPropertyController extends GetxController {
     // await Future.delayed(const Duration(seconds: 2));
     getUserId();
     await Future.delayed(const Duration(seconds: 1));
-    expiredproperty(11);
+    expiredproperty(uid!);
   }
 
   void getUserId() async {
@@ -47,5 +52,24 @@ class ExpiredPropertyController extends GetxController {
       expiredpost.value = false;
       expiredpostmsg = res;
     }
+  }
+
+  repostproperty(pid) async {
+    var res = await ExpiredProperties.repost(pid);
+    if (res is Repostproperties) {
+      repostproperties = res;
+      expiredproperty(uid!);
+    } else {}
+
+    Fluttertoast.showToast(msg: repostproperties.message.toString());
+  }
+
+  soldproperty(pid) async {
+    var res = await ExpiredProperties.sold(pid);
+    if (res is Soldproperties) {
+      soldproperties = res;
+      expiredproperty(uid!);
+    } else {}
+    Fluttertoast.showToast(msg: soldproperties.message.toString());
   }
 }

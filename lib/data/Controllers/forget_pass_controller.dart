@@ -1,6 +1,6 @@
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/data/Services/forget_services/forget_services.dart';
+import 'package:prologic_29/utils/constants/easyloading.dart';
 
 import '../Models/forgetpass_model/forgetpass_model.dart';
 
@@ -10,16 +10,19 @@ class ForgetPassController extends GetxController {
   var forgerPassModel = ForgetPassModel();
 
   getForgetPass(email) async {
-    forgetpassLoading(false);
+    // forgetpassLoading(false);
+    AppEasyloading.apploading();
     var res = await ForgetPassServices.forgetPassServices(email);
     if (res is ForgetPassModel) {
-      forgetpassLoading(false);
-      forgerPassModel = res;
+      // forgetpassLoading(false);
 
-      Fluttertoast.showToast(msg: forgerPassModel.message.toString());
+      forgerPassModel = res;
+      AppEasyloading.apptoastshow(forgerPassModel.message.toString());
       return res;
     } else {
       forgetpassErr.value = res.toString();
+      AppEasyloading.apperrormsg('Error, Try Again');
+
       return res;
     }
   }

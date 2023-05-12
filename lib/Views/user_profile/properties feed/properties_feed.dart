@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:prologic_29/My%20Widgets/tag_widget.dart';
+import 'package:prologic_29/Views/user_profile/chat/chatting_screen.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/data/Controllers/NewsFeed_Controller/newsfeed_controller.dart';
 import 'package:prologic_29/data/Controllers/comments_controller/get_latest_commnets_controller.dart';
@@ -19,7 +20,8 @@ import '../../../data/Controllers/sendchat_controller/send_chat_controller.dart'
 import '../../../utils/constants/appcolors.dart';
 
 class PropertiesFeed extends StatefulWidget {
-  const PropertiesFeed({super.key});
+  bool? hide;
+  PropertiesFeed({super.key, this.hide});
 
   @override
   State<PropertiesFeed> createState() => _PropertiesFeedState();
@@ -203,39 +205,44 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                                   ],
                                                 ),
                                                 const Spacer(),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    showmessagedialog(
-                                                        context, index);
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              6.0),
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          const Icon(
-                                                            Icons.message,
-                                                            size: 20,
+                                                widget.hide!
+                                                    ? const SizedBox()
+                                                    : GestureDetector(
+                                                        onTap: () {
+                                                          showmessagedialog(
+                                                              context, index);
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              border:
+                                                                  Border.all(),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(6.0),
+                                                            child: Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                const Icon(
+                                                                  Icons.message,
+                                                                  size: 20,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 1.w,
+                                                                ),
+                                                                const Text(
+                                                                    'Message')
+                                                              ],
+                                                            ),
                                                           ),
-                                                          SizedBox(
-                                                            width: 1.w,
-                                                          ),
-                                                          const Text('Message')
-                                                        ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                ),
                                               ],
                                             ),
                                           ),
@@ -1391,11 +1398,10 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                       const Color.fromARGB(255, 51, 140, 182)),
                               onPressed: () {
                                 sendchatcontroller.getSendChatApi(
-                                    // agentId: propertypostController
-                                    //     .propertypostmodel.data![index].agent!.id,
-                                    // msg: _messageController.text,
-                                    // userId: uid
-                                    );
+                                    agentId: propertypostController
+                                        .propertypostmodel.data![index].userId,
+                                    msg: _messageController.text,
+                                    userId: uid);
                               },
                               child: const Text('Send')),
                       if (sendchatcontroller.showbutton.value) ...[
@@ -1404,8 +1410,26 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                 backgroundColor:
                                     const Color.fromARGB(255, 103, 181, 218)),
                             onPressed: () {
-                              print(sendchatcontroller
-                                  .sendChatModel.data![index].customer);
+                              print(
+                                  "Agent id ${propertypostController.propertypostmodel.data![index].userId}");
+                              print("Customer id ${uid.toString()}");
+                              print(
+                                  "Name ${sendchatcontroller.sendChatModel.data![0].user!.firstName} ${sendchatcontroller.sendChatModel.data![0].user!.lastName}");
+                              print(
+                                  "Conversation id ${sendchatcontroller.sendChatModel.data![0].conversationId}");
+                              print(
+                                  "sender id ${sendchatcontroller.sendChatModel.data![0].senderId}");
+                              Get.to(() => Chating(
+                                    agentId: propertypostController
+                                        .propertypostmodel.data![index].userId,
+                                    conId: sendchatcontroller
+                                        .sendChatModel.data![0].conversationId,
+                                    customerId: uid.toString(),
+                                    senderId: sendchatcontroller
+                                        .sendChatModel.data![0].senderId,
+                                    name:
+                                        "${sendchatcontroller.sendChatModel.data![0].user!.firstName} ${sendchatcontroller.sendChatModel.data![0].user!.lastName}",
+                                  ));
                             },
                             child: const Text('View Chat'))
                       ]

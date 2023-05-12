@@ -54,10 +54,14 @@ class GetReferral extends StatelessWidget {
                                 decoration: InputDecoration(
                                     suffix: InkWell(
                                       onTap: () {
-                                        Clipboard.setData(ClipboardData(
-                                            text: referfieldcontroller.text));
-
-                                        showcopydata();
+                                        referfieldcontroller.text.isEmpty
+                                            ? showcopyerror()
+                                            : {
+                                                Clipboard.setData(ClipboardData(
+                                                    text: referfieldcontroller
+                                                        .text)),
+                                                showcopydata()
+                                              };
                                       },
                                       child: const Text(
                                         'Copy',
@@ -80,7 +84,9 @@ class GetReferral extends StatelessWidget {
                                   backgroundColor:
                                       const Color.fromARGB(255, 119, 178, 226)),
                               onPressed: () {
-                                Share.share(referfieldcontroller.text);
+                                referfieldcontroller.text.isEmpty
+                                    ? showcopyerror()
+                                    : Share.share(referfieldcontroller.text);
                               },
                               child: const Text('Share'))
                         ],
@@ -164,6 +170,13 @@ class GetReferral extends StatelessWidget {
   showcopydata() {
     Fluttertoast.showToast(
         msg: '${referfieldcontroller.text} is copied',
+        gravity: ToastGravity.TOP);
+  }
+
+  showcopyerror() {
+    Fluttertoast.showToast(
+        msg: 'Please Enter Referral Code',
+        backgroundColor: const Color.fromARGB(255, 165, 37, 27),
         gravity: ToastGravity.TOP);
   }
 }
