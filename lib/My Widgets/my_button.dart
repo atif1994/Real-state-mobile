@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prologic_29/utils/constants/appcolors.dart';
 
 class MyButton extends StatelessWidget {
   final Color? color;
@@ -8,7 +9,8 @@ class MyButton extends StatelessWidget {
 
   const MyButton({
     Key? key,
-    this.color = Colors.grey,
+    this.color = AppColors.themecolor,
+    // this.color = Colors.grey,
     required this.onTap,
     required this.text,
     this.icon,

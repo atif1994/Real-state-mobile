@@ -150,53 +150,54 @@ class _ProfilePagesState extends State<ProfilePages> {
                                             SizedBox(
                                               height: 1.0.h,
                                             ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 6.0.w, right: 6.0.w),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  const Icon(
-                                                    Icons.email,
-                                                    color: Colors.white,
-                                                    size: 20,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 3.0.w,
-                                                  ),
-                                                  Text(
-                                                      profileController
-                                                              .userProfileData
-                                                              .data!
-                                                              .email ??
-                                                          "",
-                                                      style: AppTextStyles
-                                                          .heading1
-                                                          .copyWith(
-                                                              fontSize: 12.sp)),
-                                                  const Icon(
-                                                    Icons.location_city,
-                                                    color: Colors.white,
-                                                    size: 20,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 3.0.w,
-                                                  ),
-                                                  Text(
-                                                      profileController
-                                                              .userProfileData
-                                                              .data!
-                                                              .address!
-                                                              .city ??
-                                                          "",
-                                                      style: AppTextStyles
-                                                          .heading1
-                                                          .copyWith(
-                                                              fontSize: 12.sp)),
-                                                ],
-                                              ),
+                                            Row(
+                                              // mainAxisAlignment:
+                                              //     MainAxisAlignment
+                                              //         .spaceAround,
+                                              children: [
+                                                const Spacer(),
+                                                const Icon(
+                                                  Icons.email,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                ),
+                                                SizedBox(
+                                                  width: 3.w,
+                                                ),
+                                                Text(
+                                                    profileController
+                                                            .userProfileData
+                                                            .data!
+                                                            .email ??
+                                                        "",
+                                                    style: AppTextStyles
+                                                        .heading1
+                                                        .copyWith(
+                                                            fontSize: 12.sp)),
+                                                SizedBox(
+                                                  width: 6.w,
+                                                ),
+                                                const Icon(
+                                                  Icons.location_city,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                ),
+                                                SizedBox(
+                                                  width: 3.w,
+                                                ),
+                                                Text(
+                                                    profileController
+                                                            .userProfileData
+                                                            .data!
+                                                            .address!
+                                                            .city ??
+                                                        "",
+                                                    style: AppTextStyles
+                                                        .heading1
+                                                        .copyWith(
+                                                            fontSize: 12.sp)),
+                                                const Spacer()
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -400,7 +401,10 @@ class _ProfilePagesState extends State<ProfilePages> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Get.to(() => const PropertiesFeed(),
+                                      Get.to(
+                                          () => PropertiesFeed(
+                                                hide: false,
+                                              ),
                                           duration:
                                               const Duration(milliseconds: 600),
                                           transition: Transition.rightToLeft);

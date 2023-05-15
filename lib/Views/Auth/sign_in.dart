@@ -4,12 +4,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/My%20Widgets/my_text_field.dart';
 import 'package:prologic_29/Services/constants.dart';
+import 'package:prologic_29/Views/Auth/forgotpass.dart';
 import 'package:prologic_29/Views/Auth/sign_up.dart';
 import 'package:prologic_29/data/Controllers/forget_pass_controller.dart';
 import 'package:prologic_29/data/Controllers/sign_in_controller.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import '../../data/Services/constants.dart';
+import '../../utils/constants/appcolors.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -25,7 +28,6 @@ class _SignInState extends State<SignIn> {
 
   var controller = Get.put(SignInController());
 
-  final forgetPassController = Get.put(ForgetPassController());
 
   List<String> items = ['--Select Role--', 'agent', 'customer'];
 
@@ -54,7 +56,7 @@ class _SignInState extends State<SignIn> {
                         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.4),
+                            color: AppColors.themelightcolor.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Padding(
@@ -73,73 +75,27 @@ class _SignInState extends State<SignIn> {
                                     ),
                                     const Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text('Welcome to CG',
+                                      child: Text('Welcome to RealEstate',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold),
                                           textScaleFactor: 1.5),
                                     ),
-                                    Form(
-                                      key: _formkey,
-                                      child: Column(
-                                        children: [
-                                          TextFormField(
-                                            showCursor: true,
-                                            decoration: const InputDecoration(
-                                                hintText: 'Email'),
-                                            controller:
-                                                controller.emailController,
-                                            validator: (String? value) {
-                                              return emailvalidator(value);
-                                            },
-                                          ),
-                                          TextFormField(
-                                            obscureText:
-                                                controller.isHidden.value,
-                                            showCursor: true,
-                                            decoration: InputDecoration(
-                                                suffixIcon: GestureDetector(
-                                                  onTap: () {
-                                                    controller.isHidden.value =
-                                                        !controller
-                                                            .isHidden.value;
-                                                  },
-                                                  child: controller
-                                                          .isHidden.value
-                                                      ? const Icon(
-                                                          Icons.visibility_off)
-                                                      : const Icon(
-                                                          Icons.visibility),
-                                                ),
-                                                hintText: 'password'),
-                                            controller:
-                                                controller.passwordController,
-                                            // validator: (String? value) {
-                                            //   return passwordvalidator(value);
-                                            // },
-                                          ),
-
-                                          Align(
-                                              alignment: Alignment.centerRight,
-                                              child: TextButton(
-                                                  onPressed: () {},
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      print(
-                                                          "Forget pass click");
-                                                      forgetPassController
-                                                          .getForgetPass(
-                                                              signController
-                                                                  .emailController
-                                                                  .text);
-                                                    },
-                                                    child: const Text(
-                                                      'Forgot Password?',
-                                                      style: TextStyle(
-                                                          color: Colors.red),
-                                                    ),
-                                                  ))),
-                                          DropdownButton<String>(
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: AppColors.colorWhite,
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: ButtonTheme(
+                                          alignedDropdown: true,
+                                          child: DropdownButton<String>(
+                                              underline: Container(),
                                               isExpanded: true,
                                               value: dropdownvalue,
                                               onChanged: (String? val) {
@@ -156,6 +112,53 @@ class _SignInState extends State<SignIn> {
                                                   child: Text(value),
                                                 );
                                               }).toList()),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    Form(
+                                      key: _formkey,
+                                      child: Column(
+                                        children: [
+                                          NewTextField(
+                                            validator: (String? value) {
+                                              return emailvalidator(value);
+                                            },
+                                            controller:
+                                                controller.emailController,
+                                            label: 'Email',
+                                            hintText: 'user@gmail.com',
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          NewTextField(
+                                            controller:
+                                                controller.passwordController,
+                                            label: 'Password',
+                                            hintText: '********',
+                                            isPasswordField: true,
+                                          ),
+
+                                          Align(
+                                              alignment: Alignment.centerRight,
+                                              child: TextButton(
+                                                  onPressed: () {},
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      print(
+                                                          "Forget pass click");
+                                                      Get.to(() =>
+                                                          const Forgotpass());
+                                                    },
+                                                    child: const Text(
+                                                      'Forgot Password?',
+                                                      style: TextStyle(
+                                                          color: Colors.red),
+                                                    ),
+                                                  ))),
                                           MyButton(
                                               onTap: () {
                                                 if (_formkey.currentState!

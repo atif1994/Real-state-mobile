@@ -45,6 +45,10 @@ class AppUrls {
   static const String assignAgents = "v1/assign-agents";
   static const String getWishlist = "v1/wishlist/";
   static const String getExpiredPost = "v1/expired-properties/";
+  static const String rePost = "v1/repost";
+  static const String markSold = "v1/marksold";
+  static const String shareInventory = "v1/share-inventory";
+  static const String aboutAgent = "v1/get-agent/";
 
   //////////////////////commnets
   static const String getLatestComments = "v1/get-comments";

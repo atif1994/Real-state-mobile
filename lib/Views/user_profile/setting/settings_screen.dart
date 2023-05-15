@@ -119,13 +119,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Stack(children: <Widget>[
-                              CircleAvatar(
-                                radius: 90,
-                                // backgroundColor: Colors.transparent,
-                                backgroundImage: CachedNetworkImageProvider(
-                                  widget.imgulrl != null
-                                      ? "${widget.imgulrl}"
-                                      : imguploadUrl.toString(),
+                              GestureDetector(
+                                onTap: () => showimage(),
+                                child: Hero(
+                                  tag: 'Hero1',
+                                  child: CircleAvatar(
+                                    radius: 90,
+                                    // backgroundColor: Colors.transparent,
+                                    backgroundImage: CachedNetworkImageProvider(
+                                      widget.imgulrl != null
+                                          ? "${widget.imgulrl}"
+                                          : imguploadUrl.toString(),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Positioned(
@@ -332,6 +338,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  showimage() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        barrierColor: Colors.grey,
+        builder: (_) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.zero,
+            contentPadding: EdgeInsets.zero,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            content: Builder(
+              builder: (context) {
+                // Get available height and width of the build area of this widget. Make a choice depending on the size.
+
+                return Hero(
+                  tag: 'Hero1',
+                  child: InteractiveViewer(
+                      child: CachedNetworkImage(
+                    imageUrl: widget.imgulrl != null
+                        ? "${widget.imgulrl}"
+                        : imguploadUrl.toString(),
+                  )),
+                );
+              },
+            ),
+          );
+        });
   }
 
   Future<void> _selectDate(BuildContext context) async {

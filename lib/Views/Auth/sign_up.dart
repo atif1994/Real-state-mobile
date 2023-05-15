@@ -5,9 +5,11 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/My%20Widgets/my_text_field.dart';
 import 'package:prologic_29/Services/constants.dart';
 import 'package:prologic_29/Views/Auth/sign_in.dart';
 import 'package:prologic_29/data/Controllers/sign_up_controller.dart';
+import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:sizer/sizer.dart';
 import '../../My Widgets/my_button.dart';
 import '../../data/Services/constants.dart';
@@ -60,8 +62,9 @@ class _SignUpState extends State<SignUp> {
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                         child: Container(
+                          height: 80.h,
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.4),
+                            color: AppColors.themelightcolor.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Padding(
@@ -89,85 +92,88 @@ class _SignUpState extends State<SignUp> {
                                   Form(
                                     key: _formkey,
                                     child: Column(children: [
-                                      TextFormField(
-                                        showCursor: true,
-                                        decoration: InputDecoration(
-                                            hintText: 'User Name'),
-                                        controller: controller.UserController,
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      NewTextField(
                                         validator: (String? value) {
                                           if (value == null || value.isEmpty) {
                                             return 'Please enter user name';
                                           }
                                           return null;
                                         },
+                                        hintText: 'user@1',
+                                        label: 'User Name',
+                                        controller: controller.UserController,
                                       ),
-                                      TextFormField(
-                                        showCursor: true,
-                                        decoration: InputDecoration(
-                                            hintText: 'First Name'),
-                                        controller:
-                                            controller.firstNameController,
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      NewTextField(
+                                        hintText: 'User',
+                                        label: 'First Name',
                                         validator: (String? value) {
                                           if (value == null || value.isEmpty) {
                                             return 'Please enter your name';
                                           }
                                           return null;
                                         },
-                                      ),
-                                      TextFormField(
-                                        showCursor: true,
-                                        decoration: InputDecoration(
-                                            hintText: 'Last Name'),
                                         controller:
-                                            controller.lastNameController,
+                                            controller.firstNameController,
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      NewTextField(
+                                        hintText: 'User',
+                                        label: 'Last Name',
                                         validator: (String? value) {
                                           if (value == null || value.isEmpty) {
                                             return 'Please enter your last name';
                                           }
                                           return null;
                                         },
-                                      ),
-                                      TextFormField(
-                                        showCursor: true,
-                                        decoration: InputDecoration(
-                                            hintText: 'Mobile No'),
                                         controller:
-                                            controller.phoneNumberController,
+                                            controller.lastNameController,
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      NewTextField(
                                         validator: (String? value) {
                                           if (value == null || value.isEmpty) {
                                             return 'Please enter your Mobile No';
                                           }
                                           return null;
                                         },
+                                        controller:
+                                            controller.phoneNumberController,
+                                        hintText: '012345',
+                                        label: 'Mobile No.',
                                       ),
-                                      TextFormField(
-                                        showCursor: true,
-                                        decoration:
-                                            InputDecoration(hintText: 'Email'),
-                                        controller: controller.emailController,
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      NewTextField(
                                         validator: (String? value) {
                                           return emailvalidator(value);
                                         },
+                                        controller: controller.emailController,
+                                        hintText: 'User@gmail.com',
+                                        label: 'Email',
                                       ),
-                                      TextFormField(
-                                        obscureText: controller.isHidden.value,
-                                        showCursor: true,
-                                        decoration: InputDecoration(
-                                            suffixIcon: GestureDetector(
-                                              onTap: () {
-                                                controller.isHidden.value =
-                                                    !controller.isHidden.value;
-                                              },
-                                              child: controller.isHidden.value
-                                                  ? Icon(Icons.visibility_off)
-                                                  : Icon(Icons.visibility),
-                                            ),
-                                            hintText: 'Password'),
-                                        controller:
-                                            controller.passwordController,
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      NewTextField(
+                                        isPasswordField: true,
                                         validator: (String? value) {
                                           return passwordvalidator(value);
                                         },
+                                        controller:
+                                            controller.passwordController,
+                                        hintText: '*******',
+                                        label: 'Password',
                                       ),
                                     ]),
                                   ),
@@ -282,22 +288,39 @@ class _SignUpState extends State<SignUp> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  DropdownButton<String>(
-                                      isExpanded: true,
-                                      value: dropdownvalue,
-                                      onChanged: (String? val) {
-                                        setState(() {
-                                          dropdownvalue = val.toString();
-                                        });
-                                      },
-                                      items: items
-                                          .map<DropdownMenuItem<String>>(
-                                              (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList()),
+                                  DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: AppColors.colorWhite),
+                                          color: AppColors.themelightcolor,
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: ButtonTheme(
+                                            alignedDropdown: true,
+                                            child: DropdownButton<String>(
+                                                underline: Container(),
+                                                isExpanded: true,
+                                                value: dropdownvalue,
+                                                onChanged: (String? val) {
+                                                  setState(() {
+                                                    dropdownvalue =
+                                                        val.toString();
+                                                  });
+                                                },
+                                                items: items.map<
+                                                        DropdownMenuItem<
+                                                            String>>(
+                                                    (String value) {
+                                                  return DropdownMenuItem<
+                                                      String>(
+                                                    value: value,
+                                                    child: Text(value),
+                                                  );
+                                                }).toList()),
+                                          ))),
                                   SizedBox(
                                     height: 4.h,
                                   ),
@@ -358,7 +381,7 @@ class _SignUpState extends State<SignUp> {
                                           Get.to(SignIn());
                                         },
                                         child: const Text(
-                                          'Already have a CG Account?\nLog In',
+                                          'Already have an Account?\nLog In',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(color: Colors.white),
                                         ),

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Agent/data/models/dealer_page_model.dart';
+
+import 'package:prologic_29/Agent/views/about_agent.dart';
+
 import 'package:prologic_29/Agent/views/dealer_post/dealer_post.dart';
-import 'package:prologic_29/Views/AboutUs/about_us.dart';
 import 'package:prologic_29/Views/Agent/Agent_Drawer/expiry_posts.dart';
+import 'package:prologic_29/Views/Agent/dashboard.dart';
 
 import 'package:prologic_29/Views/blog/blog.dart';
+import 'package:prologic_29/Views/user_profile/properties%20feed/properties_feed.dart';
 
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
@@ -280,6 +283,29 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.logout,
+                        color: AppColors.colorWhite,
+                      ),
+                      title: GestureDetector(
+                        onTap: () async {
+                          //signout
+                          Get.to(const AgentDashboard());
+                        },
+                        child: Text(
+                          "Agent Dashboard",
+                          style: AppTextStyles.heading1
+                              .copyWith(color: AppColors.colorWhite),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -427,7 +453,7 @@ class AgentDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => const AboutUs());
+                        Get.to(() => const AboutAgent());
                       },
                       leading: Image.asset(
                         AppImageResources.aboutUs,
@@ -506,7 +532,7 @@ class AgentDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        // Get.to(() => WishlistPage());
+                        Get.to(() => PropertiesFeed(hide: true));
                       },
                       leading: Image.asset(
                         AppImageResources.newFeed,

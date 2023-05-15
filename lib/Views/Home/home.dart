@@ -725,12 +725,20 @@ class _HomeState extends State<Home> {
                                                                           margin: EdgeInsets.only(
                                                                               left: 3.0.w,
                                                                               right: 3.0.w),
-                                                                          // color: Colors
-                                                                          //     .red,
+                                                                          // color: Color.fromARGB(
+                                                                          //     255,
+                                                                          //     255,
+                                                                          //     158,
+                                                                          //     151),
                                                                           width:
                                                                               50.0.w,
                                                                           child:
-                                                                              Text(dashboardController.filteredPropertyModel.popular![index].name ?? ''),
+                                                                              Text(
+                                                                            dashboardController.filteredPropertyModel.popular![index].name ??
+                                                                                '',
+                                                                            textAlign:
+                                                                                TextAlign.center,
+                                                                          ),
                                                                         ),
                                                                       ),
                                                                     );
@@ -797,7 +805,10 @@ class _HomeState extends State<Home> {
                                                                             child: Container(
                                                                                 margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
                                                                                 width: 50.0.w,
-                                                                                child: Text(dashboardController.filteredPropertyModel.types![index].name ?? '')),
+                                                                                child: Text(
+                                                                                  dashboardController.filteredPropertyModel.types![index].name ?? '',
+                                                                                  textAlign: TextAlign.center,
+                                                                                )),
                                                                           ),
                                                                         );
                                                                       }),
@@ -851,7 +862,13 @@ class _HomeState extends State<Home> {
                                                                               alignment: Alignment.center,
                                                                               decoration: CustomDecorations.mainCon,
                                                                               child: Center(
-                                                                                child: Container(margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w), width: 50.0.w, child: Text(dashboardController.filteredPropertyModel.locations![index].sectorAndBlockName ?? '')),
+                                                                                child: Container(
+                                                                                    margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
+                                                                                    width: 50.0.w,
+                                                                                    child: Text(
+                                                                                      dashboardController.filteredPropertyModel.locations![index].sectorAndBlockName ?? '',
+                                                                                      textAlign: TextAlign.center,
+                                                                                    )),
                                                                               ),
                                                                             );
                                                                           }),
@@ -889,7 +906,13 @@ class _HomeState extends State<Home> {
                                                                               alignment: Alignment.center,
                                                                               decoration: CustomDecorations.mainCon,
                                                                               child: Center(
-                                                                                child: Container(margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w), width: 50.0.w, child: Text(dashboardController.filteredPropertyModel.areas![index].square ?? '')),
+                                                                                child: Container(
+                                                                                    margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
+                                                                                    width: 50.0.w,
+                                                                                    child: Text(
+                                                                                      dashboardController.filteredPropertyModel.areas![index].square ?? '',
+                                                                                      textAlign: TextAlign.center,
+                                                                                    )),
                                                                               ),
                                                                             );
                                                                           }),

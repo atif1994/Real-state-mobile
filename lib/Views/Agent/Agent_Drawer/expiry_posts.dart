@@ -2,11 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:prologic_29/Agent/data/controller/expired_property_controller.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
-import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../My Widgets/tag_widget.dart';
+import '../../../utils/constants/app_urls.dart';
+import '../../../utils/constants/fonts.dart';
 
 class Expiryppost extends StatelessWidget {
   var expiredpostcontroller = Get.put(ExpiredPropertyController());
@@ -25,209 +29,203 @@ class Expiryppost extends StatelessWidget {
               child: CircularProgressIndicator(
               color: AppColors.appthem,
             ))
-          : ListView.builder(
-              itemCount: expiredpostcontroller.expiredproperties.data!.length,
-              itemBuilder: ((context, index) {
-                var data = expiredpostcontroller.expiredproperties.data;
-                return Container(
-                  margin: EdgeInsets.only(
-                      top: index == 0 ? 2.0.h : 2.0.h,
-                      bottom: index ==
-                              expiredpostcontroller
-                                      .expiredproperties.data!.length -
-                                  1
-                          ? 2.0.h
-                          : 0.0.h,
-                      left: 3.0.w,
-                      right: 3.0.w),
-                  decoration: CustomDecorations.mainCon,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Row(
+          : expiredpostcontroller.expiredproperties.data!.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/noresultfound.png', scale: 1.9),
+                      Text(
+                        'No Result Found',
+                        style: AppTextStyles.heading1
+                            .copyWith(color: Colors.black, fontSize: 15),
+                      )
+                    ],
+                  ),
+                )
+              : ListView.builder(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  itemCount:
+                      expiredpostcontroller.expiredproperties.data!.length,
+                  itemBuilder: ((context, index) {
+                    String dateTimeString = expiredpostcontroller
+                        .expiredproperties.data![index].createdAt
+                        .toString();
+                    DateTime dateTime = DateTime.parse(dateTimeString);
+                    String formattedDate =
+                        DateFormat('dd-MM-yyyy').format(dateTime);
+                    List<String> tags = expiredpostcontroller
+                        .expiredproperties.data![index].tags
+                        .toString()
+                        .split(',')
+                        .map((tag) => tag.trim())
+                        .toList();
+                    return Container(
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 222, 222, 222)),
+                        margin:
+                            EdgeInsets.only(top: index == 0 ? 1.0.h : 2.0.h),
+                        //  height: 45.0.h,
+                        width: 100.0.w,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Name",
-                                style: AppTextStyles.appbar.copyWith(
-                                    color: AppColors.colorblack,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                              SizedBox(
-                                width: 27.w,
-                              ),
-                              SizedBox(
-                                width: 50.w,
-                                child: Text(
-                                  data![index].name ?? "",
-                                  maxLines: 2,
-                                  style: AppTextStyles.appbar
-                                      .copyWith(color: AppColors.colorblack),
+                              //--------Agent image and name, message button
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8, right: 8),
+                                child: Row(
+                                  children: [
+                                    // CircleAvatar(
+                                    //   backgroundImage: NetworkImage(
+                                    //       '${AppUrls.assetuserbaseUrl}${ expiredpostcontroller.expiredproperties.data![index].user!.profileImage}'),
+                                    // ),
+                                    const SizedBox(
+                                      width: 6,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 93.w,
+                                          child: Text(
+                                            '${expiredpostcontroller.expiredproperties.data![index].adTitle}',
+                                            maxLines: 2,
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        Text(
+                                          formattedDate,
+                                          style: const TextStyle(fontSize: 13),
+                                        )
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ]),
-                        Row(
-                          children: [
-                            Text(
-                              "Sector Block",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            SizedBox(
-                              width: 15.w,
-                            ),
-                            Text(
-                              data[index].sectorAndBlockName ?? "",
-                              style: AppTextStyles.appbar
-                                  .copyWith(color: AppColors.colorblack),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "City",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            SizedBox(
-                              width: 31.w,
-                            ),
-                            Text(
-                              data[index].city!.name ?? "",
-                              style: AppTextStyles.appbar
-                                  .copyWith(color: AppColors.colorblack),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Price",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            SizedBox(
-                              width: 29.w,
-                            ),
-                            Text(
-                              "${data[index].price ?? ""}/PKR",
-                              style: AppTextStyles.appbar
-                                  .copyWith(color: AppColors.colorblack),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Total Bedrooms",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            SizedBox(
-                              width: 8.w,
-                            ),
-                            Text(
-                              data[index].numberBedroom ?? "",
-                              style: AppTextStyles.appbar
-                                  .copyWith(color: AppColors.colorblack),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Total Bathrooms",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            SizedBox(
-                              width: 6.5.w,
-                            ),
-                            Text(
-                              data[index].numberBathroom ?? "",
-                              style: AppTextStyles.appbar
-                                  .copyWith(color: AppColors.colorblack),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Satus",
-                              style: AppTextStyles.appbar.copyWith(
-                                  color: AppColors.colorblack,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            SizedBox(
-                              width: 27.w,
-                            ),
-                            Text(
-                              data[index].city!.status ?? "",
-                              style: AppTextStyles.appbar
-                                  .copyWith(color: AppColors.colorblack),
-                            ),
-                          ],
-                        ),
-                        // SizedBox(
-                        //   width: 10.w,
-                        // ),
-                        // //////////////////////////
-                        // Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   children: [
-                        //     SizedBox(
-                        //       width: 40.0.w,
-                        //       child: Text(
-                        //         data[index].name ?? "",
-                        //         maxLines: 2,
-                        //         style: AppTextStyles.appbar
-                        //             .copyWith(color: AppColors.colorblack),
-                        //       ),
-                        //     ),
-                        //     Text(
-                        //       data[index].sectorAndBlockName ?? "",
-                        //       style: AppTextStyles.appbar
-                        //           .copyWith(color: AppColors.colorblack),
-                        //     ),
-                        //     Text(
-                        //       data[index].city!.name ?? "",
-                        //       style: AppTextStyles.appbar
-                        //           .copyWith(color: AppColors.colorblack),
-                        //     ),
-                        //     Text(
-                        //       "${data[index].price ?? ""}/PKR",
-                        //       style: AppTextStyles.appbar
-                        //           .copyWith(color: AppColors.colorblack),
-                        //     ),
-                        //     Text(
-                        //       data[index].numberBedroom ?? "",
-                        //       style: AppTextStyles.appbar
-                        //           .copyWith(color: AppColors.colorblack),
-                        //     ),
-                        //     Text(
-                        //       data[index].numberBathroom ?? "",
-                        //       style: AppTextStyles.appbar
-                        //           .copyWith(color: AppColors.colorblack),
-                        //     ),
-                        //     Text(
-                        //       data[index].city!.status ?? "",
-                        //       style: AppTextStyles.appbar
-                        //           .copyWith(color: AppColors.colorblack),
-                        //     ),
-                        //   ],
-                        // ),
-                      ],
-                    ),
-                  ),
-                );
-              }))),
+
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Wrap(
+                                  spacing: 5,
+                                  runSpacing: 2,
+                                  children: tags
+                                      .map((tag) => Tag(label: tag))
+                                      .toList(),
+                                ),
+                              ),
+                              //---------------------Image
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                        255, 237, 237, 237),
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: Colors.black)),
+                                height: 32.h,
+                                margin:
+                                    const EdgeInsets.only(top: 9, bottom: 9),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(9),
+                                  child: Center(
+                                    child: Image.network(
+                                      '${AppUrls.assetbaseUrl}${expiredpostcontroller.expiredproperties.data![index].imagePath}',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              //----------------------Description
+
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  '${expiredpostcontroller.expiredproperties.data![index].description}',
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+
+                              //---------------------Location
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.location_on,
+                                      size: 22,
+                                    ),
+                                    const SizedBox(
+                                      width: 6,
+                                    ),
+                                    SizedBox(
+                                      width: 84.w,
+                                      child: Text(
+                                        '${expiredpostcontroller.expiredproperties.data![index].location} ',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            fontFamily: AppFonts.nexaBold),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 15.sp),
+                                child: const Divider(
+                                  thickness: 0.5,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                          foregroundColor: Colors.black,
+                                          backgroundColor:
+                                              const Color(0xFF92AEC6)),
+                                      onPressed: () {
+                                        expiredpostcontroller.repostproperty(
+                                            expiredpostcontroller
+                                                .expiredproperties
+                                                .data![index]
+                                                .id);
+                                      },
+                                      child: const Text('Repost')),
+                                  OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                          foregroundColor: Colors.black,
+                                          backgroundColor:
+                                              const Color(0xFF92AEC6)),
+                                      onPressed: () {
+                                        expiredpostcontroller.soldproperty(
+                                            expiredpostcontroller
+                                                .expiredproperties
+                                                .data![index]
+                                                .id);
+                                      },
+                                      child: const Text('Sold')),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              )
+                            ],
+                          ),
+                        ));
+                  }))),
     );
   }
 }
