@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/Agent/views/dealer_page.dart';
 import 'package:prologic_29/Views/AboutUs/about_us.dart';
 import 'package:prologic_29/custom_widgets/drawer_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,7 +99,9 @@ class _AgentDashboardState extends State<AgentDashboard> {
                           "About"),
                     ),
                     GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => const DealerPageUI());
+                        },
                         child: gridcontainer(
                             Image.asset(
                               AppImageResources.blogger,

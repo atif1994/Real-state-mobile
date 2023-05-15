@@ -49,4 +49,5 @@ class AppUrls {
   //////////////////////commnets
   static const String getLatestComments = "v1/get-comments";
   static const String dealerPost = "v1/posts";
+  static const String dealerPage = "v1/my-posts/";
 }

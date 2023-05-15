@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, avoid_print, use_build_context_synchronously, avoid_unnecessary_containers, unused_field
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -566,17 +568,17 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                           child: IconButton(
                                               color: AppColors.colorWhite,
                                               onPressed: () {
-                                                  postCommentsController
-                                                      .postComments(
-                                                          index,
-                                                          propertypostController
-                                                              .propertypostmodel
-                                                              .data![index]
-                                                              .id,
-                                                          uid,
-                                                          _controllers[index]
-                                                              .text);
-                                             
+                                                postCommentsController
+                                                    .postComments(
+                                                        index,
+                                                        propertypostController
+                                                            .propertypostmodel
+                                                            .data![index]
+                                                            .id,
+                                                        uid,
+                                                        _controllers[index]
+                                                            .text);
+
                                                 _controllers[index].clear();
                                               },
                                               icon: const Icon(
@@ -1581,14 +1583,4 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
           );
         });
   }
-
-  // toastshow(bool istoastsend) {
-  //   istoastsend
-  //       ? Fluttertoast.showToast(
-  //           textColor: Colors.red.shade300,
-  //           msg: 'Your property is not add into favourite cart')
-  //       : Fluttertoast.showToast(
-  //           textColor: Colors.green.shade300,
-  //           msg: 'Your property add into favourite cart');
-  // }
 }

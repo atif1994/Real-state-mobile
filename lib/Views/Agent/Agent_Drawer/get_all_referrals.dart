@@ -18,6 +18,8 @@ class GetReferral extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool validate = false;
+
     return Scaffold(
         backgroundColor: AppColors.appthem,
         resizeToAvoidBottomInset: false,
@@ -52,12 +54,18 @@ class GetReferral extends StatelessWidget {
                               child: TextFormField(
                                 controller: referfieldcontroller,
                                 decoration: InputDecoration(
+                                    // ignore: dead_code
+                                    // errorText: validate ? 'Please enter' : null,
                                     suffix: InkWell(
                                       onTap: () {
-                                        Clipboard.setData(ClipboardData(
-                                            text: referfieldcontroller.text));
+                                        if (referfieldcontroller.text.isEmpty) {
+                                          showmsg();
+                                        } else {
+                                          Clipboard.setData(ClipboardData(
+                                              text: referfieldcontroller.text));
 
-                                        showcopydata();
+                                          showcopydata();
+                                        }
                                       },
                                       child: const Text(
                                         'Copy',
@@ -165,5 +173,13 @@ class GetReferral extends StatelessWidget {
     Fluttertoast.showToast(
         msg: '${referfieldcontroller.text} is copied',
         gravity: ToastGravity.TOP);
+  }
+
+  showmsg() {
+    return Fluttertoast.showToast(
+        gravity: ToastGravity.TOP,
+        msg: 'Please enter referal code',
+        textColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 169, 48, 40));
   }
 }

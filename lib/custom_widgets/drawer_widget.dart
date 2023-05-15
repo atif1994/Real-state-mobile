@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/Agent/data/models/dealer_page_model.dart';
 import 'package:prologic_29/Agent/views/dealer_post/dealer_post.dart';
 import 'package:prologic_29/Views/AboutUs/about_us.dart';
 import 'package:prologic_29/Views/Agent/Agent_Drawer/expiry_posts.dart';
@@ -12,6 +13,7 @@ import 'package:prologic_29/utils/constants/image_resources.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:sizer/sizer.dart';
 
+import '../Agent/views/dealer_page.dart';
 import '../Views/AddProperty/add_property.dart';
 import '../Views/Agent/Agent_Drawer/get_all_referrals.dart';
 import '../Views/Notifications/notification_page.dart';
@@ -450,7 +452,7 @@ class AgentDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () {
-                        // Get.to(() => Blog());
+                        Get.to(() => const DealerPageUI());
                       },
                       leading: Image.asset(
                         AppImageResources.blogger,
