@@ -1,8 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
@@ -96,18 +96,28 @@ class _ContactUsState extends State<ContactUs> {
                               : CustomButton(
                                   text: 'Send Message',
                                   onPressed: () {
-                                    contactuscontroller.getcontactus(
-                                        nameController.text,
-                                        emailController.text,
-                                        subjectController.text,
-                                        phoneNumberController.text,
-                                        MessageController.text);
+                                    if (nameController.text.isEmpty ||
+                                        emailController.text.isEmpty ||
+                                        subjectController.text.isEmpty ||
+                                        phoneNumberController.text.isEmpty ||
+                                        MessageController.text.isEmpty) {
+                                      Fluttertoast.showToast(
+                                          msg: 'Fields are required',
+                                          gravity: ToastGravity.TOP);
+                                    } else {
+                                      contactuscontroller.getcontactus(
+                                          nameController.text,
+                                          emailController.text,
+                                          subjectController.text,
+                                          phoneNumberController.text,
+                                          MessageController.text);
 
-                                    nameController.clear();
-                                    emailController.clear();
-                                    subjectController.clear();
-                                    phoneNumberController.clear();
-                                    MessageController.clear();
+                                      nameController.clear();
+                                      emailController.clear();
+                                      subjectController.clear();
+                                      phoneNumberController.clear();
+                                      MessageController.clear();
+                                    }
                                   },
                                 ),
                     ),

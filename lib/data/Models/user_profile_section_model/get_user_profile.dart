@@ -61,7 +61,7 @@ class Data {
   String? email;
   String? phone;
   String? avatar;
-  dynamic dob;
+  String? dob;
   dynamic gender;
   dynamic description;
   String? addressId;

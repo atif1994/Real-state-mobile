@@ -38,15 +38,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   var phoneController = TextEditingController();
 
-  var userDescController = TextEditingController();
+  // var userDescController = TextEditingController();
 
   var emailController = TextEditingController();
 
   var dobController = TextEditingController();
 
   var genderController = TextEditingController();
-
-  String dob = 'Select Dob';
+  String formattedDate = DateTime.now().toString();
   String gender = 'Select Gender';
 
   String? imguploadUrl;
@@ -67,15 +66,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
         profileController.userProfileData.data!.lastName.toString();
     phoneController.text =
         profileController.userProfileData.data!.phone.toString();
-    userDescController.text =
-        profileController.userProfileData.data!.description.toString();
+    // userDescController.text =
+    //     profileController.userProfileData.data!.description.toString();
     emailController.text =
         profileController.userProfileData.data!.email.toString();
     phoneController.text =
         profileController.userProfileData.data!.phone.toString();
-    dob = DateFormat("dd-MM-yyyy")
-        .format(profileController.userProfileData.data!.dob ?? DateTime.now());
-    profileController.userProfileData.data!.dob.toString();
+    String timestamp = profileController.userProfileData.data!.dob!;
+    final DateTime dateTime = DateTime.parse(timestamp);
+    final DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+    formattedDate = dateFormat.format(dateTime);
+    // dob = DateFormat("dd-MM-yyyy");
+    //  (profileController.userProfileData.data!.dob!);
+
+    // profileController.userProfileData.data!.dob.toString();
     gender = profileController.userProfileData.data!.gender.toString();
 
     super.initState();
@@ -226,16 +230,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                     ////////////////////////////////////////////////////////////
 
-                    Padding(
-                      padding: EdgeInsets.only(left: 3.0.w, top: 2.0.h),
-                      child: Text(
-                        "Short Description",
-                        style: AppTextStyles.heading1.copyWith(
-                            color: AppColors.appthem, fontSize: 12.sp),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 3.0.w, top: 2.0.h),
+                    //   child: Text(
+                    //     "Short Description",
+                    //     style: AppTextStyles.heading1.copyWith(
+                    //         color: AppColors.appthem, fontSize: 12.sp),
+                    //   ),
+                    // ),
 
-                    CustomTextField(editingController: userDescController),
+                    // CustomTextField(editingController: userDescController),
 
                     ////////////////////////////////////////////////////////////
 
@@ -273,7 +277,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Padding(
                             padding: EdgeInsets.only(top: 1.5.h, left: 2.0.w),
-                            child: Text(dob)),
+                            child: Text(formattedDate)),
                       ),
                     ),
 
@@ -327,9 +331,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           fullNameController.text.split(' ')[0],
                           fullNameController.text.split(' ')[1],
                           phoneController.text,
-                          userDescController.text,
+                          userNameController.text,
                           emailController.text,
-                          dob,
+                          formattedDate,
                           gender);
                     },
                     text: "Save",
@@ -378,7 +382,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         lastDate: DateTime(2101));
     if (picked != null) {
       setState(() {
-        dob = picked.toString().split(" ")[0];
+        formattedDate = picked.toString().split(" ")[0];
       });
     }
   }

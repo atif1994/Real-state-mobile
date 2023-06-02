@@ -11,6 +11,7 @@ class AppUrls {
   static const String featuredProperty = "v1/featured-properties";
   static const String propertyCities = "v1/cities";
   static const String filteredPropertise = "v1/properties-filters";
+  static const String homefilter = "v1/filter";
   static const String myProperty = "v1/my-properties/";
   static const String propertyByID = "v1/Propertybyid/";
   static const String propertyByCity = "v1/Properties-by-city/";
@@ -31,6 +32,7 @@ class AppUrls {
   //////////////////////user profile
   static const String getUserProfile = "v1/me/";
   static const String convesationList = "v1/conversations/";
+  static const String agentconvesationList = "v1/agent/conversation/";
   static const String chatList = "v1/chat/";
   static const String storewishlist = "v1/store-wishlist";
   //////////////////////user profile sec

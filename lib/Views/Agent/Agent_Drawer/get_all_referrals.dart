@@ -133,39 +133,54 @@ class GetReferral extends StatelessWidget {
                             ),
                           ),
                         )
-                      : ListView.builder(
-                          itemCount: getreferral.referral.data!.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 8),
-                              height: 70,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.grey.shade300),
+                      : getreferral.referral.data!.isEmpty
+                          ? Center(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
+                                padding: EdgeInsets.only(top: 10.h),
+                                child: Column(
                                   children: [
-                                    const CircleAvatar(
-                                        radius: 28,
-                                        backgroundImage:
-                                            AssetImage(AppImageResources.abt)
-                                        // NetworkImage("${AppUrls.baseUrl2}${getreferral.referral.data![index].avatar['url']}"),
-                                        ),
-                                    const SizedBox(
-                                      width: 10,
+                                    Image.asset(
+                                      'assets/noresultfound.png',
+                                      scale: 3.4,
                                     ),
-                                    Text(
-                                      "${getreferral.referral.data![index].firstName!} ${getreferral.referral.data![index].firstName!}",
-                                      style: const TextStyle(fontSize: 16),
-                                    )
+                                    const Text('No Result Found')
                                   ],
                                 ),
                               ),
-                            );
-                          },
-                        )),
+                            )
+                          : ListView.builder(
+                              itemCount: getreferral.referral.data!.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 8),
+                                  height: 70,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.grey.shade300),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        const CircleAvatar(
+                                            radius: 28,
+                                            backgroundImage: AssetImage(
+                                                AppImageResources.abt)
+                                            // NetworkImage("${AppUrls.baseUrl2}${getreferral.referral.data![index].avatar['url']}"),
+                                            ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          "${getreferral.referral.data![index].firstName!} ${getreferral.referral.data![index].firstName!}",
+                                          style: const TextStyle(fontSize: 16),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            )),
             ))
           ],
         ));

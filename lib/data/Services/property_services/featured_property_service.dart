@@ -124,7 +124,7 @@ class FeaturedPropertyService {
   // }
 
   static Future<dynamic> getNewsPostAPI() async {
-    var url = "${AppUrls.baseUrl}${AppUrls.newspost}";
+    var url = "${AppUrls.baseUrl}${AppUrls.dealerPost}";
     var res = await BaseClientClass.get(url, '');
 
     try {

@@ -1,41 +1,30 @@
-// ignore_for_file: avoid_print
-
-import 'package:get/state_manager.dart';
-import 'package:prologic_29/data/Models/Chat_Model/chat_model.dart';
-import 'package:prologic_29/data/Models/Chat_Model/conversation_model.dart';
-import 'package:prologic_29/data/Models/Chat_Model/sendchat_model.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../Services/chat_services.dart';
+import '../../Models/Chat_Model/chat_model.dart';
+import '../../Models/Chat_Model/conversation_model.dart';
+import '../../Models/Chat_Model/sendchat_model.dart';
+import '../../Services/agentchat_service.dart';
+import '../../Services/chat_services.dart';
 
-class ConversationController extends GetxController {
-  int? conversationId;
-  int uid = 0;
+class AgentChatController extends GetxController {
+  int? uid;
   RxBool loadChat = false.obs;
+  int? conversationId;
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     loadingConversation.value = true;
-
-    getUserId();
     loadChat.value = true;
-    loadData();
+    loaddata();
   }
 
-  // void loadChatFu() {
-  //   Future.delayed(const Duration(seconds: 2));
-  //   loadChat.value = false;
-  // }
-
-  void loadData() async {
+  loaddata() async {
     getUserId();
     await Future.delayed(const Duration(milliseconds: 200));
-    getConversation(uid);
-    getConversationId();
-    // await Future.delayed(const Duration(milliseconds: 200));
-    // getChat(conversationId ?? 0);
-    // print("conversational Id =======????$conversationId ");
+    getConversation(uid!);
   }
 
   getUserId() async {
@@ -52,10 +41,10 @@ class ConversationController extends GetxController {
     print("*****user id call in func*******************$uid");
     loadingConversation.value = true;
     errConversationLoad.value = '';
-    var res = await ConversationServices.getConversationService(uid);
+    var res = await AgentConversationServices.getConversationService(uid);
     if (res is Conversation) {
       loadingConversation.value = false;
-      loadingChat.value = false;
+
       conversationModel = res;
       // for (int i = 0; i < conversationModel.data![1].chats!.length; i++) {
       //   allConversation.add(conversationModel.data![i].chats![i]);
@@ -89,8 +78,6 @@ class ConversationController extends GetxController {
     update();
   }
 
-//get convesationId from sharedPref had store from chat room
-
   void getConversationId() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     conversationId = pref.getInt("conversatinId");
@@ -106,7 +93,7 @@ class ConversationController extends GetxController {
     loadingsend.value = true;
     errSendMsg.value = '';
     var res = await ConversationServices.sendMsgService(
-        custId, agentId, msg, convId, uid);
+        custId, agentId, msg, convId, uid!);
     loadingsend.value = false;
     if (res is SendChatModel) {
       sendMsgModel = res;

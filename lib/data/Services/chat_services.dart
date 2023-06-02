@@ -41,12 +41,13 @@ class ConversationServices {
   //Send msg API
 
   static Future<dynamic> sendMsgService(
-      int? custId, int? agentId, String? msg, int? convId) async {
+      int? custId, int? agentId, String? msg, int? convId, int sendid) async {
     Map chat = {
       "customer": custId,
       "agent": agentId,
       "message": msg.toString(),
-      "conversation_id": convId
+      "conversation_id": convId,
+      "sender_id": sendid
     };
 
     //  {

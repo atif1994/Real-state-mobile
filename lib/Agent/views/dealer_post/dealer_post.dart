@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prologic_29/Agent/data/controller/dealer_post_controller.dart';
@@ -11,6 +12,8 @@ import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../My Widgets/tag_widget.dart';
 
 class DealerPostScreen extends StatefulWidget {
   const DealerPostScreen({super.key});
@@ -24,7 +27,6 @@ class _DealerPostScreenState extends State<DealerPostScreen> {
   var locController = TextEditingController();
 
   var descController = TextEditingController();
-
   var tagController = TextEditingController();
   final picker = ImagePicker();
   File? _imageFile;
@@ -79,10 +81,51 @@ class _DealerPostScreenState extends State<DealerPostScreen> {
                     .copyWith(fontWeight: FontWeight.w600, fontSize: 12.sp),
               ),
               SizedBox(height: 1.5.h),
+
               CustomTextField(
                 editingController: tagController,
-                hintText: "Enter Tag eg Marla,DHA,B",
+                suffixicon: GestureDetector(
+                    onTap: () {
+                      if (tagController.text.isEmpty) {
+                        Fluttertoast.showToast(
+                            msg: 'Please enter tag', gravity: ToastGravity.TOP);
+                      } else {
+                        dealerPostController.tags.add(tagController.text);
+                        tagController.clear();
+                      }
+                    },
+                    child: const Icon(
+                      Icons.add,
+                      color: AppColors.themecolor,
+                    )),
+                hintText: "Enter Tag eg DHA",
               ),
+              const Padding(
+                padding: EdgeInsets.only(left: 9, top: 2),
+                child: Text(
+                  'Press Add(+) button after writing tag.',
+                  style: TextStyle(color: Color.fromARGB(255, 113, 113, 113)),
+                ),
+              ),
+              SizedBox(height: 1.5.h),
+              Obx(() => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Wrap(
+                      spacing: 5,
+                      runSpacing: 2,
+                      children:
+                          dealerPostController.tags.asMap().entries.map((tag) {
+                        String item = tag.value;
+                        int index = tag.key;
+                        return AddTag(
+                          label: item,
+                          index: index,
+                        );
+                      }).toList(),
+                    ),
+                  )),
+              // const Text('///////////////////Show Tags'),
+
               SizedBox(height: 2.5.h),
               GestureDetector(
                 onTap: () {

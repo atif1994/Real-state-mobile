@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 
 class CustomDecorations {
+  static double blurradius = 0.1;
+  static double spreadradius = 0.5;
+  static Color color = Colors.grey.withOpacity(0.2);
+
   static BoxDecoration con1 = BoxDecoration(
     color: AppColors.colorWhite,
     borderRadius: BorderRadius.circular(300),
@@ -26,6 +30,40 @@ class CustomDecorations {
             color: Colors.grey.withOpacity(0.5),
             offset: const Offset(0, 3))
       ]);
+
+  static BoxDecoration homeCon = BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      color: AppColors.colorWhite,
+      boxShadow: [
+        BoxShadow(
+          blurRadius: blurradius,
+          spreadRadius: spreadradius,
+          color: color,
+          offset: const Offset(3, -2),
+        ),
+        BoxShadow(
+          blurRadius: blurradius,
+          spreadRadius: spreadradius,
+          color: color,
+          offset: const Offset(-3, 2),
+        ),
+        BoxShadow(
+          blurRadius: blurradius,
+          spreadRadius: spreadradius,
+          color: color,
+          offset: const Offset(3, 2),
+        ),
+        BoxShadow(
+          blurRadius: blurradius,
+          spreadRadius: spreadradius,
+          color: color,
+          offset: const Offset(-3, -2),
+        )
+      ]);
+
+  static BoxDecoration condec = BoxDecoration(
+      border: Border.all(color: AppColors.colorGrey),
+      borderRadius: BorderRadius.circular(10));
 
   static BoxDecoration con3 = BoxDecoration(
       borderRadius: BorderRadius.circular(10),

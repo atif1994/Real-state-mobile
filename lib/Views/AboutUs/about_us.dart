@@ -5,6 +5,8 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../utils/constants/fonts.dart';
+
 class AboutUs extends StatefulWidget {
   const AboutUs({super.key});
 
@@ -31,6 +33,7 @@ class _AboutUsState extends State<AboutUs> {
             const Text(
               'Our Story',
               style: TextStyle(
+                  fontFamily: AppFonts.nexaBold,
                   fontSize: 19,
                   fontWeight: FontWeight.w700,
                   color: Color.fromARGB(255, 11, 11, 11)),
@@ -43,9 +46,9 @@ class _AboutUsState extends State<AboutUs> {
               'ProLogic 29 is a digital platform designed to help you with all your real estate worries! We pledge to make real estate experiences more accessible to everyone – whether they need to buy, sell, or rent properties, products, projects, or services! With ProLogic 29, you don’t have to worry about finding the right place, again!',
               style: TextStyle(
                   fontSize: 14,
-                  fontStyle: FontStyle.italic,
+                  // fontStyle: FontStyle.italic,
                   height: 1.5,
-                  fontFamily: 'Rubik Medium',
+                  fontFamily: AppFonts.nexaBold,
                   color: Color.fromARGB(255, 131, 130, 130)),
             ),
             Image.asset(
@@ -56,7 +59,7 @@ class _AboutUsState extends State<AboutUs> {
               'Our Mission & Work Process',
               style: TextStyle(
                 fontSize: 17,
-                fontFamily: 'Rubik Medium',
+                fontFamily: AppFonts.nexaBold,
                 color: Color.fromARGB(255, 8, 8, 8),
                 fontWeight: FontWeight.w500,
               ),
@@ -68,7 +71,7 @@ class _AboutUsState extends State<AboutUs> {
               'Professional & Dedicated Team',
               style: TextStyle(
                   fontSize: 13,
-                  fontFamily: 'Rubik Medium',
+                  fontFamily: AppFonts.nexaBold,
                   color: Color.fromARGB(255, 131, 130, 130)),
             ),
             SizedBox(
@@ -103,7 +106,7 @@ class _AboutUsState extends State<AboutUs> {
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'Rubik Medium',
+                              fontFamily: AppFonts.nexaBold,
                               color: Color.fromARGB(255, 14, 14, 15)),
                         ),
                       ),
@@ -113,7 +116,7 @@ class _AboutUsState extends State<AboutUs> {
                           'If you are an individual client, or just a business startup looking for good backlinks for your website.',
                           style: TextStyle(
                               fontSize: 11,
-                              fontFamily: 'Rubik Medium',
+                              fontFamily: AppFonts.nexaBold,
                               color: Color.fromARGB(255, 131, 130, 130)),
                         ),
                       )
@@ -151,7 +154,7 @@ class _AboutUsState extends State<AboutUs> {
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'Rubik Medium',
+                              fontFamily: AppFonts.nexaBold,
                               color: Color.fromARGB(255, 14, 14, 15)),
                         ),
                       ),
@@ -161,7 +164,7 @@ class _AboutUsState extends State<AboutUs> {
                           'If you are an individual client, or just a business startup looking for good backlinks for your website.',
                           style: TextStyle(
                               fontSize: 11,
-                              fontFamily: 'Rubik Medium',
+                              fontFamily: AppFonts.nexaBold,
                               color: Color.fromARGB(255, 131, 130, 130)),
                         ),
                       )
@@ -200,7 +203,7 @@ class _AboutUsState extends State<AboutUs> {
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'Rubik Medium',
+                              fontFamily: AppFonts.nexaBold,
                               color: Color.fromARGB(255, 14, 14, 15)),
                         ),
                       ),
@@ -210,7 +213,7 @@ class _AboutUsState extends State<AboutUs> {
                           'If you are an individual client, or just a business startup looking for good backlinks for your website.',
                           style: TextStyle(
                               fontSize: 11,
-                              fontFamily: 'Rubik Medium',
+                              fontFamily: AppFonts.nexaBold,
                               color: Color.fromARGB(255, 131, 130, 130)),
                         ),
                       )

@@ -29,6 +29,7 @@ class ChangePasswordController extends GetxController {
     var res = await ChangePasswordServices.profilechangePassword(
         uid!, password, oldPass);
     loadingchangepassword.value = false;
+
     if (res is ChangePasswordResponse) {
       print(uid);
       profilechangepassword = res;

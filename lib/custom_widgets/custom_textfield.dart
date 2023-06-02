@@ -8,11 +8,15 @@ import 'package:sizer/sizer.dart';
 class CustomTextField extends StatelessWidget {
   final String? hintText;
   final Function? onChanged;
+  final Widget? suffixicon;
+  final String? Function(String?)? validate;
   TextEditingController editingController;
 
   CustomTextField({
     this.hintText,
     this.onChanged,
+    this.suffixicon,
+    this.validate,
     required this.editingController,
   });
 
@@ -23,6 +27,7 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         controller: editingController,
         decoration: InputDecoration(
+          suffixIcon: suffixicon,
           hintText: hintText,
           hintStyle: const TextStyle(fontFamily: AppFonts.nexaBook),
           contentPadding: EdgeInsets.only(top: 1.0.h, left: 3.0.w),
@@ -36,6 +41,7 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
+        validator: validate,
         onChanged: (val) {
           onChanged;
         },

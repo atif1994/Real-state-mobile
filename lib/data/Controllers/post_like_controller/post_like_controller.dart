@@ -18,7 +18,7 @@ class PostLikeController extends GetxController {
   @override
   void onInit() async {
     hiveuId = await box.get("uid");
-    getPostLike(285, hiveuId);
+    // getPostLike(4, hiveuId);
     gethiveList();
   }
 
@@ -42,10 +42,10 @@ class PostLikeController extends GetxController {
       final likeIdsList = likeModel.likelist as List<Likelist>;
       likeIdsList2.value = [];
       for (var e in likeIdsList) {
-        likeIdsList2.add(int.parse(e.propertyId.toString()));
+        likeIdsList2.add(e.id.toString());
       }
 
-      await box.add(likeIdsList2);
+      // await box.add(likeIdsList2);
 
       print("Like List++API++++ $likeIdsList2");
     } else {

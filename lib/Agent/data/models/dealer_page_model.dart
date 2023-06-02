@@ -44,7 +44,7 @@ class Datum {
   String? adTitle;
   String? description;
   String? activeStatus;
-  String? deletedAt;
+  DateTime? deletedAt;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? location;
@@ -73,7 +73,9 @@ class Datum {
         adTitle: json["ad_title"],
         description: json["description"],
         activeStatus: json["active_status"],
-        deletedAt: json["deleted_at"],
+        deletedAt: json["deleted_at"] == null
+            ? null
+            : DateTime.parse(json["deleted_at"]),
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -92,7 +94,7 @@ class Datum {
         "ad_title": adTitle,
         "description": description,
         "active_status": activeStatus,
-        "deleted_at": deletedAt,
+        "deleted_at": deletedAt?.toIso8601String(),
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "location": location,
@@ -118,7 +120,7 @@ class User {
   dynamic avatarId;
   String? superUser;
   String? manageSupers;
-  String? permissions;
+  Permissions? permissions;
   DateTime? lastLogin;
   dynamic stripeId;
   dynamic pmType;
@@ -132,6 +134,7 @@ class User {
   dynamic mobileVerificationCode;
   String? referralCode;
   dynamic referrerId;
+  String? referalScore;
 
   User({
     this.id,
@@ -164,6 +167,7 @@ class User {
     this.mobileVerificationCode,
     this.referralCode,
     this.referrerId,
+    this.referalScore,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -187,7 +191,9 @@ class User {
         avatarId: json["avatar_id"],
         superUser: json["super_user"],
         manageSupers: json["manage_supers"],
-        permissions: json["permissions"],
+        permissions: json["permissions"] == null
+            ? null
+            : Permissions.fromJson(json["permissions"]),
         lastLogin: json["last_login"] == null
             ? null
             : DateTime.parse(json["last_login"]),
@@ -203,6 +209,7 @@ class User {
         mobileVerificationCode: json["mobile_verification_code"],
         referralCode: json["referral_code"],
         referrerId: json["referrer_id"],
+        referalScore: json["referal_score"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -223,7 +230,7 @@ class User {
         "avatar_id": avatarId,
         "super_user": superUser,
         "manage_supers": manageSupers,
-        "permissions": permissions,
+        "permissions": permissions?.toJson(),
         "last_login": lastLogin?.toIso8601String(),
         "stripe_id": stripeId,
         "pm_type": pmType,
@@ -237,5 +244,278 @@ class User {
         "mobile_verification_code": mobileVerificationCode,
         "referral_code": referralCode,
         "referrer_id": referrerId,
+        "referal_score": referalScore,
+      };
+}
+
+class Permissions {
+  bool? agentIndex;
+  bool? agentEdit;
+  bool? agentDestroy;
+  bool? agentCreate;
+  bool? analyticsGeneral;
+  bool? analyticsPage;
+  bool? analyticsBrowser;
+  bool? analyticsReferrer;
+  bool? pluginsBlog;
+  bool? postsIndex;
+  bool? postsCreate;
+  bool? postsEdit;
+  bool? postsDestroy;
+  bool? categoriesIndex;
+  bool? categoriesCreate;
+  bool? categoriesEdit;
+  bool? categoriesDestroy;
+  bool? tagsIndex;
+  bool? tagsCreate;
+  bool? tagsEdit;
+  bool? tagsDestroy;
+  bool? propertyCategoryIndex;
+  bool? propertyCategoryCreate;
+  bool? propertyCategoryEdit;
+  bool? propertyCategoryDestroy;
+  bool? companyIndex;
+  bool? companyEdit;
+  bool? companyDestroy;
+  bool? companyCreate;
+  bool? consultIndex;
+  bool? consultCreate;
+  bool? consultEdit;
+  bool? consultDestroy;
+  bool? consultsIndex;
+  bool? consultsEdit;
+  bool? consultsDestroy;
+  bool? facilityIndex;
+  bool? facilityCreate;
+  bool? facilityEdit;
+  bool? facilityDestroy;
+  bool? mediaIndex;
+  bool? filesIndex;
+  bool? filesCreate;
+  bool? filesEdit;
+  bool? filesTrash;
+  bool? filesDestroy;
+  bool? foldersIndex;
+  bool? foldersCreate;
+  bool? foldersEdit;
+  bool? foldersTrash;
+  bool? foldersDestroy;
+  bool? propertyIndex;
+  bool? propertyCreate;
+  bool? propertyEdit;
+  bool? propertyDestroy;
+  bool? propertyFeatureIndex;
+  bool? propertyFeatureCreate;
+  bool? propertyFeatureEdit;
+  bool? propertyFeatureDestroy;
+  bool? propertyTypeIndex;
+  bool? propertyTypeCreate;
+  bool? propertyTypeEdit;
+  bool? propertyTypeDestroy;
+  String? superuser;
+  String? manageSupers;
+
+  Permissions({
+    this.agentIndex,
+    this.agentEdit,
+    this.agentDestroy,
+    this.agentCreate,
+    this.analyticsGeneral,
+    this.analyticsPage,
+    this.analyticsBrowser,
+    this.analyticsReferrer,
+    this.pluginsBlog,
+    this.postsIndex,
+    this.postsCreate,
+    this.postsEdit,
+    this.postsDestroy,
+    this.categoriesIndex,
+    this.categoriesCreate,
+    this.categoriesEdit,
+    this.categoriesDestroy,
+    this.tagsIndex,
+    this.tagsCreate,
+    this.tagsEdit,
+    this.tagsDestroy,
+    this.propertyCategoryIndex,
+    this.propertyCategoryCreate,
+    this.propertyCategoryEdit,
+    this.propertyCategoryDestroy,
+    this.companyIndex,
+    this.companyEdit,
+    this.companyDestroy,
+    this.companyCreate,
+    this.consultIndex,
+    this.consultCreate,
+    this.consultEdit,
+    this.consultDestroy,
+    this.consultsIndex,
+    this.consultsEdit,
+    this.consultsDestroy,
+    this.facilityIndex,
+    this.facilityCreate,
+    this.facilityEdit,
+    this.facilityDestroy,
+    this.mediaIndex,
+    this.filesIndex,
+    this.filesCreate,
+    this.filesEdit,
+    this.filesTrash,
+    this.filesDestroy,
+    this.foldersIndex,
+    this.foldersCreate,
+    this.foldersEdit,
+    this.foldersTrash,
+    this.foldersDestroy,
+    this.propertyIndex,
+    this.propertyCreate,
+    this.propertyEdit,
+    this.propertyDestroy,
+    this.propertyFeatureIndex,
+    this.propertyFeatureCreate,
+    this.propertyFeatureEdit,
+    this.propertyFeatureDestroy,
+    this.propertyTypeIndex,
+    this.propertyTypeCreate,
+    this.propertyTypeEdit,
+    this.propertyTypeDestroy,
+    this.superuser,
+    this.manageSupers,
+  });
+
+  factory Permissions.fromJson(Map<String, dynamic> json) => Permissions(
+        agentIndex: json["Agent.index"],
+        agentEdit: json["Agent.edit"],
+        agentDestroy: json["Agent.destroy"],
+        agentCreate: json["Agent.create"],
+        analyticsGeneral: json["analytics.general"],
+        analyticsPage: json["analytics.page"],
+        analyticsBrowser: json["analytics.browser"],
+        analyticsReferrer: json["analytics.referrer"],
+        pluginsBlog: json["plugins.blog"],
+        postsIndex: json["posts.index"],
+        postsCreate: json["posts.create"],
+        postsEdit: json["posts.edit"],
+        postsDestroy: json["posts.destroy"],
+        categoriesIndex: json["categories.index"],
+        categoriesCreate: json["categories.create"],
+        categoriesEdit: json["categories.edit"],
+        categoriesDestroy: json["categories.destroy"],
+        tagsIndex: json["tags.index"],
+        tagsCreate: json["tags.create"],
+        tagsEdit: json["tags.edit"],
+        tagsDestroy: json["tags.destroy"],
+        propertyCategoryIndex: json["property_category.index"],
+        propertyCategoryCreate: json["property_category.create"],
+        propertyCategoryEdit: json["property_category.edit"],
+        propertyCategoryDestroy: json["property_category.destroy"],
+        companyIndex: json["company.index"],
+        companyEdit: json["company.edit"],
+        companyDestroy: json["company.destroy"],
+        companyCreate: json["company.create"],
+        consultIndex: json["consult.index"],
+        consultCreate: json["consult.create"],
+        consultEdit: json["consult.edit"],
+        consultDestroy: json["consult.destroy"],
+        consultsIndex: json["consults.index"],
+        consultsEdit: json["consults.edit"],
+        consultsDestroy: json["consults.destroy"],
+        facilityIndex: json["facility.index"],
+        facilityCreate: json["facility.create"],
+        facilityEdit: json["facility.edit"],
+        facilityDestroy: json["facility.destroy"],
+        mediaIndex: json["media.index"],
+        filesIndex: json["files.index"],
+        filesCreate: json["files.create"],
+        filesEdit: json["files.edit"],
+        filesTrash: json["files.trash"],
+        filesDestroy: json["files.destroy"],
+        foldersIndex: json["folders.index"],
+        foldersCreate: json["folders.create"],
+        foldersEdit: json["folders.edit"],
+        foldersTrash: json["folders.trash"],
+        foldersDestroy: json["folders.destroy"],
+        propertyIndex: json["property.index"],
+        propertyCreate: json["property.create"],
+        propertyEdit: json["property.edit"],
+        propertyDestroy: json["property.destroy"],
+        propertyFeatureIndex: json["property_feature.index"],
+        propertyFeatureCreate: json["property_feature.create"],
+        propertyFeatureEdit: json["property_feature.edit"],
+        propertyFeatureDestroy: json["property_feature.destroy"],
+        propertyTypeIndex: json["property_type.index"],
+        propertyTypeCreate: json["property_type.create"],
+        propertyTypeEdit: json["property_type.edit"],
+        propertyTypeDestroy: json["property_type.destroy"],
+        superuser: json["superuser"],
+        manageSupers: json["manage_supers"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "Agent.index": agentIndex,
+        "Agent.edit": agentEdit,
+        "Agent.destroy": agentDestroy,
+        "Agent.create": agentCreate,
+        "analytics.general": analyticsGeneral,
+        "analytics.page": analyticsPage,
+        "analytics.browser": analyticsBrowser,
+        "analytics.referrer": analyticsReferrer,
+        "plugins.blog": pluginsBlog,
+        "posts.index": postsIndex,
+        "posts.create": postsCreate,
+        "posts.edit": postsEdit,
+        "posts.destroy": postsDestroy,
+        "categories.index": categoriesIndex,
+        "categories.create": categoriesCreate,
+        "categories.edit": categoriesEdit,
+        "categories.destroy": categoriesDestroy,
+        "tags.index": tagsIndex,
+        "tags.create": tagsCreate,
+        "tags.edit": tagsEdit,
+        "tags.destroy": tagsDestroy,
+        "property_category.index": propertyCategoryIndex,
+        "property_category.create": propertyCategoryCreate,
+        "property_category.edit": propertyCategoryEdit,
+        "property_category.destroy": propertyCategoryDestroy,
+        "company.index": companyIndex,
+        "company.edit": companyEdit,
+        "company.destroy": companyDestroy,
+        "company.create": companyCreate,
+        "consult.index": consultIndex,
+        "consult.create": consultCreate,
+        "consult.edit": consultEdit,
+        "consult.destroy": consultDestroy,
+        "consults.index": consultsIndex,
+        "consults.edit": consultsEdit,
+        "consults.destroy": consultsDestroy,
+        "facility.index": facilityIndex,
+        "facility.create": facilityCreate,
+        "facility.edit": facilityEdit,
+        "facility.destroy": facilityDestroy,
+        "media.index": mediaIndex,
+        "files.index": filesIndex,
+        "files.create": filesCreate,
+        "files.edit": filesEdit,
+        "files.trash": filesTrash,
+        "files.destroy": filesDestroy,
+        "folders.index": foldersIndex,
+        "folders.create": foldersCreate,
+        "folders.edit": foldersEdit,
+        "folders.trash": foldersTrash,
+        "folders.destroy": foldersDestroy,
+        "property.index": propertyIndex,
+        "property.create": propertyCreate,
+        "property.edit": propertyEdit,
+        "property.destroy": propertyDestroy,
+        "property_feature.index": propertyFeatureIndex,
+        "property_feature.create": propertyFeatureCreate,
+        "property_feature.edit": propertyFeatureEdit,
+        "property_feature.destroy": propertyFeatureDestroy,
+        "property_type.index": propertyTypeIndex,
+        "property_type.create": propertyTypeCreate,
+        "property_type.edit": propertyTypeEdit,
+        "property_type.destroy": propertyTypeDestroy,
+        "superuser": superuser,
+        "manage_supers": manageSupers,
       };
 }

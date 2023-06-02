@@ -45,6 +45,7 @@ class Datum {
     this.status,
     this.createdAt,
     this.updatedAt,
+    this.lastmessage,
     this.chats,
     this.sendercustomer,
     this.recieveragent,
@@ -56,6 +57,7 @@ class Datum {
   String? status;
   String? createdAt;
   String? updatedAt;
+  String? lastmessage;
   List<Chat>? chats;
   Sendercustomer? sendercustomer;
   Recieveragent? recieveragent;
@@ -67,6 +69,7 @@ class Datum {
         status: json["status"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
+        lastmessage: json["last_message"],
         chats: json["chats"] == null
             ? []
             : List<Chat>.from(json["chats"]!.map((x) => Chat.fromJson(x))),
@@ -85,6 +88,7 @@ class Datum {
         "status": status,
         "created_at": createdAt,
         "updated_at": updatedAt,
+        "last_message": lastmessage,
         "chats": chats == null
             ? []
             : List<dynamic>.from(chats!.map((x) => x.toJson())),
@@ -408,7 +412,7 @@ class Sendercustomer {
         avatarId: json["avatar_id"],
         dob: json["dob"],
         phone: json["phone"],
-        credits: json["credits"],
+        // credits: json["credits"],
         confirmedAt: json["confirmed_at"],
         emailVerifyToken: json["email_verify_token"],
         isFeatured: json["is_featured"],

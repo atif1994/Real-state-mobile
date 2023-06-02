@@ -3,28 +3,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Views/AboutUs/about_us.dart';
-import 'package:prologic_29/Views/Auth/sign_in.dart';
-import 'package:prologic_29/Views/ContactUs/contact_us.dart';
-import 'package:prologic_29/Views/Home/home.dart';
 import 'package:prologic_29/Views/user_profile/chat/convesation_screen.dart';
-import 'package:prologic_29/Views/user_profile/properties%20feed/properties_feed.dart';
 import 'package:prologic_29/Views/user_profile/security/security_screen.dart';
 import 'package:prologic_29/Views/user_profile/setting/settings_screen.dart';
-import 'package:prologic_29/data/Controllers/logout_controller.dart';
 import 'package:prologic_29/data/Controllers/user_profile_section_controller/user_profile_controller.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import '../../data/Controllers/user_profile_section_controller/image_update_controller.dart';
 import '../../utils/constants/appcolors.dart';
-import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/app_textstyles.dart';
-import 'propertise/propertise_section.dart';
 
 class ProfilePages extends StatefulWidget {
-  ProfilePages({super.key, this.loginBaseImage});
   String? loginBaseImage;
+
+  ProfilePages({super.key, this.loginBaseImage});
   @override
   State<ProfilePages> createState() => _ProfilePagesState();
 }
@@ -32,9 +24,9 @@ class ProfilePages extends StatefulWidget {
 class _ProfilePagesState extends State<ProfilePages> {
   var profileController = Get.put(UserProfileController());
 
-  var logoutController = Get.put(LogoutController());
+  // var logoutController = Get.put(LogoutController());
 
-  var updateImageController = Get.put(UpdateImageController());
+  // var updateImageController = Get.put(UpdateImageController());
 
   String? imguploadUrl = '';
   geUploadtImgUrl() async {
@@ -217,41 +209,6 @@ class _ProfilePagesState extends State<ProfilePages> {
                                   ////////////////////////////////////////////
 
                                   InkWell(
-                                    onTap: () {
-                                      Get.to(() => const Home(),
-                                          duration:
-                                              const Duration(milliseconds: 600),
-                                          transition: Transition.rightToLeft);
-                                    },
-                                    child: Container(
-                                        margin: EdgeInsets.only(top: 2.0.h),
-                                        height: 6.0.h,
-                                        width: 100.0.w,
-                                        decoration: CustomDecorations.mainCon,
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 3.0.w,
-                                            ),
-                                            const Icon(
-                                              Icons.home,
-                                              color: AppColors.appthem,
-                                            ),
-                                            SizedBox(
-                                              width: 6.0.w,
-                                            ),
-                                            Text("Home",
-                                                style: AppTextStyles.heading1
-                                                    .copyWith(
-                                                        fontSize: 12.sp,
-                                                        color:
-                                                            AppColors.appthem)),
-                                          ],
-                                        )),
-                                  ),
-                                  InkWell(
                                     onTap: () async {
                                       Get.to(
                                           () => SettingsScreen(
@@ -281,154 +238,6 @@ class _ProfilePagesState extends State<ProfilePages> {
                                               width: 6.0.w,
                                             ),
                                             Text("Settings",
-                                                style: AppTextStyles.heading1
-                                                    .copyWith(
-                                                        fontSize: 12.sp,
-                                                        color:
-                                                            AppColors.appthem)),
-                                          ],
-                                        )),
-                                  ),
-
-                                  ////////////////////////////////////////////
-
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => PropertiseSection(),
-                                          duration:
-                                              const Duration(milliseconds: 600),
-                                          transition: Transition.rightToLeft);
-                                    },
-                                    child: Container(
-                                        margin: EdgeInsets.only(top: 2.0.h),
-                                        height: 6.0.h,
-                                        width: 100.0.w,
-                                        decoration: CustomDecorations.mainCon,
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 3.0.w,
-                                            ),
-                                            const Icon(
-                                              Icons.landslide,
-                                              color: AppColors.appthem,
-                                            ),
-                                            SizedBox(
-                                              width: 6.0.w,
-                                            ),
-                                            Text("Properties",
-                                                style: AppTextStyles.heading1
-                                                    .copyWith(
-                                                        fontSize: 12.sp,
-                                                        color:
-                                                            AppColors.appthem)),
-                                          ],
-                                        )),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const AboutUs(),
-                                          duration:
-                                              const Duration(milliseconds: 600),
-                                          transition: Transition.rightToLeft);
-                                    },
-                                    child: Container(
-                                        margin: EdgeInsets.only(top: 2.0.h),
-                                        height: 6.0.h,
-                                        width: 100.0.w,
-                                        decoration: CustomDecorations.mainCon,
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 3.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.aboutUs,
-                                              color: AppColors.colorblack,
-                                              height: 3.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 6.0.w,
-                                            ),
-                                            Text("About Us",
-                                                style: AppTextStyles.heading1
-                                                    .copyWith(
-                                                        fontSize: 12.sp,
-                                                        color:
-                                                            AppColors.appthem)),
-                                          ],
-                                        )),
-                                  ),
-
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const ContactUs(),
-                                          duration:
-                                              const Duration(milliseconds: 600),
-                                          transition: Transition.rightToLeft);
-                                    },
-                                    child: Container(
-                                        margin: EdgeInsets.only(top: 2.0.h),
-                                        height: 6.0.h,
-                                        width: 100.0.w,
-                                        decoration: CustomDecorations.mainCon,
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 3.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.contact,
-                                              height: 3.0.h,
-                                            ),
-                                            SizedBox(
-                                              width: 6.0.w,
-                                            ),
-                                            Text("Contact Us",
-                                                style: AppTextStyles.heading1
-                                                    .copyWith(
-                                                        fontSize: 12.sp,
-                                                        color:
-                                                            AppColors.appthem)),
-                                          ],
-                                        )),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(
-                                          () => PropertiesFeed(
-                                                hide: false,
-                                              ),
-                                          duration:
-                                              const Duration(milliseconds: 600),
-                                          transition: Transition.rightToLeft);
-                                    },
-                                    child: Container(
-                                        margin: EdgeInsets.only(top: 2.0.h),
-                                        height: 6.0.h,
-                                        width: 100.0.w,
-                                        decoration: CustomDecorations.mainCon,
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 3.0.w,
-                                            ),
-                                            Image.asset(
-                                              AppImageResources.newFeed,
-                                              height: 2.5.h,
-                                            ),
-                                            SizedBox(
-                                              width: 6.0.w,
-                                            ),
-                                            Text("Social Feed",
                                                 style: AppTextStyles.heading1
                                                     .copyWith(
                                                         fontSize: 12.sp,
@@ -593,8 +402,8 @@ class _ProfilePagesState extends State<ProfilePages> {
               ButtonBar(children: [
                 ElevatedButton(
                     onPressed: () {
-                      logoutController.logout();
-                      Get.off(const SignIn());
+                      // logoutController.logout();
+                      // Get.off(const SignIn());
                     },
                     child: const Text('Confirm')),
                 ElevatedButton(

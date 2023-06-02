@@ -5,25 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
-import 'package:prologic_29/data/Controllers/chat_controller.dart';
 import 'package:prologic_29/data/Controllers/user_profile_section_controller/profile_propertise_controller/profile_all_propertise_controller.dart';
 import 'package:prologic_29/data/Models/Chat_Model/chat_model.dart';
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/session_controller.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
-import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:pusher_client/pusher_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
-class Chating extends StatefulWidget {
+import '../../../data/Controllers/agent_chat_controller/agentconversation_controller.dart';
+
+class AgentChating extends StatefulWidget {
   String? name;
   String? conId;
   String? customerId;
   String? agentId;
   String? senderId;
-  Chating(
+  AgentChating(
       {super.key,
       this.name,
       this.agentId,
@@ -32,11 +32,11 @@ class Chating extends StatefulWidget {
       this.senderId});
 
   @override
-  State<Chating> createState() => _ChatingState();
+  State<AgentChating> createState() => _AgentChatingState();
 }
 
-class _ChatingState extends State<Chating> {
-  var chattController = Get.put(ConversationController());
+class _AgentChatingState extends State<AgentChating> {
+  var chattController = Get.put(AgentChatController());
   var myproperties = Get.put(ProfilePropertiseController());
   var chatController = TextEditingController();
   final ScrollController scrollController = ScrollController();
@@ -85,11 +85,15 @@ class _ChatingState extends State<Chating> {
           style: AppTextStyles.heading1,
         ),
       ),
-      body: Stack(
-        children: [
-          Container(
-              margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w, top: 2.0.h),
-              height: 75.0.h,
+      body: SizedBox(
+        height: 100.h,
+        width: 100.w,
+        child: Stack(
+          children: [
+            Container(
+              // color: Colors.amber,
+              margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w, top: 1.0.h),
+              height: 79.0.h,
               width: 100.0.w,
               child: Obx(() => chattController.loadChat.value
                   ? const Center(
@@ -97,8 +101,8 @@ class _ChatingState extends State<Chating> {
                     )
                   : chattController.chatModel.data!.isEmpty
                       ? const Center(child: Text("Say Hi"))
-                      : GetBuilder<ConversationController>(
-                          init: ConversationController(),
+                      : GetBuilder<AgentChatController>(
+                          init: AgentChatController(),
                           initState: (_) {},
                           builder: (controller) {
                             return FutureBuilder(
@@ -211,72 +215,6 @@ class _ChatingState extends State<Chating> {
                                                 : const SizedBox()
                                           ],
                                         ),
-                                        //     SizedBox(
-                                        //   width: 50.0.w,
-                                        //   child: Container(
-                                        //     margin: EdgeInsets.only(
-                                        //       top: 1.0.h,
-                                        //       bottom: .5.h,
-                                        //     ),
-                                        //     decoration: BoxDecoration(
-                                        // color: uid ==
-                                        //         controller.chatModel
-                                        //             .data![index].senderId
-                                        // ? const Color.fromARGB(
-                                        //     255, 110, 132, 151)
-                                        //             : AppColors.themecolor,
-                                        //         borderRadius: const BorderRadius.only(
-                                        //             topRight: Radius.circular(10),
-                                        //             bottomLeft: Radius.circular(10))),
-                                        //     child: Padding(
-                                        //       padding: EdgeInsets.only(
-                                        //           left: 2.0.w,
-                                        //           top: 1.0.h,
-                                        //           bottom: 2.0.h),
-                                        //       child: Column(
-                                        //         crossAxisAlignment:
-                                        //             CrossAxisAlignment.start,
-                                        //         children: [
-                                        //           Text(
-                                        // uid ==
-                                        //         controller.chatModel
-                                        //             .data![index].senderId
-                                        //     ? "You"
-                                        //     : controller
-                                        //             .chatModel
-                                        //             .data?[index]
-                                        //             .user!
-                                        //             .username ??
-                                        //         "",
-                                        //             style: AppTextStyles.appbar
-                                        //                 .copyWith(
-                                        //                     fontWeight:
-                                        //                         FontWeight.bold),
-                                        //           ),
-                                        //           SizedBox(
-                                        //             height: 1.0.h,
-                                        //           ),
-                                        //           Container(
-                                        //             margin: const EdgeInsets.only(
-                                        //               left: 10,
-                                        //             ),
-                                        //             // color: Colors.red,
-                                        //             width: 65.0.w,
-                                        //             child: Text(
-                                        // controller.chatModel
-                                        //         .data?[index].message ??
-                                        //     "",
-                                        //               style: AppTextStyles.labelSmall
-                                        //                   .copyWith(
-                                        //                       color: AppColors
-                                        //                           .colorWhite),
-                                        //             ),
-                                        //           ),
-                                        //         ],
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        // ),
                                       );
                                     },
                                   );
@@ -288,17 +226,13 @@ class _ChatingState extends State<Chating> {
                               },
                             );
                           },
-                        ))),
+                        )),
+            ),
 
-          ////////////////
+            ////////////////
 
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 1.0.h),
-              height: 8.0.h,
-              width: 100.0.w,
-              decoration: CustomDecorations.mainCon,
+            Align(
+              alignment: Alignment.bottomCenter,
               child: Row(
                 children: [
                   OutlinedButton(
@@ -330,10 +264,11 @@ class _ChatingState extends State<Chating> {
                               gravity: ToastGravity.TOP);
                         } else {
                           chattController.sendMsgMethod(
-                              int.parse(widget.customerId.toString()),
-                              int.parse(widget.agentId.toString()),
-                              chatController.text,
-                              int.parse(widget.conId.toString()));
+                            int.parse(widget.customerId.toString()),
+                            int.parse(widget.agentId.toString()),
+                            chatController.text,
+                            int.parse(widget.conId.toString()),
+                          );
                           scrollController.animateTo(
                               scrollController.position.maxScrollExtent,
                               duration: const Duration(milliseconds: 300),
@@ -349,9 +284,9 @@ class _ChatingState extends State<Chating> {
                       ))
                 ],
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

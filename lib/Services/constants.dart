@@ -32,3 +32,12 @@ passwordvalidator(val) {
   }
   return null;
 }
+
+String? requiredValidator(String? v) {
+  String string = v!.trim();
+  if (string.isEmpty) {
+    return 'This field is required';
+  } else {
+    return null;
+  }
+}

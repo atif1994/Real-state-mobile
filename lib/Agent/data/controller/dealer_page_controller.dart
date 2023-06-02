@@ -26,7 +26,7 @@ class DealerPageController extends GetxController {
       dealerPageModel = res;
     } else {
       loadingShowPost.value = false;
-      errorShowPost.value = res;
+      errorShowPost.value = res.toString();
     }
   }
 }

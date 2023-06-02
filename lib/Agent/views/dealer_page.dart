@@ -65,177 +65,197 @@ class _DealerPageUIState extends State<DealerPageUI> {
                         ),
                       ),
                     )
-                  : ListView.builder(
-                      primary: false,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        var dealerpost =
-                            dealerpostController.dealerPageModel.data![index];
-                        String dateTimeString = dealerpostController
-                            .dealerPageModel.data![index].createdAt
-                            .toString();
-                        DateTime dateTime = DateTime.parse(dateTimeString);
-                        String formattedDate =
-                            DateFormat('dd-MM-yyyy').format(dateTime);
-                        List<String> tags = dealerpost.tags
-                            .toString()
-                            .split(',')
-                            .map((tag) => tag.trim())
-                            .toList();
+                  : dealerpostController.dealerPageModel.data!.isEmpty
+                      ? Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 30.h),
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/noresultfound.png',
+                                  scale: 3.4,
+                                ),
+                                const Text('No Result Found')
+                              ],
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          primary: false,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            var dealerpost = dealerpostController
+                                .dealerPageModel.data![index];
+                            String dateTimeString = dealerpostController
+                                .dealerPageModel.data![index].createdAt
+                                .toString();
+                            DateTime dateTime = DateTime.parse(dateTimeString);
+                            String formattedDate =
+                                DateFormat('dd-MM-yyyy').format(dateTime);
+                            List<String> tags = dealerpost.tags
+                                .toString()
+                                .split(',')
+                                .map((tag) => tag.trim())
+                                .toList();
 
-                        _controllers.add(TextEditingController());
+                            _controllers.add(TextEditingController());
 
-                        return Column(children: [
-                          Container(
-                              decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 222, 222, 222)),
-                              margin: EdgeInsets.only(
-                                  top: index == 0 ? 1.0.h : 2.0.h),
-                              //  height: 45.0.h,
-                              width: 100.0.w,
-                              child: Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        //--------Agent image and name, message button
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8, right: 8),
-                                          child: Row(
-                                            children: [
-                                              // CircleAvatar(
-                                              //   backgroundImage: NetworkImage(
-                                              //       '${AppUrls.assetuserbaseUrl}${dealerpost.user!.profileImage}'),
-                                              // ),
-                                              const SizedBox(
-                                                width: 6,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                            return Column(children: [
+                              Container(
+                                  decoration: const BoxDecoration(
+                                      color:
+                                          Color.fromARGB(255, 222, 222, 222)),
+                                  margin: EdgeInsets.only(
+                                      top: index == 0 ? 1.0.h : 2.0.h),
+                                  //  height: 45.0.h,
+                                  width: 100.0.w,
+                                  child: Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            //--------Agent image and name, message button
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8, right: 8),
+                                              child: Row(
                                                 children: [
-                                                  Text(
-                                                    '${dealerpost.user!.firstName} ${dealerpost.user!.lastName}',
-                                                    style: const TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                  // CircleAvatar(
+                                                  //   backgroundImage: NetworkImage(
+                                                  //       '${AppUrls.assetuserbaseUrl}${dealerpost.user!.profileImage}'),
+                                                  // ),
+                                                  const SizedBox(
+                                                    width: 6,
                                                   ),
-                                                  Text(
-                                                    formattedDate,
-                                                    style: const TextStyle(
-                                                        fontSize: 13),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        '${dealerpost.user!.firstName} ${dealerpost.user!.lastName}',
+                                                        style: const TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Text(
+                                                        formattedDate,
+                                                        style: const TextStyle(
+                                                            fontSize: 13),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            //-------------------Title
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 9.0, top: 4),
+                                              child: Text(
+                                                '${dealerpost.adTitle}',
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ),
+                                            //--------------------Tags
+                                            // Padding(
+                                            //   padding: const EdgeInsets.all(8.0),
+                                            //   child: Wrap(
+                                            //     spacing: 5,
+                                            //     runSpacing: 2,
+                                            //     children: tags
+                                            //         .map((tag) => Tag(label: tag))
+                                            //         .toList(),
+                                            //   ),
+                                            // ),
+                                            //---------------------Image
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 237, 237, 237),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                      color: Colors.black)),
+                                              height: 32.h,
+                                              margin: const EdgeInsets.only(
+                                                  top: 9, bottom: 9),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(9),
+                                                child: Center(
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      showimage(index);
+                                                    },
+                                                    child: Image.network(
+                                                      '${AppUrls.assetbaseUrl}${dealerpost.imagePath}',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            //----------------------Description
+
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              child: Text(
+                                                '${dealerpost.description}',
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 3,
+                                                style: const TextStyle(
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                            ),
+
+                                            //---------------------Location
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.location_on,
+                                                    size: 22,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 6,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 84.w,
+                                                    child: Text(
+                                                      '${dealerpost.location} ',
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontFamily: AppFonts
+                                                              .nexaBold),
+                                                    ),
                                                   )
                                                 ],
                                               ),
-                                            ],
-                                          ),
-                                        ),
-
-                                        //-------------------Title
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 9.0, top: 4),
-                                          child: Text(
-                                            '${dealerpost.adTitle}',
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 2,
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ),
-                                        //--------------------Tags
-                                        // Padding(
-                                        //   padding: const EdgeInsets.all(8.0),
-                                        //   child: Wrap(
-                                        //     spacing: 5,
-                                        //     runSpacing: 2,
-                                        //     children: tags
-                                        //         .map((tag) => Tag(label: tag))
-                                        //         .toList(),
-                                        //   ),
-                                        // ),
-                                        //---------------------Image
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                  255, 237, 237, 237),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.black)),
-                                          height: 32.h,
-                                          margin: const EdgeInsets.only(
-                                              top: 9, bottom: 9),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(9),
-                                            child: Center(
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  showimage(index);
-                                                },
-                                                child:
-                                                  Image.network(
-                                                            '${AppUrls.assetbaseUrl}${dealerpost.imagePath}',
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        //----------------------Description
-
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Text(
-                                            '${dealerpost.description}',
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 3,
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        ),
-
-                                        //---------------------Location
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.location_on,
-                                                size: 22,
-                                              ),
-                                              const SizedBox(
-                                                width: 6,
-                                              ),
-                                              SizedBox(
-                                                width: 84.w,
-                                                child: Text(
-                                                  '${dealerpost.location} ',
-                                                  maxLines: 2,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                      fontFamily:
-                                                          AppFonts.nexaBold),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ])))
-                        ]);
-                      },
-                      padding: const EdgeInsets.only(bottom: 15),
-                      itemCount:
-                          dealerpostController.dealerPageModel.data!.length,
-                    ))
+                                          ])))
+                            ]);
+                          },
+                          padding: const EdgeInsets.only(bottom: 15),
+                          itemCount:
+                              dealerpostController.dealerPageModel.data!.length,
+                        ))
         ],
       )),
     );

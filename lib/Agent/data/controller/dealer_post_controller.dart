@@ -7,6 +7,8 @@ import 'package:prologic_29/Agent/data/services/dealer_post_service.dart';
 class DealerPostController extends GetxController {
   RxBool loadingAddingPost = false.obs;
   RxString errorAddingPost = ''.obs;
+  RxList tags = [].obs;
+
   var dealerPostModel = DealerResponse();
 
   void addDealerPost(

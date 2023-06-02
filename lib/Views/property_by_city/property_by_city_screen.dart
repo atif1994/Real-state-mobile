@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import '../../data/Controllers/comments_controller/get_latest_commnets_controller.dart';
-import '../../data/Controllers/comments_controller/post_comments_controller.dart';
-import '../../data/Controllers/post_like_controller/post_like_controller.dart';
 import '../../data/Controllers/property_bycity_controller.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
@@ -26,9 +23,9 @@ class PropertyByCityScreen extends StatefulWidget {
 
 class _PropertyByCityScreenState extends State<PropertyByCityScreen> {
   final propertybyCityController = Get.put(PropertyByCityController());
-  final likeController = Get.put(PostLikeController());
-  var postCommentsController = Get.put(PostCommentsController());
-  var getLatestCommentsController = Get.put(GetLatestCommnets());
+  // final likeController = Get.put(PostLikeController());
+  // var postCommentsController = Get.put(PostCommentsController());
+  // var getLatestCommentsController = Get.put(GetLatestCommnets());
 
   int? uid;
   final List<TextEditingController> _controllers = [];
@@ -641,152 +638,152 @@ class _PropertyByCityScreenState extends State<PropertyByCityScreen> {
             ));
   }
 
-  void _showModelSheet(BuildContext context, int pid) {
-    showModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (context) {
-          return Container(
-            height: 30.0.h,
-            width: 100.0.w,
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10))),
-            child: Container(
-                margin: const EdgeInsets.all(10),
-                height: 20.0.h,
-                width: 100.0.w,
-                //   color: Colors.red,
-                child: Obx(
-                  () => getLatestCommentsController.loadingCommnets.value
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                          color: AppColors.appthem,
-                        ))
-                      : getLatestCommentsController.error.value != ""
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      getLatestCommentsController
-                                          .getLatestCommnets(pid);
-                                    },
-                                    icon: const Icon(Icons.refresh)),
-                                SizedBox(
-                                  height: 1.0.h,
-                                ),
-                                Text(getLatestCommentsController.error.value),
-                              ],
-                            )
-                          : getLatestCommentsController
-                                  .commnetsModel.data!.isEmpty
-                              ? const Center(child: Text("No Commnets Yet"))
-                              : ListView.builder(
-                                  itemCount: getLatestCommentsController
-                                      .commnetsModel.data!.length,
-                                  itemBuilder: (context, index) {
-                                    return Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: 12.0.w,
-                                                width: 12.0.w,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            300)),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          300),
-                                                  child: Image.asset(
-                                                      "assets/user.png"),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 3.0.w,
-                                              ),
-                                              Expanded(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.grey[200],
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10)),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              getLatestCommentsController
-                                                                      .commnetsModel
-                                                                      .data![
-                                                                          index]
-                                                                      .user!
-                                                                      .username ??
-                                                                  "",
-                                                              style: AppTextStyles
-                                                                  .appbar
-                                                                  .copyWith(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 70.0.w,
-                                                              child: Text(
-                                                                getLatestCommentsController
-                                                                        .commnetsModel
-                                                                        .data![
-                                                                            index]
-                                                                        .comment ??
-                                                                    "",
-                                                                maxLines: 4,
-                                                                style:
-                                                                    AppTextStyles
-                                                                        .appbar
-                                                                        .copyWith(
-                                                                  color: Colors
-                                                                      .black,
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        const Divider()
-                                      ],
-                                    );
-                                  }),
-                )),
-          );
-        });
-  }
+  // void _showModelSheet(BuildContext context, int pid) {
+  //   showModalBottomSheet(
+  //       backgroundColor: Colors.transparent,
+  //       context: context,
+  //       builder: (context) {
+  //         return Container(
+  //           height: 30.0.h,
+  //           width: 100.0.w,
+  //           decoration: const BoxDecoration(
+  //               color: Colors.white,
+  //               borderRadius: BorderRadius.only(
+  //                   topLeft: Radius.circular(10),
+  //                   topRight: Radius.circular(10))),
+  //           child: Container(
+  //               margin: const EdgeInsets.all(10),
+  //               height: 20.0.h,
+  //               width: 100.0.w,
+  //               //   color: Colors.red,
+  //               child: Obx(
+  //                 () => getLatestCommentsController.loadingCommnets.value
+  //                     ? const Center(
+  //                         child: CircularProgressIndicator(
+  //                         color: AppColors.appthem,
+  //                       ))
+  //                     : getLatestCommentsController.error.value != ""
+  //                         ? Column(
+  //                             mainAxisAlignment: MainAxisAlignment.center,
+  //                             children: [
+  //                               IconButton(
+  //                                   onPressed: () {
+  //                                     getLatestCommentsController
+  //                                         .getLatestCommnets(pid);
+  //                                   },
+  //                                   icon: const Icon(Icons.refresh)),
+  //                               SizedBox(
+  //                                 height: 1.0.h,
+  //                               ),
+  //                               Text(getLatestCommentsController.error.value),
+  //                             ],
+  //                           )
+  //                         : getLatestCommentsController
+  //                                 .commnetsModel.data!.isEmpty
+  //                             ? const Center(child: Text("No Commnets Yet"))
+  //                             : ListView.builder(
+  //                                 itemCount: getLatestCommentsController
+  //                                     .commnetsModel.data!.length,
+  //                                 itemBuilder: (context, index) {
+  //                                   return Column(
+  //                                     children: [
+  //                                       Padding(
+  //                                         padding: const EdgeInsets.all(8.0),
+  //                                         child: Row(
+  //                                           children: [
+  //                                             Container(
+  //                                               height: 12.0.w,
+  //                                               width: 12.0.w,
+  //                                               decoration: BoxDecoration(
+  //                                                   borderRadius:
+  //                                                       BorderRadius.circular(
+  //                                                           300)),
+  //                                               child: ClipRRect(
+  //                                                 borderRadius:
+  //                                                     BorderRadius.circular(
+  //                                                         300),
+  //                                                 child: Image.asset(
+  //                                                     "assets/user.png"),
+  //                                               ),
+  //                                             ),
+  //                                             SizedBox(
+  //                                               width: 3.0.w,
+  //                                             ),
+  //                                             Expanded(
+  //                                               child: Container(
+  //                                                 decoration: BoxDecoration(
+  //                                                     color: Colors.grey[200],
+  //                                                     borderRadius:
+  //                                                         BorderRadius.circular(
+  //                                                             10)),
+  //                                                 child: Padding(
+  //                                                   padding:
+  //                                                       const EdgeInsets.all(
+  //                                                           8.0),
+  //                                                   child: Row(
+  //                                                     crossAxisAlignment:
+  //                                                         CrossAxisAlignment
+  //                                                             .start,
+  //                                                     children: [
+  //                                                       Column(
+  //                                                         crossAxisAlignment:
+  //                                                             CrossAxisAlignment
+  //                                                                 .start,
+  //                                                         children: [
+  //                                                           Text(
+  //                                                             getLatestCommentsController
+  //                                                                     .commnetsModel
+  //                                                                     .data![
+  //                                                                         index]
+  //                                                                     .user!
+  //                                                                     .username ??
+  //                                                                 "",
+  //                                                             style: AppTextStyles
+  //                                                                 .appbar
+  //                                                                 .copyWith(
+  //                                                                     color: Colors
+  //                                                                         .black,
+  //                                                                     fontWeight:
+  //                                                                         FontWeight
+  //                                                                             .bold),
+  //                                                           ),
+  //                                                           SizedBox(
+  //                                                             width: 70.0.w,
+  //                                                             child: Text(
+  //                                                               getLatestCommentsController
+  //                                                                       .commnetsModel
+  //                                                                       .data![
+  //                                                                           index]
+  //                                                                       .comment ??
+  //                                                                   "",
+  //                                                               maxLines: 4,
+  //                                                               style:
+  //                                                                   AppTextStyles
+  //                                                                       .appbar
+  //                                                                       .copyWith(
+  //                                                                 color: Colors
+  //                                                                     .black,
+  //                                                               ),
+  //                                                             ),
+  //                                                           )
+  //                                                         ],
+  //                                                       ),
+  //                                                     ],
+  //                                                   ),
+  //                                                 ),
+  //                                               ),
+  //                                             )
+  //                                           ],
+  //                                         ),
+  //                                       ),
+  //                                       const Divider()
+  //                                     ],
+  //                                   );
+  //                                 }),
+  //               )),
+  //         );
+  //       });
+  // }
 }
 
 // DateFormat("dd-MM-yyyy").format(DateTime.parse(

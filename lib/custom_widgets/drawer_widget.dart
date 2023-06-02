@@ -5,7 +5,7 @@ import 'package:prologic_29/Agent/views/about_agent.dart';
 
 import 'package:prologic_29/Agent/views/dealer_post/dealer_post.dart';
 import 'package:prologic_29/Views/Agent/Agent_Drawer/expiry_posts.dart';
-import 'package:prologic_29/Views/Agent/dashboard.dart';
+import 'package:prologic_29/Views/Agent/Chat/agentConversation.dart';
 
 import 'package:prologic_29/Views/blog/blog.dart';
 import 'package:prologic_29/Views/user_profile/properties%20feed/properties_feed.dart';
@@ -17,11 +17,13 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Agent/views/dealer_page.dart';
+import '../Views/AboutUs/about_us.dart';
 import '../Views/AddProperty/add_property.dart';
 import '../Views/Agent/Agent_Drawer/get_all_referrals.dart';
+import '../Views/ContactUs/contact_us.dart';
 import '../Views/Notifications/notification_page.dart';
 import '../Views/user_profile/profile_pages.dart';
-import '../Views/Wishlist/favorites.dart';
+import '../Views/user_profile/propertise/propertise_section.dart';
 import '../data/Controllers/logout_controller.dart';
 import '../data/Controllers/user_profile_section_controller/image_update_controller.dart';
 
@@ -126,6 +128,142 @@ class CustomDrawer extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  //Home
+                  // SizedBox(
+                  //   height: 2.0.h,
+                  // ),
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                  //   height: 6.0.h,
+                  //   width: 100.0.w,
+                  //   color: const Color.fromARGB(255, 53, 56, 61),
+                  //   child: ListTile(
+                  //     onTap: () {
+                  //       Get.to(() => const Home(),
+                  //           duration: const Duration(milliseconds: 600),
+                  //           transition: Transition.rightToLeft);
+                  //     },
+                  //     leading: const Icon(
+                  //       Icons.home,
+                  //       color: AppColors.colorWhite,
+                  //     ),
+                  //     title: Text(
+                  //       "Home",
+                  //       style: AppTextStyles.heading1
+                  //           .copyWith(color: AppColors.colorWhite),
+                  //     ),
+                  //   ),
+                  // ),
+                  //properties
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: () {
+                        Get.to(() => PropertiseSection(),
+                            duration: const Duration(milliseconds: 600),
+                            transition: Transition.rightToLeft);
+                      },
+                      leading: const Icon(
+                        Icons.landslide,
+                        color: AppColors.colorWhite,
+                      ),
+                      title: Text(
+                        "Properties",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
+                  //about us
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: () {
+                        Get.to(() => const AboutUs(),
+                            duration: const Duration(milliseconds: 600),
+                            transition: Transition.rightToLeft);
+                      },
+                      leading: Image.asset(
+                        AppImageResources.aboutUs,
+                        color: AppColors.colorWhite,
+                        height: 3.0.h,
+                      ),
+                      title: Text(
+                        "About Us",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
+                  //contact us
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: () {
+                        Get.to(() => const ContactUs(),
+                            duration: const Duration(milliseconds: 600),
+                            transition: Transition.rightToLeft);
+                      },
+                      leading: Image.asset(
+                        AppImageResources.contact,
+                        color: AppColors.colorWhite,
+                        height: 2.0.h,
+                      ),
+                      title: Text(
+                        "Contact Us",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
+                  //properties feed
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: () {
+                        Get.to(
+                            () => PropertiesFeed(
+                                  hide: false,
+                                ),
+                            duration: const Duration(milliseconds: 600),
+                            transition: Transition.rightToLeft);
+                      },
+                      leading: Image.asset(
+                        AppImageResources.newFeed,
+                        color: AppColors.colorWhite,
+                        height: 2.0.h,
+                      ),
+                      title: Text(
+                        "Properties Feed",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
                   //add property
                   SizedBox(
                     height: 2.0.h,
@@ -189,9 +327,9 @@ class CustomDrawer extends StatelessWidget {
                     child: ListTile(
                       onTap: () async {
                         // Get.to(() => ProfileImageEdit());
-                        Get.to(ProfilePages(
-                          loginBaseImage: loginBaseImage,
-                        ));
+                        Get.to(() => ProfilePages(
+                              loginBaseImage: loginBaseImage,
+                            ));
                       },
                       leading: Image.asset(
                         AppImageResources.profilesetting,
@@ -210,31 +348,31 @@ class CustomDrawer extends StatelessWidget {
                   SizedBox(
                     height: 2.0.h,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
-                    height: 6.0.h,
-                    width: 100.0.w,
-                    color: const Color.fromARGB(255, 53, 56, 61),
-                    child: ListTile(
-                      onTap: () {
-                        Get.to(() => WishlistPage());
-                      },
-                      leading: Image.asset(
-                        AppImageResources.wishlistsearches,
-                        color: AppColors.colorWhite,
-                        height: 3.0.h,
-                      ),
-                      title: Text(
-                        "Wishlist searches",
-                        style: AppTextStyles.heading1
-                            .copyWith(color: AppColors.colorWhite),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                  //   height: 6.0.h,
+                  //   width: 100.0.w,
+                  //   color: const Color.fromARGB(255, 53, 56, 61),
+                  //   child: ListTile(
+                  //     onTap: () {
+                  //       Get.to(() => WishlistPage());
+                  //     },
+                  //     leading: Image.asset(
+                  //       AppImageResources.wishlistsearches,
+                  //       color: AppColors.colorWhite,
+                  //       height: 3.0.h,
+                  //     ),
+                  //     title: Text(
+                  //       "Wishlist searches",
+                  //       style: AppTextStyles.heading1
+                  //           .copyWith(color: AppColors.colorWhite),
+                  //     ),
+                  //   ),
+                  // ),
 
-                  SizedBox(
-                    height: 2.0.h,
-                  ),
+                  // SizedBox(
+                  //   height: 2.0.h,
+                  // ),
                   Container(
                     margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
                     height: 6.0.h,
@@ -283,29 +421,29 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
-                    height: 6.0.h,
-                    width: 100.0.w,
-                    color: const Color.fromARGB(255, 53, 56, 61),
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.logout,
-                        color: AppColors.colorWhite,
-                      ),
-                      title: GestureDetector(
-                        onTap: () async {
-                          //signout
-                          Get.to(const AgentDashboard());
-                        },
-                        child: Text(
-                          "Agent Dashboard",
-                          style: AppTextStyles.heading1
-                              .copyWith(color: AppColors.colorWhite),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                  //   height: 6.0.h,
+                  //   width: 100.0.w,
+                  //   color: const Color.fromARGB(255, 53, 56, 61),
+                  //   child: ListTile(
+                  //     leading: const Icon(
+                  //       Icons.logout,
+                  //       color: AppColors.colorWhite,
+                  //     ),
+                  //     title: GestureDetector(
+                  //       onTap: () async {
+                  //         //signout
+                  //         Get.to(const AgentDashboard());
+                  //       },
+                  //       child: Text(
+                  //         "Agent Dashboard",
+                  //         style: AppTextStyles.heading1
+                  //             .copyWith(color: AppColors.colorWhite),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -341,6 +479,7 @@ class CustomDrawer extends StatelessWidget {
   }
 }
 
+//------------------------------ Agent Drawer------------------
 class AgentDrawer extends StatelessWidget {
   String fname;
   String lname;
@@ -504,10 +643,7 @@ class AgentDrawer extends StatelessWidget {
                     color: const Color.fromARGB(255, 53, 56, 61),
                     child: ListTile(
                       onTap: () async {
-                        // Get.to(() => ProfileImageEdit());
-                        // Get.to(ProfilePages(
-                        //   loginBaseImage: loginBaseImage,
-                        // ));
+                        Get.to(() => AgentConversationScreen());
                       },
                       leading: const Icon(
                         Icons.chat,
@@ -565,7 +701,7 @@ class AgentDrawer extends StatelessWidget {
                         color: Colors.white,
                       ),
                       title: Text(
-                        "Dealer Post",
+                        "Add Post",
                         style: AppTextStyles.heading1
                             .copyWith(color: AppColors.colorWhite),
                       ),

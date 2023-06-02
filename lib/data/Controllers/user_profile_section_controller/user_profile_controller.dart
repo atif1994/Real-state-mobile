@@ -5,19 +5,18 @@ import 'package:prologic_29/data/Services/user_profile_section_services/user_pro
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfileController extends GetxController {
+  RxBool loadingUserProfile = false.obs;
+  RxString errorLoadingUserProfile = ''.obs;
+  var userProfileData = GetUserProfileResponse();
+  int? uid;
   @override
   void onInit() {
+    print('user profile controller');
     loadingUserProfile.value = true;
     load();
     // TODO: implement onInit
     super.onInit();
   }
-
-  RxBool loadingUserProfile = false.obs;
-
-  RxString errorLoadingUserProfile = ''.obs;
-  var userProfileData = GetUserProfileResponse();
-  int? uid;
 
   void load() async {
     // await Future.delayed(const Duration(seconds: 2));
@@ -31,7 +30,7 @@ class UserProfileController extends GetxController {
     SharedPreferences pref = await SharedPreferences.getInstance();
     uid = pref.getInt("userid");
     if (kDebugMode) {
-      print("__________________________$uid");
+      print("uid__________________________$uid");
     }
   }
 

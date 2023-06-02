@@ -8,7 +8,6 @@ import 'package:prologic_29/My%20Widgets/my_text_field.dart';
 import 'package:prologic_29/Services/constants.dart';
 import 'package:prologic_29/Views/Auth/forgotpass.dart';
 import 'package:prologic_29/Views/Auth/sign_up.dart';
-import 'package:prologic_29/data/Controllers/forget_pass_controller.dart';
 import 'package:prologic_29/data/Controllers/sign_in_controller.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import '../../data/Services/constants.dart';
@@ -27,7 +26,6 @@ class _SignInState extends State<SignIn> {
   final signController = Get.put(SignInController());
 
   var controller = Get.put(SignInController());
-
 
   List<String> items = ['--Select Role--', 'agent', 'customer'];
 
@@ -65,6 +63,28 @@ class _SignInState extends State<SignIn> {
                               child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            dropdownvalue = 'customer';
+                                            controller.emailController.text =
+                                                'zebi.biit@gmail.com';
+                                            controller.passwordController.text =
+                                                'test12345';
+                                          });
+                                        },
+                                        child: const Text('Customer')),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            dropdownvalue = 'agent';
+                                            controller.emailController.text =
+                                                'agent@gmail.com';
+                                            controller.passwordController.text =
+                                                'test1234';
+                                          });
+                                        },
+                                        child: const Text('agent')),
                                     const Padding(
                                       padding: EdgeInsets.only(bottom: 25),
                                       child: Text('Sign In',

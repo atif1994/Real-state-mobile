@@ -4,10 +4,15 @@ import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/base_client.dart';
 
 class GetPropertiesServices {
-  static Future<dynamic> getpropertypost() async {
+  static Future<dynamic> getpropertypost(location, aname) async {
     try {
       var url = "${AppUrls.baseUrl}${AppUrls.newspost}";
-      var res = await BaseClientClass.get(url, '');
+      Map data = {
+        "location": location,
+        "agent_name": aname,
+        "form_submitted": 1
+      };
+      var res = await BaseClientClass.put(url, data);
 
       if (res is http.Response) {
         return propertypostFromJson(res.body);

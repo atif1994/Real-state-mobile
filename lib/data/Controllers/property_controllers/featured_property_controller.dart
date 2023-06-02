@@ -35,6 +35,7 @@ class DashboardController extends GetxController {
     getFeaturedPropertise();
     getPrpertyCitis();
     getnewspost();
+    // newspost();
   }
 
   void getFeaturedPropertise() async {
@@ -128,4 +129,20 @@ class DashboardController extends GetxController {
       errorLoadingnewspost.value = res.toString();
     }
   }
+
+  // RxBool loadinggetnewspost = false.obs;
+  // var newsgetpostModel = Newspost();
+  // RxString errorLoadinggetnewspost = ''.obs;
+  // void newspost() async {
+  //   loadinggetnewspost.value = true;
+  //   errorLoadinggetnewspost.value = '';
+  //   var res = await DealerPostService.addDealerPost();
+  //   loadinggetnewspost.value = false;
+  //   if (res is Newspost) {
+  //     newspostModel = res;
+  //   } else {
+  //     loadinggetnewspost.value = false;
+  //     errorLoadinggetnewspost.value = res.toString();
+  //   }
+  // }
 }

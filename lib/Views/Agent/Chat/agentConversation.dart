@@ -2,24 +2,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/Views/user_profile/chat/chatting_screen.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../data/Controllers/chat_controller.dart';
+import '../../../data/Controllers/agent_chat_controller/agentconversation_controller.dart';
+import 'agentchat.dart';
 
-class ConversationScreen extends StatelessWidget {
-  ConversationScreen({super.key});
-  var controller = Get.put(ConversationController());
-  int? uid;
-  getUserId() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    uid = pref.getInt("userid") ?? 0;
-    print("************************$uid");
-  }
+class AgentConversationScreen extends StatelessWidget {
+  AgentConversationScreen({super.key});
+  var controller = Get.put(AgentChatController());
+  // int? uid;
+  // getUserId() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   uid = pref.getInt("userid") ?? 0;
+  //   print("************************$uid");
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class ConversationScreen extends StatelessWidget {
                                 IconButton(
                                     onPressed: () {
                                       controller
-                                          .getConversation(controller.uid);
+                                          .getConversation(controller.uid!);
                                     },
                                     icon: const Icon(
                                       Icons.refresh,
@@ -88,11 +88,11 @@ class ConversationScreen extends StatelessWidget {
                                 itemCount:
                                     controller.conversationModel.data!.length,
                                 itemBuilder: (context, index) {
-                                  var agentName = controller.conversationModel
-                                      .data?[index].recieveragent!.firstName;
+                                  var userName = controller.conversationModel
+                                      .data?[index].sendercustomer!.firstName;
                                   String? firstChar;
-                                  if (agentName!.isNotEmpty) {
-                                    firstChar = agentName[0];
+                                  if (userName!.isNotEmpty) {
+                                    firstChar = userName[0];
                                   }
                                   return Column(
                                     children: [
@@ -107,9 +107,9 @@ class ConversationScreen extends StatelessWidget {
                                                   .data![index].id!);
 
                                           Get.to(
-                                              () => Chating(
+                                              () => AgentChating(
                                                     name:
-                                                        "${controller.conversationModel.data![index].recieveragent!.firstName} ${controller.conversationModel.data![index].recieveragent!.lastName}",
+                                                        "${controller.conversationModel.data![index].sendercustomer!.firstName} ${controller.conversationModel.data![index].sendercustomer!.lastName}",
                                                     conId: controller
                                                         .conversationModel
                                                         .data![index]
@@ -149,7 +149,7 @@ class ConversationScreen extends StatelessWidget {
                                           )),
                                         ),
                                         title: Text(
-                                          "${controller.conversationModel.data![index].recieveragent!.firstName ?? ''} ${controller.conversationModel.data![index].recieveragent!.lastName} ",
+                                          "${controller.conversationModel.data![index].sendercustomer!.firstName ?? ''} ${controller.conversationModel.data![index].sendercustomer!.lastName} ",
                                           style: AppTextStyles.heading1
                                               .copyWith(
                                                   color: AppColors.appthem,

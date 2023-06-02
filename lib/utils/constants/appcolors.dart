@@ -8,4 +8,5 @@ class AppColors {
   static const colorblue = Color.fromARGB(255, 221, 234, 237);
   static const themecolor = Color(0xFF1F446B);
   static const themelightcolor = Color(0XFF92AEC6);
+  static const logobgcolor = Color(0XFFDDEBF3);
 }
