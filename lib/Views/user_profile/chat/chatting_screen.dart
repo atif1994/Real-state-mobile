@@ -310,7 +310,7 @@ class _ChatingState extends State<Chating> {
                       child: const Icon(
                         Icons.add,
                         color: Color.fromARGB(255, 22, 82, 131),
-                      )),
+                       )),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -510,10 +510,10 @@ class _ChatingState extends State<Chating> {
     pusher = PusherClient(
         '4b70cc9598b80dcadac2',
         PusherOptions(
-          host: 'http://realestate.tecrux.net',
+          host: 'http://realestate.tecrux.solutions',
           cluster: 'ap2',
           auth: PusherAuth(
-            'http://realestate.tecrux.net/api/broadcasting/auth',
+            'http://realestate.tecrux.solutions/api/broadcasting/auth',
           ),
         ),
         autoConnect: false);

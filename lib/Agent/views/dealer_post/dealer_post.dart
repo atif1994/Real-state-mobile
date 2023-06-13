@@ -24,17 +24,13 @@ class DealerPostScreen extends StatefulWidget {
 
 class _DealerPostScreenState extends State<DealerPostScreen> {
   var dealerPostController = Get.put(DealerPostController());
-  var locController = TextEditingController();
 
-  var descController = TextEditingController();
-  var tagController = TextEditingController();
   final picker = ImagePicker();
-  File? _imageFile;
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await picker.pickImage(source: source);
 
     setState(() {
-      _imageFile = File(pickedFile!.path);
+      dealerPostController.imageFile.value = File(pickedFile!.path);
     });
   }
 
@@ -54,13 +50,24 @@ class _DealerPostScreenState extends State<DealerPostScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
+                "Add Title",
+                style: AppTextStyles.labelSmall
+                    .copyWith(fontWeight: FontWeight.w600, fontSize: 12.sp),
+              ),
+              SizedBox(height: 0.5.h),
+              CustomTextField(
+                editingController: dealerPostController.titleController,
+                hintText: "Enter Your Title",
+              ),
+              SizedBox(height: 1.5.h),
+              Text(
                 "Add Location",
                 style: AppTextStyles.labelSmall
                     .copyWith(fontWeight: FontWeight.w600, fontSize: 12.sp),
               ),
               SizedBox(height: 0.5.h),
               CustomTextField(
-                editingController: locController,
+                editingController: dealerPostController.locController,
                 hintText: "Enter Your Location",
               ),
               SizedBox(height: 1.5.h),
@@ -71,7 +78,7 @@ class _DealerPostScreenState extends State<DealerPostScreen> {
               ),
               SizedBox(height: 0.5.h),
               CustomTextField(
-                editingController: descController,
+                editingController: dealerPostController.descController,
                 hintText: "Description",
               ),
               SizedBox(height: 1.5.h),
@@ -81,17 +88,17 @@ class _DealerPostScreenState extends State<DealerPostScreen> {
                     .copyWith(fontWeight: FontWeight.w600, fontSize: 12.sp),
               ),
               SizedBox(height: 1.5.h),
-
               CustomTextField(
-                editingController: tagController,
+                editingController: dealerPostController.tagController,
                 suffixicon: GestureDetector(
                     onTap: () {
-                      if (tagController.text.isEmpty) {
+                      if (dealerPostController.tagController.text.isEmpty) {
                         Fluttertoast.showToast(
                             msg: 'Please enter tag', gravity: ToastGravity.TOP);
                       } else {
-                        dealerPostController.tags.add(tagController.text);
-                        tagController.clear();
+                        dealerPostController.tags
+                            .add(dealerPostController.tagController.text);
+                        dealerPostController.tagController.clear();
                       }
                     },
                     child: const Icon(
@@ -112,7 +119,7 @@ class _DealerPostScreenState extends State<DealerPostScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Wrap(
                       spacing: 5,
-                      runSpacing: 2,
+                      runSpacing: 5,
                       children:
                           dealerPostController.tags.asMap().entries.map((tag) {
                         String item = tag.value;
@@ -124,36 +131,35 @@ class _DealerPostScreenState extends State<DealerPostScreen> {
                       }).toList(),
                     ),
                   )),
-              // const Text('///////////////////Show Tags'),
-
               SizedBox(height: 2.5.h),
               GestureDetector(
                 onTap: () {
                   _showBottomSheet(context);
                 },
-                child: Container(
-                  height: 30.0.h,
-                  width: 100.0.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: AppColors.appthem)),
-                  child: Center(
-                    child: _imageFile == null
-                        ? Text(
-                            "Select Image",
-                            style: AppTextStyles.labelSmall.copyWith(
-                                fontWeight: FontWeight.w600, fontSize: 12.sp),
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.file(
-                              _imageFile!,
-                              fit: BoxFit.fill,
-                              width: 100.0.w,
-                            ),
-                          ),
-                  ),
-                ),
+                child: Obx(() => Container(
+                      height: 30.0.h,
+                      width: 100.0.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: AppColors.appthem)),
+                      child: Center(
+                        child: dealerPostController.imageFile.value == null
+                            ? Text(
+                                "Select Image",
+                                style: AppTextStyles.labelSmall.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12.sp),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.file(
+                                  dealerPostController.imageFile.value!,
+                                  fit: BoxFit.fill,
+                                  width: 100.0.w,
+                                ),
+                              ),
+                      ),
+                    )),
               ),
               SizedBox(
                 height: 3.0.h,
@@ -162,10 +168,16 @@ class _DealerPostScreenState extends State<DealerPostScreen> {
                     isloading: dealerPostController.loadingAddingPost.value,
                     text: "Submit",
                     onPressed: () {
-                      dealerPostController.addDealerPost(9, descController.text,
-                          locController.text, tagController.text, _imageFile!);
+                      dealerPostController.addDealerPost(
+                          dealerPostController.titleController.text,
+                          dealerPostController.descController.text,
+                          dealerPostController.locController.text,
+                          dealerPostController.imageFile.value!);
                     },
-                  ))
+                  )),
+              SizedBox(
+                height: 2.h,
+              )
             ],
           ),
         ),

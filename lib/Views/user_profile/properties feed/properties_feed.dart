@@ -93,6 +93,7 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
         ],
         //---------------------------------------
       ),
+      backgroundColor: const Color.fromARGB(255, 222, 222, 222),
       body: RefreshIndicator(
         onRefresh: () async {
           propertypostController.getplacesdata(
@@ -246,8 +247,7 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                 children: [
                                   Container(
                                       decoration: const BoxDecoration(
-                                          color: Color.fromARGB(
-                                              255, 222, 222, 222)),
+                                          color: AppColors.colorWhite),
                                       margin: EdgeInsets.only(
                                           top: index == 0 ? 1.0.h : 2.0.h),
                                       //  height: 45.0.h,
@@ -366,8 +366,10 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
 
                                             //-------------------Title
                                             Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 9.0, top: 4),
+                                              padding: EdgeInsets.only(
+                                                  left: 2.5.w,
+                                                  right: 2.w,
+                                                  top: 4),
                                               child: Text(
                                                 '${propertypostController.propertypostmodel.data!.data![index].adTitle}',
                                                 overflow: TextOverflow.ellipsis,
@@ -428,7 +430,7 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                               child: Text(
                                                 '${propertypostController.propertypostmodel.data!.data![index].description}',
                                                 overflow: TextOverflow.ellipsis,
-                                                maxLines: 3,
+                                                maxLines: 2,
                                                 style: const TextStyle(
                                                   fontSize: 15,
                                                 ),
@@ -471,179 +473,303 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                             //         child: const Text('234'),
                                             //       ),
                                             //--------------------- Like,Comment,Share
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 15.sp),
-                                              child: const Divider(
-                                                thickness: 0.5,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 8),
-                                              child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Obx(
-                                                      () => propertypostController
-                                                              .lst1
-                                                              .contains(propertypostController
-                                                                  .propertypostmodel
-                                                                  .data!
-                                                                  .data![index]
-                                                                  .id
-                                                                  .toString())
-                                                          ? GestureDetector(
-                                                              child: Row(
-                                                                children: [
-                                                                  Container(
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(6)),
-                                                                    child:
-                                                                        const Padding(
-                                                                      padding:
-                                                                          EdgeInsets.all(
-                                                                              0.0),
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .thumb_up,
-                                                                        color: Colors
-                                                                            .blue,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 1.w,
-                                                                  ),
-                                                                  Text(
-                                                                    "Like",
-                                                                    style: AppTextStyles.labelSmall.copyWith(
-                                                                        fontSize: 13
-                                                                            .sp,
-                                                                        color: Colors
-                                                                            .blue,
-                                                                        fontWeight:
-                                                                            FontWeight.w400),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              onTap: () async {
-                                                                print(
-                                                                    propertypostController
-                                                                        .lst1);
-                                                                print(propertypostController
-                                                                    .propertypostmodel
-                                                                    .data!
-                                                                    .data![
-                                                                        index]
-                                                                    .id);
-                                                                likeController.getPostLike(
-                                                                    propertypostController
-                                                                        .propertypostmodel
-                                                                        .data!
-                                                                        .data![
-                                                                            index]
-                                                                        .id
-                                                                        .toString(),
-                                                                    uid!);
-                                                                // print(propertypostController
-                                                                //     .propertypostmodel
-                                                                //     .data!
-                                                                //     .data![
-                                                                //         index]
-                                                                //     .id
-                                                                //     .toString());
-                                                                // print(
-                                                                //     "Gesture lIKE++++${likeController.likeIdsList2}");
-                                                                propertypostController
+                                            widget.hide!
+                                                ? const SizedBox()
+                                                : Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 15.sp),
+                                                    child: const Divider(
+                                                      thickness: 0.5,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+
+                                            widget.hide!
+                                                ? const SizedBox()
+                                                : Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 8),
+                                                    child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Obx(
+                                                            () => propertypostController
                                                                     .lst1
-                                                                    .remove(propertypostController
+                                                                    .contains(propertypostController
                                                                         .propertypostmodel
                                                                         .data!
                                                                         .data![
                                                                             index]
                                                                         .id
-                                                                        .toString());
-                                                                // setState(() {});
-                                                              },
-                                                            )
-                                                          : GestureDetector(
-                                                              child: Container(
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            6)),
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          0.0),
-                                                                  child: Row(
-                                                                    children: [
-                                                                      const Icon(
-                                                                        Icons
-                                                                            .thumb_up_outlined,
-                                                                        color: Colors
-                                                                            .black,
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width:
-                                                                            1.w,
-                                                                      ),
-                                                                      Text(
-                                                                        "Like",
-                                                                        style: AppTextStyles
-                                                                            .labelSmall
-                                                                            .copyWith(
-                                                                          fontSize:
-                                                                              13.sp,
+                                                                        .toString())
+                                                                ? GestureDetector(
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Container(
+                                                                          decoration:
+                                                                              BoxDecoration(borderRadius: BorderRadius.circular(6)),
+                                                                          child:
+                                                                              const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.all(0.0),
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.thumb_up,
+                                                                              color: Colors.blue,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width:
+                                                                              1.w,
+                                                                        ),
+                                                                        Text(
+                                                                          "Like",
+                                                                          style: AppTextStyles.labelSmall.copyWith(
+                                                                              fontSize: 13.sp,
+                                                                              color: Colors.blue,
+                                                                              fontWeight: FontWeight.w400),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    onTap:
+                                                                        () async {
+                                                                      print(propertypostController
+                                                                          .lst1);
+                                                                      print(propertypostController
+                                                                          .propertypostmodel
+                                                                          .data!
+                                                                          .data![
+                                                                              index]
+                                                                          .id);
+                                                                      likeController.getPostLike(
+                                                                          propertypostController
+                                                                              .propertypostmodel
+                                                                              .data!
+                                                                              .data![index]
+                                                                              .id
+                                                                              .toString(),
+                                                                          uid!);
+                                                                      // print(propertypostController
+                                                                      //     .propertypostmodel
+                                                                      //     .data!
+                                                                      //     .data![
+                                                                      //         index]
+                                                                      //     .id
+                                                                      //     .toString());
+                                                                      // print(
+                                                                      //     "Gesture lIKE++++${likeController.likeIdsList2}");
+                                                                      propertypostController.lst1.remove(propertypostController
+                                                                          .propertypostmodel
+                                                                          .data!
+                                                                          .data![
+                                                                              index]
+                                                                          .id
+                                                                          .toString());
+                                                                      // setState(() {});
+                                                                    },
+                                                                  )
+                                                                : GestureDetector(
+                                                                    child:
+                                                                        Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(6)),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(0.0),
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            const Icon(
+                                                                              Icons.thumb_up_outlined,
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              width: 1.w,
+                                                                            ),
+                                                                            Text(
+                                                                              "Like",
+                                                                              style: AppTextStyles.labelSmall.copyWith(
+                                                                                fontSize: 13.sp,
+                                                                              ),
+                                                                            ),
+                                                                          ],
                                                                         ),
                                                                       ),
-                                                                    ],
+                                                                    ),
+                                                                    onTap:
+                                                                        () async {
+                                                                      print(propertypostController
+                                                                          .lst1);
+                                                                      print(propertypostController
+                                                                          .propertypostmodel
+                                                                          .data!
+                                                                          .data![
+                                                                              index]
+                                                                          .id);
+                                                                      likeController.getPostLike(
+                                                                          propertypostController
+                                                                              .propertypostmodel
+                                                                              .data!
+                                                                              .data![index]
+                                                                              .id
+                                                                              .toString(),
+                                                                          uid!);
+                                                                      // print(
+                                                                      //     "Gesture UnlIKE++++${likeController.likeIdsList2}");
+                                                                      propertypostController.lst1.add(propertypostController
+                                                                          .propertypostmodel
+                                                                          .data!
+                                                                          .data![
+                                                                              index]
+                                                                          .id
+                                                                          .toString());
+                                                                      // setState(() {});
+                                                                    },
                                                                   ),
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () async {
+                                                              getLatestCommentsController
+                                                                  .getLatestCommnets(
+                                                                      propertypostController
+                                                                          .propertypostmodel
+                                                                          .data!
+                                                                          .data![
+                                                                              index]
+                                                                          .id!);
+
+                                                              await Future.delayed(
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          400));
+                                                              _showModelSheet(
+                                                                  context,
+                                                                  propertypostController
+                                                                      .propertypostmodel
+                                                                      .data!
+                                                                      .data![
+                                                                          index]
+                                                                      .id!);
+                                                            },
+                                                            child: Row(
+                                                              children: [
+                                                                const Icon(Icons
+                                                                    .chat_bubble_outline),
+                                                                SizedBox(
+                                                                  width: 6.sp,
                                                                 ),
-                                                              ),
-                                                              onTap: () async {
-                                                                print(
-                                                                    propertypostController
-                                                                        .lst1);
-                                                                print(propertypostController
+                                                                Text(
+                                                                  "Comment",
+                                                                  style: AppTextStyles
+                                                                      .labelSmall,
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          GestureDetector(
+                                                              onTap: () {
+                                                                Share.share(
+                                                                  'https://realestate.tecrux.solutions/news-feed',
+                                                                  // propertypostController.propertypostmodel
+                                                                  //     .data![index]
+                                                                  //     .slugable!
+                                                                  //     .key!
+                                                                );
+                                                              },
+                                                              child: Container(
+                                                                  child: Row(
+                                                                      children: [
+                                                                    const Icon(Icons
+                                                                        .share),
+                                                                    SizedBox(
+                                                                      width:
+                                                                          6.sp,
+                                                                    ),
+                                                                    Text(
+                                                                      "Share",
+                                                                      style: AppTextStyles
+                                                                          .labelSmall,
+                                                                    ),
+                                                                  ])))
+                                                        ]),
+                                                  )
+                                          ],
+                                        ),
+                                      )),
+                                  widget.hide!
+                                      ? const SizedBox()
+                                      : Padding(
+                                          padding: EdgeInsets.only(
+                                              right: 4.0.w,
+                                              left: 4.0.w,
+                                              top: 2.0.h),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              222,
+                                                              222,
+                                                              222),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8)),
+                                                  child: CustomTextField(
+                                                    editingController:
+                                                        _controllers[index],
+                                                    hintText:
+                                                        'Write Comment....',
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 3.0.w,
+                                              ),
+                                              Container(
+                                                height: 12.0.w,
+                                                width: 12.0.w,
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.appthem,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            300)),
+                                                child: Center(
+                                                  child: IconButton(
+                                                      color:
+                                                          AppColors.colorWhite,
+                                                      onPressed: () async {
+                                                        postCommentsController
+                                                            .postComments(
+                                                                index,
+                                                                propertypostController
                                                                     .propertypostmodel
                                                                     .data!
                                                                     .data![
                                                                         index]
-                                                                    .id);
-                                                                likeController.getPostLike(
-                                                                    propertypostController
-                                                                        .propertypostmodel
-                                                                        .data!
-                                                                        .data![
-                                                                            index]
-                                                                        .id
-                                                                        .toString(),
-                                                                    uid!);
-                                                                // print(
-                                                                //     "Gesture UnlIKE++++${likeController.likeIdsList2}");
-                                                                propertypostController
-                                                                    .lst1
-                                                                    .add(propertypostController
-                                                                        .propertypostmodel
-                                                                        .data!
-                                                                        .data![
-                                                                            index]
-                                                                        .id
-                                                                        .toString());
-                                                                // setState(() {});
-                                                              },
-                                                            ),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () async {
+                                                                    .id,
+                                                                uid,
+                                                                _controllers[
+                                                                        index]
+                                                                    .text);
+
+                                                        _controllers[index]
+                                                            .clear();
+                                                        await Future.delayed(
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    800));
                                                         getLatestCommentsController
                                                             .getLatestCommnets(
                                                                 propertypostController
@@ -652,11 +778,6 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                                                     .data![
                                                                         index]
                                                                     .id!);
-
-                                                        await Future.delayed(
-                                                            const Duration(
-                                                                milliseconds:
-                                                                    400));
                                                         _showModelSheet(
                                                             context,
                                                             propertypostController
@@ -665,115 +786,15 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                                                 .data![index]
                                                                 .id!);
                                                       },
-                                                      child: Row(
-                                                        children: [
-                                                          const Icon(Icons
-                                                              .chat_bubble_outline),
-                                                          SizedBox(
-                                                            width: 6.sp,
-                                                          ),
-                                                          Text(
-                                                            "Comment",
-                                                            style: AppTextStyles
-                                                                .labelSmall,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    GestureDetector(
-                                                        onTap: () {
-                                                          Share.share(
-                                                              'sohaib id'
-                                                              // propertypostController.propertypostmodel
-                                                              //     .data![index]
-                                                              //     .slugable!
-                                                              //     .key!
-                                                              );
-                                                        },
-                                                        child: Container(
-                                                            child:
-                                                                Row(children: [
-                                                          const Icon(
-                                                              Icons.share),
-                                                          SizedBox(
-                                                            width: 6.sp,
-                                                          ),
-                                                          Text(
-                                                            "Share",
-                                                            style: AppTextStyles
-                                                                .labelSmall,
-                                                          ),
-                                                        ])))
-                                                  ]),
-                                            )
-                                          ],
-                                        ),
-                                      )),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        right: 4.0.w, left: 4.0.w, top: 2.0.h),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: const Color.fromARGB(
-                                                    255, 222, 222, 222),
-                                                borderRadius:
-                                                    BorderRadius.circular(8)),
-                                            child: CustomTextField(
-                                              editingController:
-                                                  _controllers[index],
-                                              hintText: 'Write Comment....',
-                                            ),
+                                                      icon: const Icon(
+                                                        Icons.send,
+                                                        size: 20,
+                                                      )),
+                                                ),
+                                              )
+                                            ],
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: 3.0.w,
-                                        ),
-                                        Container(
-                                          height: 12.0.w,
-                                          width: 12.0.w,
-                                          decoration: BoxDecoration(
-                                              color: AppColors.appthem,
-                                              borderRadius:
-                                                  BorderRadius.circular(300)),
-                                          child: Center(
-                                            child: IconButton(
-                                                color: AppColors.colorWhite,
-                                                onPressed: () {
-                                                  postCommentsController
-                                                      .postComments(
-                                                          index,
-                                                          propertypostController
-                                                              .propertypostmodel
-                                                              .data!
-                                                              .data![index]
-                                                              .id,
-                                                          uid,
-                                                          _controllers[index]
-                                                              .text);
-
-                                                  _controllers[index].clear();
-                                                  _showModelSheet(
-                                                      context,
-                                                      propertypostController
-                                                          .propertypostmodel
-                                                          .data!
-                                                          .data![index]
-                                                          .id!);
-                                                },
-                                                icon: const Icon(
-                                                  Icons.send,
-                                                  size: 20,
-                                                )),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
                                 ],
                               );
 
@@ -1639,7 +1660,7 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
         context: context,
         builder: (context) {
           return Container(
-            height: 40.0.h,
+            height: 50.0.h,
             width: 100.0.w,
             decoration: const BoxDecoration(
                 color: Colors.white,
@@ -1741,13 +1762,7 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                                                       .start,
                                                               children: [
                                                                 Text(
-                                                                  getLatestCommentsController
-                                                                          .commnetsModel
-                                                                          .data![
-                                                                              index]
-                                                                          .user!
-                                                                          .username ??
-                                                                      "",
+                                                                  '${getLatestCommentsController.commnetsModel.data![index].user!.firstName} ${getLatestCommentsController.commnetsModel.data![index].user!.lastName}',
                                                                   style: AppTextStyles.appbar.copyWith(
                                                                       color: Colors
                                                                           .black,

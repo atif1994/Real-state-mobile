@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:prologic_29/Views/user_profile/chat/convesation_screen.dart';
 import 'package:prologic_29/Views/user_profile/security/security_screen.dart';
 import 'package:prologic_29/Views/user_profile/setting/settings_screen.dart';
+import 'package:prologic_29/Views/user_profile/shared%20inventories/shared_inventory.dart';
 import 'package:prologic_29/data/Controllers/user_profile_section_controller/user_profile_controller.dart';
 import 'package:prologic_29/utils/styles/custom_decorations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -347,13 +348,13 @@ class _ProfilePagesState extends State<ProfilePages> {
                                                             color: AppColors
                                                                 .appthem)),
                                               ]))),
-                                  ////////////////////////////////////////////
-
+//----------------------------------Shared Inventories
                                   InkWell(
                                       onTap: () {
-                                        logoutalert(context);
-                                        // logoutController.logout();
-                                        // Get.off(SignIn());
+                                        Get.to(() => const sharedinventories(),
+                                            duration: const Duration(
+                                                milliseconds: 600),
+                                            transition: Transition.rightToLeft);
                                       },
                                       child: Container(
                                           margin: EdgeInsets.only(top: 2.0.h),
@@ -367,14 +368,14 @@ class _ProfilePagesState extends State<ProfilePages> {
                                                 SizedBox(
                                                   width: 3.0.w,
                                                 ),
-                                                const Icon(
-                                                  Icons.logout,
-                                                  color: AppColors.appthem,
+                                                Image.asset(
+                                                  'assets/sharedinventory.png',
+                                                  height: 21.sp,
                                                 ),
                                                 SizedBox(
                                                   width: 6.0.w,
                                                 ),
-                                                Text("Logout",
+                                                Text("Shared Inventories",
                                                     style: AppTextStyles
                                                         .heading1
                                                         .copyWith(
@@ -382,6 +383,42 @@ class _ProfilePagesState extends State<ProfilePages> {
                                                             color: AppColors
                                                                 .appthem)),
                                               ]))),
+                                  ////////////////////////////////////////////
+
+                                  // InkWell(
+                                  //     onTap: () {
+                                  //       logoutalert(context);
+                                  //       // logoutController.logout();
+                                  //       // Get.off(SignIn());
+                                  //     },
+                                  //     child: Container(
+                                  //         margin: EdgeInsets.only(top: 2.0.h),
+                                  //         height: 6.0.h,
+                                  //         width: 100.0.w,
+                                  //         decoration: CustomDecorations.mainCon,
+                                  //         child: Row(
+                                  //             crossAxisAlignment:
+                                  //                 CrossAxisAlignment.center,
+                                  //             children: [
+                                  //               SizedBox(
+                                  //                 width: 3.0.w,
+                                  //               ),
+                                  //               const Icon(
+                                  //                 Icons.logout,
+                                  //                 color: AppColors.appthem,
+                                  //               ),
+                                  //               SizedBox(
+                                  //                 width: 6.0.w,
+                                  //               ),
+                                  //               Text("Logout",
+                                  //                   style: AppTextStyles
+                                  //                       .heading1
+                                  //                       .copyWith(
+                                  //                           fontSize: 12.sp,
+                                  //                           color: AppColors
+                                  //                               .appthem)),
+                                  //             ]))),
+
                                   const SizedBox(
                                     height: 15,
                                   )

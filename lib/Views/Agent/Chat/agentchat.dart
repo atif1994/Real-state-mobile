@@ -445,10 +445,10 @@ class _AgentChatingState extends State<AgentChating> {
     pusher = PusherClient(
         '4b70cc9598b80dcadac2',
         PusherOptions(
-          host: 'http://realestate.tecrux.net',
+          host: 'http://realestate.tecrux.solutions',
           cluster: 'ap2',
           auth: PusherAuth(
-            'http://realestate.tecrux.net/api/broadcasting/auth',
+            'http://realestate.tecrux.solutions/api/broadcasting/auth',
           ),
         ),
         autoConnect: false);

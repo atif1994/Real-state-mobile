@@ -20,4 +20,9 @@ class AppTextStyles {
       fontFamily: AppFonts.nexaBook,
       fontSize: 12.sp,
       color: AppColors.colorWhite);
+
+  static TextStyle normal = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 12.sp,
+      color: AppColors.themecolor);
 }

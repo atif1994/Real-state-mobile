@@ -1,6 +1,7 @@
 // TODO Implement this library.
 
 import 'package:email_validator/email_validator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 emailvalidator(val) {
   if (val == null || val.isEmpty) {
@@ -9,6 +10,10 @@ emailvalidator(val) {
     return '*Please enter valid email address';
   }
   return null;
+}
+
+apptoastshow(msg) {
+  Fluttertoast.showToast(msg: msg);
 }
 
 RegExp uppercase = RegExp("(?=.*?[A-Z])");
