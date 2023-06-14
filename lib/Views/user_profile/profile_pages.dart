@@ -351,7 +351,7 @@ class _ProfilePagesState extends State<ProfilePages> {
 //----------------------------------Shared Inventories
                                   InkWell(
                                       onTap: () {
-                                        Get.to(() => const sharedinventories(),
+                                        Get.to(() => sharedinventories(),
                                             duration: const Duration(
                                                 milliseconds: 600),
                                             transition: Transition.rightToLeft);
@@ -368,10 +368,15 @@ class _ProfilePagesState extends State<ProfilePages> {
                                                 SizedBox(
                                                   width: 3.0.w,
                                                 ),
-                                                Image.asset(
-                                                  'assets/sharedinventory.png',
-                                                  height: 21.sp,
+                                                const Icon(
+                                                  color: AppColors.appthem,
+                                                  Icons.shape_line_rounded,
                                                 ),
+
+                                                // Image.asset(
+                                                //   'assets/sharedinventory.png',
+                                                //   height: 21.sp,
+                                                // ),
                                                 SizedBox(
                                                   width: 6.0.w,
                                                 ),

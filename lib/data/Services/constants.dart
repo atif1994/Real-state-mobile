@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/styles/app_textstyles.dart';
+
 //////////////////////////    Assets Strings   /////////////////////////////////
 const String _baseAssetDirectory = 'assets/';
 const String bgImage = '${_baseAssetDirectory}bg.png';
@@ -19,6 +21,20 @@ Widget myDivider() {
     child: Divider(thickness: 2, color: Colors.grey[200]),
   );
 }
+
+Widget nopostexist = Center(
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Image.asset('assets/noresultfound.png', scale: 2),
+      Text(
+        'No Result Found',
+        style:
+            AppTextStyles.heading1.copyWith(color: Colors.black, fontSize: 15),
+      )
+    ],
+  ),
+);
 
 Widget loader = const Center(
   child: CircularProgressIndicator(),

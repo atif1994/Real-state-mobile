@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:prologic_29/Agent/views/about_agent.dart';
 
 import 'package:prologic_29/Agent/views/dealer_post/dealer_post.dart';
+import 'package:prologic_29/Views/Agent/Agent_Drawer/agent_shared_inventory.dart';
 import 'package:prologic_29/Views/Agent/Agent_Drawer/expiry_posts.dart';
 import 'package:prologic_29/Views/Agent/Chat/agentConversation.dart';
 
@@ -656,7 +657,30 @@ class AgentDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+//------------sharedInventory
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                    height: 6.0.h,
+                    width: 100.0.w,
+                    color: const Color.fromARGB(255, 53, 56, 61),
+                    child: ListTile(
+                      onTap: () async {
+                        Get.to(() => AgentSharedInventory());
+                      },
+                      leading: const Icon(
+                        Icons.shape_line_rounded,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        "Shared Inventories",
+                        style: AppTextStyles.heading1
+                            .copyWith(color: AppColors.colorWhite),
+                      ),
+                    ),
+                  ),
                   //wishlist
                   SizedBox(
                     height: 2.0.h,

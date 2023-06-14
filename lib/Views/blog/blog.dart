@@ -153,10 +153,8 @@ class Blog extends StatelessWidget {
                                           child: Column(
                                             // mainAxisAlignment: MainAxisAlignment.st,
                                             children: [
-                                              newspostController
-                                                          .newspostModel
-                                                          .data![index]!
-                                                          .image ==
+                                              newspostController.newspostModel
+                                                          .data![index].image ==
                                                       ''
                                                   ? Image.asset(
                                                       AppImageResources
@@ -166,7 +164,7 @@ class Blog extends StatelessWidget {
                                                   : Image.network(
                                                       newspostController
                                                               .newspostModel
-                                                              .data![index]!
+                                                              .data![index]
                                                               .image ??
                                                           ''),
                                               SizedBox(
@@ -178,7 +176,7 @@ class Blog extends StatelessWidget {
                                                 child: Text(
                                                   newspostController
                                                           .newspostModel
-                                                          .data![index]!
+                                                          .data![index]
                                                           .name ??
                                                       "",
                                                   style: AppTextStyles
@@ -200,13 +198,13 @@ class Blog extends StatelessWidget {
                                                     Text(
                                                       newspostController
                                                                   .newspostModel
-                                                                  .data![index]!
+                                                                  .data![index]
                                                                   .slug ==
                                                               ''
                                                           ? "Construction"
                                                           : newspostController
                                                                   .newspostModel
-                                                                  .data![index]!
+                                                                  .data![index]
                                                                   .slug ??
                                                               "",
                                                       style: AppTextStyles
@@ -234,7 +232,7 @@ class Blog extends StatelessWidget {
                                                 child: Text(
                                                   newspostController
                                                           .newspostModel
-                                                          .data![index]!
+                                                          .data![index]
                                                           .description ??
                                                       "",
                                                   style: AppTextStyles

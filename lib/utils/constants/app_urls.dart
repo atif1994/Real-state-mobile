@@ -37,6 +37,9 @@ class AppUrls {
   static const String storewishlist = "v1/store-wishlist";
   //////////////////////user profile sec
   static const String updateUserProfile = "v1/me/";
+  static const String getsharedinventory = "v1/shared-inventories/";
+  static const String revokecontrol = "v1/revoke-control";
+  static const String agentsharedinventory = "v1/agent/shared-inventories/";
   static const String updateUserImage = "v1/update-avatar/";
   static const String changePassword = "v1/change-password/";
 
