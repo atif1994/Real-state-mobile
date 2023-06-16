@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:prologic_29/Agent/views/about_agent.dart';
 
 import 'package:prologic_29/Agent/views/dealer_post/dealer_post.dart';
-import 'package:prologic_29/Views/Agent/Agent_Drawer/agent_shared_inventory.dart';
+import 'package:prologic_29/Views/Agent/Agent_Drawer/Shared%20Inventory/agent_shared_inventory.dart';
 import 'package:prologic_29/Views/Agent/Agent_Drawer/expiry_posts.dart';
 import 'package:prologic_29/Views/Agent/Chat/agentConversation.dart';
 

@@ -2,12 +2,16 @@ import 'package:get/get.dart';
 import 'package:prologic_29/data/Models/addproperty_model/addproperty_model.dart';
 import 'package:prologic_29/data/Services/property_services/addproperty_services.dart';
 
+import '../Models/addproperty_model/getfacilities_model.dart';
+
 class AddProperrtyController extends GetxController {
   @override
   void onInit() {
     print("add property???????????");
     // getAddProperty();
     super.onInit();
+    loadingGetFacilities.value = true;
+    getFacilities();
   }
 
   //Cities Api properties
@@ -69,8 +73,33 @@ class AddProperrtyController extends GetxController {
   //city List
   RxInt selectedValueCityId = 0.obs;
   RxString selectedValueCity = 'Select City'.obs;
+  List dropdownValues = [];
+
   void selectCityFun(newValue) {
     selectedValueCityId.value = newValue;
   }
 // Features List
+
+//---------Facilities
+
+  RxBool loadingGetFacilities = false.obs;
+  var getFacilitiesModel = GetFacilitiesResponse();
+  RxString errorLoadingGetFacilities = ''.obs;
+  RxString dropdownvalue22 = '3'.obs;
+
+  void getFacilities() async {
+    errorLoadingGetFacilities.value = "";
+    loadingGetFacilities.value = true;
+    //  dynamic response = getFacilitiesModel.data!['data'];
+    var res = await AddPropertyServices.getfacilities();
+    if (res is GetFacilitiesResponse) {
+      getFacilitiesModel = res;
+      loadingGetFacilities.value = false;
+    } else {
+      loadingGetFacilities.value = false;
+      errorLoadingGetFacilities.value = res.toString();
+    }
+  }
+
+  //city List
 }

@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:prologic_29/Views/Agent/Agent_Drawer/Shared%20Inventory/edit_property.dart';
+import 'package:prologic_29/data/Controllers/Shared%20Inventory%20Agent/get_property_detail.dart';
 import 'package:prologic_29/data/Services/constants.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../data/Controllers/agent_shared_inventory_controller.dart';
-import '../../../utils/constants/app_urls.dart';
-import '../../../utils/constants/appcolors.dart';
-import '../../../utils/styles/app_textstyles.dart';
+import '../../../../data/Controllers/Shared Inventory Agent/agent_shared_inventory_controller.dart';
+import '../../../../utils/constants/app_urls.dart';
+import '../../../../utils/constants/appcolors.dart';
+import '../../../../utils/styles/app_textstyles.dart';
 
 class AgentSharedInventory extends StatelessWidget {
   var agentsharedinventorycontroller = Get.put(AgentShareInventoryController());
+  var getpropertycontroller =
+      Get.lazyPut<PropertyDetailController>(() => PropertyDetailController());
   AgentSharedInventory({super.key});
 
   @override
@@ -71,20 +75,21 @@ class AgentSharedInventory extends StatelessWidget {
                           width: 100.0.w,
                           // height: 140,
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
+                            padding: const EdgeInsets.fromLTRB(8, 12, 0, 8),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Image.network(
                                   '${AppUrls.baseUrl2}${agentsharedinventorycontroller.ShareInventoryData.data![index].images![0]}',
                                   // 'https://realestate.tecrux.solutions/storage/properties/broB1qXL__63f61d60725d5-150x150.jpeg',
                                   width: 30.w,
+                                  height: 15.h,
                                 ),
                                 SizedBox(
-                                  width: 4.w,
+                                  width: 6.w,
                                 ),
                                 SizedBox(
-                                  width: 58.w,
+                                  width: 56.w,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -96,13 +101,8 @@ class AgentSharedInventory extends StatelessWidget {
                                             .name
                                             .toString(),
                                         style: AppTextStyles.heading1.copyWith(
-                                            color: AppColors.colorblack),
-                                      ),
-                                      Text(
-                                        // '${sharedinventorycontroller.ShareInventoryData.data![index].firstName} ${sharedinventorycontroller.ShareInventoryData.data![index].lastName}',
-                                        'property type',
-                                        style: AppTextStyles.heading1.copyWith(
-                                            color: AppColors.colorblack),
+                                            color: AppColors.colorblack,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Text(
                                         formattedDate,
@@ -118,13 +118,43 @@ class AgentSharedInventory extends StatelessWidget {
                                         style: AppTextStyles.heading1.copyWith(
                                             color: AppColors.colorblack),
                                       ),
-                                      SizedBox(
-                                        height: 0.7.h,
-                                      ),
+                                      // SizedBox(
+                                      //   height: 0.3.h,
+                                      // ),
                                       Row(
                                         children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all(),
+                                                borderRadius:
+                                                    BorderRadius.circular(7)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
+                                              child: Text(
+                                                // '${sharedinventorycontroller.ShareInventoryData.data![index].firstName} ${sharedinventorycontroller.ShareInventoryData.data![index].lastName}',
+                                                'For Sale',
+                                                style: AppTextStyles.heading1
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .colorblack),
+                                              ),
+                                            ),
+                                          ),
+                                          const Spacer(),
                                           IconButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Get.find<
+                                                        PropertyDetailController>()
+                                                    .getPropertydetail(int.parse(
+                                                        agentsharedinventorycontroller
+                                                            .ShareInventoryData
+                                                            .data![index]
+                                                            .propertyId
+                                                            .toString()));
+                                                Get.to(
+                                                    () => const EditProperty());
+                                              },
                                               icon: Icon(
                                                 Icons.edit,
                                                 color: Colors.blue.shade800,

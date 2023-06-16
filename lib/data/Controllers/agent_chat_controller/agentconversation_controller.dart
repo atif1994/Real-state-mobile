@@ -25,6 +25,7 @@ class AgentChatController extends GetxController {
     getUserId();
     await Future.delayed(const Duration(milliseconds: 200));
     getConversation(uid!);
+    getConversationId();
   }
 
   getUserId() async {
@@ -44,7 +45,7 @@ class AgentChatController extends GetxController {
     var res = await AgentConversationServices.getConversationService(uid);
     if (res is Conversation) {
       loadingConversation.value = false;
-
+      loadingChat.value = false;
       conversationModel = res;
       // for (int i = 0; i < conversationModel.data![1].chats!.length; i++) {
       //   allConversation.add(conversationModel.data![i].chats![i]);
@@ -64,15 +65,15 @@ class AgentChatController extends GetxController {
   var chatModel = ChatModel();
   RxString errChatload = ''.obs;
   getChat(int conversationId) async {
-    loadChat.value = true;
-    // loadingChat.value = true;
+    // loadChat.value = true;
+    loadingChat.value = true;
     var res = await ConversationServices.getChatServiceAPI(conversationId);
     if (res is ChatModel) {
       loadChat.value = false;
-      // loadingChat.value = false;
+      loadingChat.value = false;
       chatModel = res;
     } else {
-      // loadingChat.value = false;
+      loadingChat.value = false;
       errChatload.value = res.toString();
     }
     update();
@@ -101,5 +102,6 @@ class AgentChatController extends GetxController {
       loadingsend.value = false;
       errSendMsg.value = res.toString();
     }
+    update();
   }
 }

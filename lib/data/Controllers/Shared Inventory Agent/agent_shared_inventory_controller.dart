@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:prologic_29/data/Services/agent_shared_inventories_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../Models/agent_shared_inventory_model.dart';
+import '../../Models/agent_shared_inventory_model.dart';
 
 class AgentShareInventoryController extends GetxController {
   RxBool loadingAgentShareInventory = false.obs;

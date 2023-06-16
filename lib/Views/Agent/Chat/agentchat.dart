@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/data/Controllers/user_profile_section_controller/profile_propertise_controller/profile_all_propertise_controller.dart';
 import 'package:prologic_29/data/Models/Chat_Model/chat_model.dart';
-import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/session_controller.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
@@ -85,10 +84,8 @@ class _AgentChatingState extends State<AgentChating> {
           style: AppTextStyles.heading1,
         ),
       ),
-      body: SizedBox(
-        height: 100.h,
-        width: 100.w,
-        child: Stack(
+      body: SingleChildScrollView(
+        child: Column(
           children: [
             Container(
               // color: Colors.amber,
@@ -112,7 +109,7 @@ class _AgentChatingState extends State<AgentChating> {
                                 if (!snapshot.hasData) {
                                   return ListView.builder(
                                     controller: scrollController,
-                                    padding: const EdgeInsets.only(bottom: 15),
+                                    // padding: const EdgeInsets.only(bottom: 15),
                                     shrinkWrap: true,
                                     itemCount:
                                         controller.chatModel.data?.length,
@@ -231,214 +228,53 @@ class _AgentChatingState extends State<AgentChating> {
 
             ////////////////
 
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                children: [
-                  OutlinedButton(
-                      style:
-                          OutlinedButton.styleFrom(shape: const CircleBorder()),
-                      onPressed: () {
-                        showinventorybottomsheet(context);
-                      },
-                      child: const Icon(
-                        Icons.add,
-                        color: Color.fromARGB(255, 22, 82, 131),
-                      )),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomTextField(
-                      editingController: chatController,
-                      hintText: "Message",
-                      onChanged: (val) {},
-                    ),
-                  )),
-                  IconButton(
-                      onPressed: () {
-                        print(
-                            "message send........ data before send  chat Api Call in coId= + ${int.parse(widget.conId.toString())} + agent= ${int.parse(widget.agentId.toString())} + customer =${int.parse(widget.customerId.toString())}");
-                        if (chatController.text.isEmpty) {
-                          Fluttertoast.showToast(
-                              msg: 'Write message first',
-                              gravity: ToastGravity.TOP);
-                        } else {
-                          chattController.sendMsgMethod(
-                            int.parse(widget.customerId.toString()),
-                            int.parse(widget.agentId.toString()),
-                            chatController.text,
-                            int.parse(widget.conId.toString()),
-                          );
-                          scrollController.animateTo(
-                              scrollController.position.maxScrollExtent,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeOut);
-                        }
-                        chatController.clear();
-                        chattController
-                            .getChat(int.parse(widget.conId.toString()));
-                      },
-                      icon: const Icon(
-                        Icons.send,
-                        color: AppColors.appthem,
-                      ))
-                ],
-              ),
-            )
+            Row(
+              children: [
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomTextField(
+                    editingController: chatController,
+                    hintText: "Message",
+                    onChanged: (val) {},
+                  ),
+                )),
+                IconButton(
+                    onPressed: () async {
+                      print(
+                          "message send........ data before send  chat Api Call in coId= + ${int.parse(widget.conId.toString())} + agent= ${int.parse(widget.agentId.toString())} + customer =${int.parse(widget.customerId.toString())}");
+                      if (chatController.text.isEmpty) {
+                        Fluttertoast.showToast(
+                            msg: 'Write message first',
+                            gravity: ToastGravity.TOP);
+                      } else {
+                        chattController.sendMsgMethod(
+                          int.parse(widget.customerId.toString()),
+                          int.parse(widget.agentId.toString()),
+                          chatController.text,
+                          int.parse(widget.conId.toString()),
+                        );
+                      }
+                      chatController.clear();
+                      chattController
+                          .getChat(int.parse(widget.conId.toString()));
+                      await Future.delayed(const Duration(seconds: 1));
+                      scrollController.animateTo(
+                          scrollController.position.maxScrollExtent,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeOut);
+                    },
+                    icon: const Icon(
+                      Icons.send,
+                      color: AppColors.appthem,
+                    ))
+              ],
+            ),
+            // )
           ],
         ),
       ),
     );
-  }
-
-  showinventorybottomsheet(BuildContext context) {
-    showModalBottomSheet(
-        enableDrag: false,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-        context: context,
-        builder: (context) {
-          return Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6.0),
-                  child: Text(
-                    "Share Inventory",
-                    style: AppTextStyles.labelSmall
-                        .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
-                  ),
-                ),
-                SizedBox(
-                  // width: 80.w,
-                  height: 41.h,
-                  child: Obx(
-                    () => myproperties.loadingPropertise.value
-                        ? const Center(
-                            child: CircularProgressIndicator(
-                            color: AppColors.appthem,
-                          ))
-                        : myproperties.errorLoadingPropertise.value != ''
-                            ? Center(
-                                child: Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            myproperties.getPropertise(11);
-                                          },
-                                          icon: const Icon(
-                                            Icons.refresh,
-                                            color: AppColors.appthem,
-                                          )),
-                                      SizedBox(
-                                        height: 1.0.h,
-                                      ),
-                                      Text(myproperties
-                                          .errorLoadingPropertise.value),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : GridView.builder(
-                                gridDelegate:
-                                    const SliverGridDelegateWithMaxCrossAxisExtent(
-                                        maxCrossAxisExtent: 200,
-                                        childAspectRatio: 3 / 2.75,
-                                        crossAxisSpacing: 20,
-                                        mainAxisSpacing: 13),
-                                itemCount: myproperties
-                                    .profilePropertiseModel.data!.length,
-                                itemBuilder: (context, index) {
-                                  return Obx(() => Container(
-                                        decoration: myproperties.idslst
-                                                .contains(myproperties
-                                                    .profilePropertiseModel
-                                                    .data![index]
-                                                    .id)
-                                            ? BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                color: Colors.grey.shade300,
-                                              )
-                                            : const BoxDecoration(),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            myproperties.idslst.contains(
-                                                    myproperties
-                                                        .profilePropertiseModel
-                                                        .data![index]
-                                                        .id)
-                                                ? myproperties.idslst.remove(
-                                                    myproperties
-                                                        .profilePropertiseModel
-                                                        .data![index]
-                                                        .id)
-                                                : myproperties.idslst.add(
-                                                    myproperties
-                                                        .profilePropertiseModel
-                                                        .data![index]
-                                                        .id);
-                                          },
-                                          child: Column(
-                                            children: [
-                                              SizedBox(
-                                                height: 15.h,
-                                                width: 30.w,
-                                                child: Image.network(
-                                                  "${AppUrls.baseUrl2}${myproperties.profilePropertiseModel.data![index].images[0]}",
-                                                  fit: BoxFit.cover,
-                                                ),
-                                                // color: Colors.amber,
-                                              ),
-                                              Text(myproperties
-                                                  .profilePropertiseModel
-                                                  .data![index]
-                                                  .name!),
-                                            ],
-                                          ),
-                                        ),
-                                      ));
-                                }),
-                  ),
-                ),
-                const Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                            foregroundColor: Colors.black,
-                            backgroundColor: const Color(0xFF92AEC6)),
-                        onPressed: () {
-                          myproperties.idslst.clear();
-                          Get.back();
-                        },
-                        child: const Text('Cancel')),
-                    OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                            foregroundColor: Colors.black,
-                            backgroundColor: const Color(0xFF92AEC6)),
-                        onPressed: () {
-                          myproperties.idslst.isEmpty
-                              ? Fluttertoast.showToast(
-                                  msg: 'Please select inventory')
-                              : myproperties.shareInventory(
-                                  widget.agentId, widget.customerId);
-                        },
-                        child: const Text('Share')),
-                  ],
-                )
-              ],
-            ),
-          );
-        });
   }
 
   Future<void> _initiatePusherSocketForMessaging() async {
@@ -481,7 +317,7 @@ class _AgentChatingState extends State<AgentChating> {
   }
 
   void chatscroll() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     scrollController.animateTo(scrollController.position.maxScrollExtent,
         duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
   }

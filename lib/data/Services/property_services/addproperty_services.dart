@@ -4,6 +4,8 @@ import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Models/addproperty_model/getfacilities_model.dart';
+
 class AddPropertyServices {
   static Future<dynamic> addPropertyAPI(
       {String? name,
@@ -70,4 +72,24 @@ class AddPropertyServices {
       return e;
     }
   }
+
+  static Future<dynamic> getfacilities() async {
+    var url = "${AppUrls.baseUrl}${AppUrls.facilities}";
+
+    try {
+      var res = await BaseClientClass.get(url, '');
+      if (res is http.Response) {
+        return getFacilitiesResponseFromJson(res.body);
+      } else {
+        return res;
+      }
+    } catch (e) {
+      return e;
+    }
+  }
 }
+//////
+
+
+
+///
