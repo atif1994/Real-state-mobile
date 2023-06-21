@@ -949,9 +949,9 @@ class Datum {
         country: json["country"] == null
             ? []
             : List<dynamic>.from(json["country"]!.map((x) => x)),
-        state: json["state"] == null
-            ? []
-            : List<dynamic>.from(json["state"]!.map((x) => x)),
+        // state: json["state"] == null
+        //     ? []
+        //     : List<dynamic>.from(json["state"]!.map((x) => x)),
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),

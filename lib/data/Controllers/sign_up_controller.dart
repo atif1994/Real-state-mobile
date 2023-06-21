@@ -23,7 +23,7 @@ class SignUpController extends GetxController {
   RxString errSignup = ''.obs;
   RxBool isHidden = true.obs;
 
-  signUp(String userRole) async {
+  signUp() async {
     print(CountryController.text);
     print(CityController.text);
     print(SateController.text);
@@ -39,7 +39,7 @@ class SignUpController extends GetxController {
         SateController.text,
         CityController.text,
         phoneNumberController.text,
-        userRole);
+        'customer');
     if (res is SignupModel) {
       isLoading(false);
       // Fluttertoast.showToast(msg: "");

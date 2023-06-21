@@ -12,13 +12,16 @@ import 'package:prologic_29/data/Controllers/property_controllers/featured_prope
 import 'package:prologic_29/data/Models/addproperty_model/postDataProperty_model.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../data/Controllers/Shared Inventory Agent/edit_property_controller.dart';
 import '../../../../data/Controllers/Shared Inventory Agent/get_property_detail.dart';
 import '../../../../data/Services/constants.dart';
+import '../../../../utils/constants/app_urls.dart';
 import '../../../../utils/constants/appcolors.dart';
 import '../../../../utils/styles/app_textstyles.dart';
 
 class EditProperty extends StatefulWidget {
-  const EditProperty({Key? key}) : super(key: key);
+  int? pid;
+  EditProperty({Key? key, required this.pid}) : super(key: key);
 
   @override
   State<EditProperty> createState() => _EditPropertyState();
@@ -28,6 +31,8 @@ class _EditPropertyState extends State<EditProperty>
     with SingleTickerProviderStateMixin {
   var getpropertydetail = Get.put(PropertyDetailController());
   var addpropertycontroller = Get.put(AddProperrtyController());
+  var editpropertycontroller = Get.put(EditProperrtyController());
+  var addfacilities = ListFacility();
   bool checkBoxValue1 = false;
   bool checkBoxValue2 = false;
   bool checkBoxValue3 = false;
@@ -130,8 +135,12 @@ class _EditPropertyState extends State<EditProperty>
     // TODO: implement onInit
     // getCitiese();
     super.initState();
-    tabController = TabController(length: 3, vsync: this);
 
+    tabController = TabController(length: 3, vsync: this);
+    //addpropertycontroller.selectedValueCity.value
+
+    // addPropertyController.selectedValueCity.value =
+    //     getpropertydetail.propertybyIDmodel.data?.city?.name ?? '';
     minPriceRangeController.text = minPriceRange.round().toString();
     maxPriceRangeController.text = maxPriceRange.round().toString();
     minAreaRangeController.text = minAreaRange.round().toString();
@@ -154,8 +163,11 @@ class _EditPropertyState extends State<EditProperty>
     'Sui Gas'
   ];
 
+  TextEditingController kilometercontroller = TextEditingController();
   int? facilityid;
+  String? facilityname;
   List addedFacilityList = [];
+
   List facilitiesIdList = [];
   List<dynamic> addFeaturesList = [];
   List facilitiesList = [];
@@ -167,13 +179,12 @@ class _EditPropertyState extends State<EditProperty>
 
   var addPropertyController = Get.put(AddProperrtyController());
   var cityListController = Get.put(DashboardController());
-  List citiese = [];
 
-  void getCitiese() async {
-    for (int i = 0; i < cityListController.citiesModel.data!.length; i++) {
-      citiese.add(cityListController.citiesModel.data![i].name ?? "");
-    }
-  }
+  // void getCitiese() async {
+  //   for (int i = 0; i < cityListController.citiesModel.data!.length; i++) {
+  //     citiese.add(cityListController.citiesModel.data![i].name ?? "");
+  //   }
+  // }
 
   List<String> base64List = [];
   @override
@@ -183,7 +194,7 @@ class _EditPropertyState extends State<EditProperty>
         backgroundColor: AppColors.appthem,
         title: InkWell(
             onTap: () {
-              print(fname);
+              print(getpropertydetail.networkimglst);
             },
             child: Text("Edit Property", style: AppTextStyles.appbar)),
         // actions: <Widget>[
@@ -205,7 +216,7 @@ class _EditPropertyState extends State<EditProperty>
                       children: [
                         IconButton(
                             onPressed: () {
-                              getpropertydetail.getPropertydetail;
+                              getpropertydetail.getPropertydetail(widget.pid!);
                             },
                             icon: const Icon(
                               Icons.refresh,
@@ -242,7 +253,7 @@ class _EditPropertyState extends State<EditProperty>
                                 Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(7),
-                                      color: AppColors.colorGrey),
+                                      color: primaryColor),
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Text(
@@ -321,42 +332,42 @@ class _EditPropertyState extends State<EditProperty>
                                         child: CircularProgressIndicator(
                                         color: AppColors.appthem,
                                       ))
-                                    : addPropertyController
-                                                .errorLoadingAddProperty
-                                                .value !=
-                                            ''
-                                        ? Center(
-                                            child: Expanded(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  IconButton(
-                                                      onPressed: () {
-                                                        // getCitiese();
-                                                      },
-                                                      icon: const Icon(
-                                                        Icons.refresh,
-                                                        color:
-                                                            AppColors.appthem,
-                                                      )),
-                                                  SizedBox(
-                                                    height: 1.0.h,
-                                                  ),
-                                                  Text(addPropertyController
-                                                      .errorLoadingAddProperty
-                                                      .value),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        : ListTile(
-                                            leading: const Icon(
-                                                Icons.location_on_outlined),
-                                            title: Text(addPropertyController
-                                                .selectedValueCity.value),
-                                            onTap: () => _showCityList(),
-                                          ))
+                                    // : addPropertyController
+                                    //             .errorLoadingAddProperty
+                                    //             .value !=
+                                    //         ''
+                                    //     ? Center(
+                                    //         child: Expanded(
+                                    //           child: Column(
+                                    //             mainAxisAlignment:
+                                    //                 MainAxisAlignment.center,
+                                    //             children: [
+                                    //               IconButton(
+                                    //                   onPressed: () {
+                                    //                     // getCitiese();
+                                    //                   },
+                                    //                   icon: const Icon(
+                                    //                     Icons.refresh,
+                                    //                     color:
+                                    //                         AppColors.appthem,
+                                    //                   )),
+                                    //               SizedBox(
+                                    //                 height: 1.0.h,
+                                    //               ),
+                                    //               Text(addPropertyController
+                                    //                   .errorLoadingAddProperty
+                                    //                   .value),
+                                    //             ],
+                                    //           ),
+                                    //         ),
+                                    //       )
+                                    : ListTile(
+                                        leading: const Icon(
+                                            Icons.location_on_outlined),
+                                        title: Text(getpropertydetail
+                                            .selectedValueCity.value),
+                                        onTap: () => _showCityList(),
+                                      ))
                               ],
                             ),
 
@@ -946,42 +957,52 @@ class _EditPropertyState extends State<EditProperty>
                         ),
                         myDivider(),
                         SizedBox(
-                          height: 15.h,
+                          // height: 15.h,
                           width: 120.w,
-                          child: facilitiesList.isEmpty
+                          child: getpropertydetail.listfac.isEmpty
                               ? const Center(
                                   child: Text("Add Some Facilities"),
                                 )
                               : ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const PageScrollPhysics(),
                                   scrollDirection: Axis.vertical,
-                                  itemCount: facilitiesList.length,
+                                  itemCount: getpropertydetail.listfac.length,
                                   itemBuilder: (context, index) {
-                                    for (var e in addPropertyController
-                                        .getFacilitiesModel.data!) {
-                                      print(facilitiesList[index]);
-                                      if (e.id == facilitiesList[index]) {
-                                        fname = e.name!;
-                                      }
-                                    }
                                     return Card(
+                                      color: primaryColor.shade300,
                                       child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 5),
                                           child: ListTile(
-                                            title: Row(
-                                              children: [
-                                                Text(fname),
-                                                SizedBox(
-                                                  width: 5.w,
-                                                ),
-                                                Text("KM: ${kmList[index]}"),
-                                              ],
+                                            title: Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 8.0.w),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(getpropertydetail
+                                                      .listfac[index].name
+                                                      .toString()),
+                                                  Text(
+                                                      "KM: ${getpropertydetail.listfac[index].distance}"),
+                                                ],
+                                              ),
                                             ),
                                             trailing: GestureDetector(
-                                              child: const Icon(Icons.delete),
+                                              child: const Icon(
+                                                Icons.delete,
+                                                color: Colors.red,
+                                              ),
                                               onTap: () {
-                                                kmList.removeAt(index);
-                                                facilitiesList.removeAt(index);
+                                                // kmList.removeAt(index);
+                                                // facilitiesList.removeAt(index);
+                                                // addedFacilityList
+                                                //     .removeAt(index);
+                                                getpropertydetail.listfac
+                                                    .removeAt(index);
                                                 setState(() {});
                                               },
                                             ),
@@ -995,56 +1016,62 @@ class _EditPropertyState extends State<EditProperty>
                         ),
                         Column(
                           children: [
-                            // Obx(() =>
-                            // addpropertycontroller.loadingGetFacilities.value
-                            //     ? loader
-                            //     :
-                            DecoratedBox(
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  color:
-                                      const Color.fromARGB(255, 241, 239, 239),
-                                  border: Border.all(
-                                      color: const Color.fromARGB(
-                                          255, 168, 166, 166),
-                                      width: 1)),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 4),
-                                child: DropdownButton<String>(
-                                  value: addpropertycontroller
-                                      .dropdownvalue22.value,
-                                  items: addpropertycontroller
-                                      .getFacilitiesModel.data!
-                                      .map((e) {
-                                    return DropdownMenuItem<String>(
-                                      value: e.id.toString(),
-                                      child: Text(e.name.toString()),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    print(value);
-                                    addpropertycontroller.dropdownvalue22
-                                        .value = value.toString();
-                                    facilityid = int.parse(value!);
-                                  },
-                                  underline: const SizedBox(),
-                                  isExpanded: true,
-                                  // hint: const Text('--Select--'),
-                                ),
-                              ),
-                              // )
-                            ),
+                            Obx(() => addpropertycontroller
+                                    .loadingGetFacilities.value
+                                ? loader
+                                : DecoratedBox(
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10)),
+                                        color: const Color.fromARGB(
+                                            255, 241, 239, 239),
+                                        border: Border.all(
+                                            color: const Color.fromARGB(
+                                                255, 168, 166, 166),
+                                            width: 1)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 4),
+                                      child: DropdownButton<String>(
+                                        value: addpropertycontroller
+                                            .dropdownvalue22.value,
+                                        items: addpropertycontroller
+                                            .getFacilitiesModel.data!
+                                            .map((e) {
+                                          return DropdownMenuItem<String>(
+                                            value: e.id.toString(),
+                                            child: Text(e.name.toString()),
+                                          );
+                                        }).toList(),
+                                        onChanged: (value) {
+                                          for (var v in addpropertycontroller
+                                              .getFacilitiesModel.data!) {
+                                            if (value == v.id.toString()) {
+                                              facilityname = v.name;
+                                            }
+                                          }
+                                          print(value);
+                                          addpropertycontroller.dropdownvalue22
+                                              .value = value.toString();
+
+                                          facilityid = int.parse(value!);
+                                        },
+                                        underline: const SizedBox(),
+                                        isExpanded: true,
+                                        hint: const Text('Select'),
+                                      ),
+                                    ),
+                                  )),
                             SizedBox(
                               height: 1.5.h,
                             ),
                             Form(
                               key: _formKey,
                               child: TextFormField(
+                                controller: kilometercontroller,
                                 keyboardType: TextInputType.number,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                // autovalidateMode:
+                                //     AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter Km';
@@ -1064,27 +1091,29 @@ class _EditPropertyState extends State<EditProperty>
                             ),
                           ],
                         ),
+
                         Padding(
                           padding: const EdgeInsets.only(top: 12),
                           child: MyButton(
                               onTap: () {
+                                int indexwhere = getpropertydetail.listfac
+                                    .indexWhere((facility) =>
+                                        facility.id == facilityid);
                                 if (_formKey.currentState!.validate()) {
-                                  if (addPropertyController
-                                          .dropdownvalue22.value ==
-                                      'Select Facility') {
+                                  if (indexwhere != -1) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            duration: Duration(seconds: 2),
-                                            behavior: SnackBarBehavior.floating,
-                                            backgroundColor: Color.fromARGB(
-                                                255, 38, 80, 153),
-                                            content: Text(
-                                                'Please Select facility')));
+                                      const SnackBar(
+                                        duration: Duration(seconds: 2),
+                                        behavior: SnackBarBehavior.floating,
+                                        backgroundColor: Colors.red,
+                                        content: Text('Facility already added'),
+                                      ),
+                                    );
                                   } else {
                                     setState(() {
-                                      facilitiesList.add(addpropertycontroller
-                                          .dropdownvalue22.value);
-                                      kmList.add(km);
+                                      // facilitiesList.add(addpropertycontroller
+                                      //     .dropdownvalue22.value);
+                                      // kmList.add(km);
                                       // if (addpropertycontroller
                                       //         .dropdownvalue22 ==
                                       //     "Mosque Nearby") {
@@ -1098,14 +1127,22 @@ class _EditPropertyState extends State<EditProperty>
                                       //     "Park") {
                                       //   facilityid = 2;
                                       // }
-                                      addedFacilityList.add(
-                                          {"id": facilityid, "distance": km});
+                                      // addedFacilityList.add(
+                                      //     {"id": facilityid, "distance": km});
+                                      facilityname ??= addpropertycontroller
+                                          .getFacilitiesModel.data![0].name;
 
+                                      ListFacility facility = ListFacility(
+                                          id: facilityid,
+                                          distance: km,
+                                          name: facilityname);
+                                      getpropertydetail.listfac.add(facility);
+                                      kilometercontroller.clear();
                                       // facilitiesList.clear();
                                       // kmList.clear();
                                       // addedFacilityList.clear();
-                                      print(
-                                          "faclity list added_____$addedFacilityList");
+                                      // print(
+                                      //     "faclity list added_____$addedFacilityList");
                                     });
                                   }
                                 }
@@ -1118,114 +1155,173 @@ class _EditPropertyState extends State<EditProperty>
                         SizedBox(
                           height: 1.0.h,
                         ),
-                        Row(children: const [
-                          Text('Features',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        Row(children: [
+                          InkWell(
+                            onTap: () {
+                              print(getpropertydetail.sindex);
+                            },
+                            child: const Text('Features',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ),
                         ]),
                         myDivider(),
-                        Row(children: [
-                          Checkbox(
-                              value: checkBoxValue1,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkBoxValue1 = value!;
-                                  if (checkBoxValue1 == true) {
-                                    addFeaturesList.add(featuresList[0]);
-                                    addedFeaturesList.add(0);
-                                  } else {
-                                    addFeaturesList.remove("Balcony");
-                                    addedFeaturesList.remove(0);
-                                  }
-                                });
-                              }),
-                          const Text('Balcony')
-                        ]),
-                        Row(children: [
-                          Checkbox(
-                              value: checkBoxValue2,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkBoxValue2 = value!;
-                                  if (value == true) {
-                                    addFeaturesList.add(featuresList[1]);
-                                    addedFeaturesList.add(1);
-                                  } else {
-                                    addFeaturesList.remove('Security Staff');
-                                    addedFeaturesList.remove(1);
-                                  }
-                                });
-                              }),
-                          const Text('Security Staff')
-                        ]),
-                        Row(children: [
-                          Checkbox(
-                              value: checkBoxValue3,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkBoxValue3 = value!;
-                                  if (value == true) {
-                                    addFeaturesList.add(featuresList[2]);
-                                    addedFeaturesList.add(2);
-                                  } else {
-                                    addFeaturesList.remove('Parking Area');
-                                    addedFeaturesList.remove(2);
-                                  }
-                                });
-                              }),
-                          const Text('Parking Area')
-                        ]),
-                        Row(children: [
-                          Checkbox(
-                              value: checkBoxValue4,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkBoxValue4 = value!;
-                                  if (value == true) {
-                                    addFeaturesList.add(featuresList[3]);
-                                    addedFeaturesList.add(3);
-                                  } else {
-                                    addFeaturesList.remove('Electricity');
-                                    addedFeaturesList.remove(3);
-                                  }
-                                });
-                              }),
-                          const Text('Electricity')
-                        ]),
-                        Row(children: [
-                          Checkbox(
-                              value: checkBoxValue5,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkBoxValue5 = value!;
-                                  if (value == true) {
-                                    addFeaturesList.add(featuresList[4]);
-                                    addedFeaturesList.add(4);
-                                  } else {
-                                    addFeaturesList
-                                        .remove('Accessible by Road');
-                                    addedFeaturesList.remove(4);
-                                  }
-                                });
-                              }),
-                          const Text('Accessible by Road')
-                        ]),
-                        Row(children: [
-                          Checkbox(
-                              value: checkBoxValue6,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkBoxValue6 = value!;
-                                  if (value == true) {
-                                    addFeaturesList.add(featuresList[5]);
-                                    addedFeaturesList.add(5);
-                                  } else {
-                                    addFeaturesList.remove('Sui Gas');
-                                    addedFeaturesList.remove(5);
-                                  }
-                                });
-                              }),
-                          const Text('Sui Gas'),
-                        ]),
+
+                        Container(
+                          constraints: BoxConstraints(maxHeight: 40.h),
+                          child: Obx(() =>
+                              addPropertyController.loadingGetFacilities.value
+                                  ? loader
+                                  : ListView.builder(
+                                      physics: const PageScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: addpropertycontroller
+                                          .getFeaturesModel.data!.length,
+                                      itemBuilder: (_, index) {
+                                        return Obx(() => Row(children: [
+                                              Checkbox(
+                                                  value: getpropertydetail
+                                                      .sindex
+                                                      .contains(
+                                                          addpropertycontroller
+                                                              .getFeaturesModel
+                                                              .data![index]
+                                                              .id),
+                                                  onChanged: (value) {
+                                                    if (getpropertydetail.sindex
+                                                        .contains(
+                                                            addpropertycontroller
+                                                                .getFeaturesModel
+                                                                .data![index]
+                                                                .id)) {
+                                                      getpropertydetail.sindex.remove(
+                                                          addpropertycontroller
+                                                              .getFeaturesModel
+                                                              .data![index]
+                                                              .id);
+                                                    } else {
+                                                      getpropertydetail.sindex.add(
+                                                          addpropertycontroller
+                                                              .getFeaturesModel
+                                                              .data![index]
+                                                              .id);
+                                                    }
+                                                  }),
+                                              Text(addPropertyController
+                                                  .getFeaturesModel
+                                                  .data![index]
+                                                  .name
+                                                  .toString())
+                                            ]));
+                                      },
+                                    )),
+                        ),
+
+                        // Row(children: [
+                        //   Checkbox(
+                        //       value: checkBoxValue1,
+                        //       onChanged: (value) {
+                        //         setState(() {
+                        //           checkBoxValue1 = value!;
+                        //           if (checkBoxValue1 == true) {
+                        //             addFeaturesList.add(featuresList[0]);
+                        //             addedFeaturesList.add(0);
+                        //           } else {
+                        //             addFeaturesList.remove("Balcony");
+                        //             addedFeaturesList.remove(0);
+                        //           }
+                        //         });
+                        //       }),
+                        //   const Text('Balcony')
+                        // ]),
+                        // Row(children: [
+                        //   Checkbox(
+                        //       value: checkBoxValue2,
+                        //       onChanged: (value) {
+                        //         setState(() {
+                        //           checkBoxValue2 = value!;
+                        //           if (value == true) {
+                        //             addFeaturesList.add(featuresList[1]);
+                        //             addedFeaturesList.add(1);
+                        //           } else {
+                        //             addFeaturesList.remove('Security Staff');
+                        //             addedFeaturesList.remove(1);
+                        //           }
+                        //         });
+                        //       }),
+                        //   const Text('Security Staff')
+                        // ]),
+                        // Row(children: [
+                        //   Checkbox(
+                        //       value: checkBoxValue3,
+                        //       onChanged: (value) {
+                        //         setState(() {
+                        //           checkBoxValue3 = value!;
+                        //           if (value == true) {
+                        //             addFeaturesList.add(featuresList[2]);
+                        //             addedFeaturesList.add(2);
+                        //           } else {
+                        //             addFeaturesList.remove('Parking Area');
+                        //             addedFeaturesList.remove(2);
+                        //           }
+                        //         });
+                        //       }),
+                        //   const Text('Parking Area')
+                        // ]),
+                        // Row(children: [
+                        //   Checkbox(
+                        //       value: checkBoxValue4,
+                        //       onChanged: (value) {
+                        //         setState(() {
+                        //           checkBoxValue4 = value!;
+                        //           if (value == true) {
+                        //             addFeaturesList.add(featuresList[3]);
+                        //             addedFeaturesList.add(3);
+                        //           } else {
+                        //             addFeaturesList.remove('Electricity');
+                        //             addedFeaturesList.remove(3);
+                        //           }
+                        //         });
+                        //       }),
+                        //   const Text('Electricity')
+                        // ]),
+
+                        // Row(children: [
+                        //   Checkbox(
+                        //       value: checkBoxValue5,
+                        //       onChanged: (value) {
+                        //         setState(() {
+                        //           checkBoxValue5 = value!;
+                        //           if (value == true) {
+                        //             addFeaturesList.add(featuresList[4]);
+                        //             addedFeaturesList.add(4);
+                        //           } else {
+                        //             addFeaturesList
+                        //                 .remove('Accessible by Road');
+                        //             addedFeaturesList.remove(4);
+                        //           }
+                        //         });
+                        //       }),
+                        //   const Text('Accessible by Road')
+                        // ]),
+
+                        // Row(children: [
+                        //   Checkbox(
+                        //       value: checkBoxValue6,
+                        //       onChanged: (value) {
+                        //         setState(() {
+                        //           checkBoxValue6 = value!;
+                        //           if (value == true) {
+                        //             addFeaturesList.add(featuresList[5]);
+                        //             addedFeaturesList.add(5);
+                        //           } else {
+                        //             addFeaturesList.remove('Sui Gas');
+                        //             addedFeaturesList.remove(5);
+                        //           }
+                        //         });
+                        //       }),
+                        //   const Text('Sui Gas'),
+                        // ]),
+
                         myDivider(),
                         Column(
                           children: [
@@ -1242,6 +1338,24 @@ class _EditPropertyState extends State<EditProperty>
                                   ),
                                 )
                               ],
+                            ),
+                            Container(
+                              height: Get.height * .3,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.grey.shade200,
+                              ),
+                              padding: EdgeInsets.all(1.h),
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount:
+                                      getpropertydetail.networkimglst.length,
+                                  itemBuilder: (context, index) {
+                                    return Image.network(
+                                      "${AppUrls.baseUrl2}${getpropertydetail.networkimglst[index]}",
+                                      fit: BoxFit.cover,
+                                    );
+                                  }),
                             ),
                             GestureDetector(
                               onTap: () {
@@ -1325,136 +1439,136 @@ class _EditPropertyState extends State<EditProperty>
                           ],
                         ),
                         myDivider(),
-                        Column(
-                          children: [
-                            Padding(
-                                padding: EdgeInsets.only(top: 1.h, bottom: 3.h),
-                                child: Obx(() => addPropertyController
-                                        .loadingAddProperty.value
+                        Padding(
+                            padding: EdgeInsets.only(top: 1.h, bottom: 2.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Obx(() => editpropertycontroller
+                                        .loadingEditSaveProperty.value
                                     ? const Center(
                                         child: CircularProgressIndicator(
                                           color: AppColors.appthem,
                                         ),
                                       )
-                                    : addPropertyController
-                                                .errorLoadingAddProperty
-                                                .value !=
-                                            ""
-                                        ? Container(
-                                            child: Column(children: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    addPropertyController.getAddProperty(
-                                                        getpropertydetail
-                                                            .titleController
-                                                            .text,
-                                                        getpropertydetail
-                                                            .dispController
-                                                            .text,
-                                                        getpropertydetail
-                                                            .contentController
-                                                            .text,
-                                                        getpropertydetail
-                                                            .sectorController
-                                                            .text,
-                                                        getpropertydetail
-                                                            .streetNoController
-                                                            .text,
-                                                        getpropertydetail
-                                                            .plotNoController
-                                                            .text,
-                                                        getpropertydetail
-                                                            .locatController
-                                                            .text,
-                                                        addPropertyController
-                                                            .selectedValueCityId
-                                                            .value
-                                                            .toString(),
-                                                        getpropertydetail
-                                                            .priceController
-                                                            .text,
-                                                        getpropertydetail
-                                                            .squareController
-                                                            .text,
-                                                        getpropertydetail
-                                                            .selectedFloor
-                                                            .toString(),
-                                                        getpropertydetail
-                                                            .selectedBathroom,
-                                                        getpropertydetail
-                                                            .selectedBedroom,
-                                                        selectedPropertyCategory,
-                                                        getpropertydetail
-                                                            .propertybyIDmodel
-                                                            .data!
-                                                            .type!
-                                                            .id,
-                                                        addedFeaturesList,
-                                                        facilities,
-                                                        base64List,
-                                                        addedFacilityList);
-                                                  },
-                                                  icon: const Icon(
-                                                      Icons.refresh)),
-                                              SizedBox(
-                                                height: 1.0.h,
-                                              ),
-                                              Text(addPropertyController
-                                                  .errorLoadingAddProperty
-                                                  .value)
-                                            ]),
-                                          )
-                                        //  showDialogFunc(
-                                        //     context,
-                                        //     addPropertyController
-                                        //         .errorLoadingAddProperty.value)
-                                        : CustomButton(
-                                            // isloading:
-                                            //     addPropertyController.loadingAddProperty.value,
-                                            onPressed: () {
-                                              addPropertyController.getAddProperty(
-                                                  getpropertydetail
-                                                      .titleController.text,
-                                                  getpropertydetail
-                                                      .dispController.text,
-                                                  getpropertydetail
-                                                      .contentController.text,
-                                                  getpropertydetail
-                                                      .sectorController.text,
-                                                  getpropertydetail
-                                                      .streetNoController.text,
-                                                  getpropertydetail
-                                                      .plotNoController.text,
-                                                  getpropertydetail
-                                                      .locatController.text,
-                                                  addPropertyController
-                                                      .selectedValueCityId.value
-                                                      .toString(),
-                                                  getpropertydetail
-                                                      .priceController.text,
-                                                  getpropertydetail
-                                                      .squareController.text,
-                                                  getpropertydetail
-                                                      .selectedFloor
-                                                      .toString(),
-                                                  getpropertydetail
-                                                      .selectedBathroom,
-                                                  getpropertydetail
-                                                      .selectedBedroom,
-                                                  selectedPropertyCategory,
-                                                  getpropertydetail
-                                                      .propertybyIDmodel
-                                                      .data!
-                                                      .type!
-                                                      .id,
-                                                  addedFeaturesList,
-                                                  facilities,
-                                                  base64List,
-                                                  addedFacilityList);
-                                            },
-                                            text: 'Add Property'))),
-                          ],
-                        ),
+                                    : CustomButton(
+                                        wi: 30,
+                                        onPressed: () {
+                                          List<int> idList = getpropertydetail
+                                              .listfac
+                                              .map((facility) => facility.id!)
+                                              .toList();
+
+                                          editpropertycontroller.getAddSaveProperty(
+                                              getpropertydetail
+                                                  .propertybyIDmodel.data!.id,
+                                              getpropertydetail
+                                                  .titleController.text,
+                                              getpropertydetail
+                                                  .propertybyIDmodel
+                                                  .data!
+                                                  .assignerId,
+                                              getpropertydetail
+                                                  .dispController.text,
+                                              getpropertydetail
+                                                  .dispController.text,
+                                              getpropertydetail
+                                                  .sectorController.text,
+                                              getpropertydetail
+                                                  .streetNoController.text,
+                                              getpropertydetail
+                                                  .plotNoController.text,
+                                              getpropertydetail
+                                                  .locatController.text,
+                                              getpropertydetail
+                                                  .selectedValueCityId.value
+                                                  .toString(),
+                                              getpropertydetail
+                                                  .priceController.text,
+                                              getpropertydetail
+                                                  .squareController.text,
+                                              getpropertydetail.selectedFloor
+                                                  .toString(),
+                                              getpropertydetail
+                                                  .selectedBathroom,
+                                              getpropertydetail.selectedBedroom,
+                                              selectedPropertyCategory,
+                                              getpropertydetail
+                                                  .propertybyIDmodel
+                                                  .data!
+                                                  .type!
+                                                  .id,
+                                              getpropertydetail.sindex,
+                                              getpropertydetail.networkimglst,
+                                              base64List,
+                                              idList,
+                                              'save');
+                                        },
+                                        text: 'Save')),
+                                Obx(() => editpropertycontroller
+                                        .loadingEditProperty.value
+                                    ? const Center(
+                                        child: CircularProgressIndicator(
+                                          color: AppColors.appthem,
+                                        ),
+                                      )
+                                    : CustomButton(
+                                        color: AppColors.themecolor,
+                                        wi: 40,
+                                        onPressed: () {
+                                          List<int> idList = getpropertydetail
+                                              .listfac
+                                              .map((facility) => facility.id!)
+                                              .toList();
+
+                                          editpropertycontroller.getAddProperty(
+                                              getpropertydetail
+                                                  .propertybyIDmodel.data!.id,
+                                              getpropertydetail
+                                                  .titleController.text,
+                                              getpropertydetail
+                                                  .propertybyIDmodel
+                                                  .data!
+                                                  .assignerId,
+                                              getpropertydetail
+                                                  .dispController.text,
+                                              getpropertydetail
+                                                  .dispController.text,
+                                              getpropertydetail
+                                                  .sectorController.text,
+                                              getpropertydetail
+                                                  .streetNoController.text,
+                                              getpropertydetail
+                                                  .plotNoController.text,
+                                              getpropertydetail
+                                                  .locatController.text,
+                                              getpropertydetail
+                                                  .selectedValueCityId.value
+                                                  .toString(),
+                                              getpropertydetail
+                                                  .priceController.text,
+                                              getpropertydetail
+                                                  .squareController.text,
+                                              getpropertydetail.selectedFloor
+                                                  .toString(),
+                                              getpropertydetail
+                                                  .selectedBathroom,
+                                              getpropertydetail.selectedBedroom,
+                                              selectedPropertyCategory,
+                                              getpropertydetail
+                                                  .propertybyIDmodel
+                                                  .data!
+                                                  .type!
+                                                  .id,
+                                              getpropertydetail.sindex,
+                                              getpropertydetail.networkimglst,
+                                              base64List,
+                                              idList,
+                                              'publish');
+                                        },
+                                        text: 'Publish')),
+                              ],
+                            )),
                       ],
                     ),
                   ),
@@ -1477,14 +1591,14 @@ class _EditPropertyState extends State<EditProperty>
               width: 100,
               child: ListView.builder(
                 //scrollDirection: Axis.horizontal,
-                itemCount: citiese.length,
+                itemCount: cityListController.citiese.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: GestureDetector(
                       onTap: () {
-                        cityname = citiese[index];
-                        addPropertyController.selectedValueCityId.value = index;
+                        cityname = cityListController.citiese[index];
+                        getpropertydetail.selectedValueCityId.value = index;
                         // addPropertyController.selectedValueCity.value =
                         //     citiese[index];
                       },
@@ -1497,7 +1611,8 @@ class _EditPropertyState extends State<EditProperty>
                             label: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 5),
-                              child: Text(citiese[index].toString(),
+                              child: Text(
+                                  cityListController.citiese[index].toString(),
                                   style: TextStyle(
                                       color: addPropertyController
                                                   .selectedValueCityId.value ==
@@ -1528,7 +1643,7 @@ class _EditPropertyState extends State<EditProperty>
                 'Submit',
               ),
               onPressed: () {
-                addPropertyController.selectedValueCity.value = cityname;
+                getpropertydetail.selectedValueCity.value = cityname;
                 Navigator.of(context).pop();
               },
             ),
@@ -1543,6 +1658,7 @@ class _EditPropertyState extends State<EditProperty>
 
   void selectImages() async {
     final List<XFile> selectedImages = await imagePicker.pickMultiImage();
+
     if (selectedImages.isNotEmpty) {
       getpropertydetail.imageFileList!.addAll(selectedImages);
       setState(() {});
@@ -1629,4 +1745,15 @@ class _EditPropertyState extends State<EditProperty>
       ),
     );
   }
+}
+
+class ListFacility {
+  int? id;
+  String? name;
+  String? distance;
+  ListFacility({
+    this.id,
+    this.name,
+    this.distance,
+  });
 }

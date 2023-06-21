@@ -18,6 +18,7 @@ import 'package:sizer/sizer.dart';
 
 class Chating extends StatefulWidget {
   String? name;
+  int? checkid;
   String? conId;
   String? customerId;
   String? agentId;
@@ -25,6 +26,7 @@ class Chating extends StatefulWidget {
   Chating(
       {super.key,
       this.name,
+      this.checkid,
       this.agentId,
       this.conId,
       this.customerId,

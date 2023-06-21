@@ -133,11 +133,12 @@ class Datum {
   String? adTitle;
   String? description;
   String? activeStatus;
-  String? deletedAt;
+  dynamic deletedAt;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? location;
   String? tags;
+  int? conversationId;
   int? isLiked;
   User? user;
   List<LikesOnProperty>? likesOnProperties;
@@ -154,6 +155,7 @@ class Datum {
     this.updatedAt,
     this.location,
     this.tags,
+    this.conversationId,
     this.isLiked,
     this.user,
     this.likesOnProperties,
@@ -175,6 +177,7 @@ class Datum {
             : DateTime.parse(json["updated_at"]),
         location: json["location"],
         tags: json["tags"],
+        conversationId: json["conversation_id"],
         isLiked: json["is_liked"],
         user: json["user"] == null ? null : User.fromJson(json["user"]),
         likesOnProperties: json["likes_on_properties"] == null
@@ -195,6 +198,7 @@ class Datum {
         "updated_at": updatedAt?.toIso8601String(),
         "location": location,
         "tags": tags,
+        "conversation_id": conversationId,
         "is_liked": isLiked,
         "user": user?.toJson(),
         "likes_on_properties": likesOnProperties == null
@@ -205,18 +209,42 @@ class Datum {
 
 class LikesOnProperty {
   bool? isliked;
+  int? id;
+  String? userId;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? postId;
 
   LikesOnProperty({
     this.isliked,
+    this.id,
+    this.userId,
+    this.createdAt,
+    this.updatedAt,
+    this.postId,
   });
 
   factory LikesOnProperty.fromJson(Map<String, dynamic> json) =>
       LikesOnProperty(
         isliked: json["isliked"],
+        id: json["id"],
+        userId: json["user_id"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        postId: json["post_id"],
       );
 
   Map<String, dynamic> toJson() => {
         "isliked": isliked,
+        "id": id,
+        "user_id": userId,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "post_id": postId,
       };
 }
 
@@ -226,9 +254,9 @@ class User {
   dynamic emailVerifiedAt;
   String? mobileNo;
   String? profileImage;
-  dynamic dob;
+  DateTime? dob;
   String? activeStatus;
-  dynamic deletedAt;
+  DateTime? deletedAt;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? firstName;
@@ -246,7 +274,7 @@ class User {
   String? companyId;
   String? addressId;
   String? roleId;
-  String? deactivateMessage;
+  dynamic deactivateMessage;
   String? cityId;
   dynamic mobileVerificationCode;
   String? referralCode;
@@ -293,9 +321,11 @@ class User {
         emailVerifiedAt: json["email_verified_at"],
         mobileNo: json["mobile_no"],
         profileImage: json["profile_image"],
-        dob: json["dob"],
+        dob: json["dob"] == null ? null : DateTime.parse(json["dob"]),
         activeStatus: json["active_status"],
-        deletedAt: json["deleted_at"],
+        deletedAt: json["deleted_at"] == null
+            ? null
+            : DateTime.parse(json["deleted_at"]),
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -333,9 +363,10 @@ class User {
         "email_verified_at": emailVerifiedAt,
         "mobile_no": mobileNo,
         "profile_image": profileImage,
-        "dob": dob,
+        "dob":
+            "${dob!.year.toString().padLeft(4, '0')}-${dob!.month.toString().padLeft(2, '0')}-${dob!.day.toString().padLeft(2, '0')}",
         "active_status": activeStatus,
-        "deleted_at": deletedAt,
+        "deleted_at": deletedAt?.toIso8601String(),
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "first_name": firstName,
@@ -380,6 +411,54 @@ class PermissionsClass {
   bool? propertyFeatureEdit;
   String? superuser;
   String? manageSupers;
+  bool? agentIndex;
+  bool? agentEdit;
+  bool? agentDestroy;
+  bool? agentCreate;
+  bool? analyticsGeneral;
+  bool? analyticsPage;
+  bool? analyticsBrowser;
+  bool? analyticsReferrer;
+  bool? pluginsBlog;
+  bool? postsIndex;
+  bool? postsCreate;
+  bool? postsEdit;
+  bool? postsDestroy;
+  bool? categoriesIndex;
+  bool? categoriesCreate;
+  bool? categoriesEdit;
+  bool? categoriesDestroy;
+  bool? tagsIndex;
+  bool? tagsCreate;
+  bool? tagsEdit;
+  bool? tagsDestroy;
+  bool? propertyCategoryIndex;
+  bool? propertyCategoryCreate;
+  bool? propertyCategoryEdit;
+  bool? propertyCategoryDestroy;
+  bool? companyIndex;
+  bool? companyEdit;
+  bool? companyDestroy;
+  bool? companyCreate;
+  bool? consultDestroy;
+  bool? consultsDestroy;
+  bool? facilityIndex;
+  bool? facilityCreate;
+  bool? facilityEdit;
+  bool? facilityDestroy;
+  bool? filesEdit;
+  bool? filesTrash;
+  bool? filesDestroy;
+  bool? foldersIndex;
+  bool? foldersCreate;
+  bool? foldersEdit;
+  bool? foldersTrash;
+  bool? foldersDestroy;
+  bool? propertyFeatureDestroy;
+  bool? propertyTypeIndex;
+  bool? propertyTypeCreate;
+  bool? propertyTypeEdit;
+  bool? propertyTypeDestroy;
 
   PermissionsClass({
     this.consultIndex,
@@ -399,6 +478,54 @@ class PermissionsClass {
     this.propertyFeatureEdit,
     this.superuser,
     this.manageSupers,
+    this.agentIndex,
+    this.agentEdit,
+    this.agentDestroy,
+    this.agentCreate,
+    this.analyticsGeneral,
+    this.analyticsPage,
+    this.analyticsBrowser,
+    this.analyticsReferrer,
+    this.pluginsBlog,
+    this.postsIndex,
+    this.postsCreate,
+    this.postsEdit,
+    this.postsDestroy,
+    this.categoriesIndex,
+    this.categoriesCreate,
+    this.categoriesEdit,
+    this.categoriesDestroy,
+    this.tagsIndex,
+    this.tagsCreate,
+    this.tagsEdit,
+    this.tagsDestroy,
+    this.propertyCategoryIndex,
+    this.propertyCategoryCreate,
+    this.propertyCategoryEdit,
+    this.propertyCategoryDestroy,
+    this.companyIndex,
+    this.companyEdit,
+    this.companyDestroy,
+    this.companyCreate,
+    this.consultDestroy,
+    this.consultsDestroy,
+    this.facilityIndex,
+    this.facilityCreate,
+    this.facilityEdit,
+    this.facilityDestroy,
+    this.filesEdit,
+    this.filesTrash,
+    this.filesDestroy,
+    this.foldersIndex,
+    this.foldersCreate,
+    this.foldersEdit,
+    this.foldersTrash,
+    this.foldersDestroy,
+    this.propertyFeatureDestroy,
+    this.propertyTypeIndex,
+    this.propertyTypeCreate,
+    this.propertyTypeEdit,
+    this.propertyTypeDestroy,
   });
 
   factory PermissionsClass.fromJson(Map<String, dynamic> json) =>
@@ -420,6 +547,54 @@ class PermissionsClass {
         propertyFeatureEdit: json["property_feature.edit"],
         superuser: json["superuser"],
         manageSupers: json["manage_supers"],
+        agentIndex: json["Agent.index"],
+        agentEdit: json["Agent.edit"],
+        agentDestroy: json["Agent.destroy"],
+        agentCreate: json["Agent.create"],
+        analyticsGeneral: json["analytics.general"],
+        analyticsPage: json["analytics.page"],
+        analyticsBrowser: json["analytics.browser"],
+        analyticsReferrer: json["analytics.referrer"],
+        pluginsBlog: json["plugins.blog"],
+        postsIndex: json["posts.index"],
+        postsCreate: json["posts.create"],
+        postsEdit: json["posts.edit"],
+        postsDestroy: json["posts.destroy"],
+        categoriesIndex: json["categories.index"],
+        categoriesCreate: json["categories.create"],
+        categoriesEdit: json["categories.edit"],
+        categoriesDestroy: json["categories.destroy"],
+        tagsIndex: json["tags.index"],
+        tagsCreate: json["tags.create"],
+        tagsEdit: json["tags.edit"],
+        tagsDestroy: json["tags.destroy"],
+        propertyCategoryIndex: json["property_category.index"],
+        propertyCategoryCreate: json["property_category.create"],
+        propertyCategoryEdit: json["property_category.edit"],
+        propertyCategoryDestroy: json["property_category.destroy"],
+        companyIndex: json["company.index"],
+        companyEdit: json["company.edit"],
+        companyDestroy: json["company.destroy"],
+        companyCreate: json["company.create"],
+        consultDestroy: json["consult.destroy"],
+        consultsDestroy: json["consults.destroy"],
+        facilityIndex: json["facility.index"],
+        facilityCreate: json["facility.create"],
+        facilityEdit: json["facility.edit"],
+        facilityDestroy: json["facility.destroy"],
+        filesEdit: json["files.edit"],
+        filesTrash: json["files.trash"],
+        filesDestroy: json["files.destroy"],
+        foldersIndex: json["folders.index"],
+        foldersCreate: json["folders.create"],
+        foldersEdit: json["folders.edit"],
+        foldersTrash: json["folders.trash"],
+        foldersDestroy: json["folders.destroy"],
+        propertyFeatureDestroy: json["property_feature.destroy"],
+        propertyTypeIndex: json["property_type.index"],
+        propertyTypeCreate: json["property_type.create"],
+        propertyTypeEdit: json["property_type.edit"],
+        propertyTypeDestroy: json["property_type.destroy"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -440,6 +615,54 @@ class PermissionsClass {
         "property_feature.edit": propertyFeatureEdit,
         "superuser": superuser,
         "manage_supers": manageSupers,
+        "Agent.index": agentIndex,
+        "Agent.edit": agentEdit,
+        "Agent.destroy": agentDestroy,
+        "Agent.create": agentCreate,
+        "analytics.general": analyticsGeneral,
+        "analytics.page": analyticsPage,
+        "analytics.browser": analyticsBrowser,
+        "analytics.referrer": analyticsReferrer,
+        "plugins.blog": pluginsBlog,
+        "posts.index": postsIndex,
+        "posts.create": postsCreate,
+        "posts.edit": postsEdit,
+        "posts.destroy": postsDestroy,
+        "categories.index": categoriesIndex,
+        "categories.create": categoriesCreate,
+        "categories.edit": categoriesEdit,
+        "categories.destroy": categoriesDestroy,
+        "tags.index": tagsIndex,
+        "tags.create": tagsCreate,
+        "tags.edit": tagsEdit,
+        "tags.destroy": tagsDestroy,
+        "property_category.index": propertyCategoryIndex,
+        "property_category.create": propertyCategoryCreate,
+        "property_category.edit": propertyCategoryEdit,
+        "property_category.destroy": propertyCategoryDestroy,
+        "company.index": companyIndex,
+        "company.edit": companyEdit,
+        "company.destroy": companyDestroy,
+        "company.create": companyCreate,
+        "consult.destroy": consultDestroy,
+        "consults.destroy": consultsDestroy,
+        "facility.index": facilityIndex,
+        "facility.create": facilityCreate,
+        "facility.edit": facilityEdit,
+        "facility.destroy": facilityDestroy,
+        "files.edit": filesEdit,
+        "files.trash": filesTrash,
+        "files.destroy": filesDestroy,
+        "folders.index": foldersIndex,
+        "folders.create": foldersCreate,
+        "folders.edit": foldersEdit,
+        "folders.trash": foldersTrash,
+        "folders.destroy": foldersDestroy,
+        "property_feature.destroy": propertyFeatureDestroy,
+        "property_type.index": propertyTypeIndex,
+        "property_type.create": propertyTypeCreate,
+        "property_type.edit": propertyTypeEdit,
+        "property_type.destroy": propertyTypeDestroy,
       };
 }
 

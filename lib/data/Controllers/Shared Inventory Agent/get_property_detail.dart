@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../Views/Agent/Agent_Drawer/Shared Inventory/edit_property.dart';
 import '../../Models/property_model/property_by_id_model.dart';
 import '../../Services/property_services/property_by_id_services.dart';
 
@@ -11,7 +12,10 @@ class PropertyDetailController extends GetxController {
   // int iWantTo = 0;
   // List<Images> images = [];
   List<XFile>? imageFileList = [];
+  RxList sindex = [].obs;
 
+  //
+  List networkimglst = [];
   final titleController = TextEditingController();
   final dispController = TextEditingController();
   final contentController = TextEditingController();
@@ -31,8 +35,12 @@ class PropertyDetailController extends GetxController {
   int selectedBedroom = 0;
   int selectedBathroom = 0;
   int selectedFloor = 0;
+  List<ListFacility> listfac = [];
+  RxString selectedValueCity = 'Select City'.obs;
+  RxInt selectedValueCityId = 0.obs;
 
   void getPropertydetail(int pid) async {
+    listfac.clear();
     print(pid);
     loadingPropertyByID.value = true;
     errorLoadingPropertyByID.value = '';
@@ -49,6 +57,18 @@ class PropertyDetailController extends GetxController {
       priceController.text = res.data!.price.toString();
       squareController.text = res.data!.square.toString();
       dropdownvalue = res.data!.currency!.title.toString();
+      selectedValueCity.value = propertybyIDmodel.data!.city?.name ?? '';
+      networkimglst = res.data!.images!;
+      selectedValueCityId.value = int.parse(res.data!.cityId!);
+      for (var e in res.data!.facilities!) {
+        ListFacility facility =
+            ListFacility(id: e.id, distance: e.pivot!.distance, name: e.name);
+        listfac.add(facility);
+      }
+
+      for (var e in res.data!.features!) {
+        sindex.add(e.id);
+      }
 
       if (int.parse(res.data!.numberBedroom!) > 10) {
         selectedBedroom = 11;

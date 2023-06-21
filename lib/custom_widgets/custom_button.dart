@@ -9,20 +9,24 @@ class CustomButton extends StatelessWidget {
   final String? text;
   final Function? onPressed;
   final bool isloading;
+  final double? wi;
+  final Color? color;
 
   const CustomButton({
     this.text,
     this.onPressed,
+    this.wi = 100.0,
+    this.color = AppColors.appthem,
     this.isloading = false,
   });
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 100.0.w,
+      width: wi!.w,
       height: 6.0.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.appthem,
+            backgroundColor: color,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
         child: isloading

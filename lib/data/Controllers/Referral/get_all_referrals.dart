@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,6 +15,8 @@ class GetRefferal extends GetxController {
 
     getId();
   }
+
+  TextEditingController referfieldcontroller = TextEditingController();
 
   int? uid;
   void getId() async {
@@ -36,6 +39,7 @@ class GetRefferal extends GetxController {
     if (res is Referral) {
       getrefferalload.value = false;
       referral = res;
+      referfieldcontroller.text = res.data![0].referralCode.toString();
     } else {
       getrefferalload.value = false;
       getrefferalerrormsg.value = res.toString();

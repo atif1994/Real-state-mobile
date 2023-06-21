@@ -3,7 +3,6 @@
 import 'dart:ui';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field.dart';
 import 'package:prologic_29/Services/constants.dart';
@@ -33,9 +32,9 @@ class _SignUpState extends State<SignUp> {
 
   String address = "";
 
-  List<String> items = ['--Select Role--', 'agent', 'customer'];
+  // List<String> items = ['--Select Role--', 'agent', 'customer'];
 
-  String dropdownvalue = '--Select Role--';
+  // String dropdownvalue = '--Select Role--';
 
   var controller = Get.put(SignUpController());
 
@@ -288,52 +287,47 @@ class _SignUpState extends State<SignUp> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  DecoratedBox(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: AppColors.colorWhite),
-                                          color: AppColors.themelightcolor,
-                                          borderRadius:
-                                              BorderRadius.circular(15)),
-                                      child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8.0),
-                                          child: ButtonTheme(
-                                            alignedDropdown: true,
-                                            child: DropdownButton<String>(
-                                                underline: Container(),
-                                                isExpanded: true,
-                                                value: dropdownvalue,
-                                                onChanged: (String? val) {
-                                                  setState(() {
-                                                    dropdownvalue =
-                                                        val.toString();
-                                                  });
-                                                },
-                                                items: items.map<
-                                                        DropdownMenuItem<
-                                                            String>>(
-                                                    (String value) {
-                                                  return DropdownMenuItem<
-                                                      String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  );
-                                                }).toList()),
-                                          ))),
+                                  // DecoratedBox(
+                                  //     decoration: BoxDecoration(
+                                  //         border: Border.all(
+                                  //             color: AppColors.colorWhite),
+                                  //         color: AppColors.themelightcolor,
+                                  //         borderRadius:
+                                  //             BorderRadius.circular(15)),
+                                  //     child: Padding(
+                                  //         padding: const EdgeInsets.symmetric(
+                                  //             horizontal: 8.0),
+                                  //         child: ButtonTheme(
+                                  //           alignedDropdown: true,
+                                  //           child: DropdownButton<String>(
+                                  //               underline: Container(),
+                                  //               isExpanded: true,
+                                  //               value: dropdownvalue,
+                                  //               onChanged: (String? val) {
+                                  //                 setState(() {
+                                  //                   dropdownvalue =
+                                  //                       val.toString();
+                                  //                 });
+                                  //               },
+                                  //               items: items.map<
+                                  //                       DropdownMenuItem<
+                                  //                           String>>(
+                                  //                   (String value) {
+                                  //                 return DropdownMenuItem<
+                                  //                     String>(
+                                  //                   value: value,
+                                  //                   child: Text(value),
+                                  //                 );
+                                  //               }).toList()),
+                                  //         ))),
                                   SizedBox(
                                     height: 4.h,
                                   ),
                                   MyButton(
                                       onTap: () {
                                         if (_formkey.currentState!.validate()) {
-                                          if (dropdownvalue ==
-                                              '--Select Role--') {
-                                            Fluttertoast.showToast(
-                                                msg: 'Select Role');
-                                          } else {
-                                            controller.signUp(dropdownvalue);
-                                          }
+                                          controller.signUp();
+
                                           // print("Successfull");
                                         } else {
                                           print("Unsuccessfull");

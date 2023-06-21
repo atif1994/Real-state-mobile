@@ -21,6 +21,7 @@ import '../../../data/Controllers/post_like_controller/post_like_controller.dart
 import '../../../data/Controllers/sendchat_controller/send_chat_controller.dart';
 import '../../../utils/constants/appcolors.dart';
 import '../../../utils/styles/custom_decorations.dart';
+import '../chat/chatting_screen.dart';
 
 class PropertiesFeed extends StatefulWidget {
   bool? hide;
@@ -324,9 +325,37 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                                             //       name:
                                                             //           "${propertypostController.propertypostmodel.data!.data![index].user!.firstName} ${propertypostController.propertypostmodel.data!.data![index].user!.lastName}",
                                                             //     ));
-
-                                                            showmessagedialog(
-                                                                context, index);
+                                                            propertypostController
+                                                                        .propertypostmodel
+                                                                        .data!
+                                                                        .data![
+                                                                            index]
+                                                                        .conversationId ==
+                                                                    0
+                                                                ? showmessagedialog(
+                                                                    context,
+                                                                    index)
+                                                                : Get.to(
+                                                                    () =>
+                                                                        Chating(
+                                                                          agentId: propertypostController
+                                                                              .propertypostmodel
+                                                                              .data!
+                                                                              .data![index]
+                                                                              .userId,
+                                                                          conId: propertypostController
+                                                                              .propertypostmodel
+                                                                              .data!
+                                                                              .data![index]
+                                                                              .conversationId
+                                                                              .toString(),
+                                                                          customerId:
+                                                                              uid.toString(),
+                                                                          senderId:
+                                                                              uid.toString(),
+                                                                          name:
+                                                                              "${propertypostController.propertypostmodel.data!.data![index].user!.firstName} ${propertypostController.propertypostmodel.data!.data![index].user!.lastName}",
+                                                                        ));
                                                           },
                                                           child: Container(
                                                             decoration: BoxDecoration(
@@ -1600,13 +1629,13 @@ class _PropertiesFeedState extends State<PropertiesFeed> {
                                       const Color.fromARGB(255, 51, 140, 182)),
                               onPressed: () {
                                 sendchatcontroller.getSendChatApi(
-                                    agentId: propertypostController
-                                        .propertypostmodel
-                                        .data!
-                                        .data![index]
-                                        .userId,
-                                    msg: _messageController.text,
-                                    userId: uid);
+                                  agentid: propertypostController
+                                      .propertypostmodel
+                                      .data!
+                                      .data![index]
+                                      .userId,
+                                  msg: _messageController.text,
+                                );
                                 _messageController.clear();
                               },
                               child: const Text('Send')),

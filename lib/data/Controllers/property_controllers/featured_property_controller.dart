@@ -18,6 +18,8 @@ class DashboardController extends GetxController {
   int catid = 0;
   int? pagekey;
   static const _pageSize = 6;
+  List citiese = [];
+
   @override
   void onInit() {
     loadData();
@@ -63,6 +65,9 @@ class DashboardController extends GetxController {
 
     if (res is CitiesResponse) {
       citiesModel = res;
+      for (var city in citiesModel.data!) {
+        citiese.add(city.name ?? "");
+      }
     } else {
       loadingCities.value = false;
       errorLoadingCities.value = res.toString();

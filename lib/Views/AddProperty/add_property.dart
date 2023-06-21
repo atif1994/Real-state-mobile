@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prologic_29/My%20Widgets/my_button.dart';
 import 'package:prologic_29/My%20Widgets/my_text_field_2.dart';
+import 'package:prologic_29/Services/constants.dart';
 import 'package:prologic_29/custom_widgets/custom_button.dart';
 import 'package:prologic_29/data/Controllers/addProperty_Controller.dart';
 import 'package:prologic_29/data/Controllers/property_controllers/featured_property_controller.dart';
@@ -42,7 +43,7 @@ class _PropertyState extends State<Property>
   ];
   String? selectedValue;
 
-  int iWantTo = 0;
+  int iWantTo = 1;
 
   late TabController tabController;
   List<String> homePropertyTypeList = [
@@ -214,32 +215,45 @@ class _PropertyState extends State<Property>
                         child: Text('I want to',
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       )),
-                      CupertinoSlidingSegmentedControl<int>(
-                          groupValue: iWantTo,
-                          padding: const EdgeInsets.all(5),
-                          //thumbColor: primaryColor,
-                          thumbColor: AppColors.appthem,
-                          children: {
-                            0: Text('Sell',
-                                style: TextStyle(
-                                  color: iWantTo == 0
-                                      ? AppColors.colorWhite
-                                      : AppColors.appthem,
-                                )),
-                            1: Text('Rent',
-                                style: TextStyle(
-                                  color: iWantTo == 1
-                                      ? AppColors.colorWhite
-                                      : AppColors.appthem,
-                                )),
-                          },
-                          onValueChanged: (v) {
-                            setState(() {
-                              iWantTo = v!;
-                            });
-                          }),
+                      Obx(() => addPropertyController.loadingPropertytypes.value
+                          ? showShimmer()
+                          : CupertinoSlidingSegmentedControl<int>(
+                              backgroundColor: primaryColor,
+                              groupValue: iWantTo,
+                              padding: const EdgeInsets.all(5),
+                              //thumbColor: primaryColor,
+                              thumbColor: AppColors.themecolor,
+                              children: Map.fromEntries(addPropertyController
+                                  .propertytypesModel.data!
+                                  .map((item) => MapEntry(
+                                      item.id!,
+                                      Text(
+                                        item.name!,
+                                        style: const TextStyle(
+                                            color: AppColors.colorWhite),
+                                      )))),
+                              // {
+                              //   0: Text('Sell',
+                              //       style: TextStyle(
+                              //         color: iWantTo == 0
+                              //             ? AppColors.colorWhite
+                              //             : AppColors.appthem,
+                              //       )),
+                              //   1: Text('Rent',
+                              //       style: TextStyle(
+                              //         color: iWantTo == 1
+                              //             ? AppColors.colorWhite
+                              //             : AppColors.appthem,
+                              //       )),
+                              // },
+                              onValueChanged: (v) {
+                                setState(() {
+                                  iWantTo = v!;
+                                });
+                              })),
                     ],
                   ),
+
                   myDivider(),
                   Column(
                     children: [
@@ -966,6 +980,13 @@ class _PropertyState extends State<Property>
                         scrollDirection: Axis.vertical,
                         itemCount: facilitiesList.length,
                         itemBuilder: (context, index) {
+                          // for (var e in addPropertyController
+                          //     .getFacilitiesModel.data!) {
+                          //   print(facilitiesList[index]);
+                          // if (e.id == facilitiesList[index]) {
+                          //   fname = e.name!;
+                          // }
+                          // }
                           return Card(
                             child: Padding(
                                 padding:
@@ -985,6 +1006,7 @@ class _PropertyState extends State<Property>
                                     onTap: () {
                                       kmList.removeAt(index);
                                       facilitiesList.removeAt(index);
+                                      addedFacilityList.removeAt(index);
                                       setState(() {});
                                     },
                                   ),
@@ -998,32 +1020,43 @@ class _PropertyState extends State<Property>
               ),
               Column(
                 children: [
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        color: const Color.fromARGB(255, 241, 239, 239),
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 168, 166, 166),
-                            width: 1)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: DropdownButton(
-                          isExpanded: true,
-                          value: dropdownvalue22,
-                          items: facilities.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(items),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownvalue22 = newValue!;
-                            });
-                          }),
-                    ),
-                  ),
+                  Obx(() => addPropertyController.loadingGetFacilities.value
+                      ? loader
+                      : DecoratedBox(
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              color: const Color.fromARGB(255, 241, 239, 239),
+                              border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 168, 166, 166),
+                                  width: 1)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 4),
+                            child: DropdownButton<String>(
+                              value:
+                                  addPropertyController.dropdownvalue22.value,
+                              items: addPropertyController
+                                  .getFacilitiesModel.data!
+                                  .map((e) {
+                                return DropdownMenuItem<String>(
+                                  value: e.id.toString(),
+                                  child: Text(e.name.toString()),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                print(value);
+                                addPropertyController.dropdownvalue22.value =
+                                    value.toString();
+                                facilityid = int.parse(value!);
+                              },
+                              underline: const SizedBox(),
+                              isExpanded: true,
+                              // hint: const Text('--Select--'),
+                            ),
+                          ),
+                        )),
                   SizedBox(
                     height: 1.5.h,
                   ),
@@ -1050,12 +1083,14 @@ class _PropertyState extends State<Property>
                   ),
                 ],
               ),
+
               Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: MyButton(
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
-                        if (dropdownvalue22 == 'Select Facility') {
+                        if (addPropertyController.dropdownvalue22.value ==
+                            'Select Facility') {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   duration: Duration(seconds: 2),
@@ -1065,15 +1100,22 @@ class _PropertyState extends State<Property>
                                   content: Text('Please Select facility')));
                         } else {
                           setState(() {
-                            facilitiesList.add(dropdownvalue22);
+                            facilitiesList.add(
+                                addPropertyController.dropdownvalue22.value);
                             kmList.add(km);
-                            if (dropdownvalue22 == "Mosque Nearby") {
-                              facilityid = 0;
-                            } else if (dropdownvalue22 == "Play Ground") {
-                              facilityid = 1;
-                            } else if (dropdownvalue22 == "Park") {
-                              facilityid = 2;
-                            }
+                            // if (addpropertycontroller
+                            //         .dropdownvalue22 ==
+                            //     "Mosque Nearby") {
+                            //   facilityid = 0;
+                            // } else if (addpropertycontroller
+                            //         .dropdownvalue22 ==
+                            //     "Play Ground") {
+                            //   facilityid = 1;
+                            // } else if (addpropertycontroller
+                            //         .dropdownvalue22 ==
+                            //     "Park") {
+                            //   facilityid = 2;
+                            // }
                             addedFacilityList
                                 .add({"id": facilityid, "distance": km});
 
@@ -1126,108 +1168,152 @@ class _PropertyState extends State<Property>
                 Text('Features', style: TextStyle(fontWeight: FontWeight.bold)),
               ]),
               myDivider(),
-              Row(children: [
-                Checkbox(
-                    value: checkBoxValue1,
-                    onChanged: (value) {
-                      setState(() {
-                        checkBoxValue1 = value!;
-                        if (checkBoxValue1 == true) {
-                          addFeaturesList.add(featuresList[0]);
-                          addedFeaturesList.add(0);
-                        } else {
-                          addFeaturesList.remove("Balcony");
-                          addedFeaturesList.remove(0);
-                        }
-                      });
-                    }),
-                const Text('Balcony')
-              ]),
-              Row(children: [
-                Checkbox(
-                    value: checkBoxValue2,
-                    onChanged: (value) {
-                      setState(() {
-                        checkBoxValue2 = value!;
-                        if (value == true) {
-                          addFeaturesList.add(featuresList[1]);
-                          addedFeaturesList.add(1);
-                        } else {
-                          addFeaturesList.remove('Security Staff');
-                          addedFeaturesList.remove(1);
-                        }
-                      });
-                    }),
-                const Text('Security Staff')
-              ]),
-              Row(children: [
-                Checkbox(
-                    value: checkBoxValue3,
-                    onChanged: (value) {
-                      setState(() {
-                        checkBoxValue3 = value!;
-                        if (value == true) {
-                          addFeaturesList.add(featuresList[2]);
-                          addedFeaturesList.add(2);
-                        } else {
-                          addFeaturesList.remove('Parking Area');
-                          addedFeaturesList.remove(2);
-                        }
-                      });
-                    }),
-                const Text('Parking Area')
-              ]),
-              Row(children: [
-                Checkbox(
-                    value: checkBoxValue4,
-                    onChanged: (value) {
-                      setState(() {
-                        checkBoxValue4 = value!;
-                        if (value == true) {
-                          addFeaturesList.add(featuresList[3]);
-                          addedFeaturesList.add(3);
-                        } else {
-                          addFeaturesList.remove('Electricity');
-                          addedFeaturesList.remove(3);
-                        }
-                      });
-                    }),
-                const Text('Electricity')
-              ]),
-              Row(children: [
-                Checkbox(
-                    value: checkBoxValue5,
-                    onChanged: (value) {
-                      setState(() {
-                        checkBoxValue5 = value!;
-                        if (value == true) {
-                          addFeaturesList.add(featuresList[4]);
-                          addedFeaturesList.add(4);
-                        } else {
-                          addFeaturesList.remove('Accessible by Road');
-                          addedFeaturesList.remove(4);
-                        }
-                      });
-                    }),
-                const Text('Accessible by Road')
-              ]),
-              Row(children: [
-                Checkbox(
-                    value: checkBoxValue6,
-                    onChanged: (value) {
-                      setState(() {
-                        checkBoxValue6 = value!;
-                        if (value == true) {
-                          addFeaturesList.add(featuresList[5]);
-                          addedFeaturesList.add(5);
-                        } else {
-                          addFeaturesList.remove('Sui Gas');
-                          addedFeaturesList.remove(5);
-                        }
-                      });
-                    }),
-                const Text('Sui Gas'),
-              ]),
+              Container(
+                // height: 40.h,
+                child:
+                    Obx(() => addPropertyController.loadingGetFacilities.value
+                        ? loader
+                        : ListView.builder(
+                            physics: const PageScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: addPropertyController
+                                .getFeaturesModel.data!.length,
+                            itemBuilder: (_, index) {
+                              return Obx(() => Row(children: [
+                                    Checkbox(
+                                        value: addPropertyController.sindex
+                                            .contains(addPropertyController
+                                                .getFeaturesModel
+                                                .data![index]
+                                                .id),
+                                        onChanged: (value) {
+                                          addPropertyController.sindex.contains(
+                                                  addPropertyController
+                                                      .getFeaturesModel
+                                                      .data![index]
+                                                      .id)
+                                              ? addPropertyController.sindex
+                                                  .remove(addPropertyController
+                                                      .getFeaturesModel
+                                                      .data![index]
+                                                      .id)
+                                              : addPropertyController.sindex
+                                                  .add(addPropertyController
+                                                      .getFeaturesModel
+                                                      .data![index]
+                                                      .id);
+                                        }),
+                                    Text(addPropertyController
+                                        .getFeaturesModel.data![index].name
+                                        .toString())
+                                  ]));
+                            },
+                          )),
+              ),
+
+              // Row(children: [
+              //   Checkbox(
+              //       value: checkBoxValue1,
+              //       onChanged: (value) {
+              //         setState(() {
+              //           checkBoxValue1 = value!;
+              //           if (checkBoxValue1 == true) {
+              //             addFeaturesList.add(featuresList[0]);
+              //             addedFeaturesList.add(0);
+              //           } else {
+              //             addFeaturesList.remove("Balcony");
+              //             addedFeaturesList.remove(0);
+              //           }
+              //         });
+              //       }),
+              //   const Text('Balcony')
+              // ]),
+              // Row(children: [
+              //   Checkbox(
+              //       value: checkBoxValue2,
+              //       onChanged: (value) {
+              //         setState(() {
+              //           checkBoxValue2 = value!;
+              //           if (value == true) {
+              //             addFeaturesList.add(featuresList[1]);
+              //             addedFeaturesList.add(1);
+              //           } else {
+              //             addFeaturesList.remove('Security Staff');
+              //             addedFeaturesList.remove(1);
+              //           }
+              //         });
+              //       }),
+              //   const Text('Security Staff')
+              // ]),
+              // Row(children: [
+              //   Checkbox(
+              //       value: checkBoxValue3,
+              //       onChanged: (value) {
+              //         setState(() {
+              //           checkBoxValue3 = value!;
+              //           if (value == true) {
+              //             addFeaturesList.add(featuresList[2]);
+              //             addedFeaturesList.add(2);
+              //           } else {
+              //             addFeaturesList.remove('Parking Area');
+              //             addedFeaturesList.remove(2);
+              //           }
+              //         });
+              //       }),
+              //   const Text('Parking Area')
+              // ]),
+              // Row(children: [
+              //   Checkbox(
+              //       value: checkBoxValue4,
+              //       onChanged: (value) {
+              //         setState(() {
+              //           checkBoxValue4 = value!;
+              //           if (value == true) {
+              //             addFeaturesList.add(featuresList[3]);
+              //             addedFeaturesList.add(3);
+              //           } else {
+              //             addFeaturesList.remove('Electricity');
+              //             addedFeaturesList.remove(3);
+              //           }
+              //         });
+              //       }),
+              //   const Text('Electricity')
+              // ]),
+              // Row(children: [
+              //   Checkbox(
+              //       value: checkBoxValue5,
+              //       onChanged: (value) {
+              //         setState(() {
+              //           checkBoxValue5 = value!;
+              //           if (value == true) {
+              //             addFeaturesList.add(featuresList[4]);
+              //             addedFeaturesList.add(4);
+              //           } else {
+              //             addFeaturesList.remove('Accessible by Road');
+              //             addedFeaturesList.remove(4);
+              //           }
+              //         });
+              //       }),
+              //   const Text('Accessible by Road')
+              // ]),
+              // Row(children: [
+              //   Checkbox(
+              //       value: checkBoxValue6,
+              //       onChanged: (value) {
+              //         setState(() {
+              //           checkBoxValue6 = value!;
+              //           if (value == true) {
+              //             addFeaturesList.add(featuresList[5]);
+              //             addedFeaturesList.add(5);
+              //           } else {
+              //             addFeaturesList.remove('Sui Gas');
+              //             addedFeaturesList.remove(5);
+              //           }
+              //         });
+              //       }),
+              //   const Text('Sui Gas'),
+              // ]),
+
               myDivider(),
               Column(
                 children: [
@@ -1400,7 +1486,7 @@ class _PropertyState extends State<Property>
                                               selectedBedroom,
                                               selectedPropertyCategory,
                                               iWantTo,
-                                              addedFeaturesList,
+                                              addPropertyController.sindex, //
                                               facilities,
                                               base64List,
                                               addedFacilityList);
@@ -1439,7 +1525,7 @@ class _PropertyState extends State<Property>
                                         selectedBedroom,
                                         selectedPropertyCategory,
                                         iWantTo,
-                                        addedFeaturesList,
+                                        addPropertyController.sindex, //
                                         facilities,
                                         base64List,
                                         addedFacilityList);

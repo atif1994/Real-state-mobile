@@ -1,5 +1,5 @@
 class AppUrls {
-  static const String baseUrl3 = 'http://realestate.tecrux.net/api/';
+  // static const String baseUrl3 = 'http://realestate.tecrux.net/api/';
   static const String baseUrl = 'http://realestate.tecrux.solutions/api/';
   static const String baseUrl2 =
       'http://realestate.tecrux.solutions/public/storage/';
@@ -19,7 +19,10 @@ class AppUrls {
   static const String notificationend = "v1/notifications/";
   static const String newspost = "v1/post";
   static const String addProperty = "v1/add-property";
+  static const String propertytypes = "v1/Property-types";
+  static const String editproperty = "v1/update-property/";
   static const String facilities = "v1/facilites";
+  static const String features = "v1/features";
   static const String newsfeed = "v1/Properties";
   static const String forgetpass = "v1/password/forgot";
   static const String contacusend = "v1/contact";

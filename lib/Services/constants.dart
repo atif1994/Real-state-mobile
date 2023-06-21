@@ -1,7 +1,10 @@
 // TODO Implement this library.
 
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:sizer/sizer.dart';
 
 emailvalidator(val) {
   if (val == null || val.isEmpty) {
@@ -14,6 +17,18 @@ emailvalidator(val) {
 
 apptoastshow(msg) {
   Fluttertoast.showToast(msg: msg);
+}
+
+showShimmer() {
+  return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Container(
+        width: 43.w,
+        height: 40,
+        decoration: BoxDecoration(
+            color: Colors.amber, borderRadius: BorderRadius.circular(8)),
+      ));
 }
 
 RegExp uppercase = RegExp("(?=.*?[A-Z])");

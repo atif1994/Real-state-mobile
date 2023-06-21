@@ -8,38 +8,42 @@ import '../../Models/addproperty_model/getfacilities_model.dart';
 import '../../Models/addproperty_model/propertytype_model.dart';
 import '../../Models/propertyfeature_model.dart';
 
-class AddPropertyServices {
-  static Future<dynamic> addPropertyAPI(
-      {String? name,
-      String? disp,
-      String? content,
-      String? block,
-      String? streetNo,
-      String? plotNo,
-      String? location,
-      String? cityId,
-      String? stateId,
-      String? price,
-      String? currency,
-      String? square,
-      String? numberFloor,
-      int? bathNo,
-      int? bedroomNo,
-      int? categoryId,
-      int? typeId,
-      List<dynamic>? feature,
-      List? facilities,
-      List? imageList,
-      List? addedFacilityList}) async {
+class EditPropertyServices {
+  static Future<dynamic> addPropertyAPI({
+    int? pid,
+    String? name,
+    String? assignerid,
+    String? disp,
+    String? content,
+    String? block,
+    String? streetNo,
+    String? plotNo,
+    String? location,
+    String? cityId,
+    String? stateId,
+    String? price,
+    String? currency,
+    String? square,
+    String? numberFloor,
+    int? bathNo,
+    int? bedroomNo,
+    int? categoryId,
+    int? typeId,
+    List<dynamic>? feature,
+    List? networkimglst,
+    List? fileimglst,
+    List? addedFacilityList,
+    String? status,
+  }) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     int? userId = pref.getInt('userid');
-    print("Image list in to APIIIIIIII--------$imageList");
+    print("Image list in to APIIIIIIII--------$networkimglst");
 
     print("add facilityes Sercessssssssss $feature");
 
     Map data = {
       "plateform": "mobile",
-      "assigner_id": userId,
+      "assigner_id": assignerid,
       "name": name,
       "description": disp,
       "content": content,
@@ -57,14 +61,16 @@ class AddPropertyServices {
       "number_bedroom": bedroomNo,
       "category_id": categoryId,
       "type_id": typeId,
-      "images": imageList,
+      "images": networkimglst,
+      "64bit_images": fileimglst,
       "features": feature,
-      "facilities": addedFacilityList
+      "facilities": addedFacilityList,
+      "publish": status
     };
-    var url = "${AppUrls.baseUrl}${AppUrls.addProperty}";
+    var url = "${AppUrls.baseUrl}${AppUrls.editproperty}$pid";
 
     try {
-      var res = await BaseClientClass.post(url, data);
+      var res = await BaseClientClass.put(url, data);
       if (res is http.Response) {
         return addPropertyModelFromJson(res.body);
       } else {

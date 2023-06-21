@@ -152,19 +152,24 @@ class AgentSharedInventory extends StatelessWidget {
                                                             .data![index]
                                                             .propertyId
                                                             .toString()));
-                                                Get.to(
-                                                    () => const EditProperty());
+                                                Get.to(() => EditProperty(
+                                                    pid: int.parse(
+                                                        agentsharedinventorycontroller
+                                                            .ShareInventoryData
+                                                            .data![index]
+                                                            .propertyId
+                                                            .toString())));
                                               },
                                               icon: Icon(
                                                 Icons.edit,
                                                 color: Colors.blue.shade800,
                                               )),
-                                          IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                Icons.delete,
-                                                color: Colors.red,
-                                              ))
+                                          // IconButton(
+                                          //     onPressed: () {},
+                                          //     icon: const Icon(
+                                          //       Icons.delete,
+                                          //       color: Colors.red,
+                                          //     ))
                                         ],
                                       )
                                     ],

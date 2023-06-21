@@ -24,7 +24,6 @@ import '../Views/Agent/Agent_Drawer/get_all_referrals.dart';
 import '../Views/ContactUs/contact_us.dart';
 import '../Views/Notifications/notification_page.dart';
 import '../Views/user_profile/profile_pages.dart';
-import '../Views/user_profile/propertise/propertise_section.dart';
 import '../data/Controllers/logout_controller.dart';
 import '../data/Controllers/user_profile_section_controller/image_update_controller.dart';
 
@@ -156,32 +155,33 @@ class CustomDrawer extends StatelessWidget {
                   //   ),
                   // ),
                   //properties
-                  SizedBox(
-                    height: 2.0.h,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
-                    height: 6.0.h,
-                    width: 100.0.w,
-                    color: const Color.fromARGB(255, 53, 56, 61),
-                    child: ListTile(
-                      onTap: () {
-                        Get.to(() => PropertiseSection(),
-                            duration: const Duration(milliseconds: 600),
-                            transition: Transition.rightToLeft);
-                      },
-                      leading: const Icon(
-                        Icons.landslide,
-                        color: AppColors.colorWhite,
-                      ),
-                      title: Text(
-                        "Properties",
-                        style: AppTextStyles.heading1
-                            .copyWith(color: AppColors.colorWhite),
-                      ),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   height: 2.0.h,
+                  // ),
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                  //   height: 6.0.h,
+                  //   width: 100.0.w,
+                  //   color: const Color.fromARGB(255, 53, 56, 61),
+                  //   child: ListTile(
+                  //     onTap: () {
+                  //       Get.to(() => PropertiseSection(),
+                  //           duration: const Duration(milliseconds: 600),
+                  //           transition: Transition.rightToLeft);
+                  //     },
+                  //     leading: const Icon(
+                  //       Icons.landslide,
+                  //       color: AppColors.colorWhite,
+                  //     ),
+                  //     title: Text(
+                  //       "Properties",
+                  //       style: AppTextStyles.heading1
+                  //           .copyWith(color: AppColors.colorWhite),
+                  //     ),
+                  //   ),
+                  // ),
                   //about us
+
                   SizedBox(
                     height: 2.0.h,
                   ),

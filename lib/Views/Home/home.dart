@@ -718,61 +718,53 @@ class _HomeState extends State<Home> {
                                                                 "No Properties Found"),
                                                           ))
                                                         : Expanded(
-                                                            child: GridView
-                                                                .builder(
-                                                                    padding: EdgeInsets.only(
-                                                                        left: 3.0
-                                                                            .w,
-                                                                        right:
-                                                                            2.w,
-                                                                        top:
-                                                                            1.h,
-                                                                        bottom: 1
-                                                                            .h),
-                                                                    scrollDirection:
-                                                                        Axis
-                                                                            .horizontal,
-                                                                    gridDelegate:
-                                                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                                                      crossAxisCount:
-                                                                          3,
-                                                                      // vertical spacing between the items
-                                                                      mainAxisSpacing:
-                                                                          2.w,
-                                                                      // horizontal spacing between the items
-                                                                      crossAxisSpacing:
-                                                                          2.w,
-                                                                      // maxCrossAxisExtent:
-                                                                      //     60,
-                                                                      childAspectRatio:
-                                                                          9 / 15,
-                                                                      // crossAxisSpacing:
-                                                                      //     2,
-                                                                      // mainAxisSpacing:
-                                                                      //     10
-                                                                    ),
-                                                                    itemCount: dashboardController
-                                                                        .filteredPropertyModel
-                                                                        .popular!
-                                                                        .length,
-                                                                    itemBuilder:
-                                                                        (BuildContext
-                                                                                ctx,
-                                                                            index) {
-                                                                      return InkWell(
-                                                                          onTap:
-                                                                              () {
-                                                                            filterpropertiesController.getfilterproperties(dashboardController.filteredPropertyModel.popular![index].id,
-                                                                                cityid);
-                                                                            Get.to(() =>
-                                                                                FilterPropertyScreen(cityName: '$cityName'));
-                                                                          },
-                                                                          child:
-                                                                              homecontainer(
-                                                                            dashboardController.filteredPropertyModel.popular![index].name ??
-                                                                                '',
-                                                                          ));
-                                                                    }),
+                                                            child: Center(
+                                                              child: GridView.builder(
+                                                                  shrinkWrap: true,
+                                                                  padding: EdgeInsets.only(
+                                                                      // left: 3.0
+                                                                      //     .w,
+                                                                      // right:
+                                                                      //     2.w,
+                                                                      top: 1.h,
+                                                                      bottom: 2.h),
+                                                                  scrollDirection: Axis.horizontal,
+                                                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                                    crossAxisCount:
+                                                                        3,
+                                                                    // vertical spacing between the items
+                                                                    mainAxisSpacing:
+                                                                        2.w,
+                                                                    // horizontal spacing between the items
+                                                                    crossAxisSpacing:
+                                                                        2.w,
+                                                                    // maxCrossAxisExtent:
+                                                                    //     60,
+                                                                    childAspectRatio:
+                                                                        9 / 15,
+                                                                    // crossAxisSpacing:
+                                                                    //     2,
+                                                                    // mainAxisSpacing:
+                                                                    //     10
+                                                                  ),
+                                                                  itemCount: dashboardController.filteredPropertyModel.popular!.length,
+                                                                  itemBuilder: (BuildContext ctx, index) {
+                                                                    return InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          filterpropertiesController.getfilterproperties(
+                                                                              dashboardController.filteredPropertyModel.popular![index].id,
+                                                                              cityid);
+                                                                          Get.to(() =>
+                                                                              FilterPropertyScreen(cityName: '$cityName'));
+                                                                        },
+                                                                        child:
+                                                                            homecontainer(
+                                                                          dashboardController.filteredPropertyModel.popular![index].name ??
+                                                                              '',
+                                                                        ));
+                                                                  }),
+                                                            ),
                                                           )
                                                     : _browsPropertyIndex1 == 1
                                                         ? dashboardController
@@ -790,57 +782,51 @@ class _HomeState extends State<Home> {
                                                                     "No Properties Found"),
                                                               ))
                                                             : Expanded(
-                                                                child: GridView
-                                                                    .builder(
-                                                                        padding: EdgeInsets.only(
-                                                                            left: 3.0
-                                                                                .w,
-                                                                            right: 2
-                                                                                .w,
-                                                                            top: 1
-                                                                                .h,
-                                                                            bottom: 1
-                                                                                .h),
-                                                                        scrollDirection:
-                                                                            Axis
-                                                                                .horizontal,
-                                                                        gridDelegate:
-                                                                            SliverGridDelegateWithFixedCrossAxisCount(
-                                                                          crossAxisCount:
-                                                                              3,
-                                                                          // vertical spacing between the items
-                                                                          mainAxisSpacing:
-                                                                              2.w,
-                                                                          // horizontal spacing between the items
-                                                                          crossAxisSpacing:
-                                                                              2.w,
-                                                                          // maxCrossAxisExtent:
-                                                                          //     60,
-                                                                          childAspectRatio:
-                                                                              9 / 15,
-                                                                          // crossAxisSpacing:
-                                                                          //     2,
-                                                                          // mainAxisSpacing:
-                                                                          //     10
-                                                                        ),
-                                                                        itemCount: dashboardController
-                                                                            .filteredPropertyModel
-                                                                            .types!
-                                                                            .length,
-                                                                        itemBuilder:
-                                                                            (BuildContext ctx,
-                                                                                index) {
-                                                                          return InkWell(
-                                                                              onTap: () {
-                                                                                filterpropertiesController.getfilterproperties(dashboardController.filteredPropertyModel.popular![index].id, cityid);
-                                                                                Get.to(() => FilterPropertyScreen(
-                                                                                      cityName: '$cityName',
-                                                                                    ));
-                                                                              },
-                                                                              child: homecontainer(
-                                                                                dashboardController.filteredPropertyModel.types![index].name ?? '',
-                                                                              ));
-                                                                        }),
+                                                                child: Center(
+                                                                  child: GridView.builder(
+                                                                      shrinkWrap: true,
+                                                                      padding: EdgeInsets.only(
+                                                                          // left: 3.0
+                                                                          //     .w,
+                                                                          // right: 2
+                                                                          //     .w,
+                                                                          top: 1.h,
+                                                                          bottom: 2.h),
+                                                                      scrollDirection: Axis.horizontal,
+                                                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                                        crossAxisCount:
+                                                                            3,
+                                                                        // vertical spacing between the items
+                                                                        mainAxisSpacing:
+                                                                            2.w,
+                                                                        // horizontal spacing between the items
+                                                                        crossAxisSpacing:
+                                                                            2.w,
+                                                                        // maxCrossAxisExtent:
+                                                                        //     60,
+                                                                        childAspectRatio:
+                                                                            9 / 15,
+                                                                        // crossAxisSpacing:
+                                                                        //     2,
+                                                                        // mainAxisSpacing:
+                                                                        //     10
+                                                                      ),
+                                                                      itemCount: dashboardController.filteredPropertyModel.types!.length,
+                                                                      itemBuilder: (BuildContext ctx, index) {
+                                                                        return InkWell(
+                                                                            onTap:
+                                                                                () {
+                                                                              filterpropertiesController.getfilterproperties(dashboardController.filteredPropertyModel.popular![index].id, cityid);
+                                                                              Get.to(() => FilterPropertyScreen(
+                                                                                    cityName: '$cityName',
+                                                                                  ));
+                                                                            },
+                                                                            child:
+                                                                                homecontainer(
+                                                                              dashboardController.filteredPropertyModel.types![index].name ?? '',
+                                                                            ));
+                                                                      }),
+                                                                ),
                                                               )
                                                         : _browsPropertyIndex1 ==
                                                                 2
@@ -859,23 +845,50 @@ class _HomeState extends State<Home> {
                                                                         "No Properties found"),
                                                                   ))
                                                                 : Expanded(
-                                                                    child: GridView.builder(
-                                                                        padding: EdgeInsets.only(left: 3.0.w, right: 2.w),
-                                                                        scrollDirection: Axis.horizontal,
-                                                                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 100, childAspectRatio: 1.6 / 2, crossAxisSpacing: 2, mainAxisSpacing: 10),
-                                                                        itemCount: dashboardController.filteredPropertyModel.locations!.length,
-                                                                        itemBuilder: (BuildContext ctx, index) {
-                                                                          return InkWell(
-                                                                              onTap: () {
-                                                                                filterpropertiesController.getfilterproperties(dashboardController.filteredPropertyModel.popular![index].id, cityid);
-                                                                                Get.to(() => FilterPropertyScreen(
-                                                                                      cityName: '$cityName',
-                                                                                    ));
-                                                                              },
-                                                                              child: homecontainer(
-                                                                                dashboardController.filteredPropertyModel.locations![index].sectorAndBlockName ?? '',
-                                                                              ));
-                                                                        }),
+                                                                    child:
+                                                                        Center(
+                                                                      child: GridView.builder(
+                                                                          shrinkWrap: true,
+                                                                          padding: EdgeInsets.only(
+                                                                            top:
+                                                                                1.h,
+                                                                            bottom:
+                                                                                2.h,
+                                                                            // left: 3.0.w, right: 2.w
+                                                                          ),
+                                                                          scrollDirection: Axis.horizontal,
+                                                                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                                            crossAxisCount:
+                                                                                3,
+                                                                            // vertical spacing between the items
+                                                                            mainAxisSpacing:
+                                                                                2.w,
+                                                                            // horizontal spacing between the items
+                                                                            crossAxisSpacing:
+                                                                                2.w,
+                                                                            // maxCrossAxisExtent:
+                                                                            //     60,
+                                                                            childAspectRatio:
+                                                                                9 / 15,
+                                                                            // crossAxisSpacing:
+                                                                            //     2,
+                                                                            // mainAxisSpacing:
+                                                                            // 10
+                                                                          ),
+                                                                          itemCount: dashboardController.filteredPropertyModel.locations!.length,
+                                                                          itemBuilder: (BuildContext ctx, index) {
+                                                                            return InkWell(
+                                                                                onTap: () {
+                                                                                  filterpropertiesController.getfilterproperties(dashboardController.filteredPropertyModel.popular![index].id, cityid);
+                                                                                  Get.to(() => FilterPropertyScreen(
+                                                                                        cityName: '$cityName',
+                                                                                      ));
+                                                                                },
+                                                                                child: homecontainer(
+                                                                                  dashboardController.filteredPropertyModel.locations![index].sectorAndBlockName ?? '',
+                                                                                ));
+                                                                          }),
+                                                                    ),
                                                                   )
                                                             : _browsPropertyIndex1 ==
                                                                     3
@@ -894,36 +907,43 @@ class _HomeState extends State<Home> {
                                                                         ),
                                                                       )
                                                                     : Expanded(
-                                                                        child: GridView.builder(
-                                                                            padding: EdgeInsets.only(left: 3.0.w, right: 2.w, top: 1.h, bottom: 1.h),
-                                                                            scrollDirection: Axis.horizontal,
-                                                                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                                              crossAxisCount: 3,
-                                                                              // vertical spacing between the items
-                                                                              mainAxisSpacing: 2.w,
-                                                                              // horizontal spacing between the items
-                                                                              crossAxisSpacing: 2.w,
-                                                                              // maxCrossAxisExtent:
-                                                                              //     60,
-                                                                              childAspectRatio: 9 / 15,
-                                                                              // crossAxisSpacing:
-                                                                              //     2,
-                                                                              // mainAxisSpacing:
-                                                                              //     10
-                                                                            ),
-                                                                            itemCount: dashboardController.filteredPropertyModel.areas!.length,
-                                                                            itemBuilder: (BuildContext ctx, index) {
-                                                                              return InkWell(
-                                                                                  onTap: () {
-                                                                                    filterpropertiesController.getfilterproperties(dashboardController.filteredPropertyModel.popular![index].id, cityid);
-                                                                                    Get.to(() => FilterPropertyScreen(
-                                                                                          cityName: '$cityName',
-                                                                                        ));
-                                                                                  },
-                                                                                  child: homecontainer(
-                                                                                    dashboardController.filteredPropertyModel.areas![index].square ?? '',
-                                                                                  ));
-                                                                            }),
+                                                                        child:
+                                                                            Center(
+                                                                          child: GridView.builder(
+                                                                              shrinkWrap: true,
+                                                                              padding: EdgeInsets.only(
+                                                                                  // left: 3.0.w, right: 2.w,
+                                                                                  top: 1.h,
+                                                                                  bottom: 2.h),
+                                                                              scrollDirection: Axis.horizontal,
+                                                                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                                                crossAxisCount: 3,
+                                                                                // vertical spacing between the items
+                                                                                mainAxisSpacing: 2.w,
+                                                                                // horizontal spacing between the items
+                                                                                crossAxisSpacing: 2.w,
+                                                                                // maxCrossAxisExtent:
+                                                                                //     60,
+                                                                                childAspectRatio: 9 / 15,
+                                                                                // crossAxisSpacing:
+                                                                                //     2,
+                                                                                // mainAxisSpacing:
+                                                                                //     10
+                                                                              ),
+                                                                              itemCount: dashboardController.filteredPropertyModel.areas!.length,
+                                                                              itemBuilder: (BuildContext ctx, index) {
+                                                                                return InkWell(
+                                                                                    onTap: () {
+                                                                                      filterpropertiesController.getfilterproperties(dashboardController.filteredPropertyModel.popular![index].id, cityid);
+                                                                                      Get.to(() => FilterPropertyScreen(
+                                                                                            cityName: '$cityName',
+                                                                                          ));
+                                                                                    },
+                                                                                    child: homecontainer(
+                                                                                      dashboardController.filteredPropertyModel.areas![index].square ?? '',
+                                                                                    ));
+                                                                              }),
+                                                                        ),
                                                                       )
                                                                 : Container())
                                       ],
@@ -990,8 +1010,8 @@ class _HomeState extends State<Home> {
                                             ),
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 3.0.w),
+                                            padding:
+                                                EdgeInsets.only(left: 3.0.w),
                                             child: SizedBox(
                                               width: 80.0.w,
                                               child: Text(
@@ -1097,12 +1117,13 @@ class _HomeState extends State<Home> {
                                                                       child:
                                                                           Text(
                                                                     dashboardController
-                                                                            .featuredPropertyModel
-                                                                            .data!
-                                                                            .data![index]
-                                                                            .type!
-                                                                            .name ??
-                                                                        "",
+                                                                        .featuredPropertyModel
+                                                                        .data!
+                                                                        .data![
+                                                                            index]
+                                                                        .type!
+                                                                        .name
+                                                                        .toString(),
                                                                     style: AppTextStyles
                                                                         .labelSmall
                                                                         .copyWith(

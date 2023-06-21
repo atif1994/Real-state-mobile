@@ -3,6 +3,8 @@ import 'package:prologic_29/data/Models/addproperty_model/addproperty_model.dart
 import 'package:prologic_29/data/Services/property_services/addproperty_services.dart';
 
 import '../Models/addproperty_model/getfacilities_model.dart';
+import '../Models/addproperty_model/propertytype_model.dart';
+import '../Models/propertyfeature_model.dart';
 
 class AddProperrtyController extends GetxController {
   @override
@@ -12,6 +14,8 @@ class AddProperrtyController extends GetxController {
     super.onInit();
     loadingGetFacilities.value = true;
     getFacilities();
+    propertytypes();
+    getFeatures();
   }
 
   //Cities Api properties
@@ -85,7 +89,7 @@ class AddProperrtyController extends GetxController {
   RxBool loadingGetFacilities = false.obs;
   var getFacilitiesModel = GetFacilitiesResponse();
   RxString errorLoadingGetFacilities = ''.obs;
-  RxString dropdownvalue22 = '3'.obs;
+  RxString dropdownvalue22 = '1'.obs;
 
   void getFacilities() async {
     errorLoadingGetFacilities.value = "";
@@ -94,10 +98,49 @@ class AddProperrtyController extends GetxController {
     var res = await AddPropertyServices.getfacilities();
     if (res is GetFacilitiesResponse) {
       getFacilitiesModel = res;
+      dropdownvalue22.value = res.data![0].id.toString();
       loadingGetFacilities.value = false;
     } else {
       loadingGetFacilities.value = false;
       errorLoadingGetFacilities.value = res.toString();
+    }
+  }
+
+  //---------features
+
+  var getFeaturesModel = GetFeaturesResponse();
+
+  RxList sindex = [].obs;
+  void getFeatures() async {
+    errorLoadingGetFacilities.value = "";
+    loadingGetFacilities.value = true;
+    var res = await AddPropertyServices.getfeatures();
+    if (res is GetFeaturesResponse) {
+      getFeaturesModel = res;
+      loadingGetFacilities.value = false;
+    } else {
+      loadingGetFacilities.value = false;
+      errorLoadingGetFacilities.value = res.toString();
+    }
+  }
+
+  //---------Property Types
+
+  RxBool loadingPropertytypes = false.obs;
+  var propertytypesModel = PropertyTypesResponse();
+  RxString errorLoadingPropertytypes = ''.obs;
+
+  void propertytypes() async {
+    errorLoadingPropertytypes.value = "";
+    loadingPropertytypes.value = true;
+    //  dynamic response = PropertytypesModel.data!['data'];
+    var res = await AddPropertyServices.propertytypes();
+    if (res is PropertyTypesResponse) {
+      propertytypesModel = res;
+      loadingPropertytypes.value = false;
+    } else {
+      loadingPropertytypes.value = false;
+      errorLoadingPropertytypes.value = res.toString();
     }
   }
 

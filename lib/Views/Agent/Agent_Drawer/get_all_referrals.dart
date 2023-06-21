@@ -12,7 +12,6 @@ import '../../../utils/constants/image_resources.dart';
 import '../../../utils/styles/app_textstyles.dart';
 
 class GetReferral extends StatelessWidget {
-  TextEditingController referfieldcontroller = TextEditingController();
   var getreferral = Get.put(GetRefferal());
   GetReferral({super.key});
 
@@ -49,30 +48,34 @@ class GetReferral extends StatelessWidget {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
-                                color: const Color.fromARGB(255, 114, 120, 133),
+                                color: const Color.fromARGB(255, 155, 162, 177),
                               ),
                               child: TextFormField(
-                                controller: referfieldcontroller,
+                                readOnly: true,
+                                controller: getreferral.referfieldcontroller,
                                 decoration: InputDecoration(
                                     // ignore: dead_code
                                     // errorText: validate ? 'Please enter' : null,
                                     suffix: InkWell(
                                       onTap: () {
-                                        referfieldcontroller.text.isEmpty
+                                        getreferral.referfieldcontroller.text
+                                                .isEmpty
                                             ? showcopyerror()
                                             : {
                                                 Clipboard.setData(ClipboardData(
-                                                    text: referfieldcontroller
+                                                    text: getreferral
+                                                        .referfieldcontroller
                                                         .text)),
                                                 showcopydata()
                                               };
                                       },
-                                      child: const Text(
-                                        'Copy',
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 213, 214, 218)),
-                                      ),
+                                      child: Text('Copy',
+                                          style: AppTextStyles.heading1
+                                              .copyWith(
+                                                  color: AppColors.themecolor)
+                                          // TextStyle(
+                                          //     color: AppColors.themecolor),
+                                          ),
                                     ),
                                     border: OutlineInputBorder(
                                         borderRadius:
@@ -88,9 +91,10 @@ class GetReferral extends StatelessWidget {
                                   backgroundColor:
                                       const Color.fromARGB(255, 119, 178, 226)),
                               onPressed: () {
-                                referfieldcontroller.text.isEmpty
+                                getreferral.referfieldcontroller.text.isEmpty
                                     ? showcopyerror()
-                                    : Share.share(referfieldcontroller.text);
+                                    : Share.share(
+                                        getreferral.referfieldcontroller.text);
                               },
                               child: const Text('Share'))
                         ],
@@ -172,7 +176,7 @@ class GetReferral extends StatelessWidget {
                                           width: 10,
                                         ),
                                         Text(
-                                          "${getreferral.referral.data![index].firstName!} ${getreferral.referral.data![index].firstName!}",
+                                          "${getreferral.referral.data![0].referredUsers![index].firstName} ${getreferral.referral.data![0].referredUsers![index].lastName}",
                                           style: const TextStyle(fontSize: 16),
                                         )
                                       ],
@@ -188,7 +192,7 @@ class GetReferral extends StatelessWidget {
 
   showcopydata() {
     Fluttertoast.showToast(
-        msg: '${referfieldcontroller.text} is copied',
+        msg: '${getreferral.referfieldcontroller.text} is copied',
         gravity: ToastGravity.TOP);
   }
 

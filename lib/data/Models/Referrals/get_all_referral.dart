@@ -9,15 +9,15 @@ Referral referralFromJson(String str) => Referral.fromJson(json.decode(str));
 String referralToJson(Referral data) => json.encode(data.toJson());
 
 class Referral {
+  bool? error;
+  List<Datum>? data;
+  String? message;
+
   Referral({
     this.error,
     this.data,
     this.message,
   });
-
-  bool? error;
-  List<Datum>? data;
-  String? message;
 
   factory Referral.fromJson(Map<String, dynamic> json) => Referral(
         error: json["error"],
@@ -37,7 +37,79 @@ class Referral {
 }
 
 class Datum {
+  int? id;
+  String? referralCode;
+  String? email;
+  List<ReferredUser>? referredUsers;
+  List<dynamic>? avatar;
+
   Datum({
+    this.id,
+    this.referralCode,
+    this.email,
+    this.referredUsers,
+    this.avatar,
+  });
+
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        id: json["id"],
+        referralCode: json["referral_code"],
+        email: json["email"],
+        referredUsers: json["referred_users"] == null
+            ? []
+            : List<ReferredUser>.from(
+                json["referred_users"]!.map((x) => ReferredUser.fromJson(x))),
+        avatar: json["avatar"] == null
+            ? []
+            : List<dynamic>.from(json["avatar"]!.map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "referral_code": referralCode,
+        "email": email,
+        "referred_users": referredUsers == null
+            ? []
+            : List<dynamic>.from(referredUsers!.map((x) => x.toJson())),
+        "avatar":
+            avatar == null ? [] : List<dynamic>.from(avatar!.map((x) => x)),
+      };
+}
+
+class ReferredUser {
+  int? id;
+  String? email;
+  dynamic emailVerifiedAt;
+  String? mobileNo;
+  String? profileImage;
+  dynamic dob;
+  String? activeStatus;
+  dynamic deletedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? firstName;
+  String? lastName;
+  String? username;
+  dynamic avatarId;
+  String? superUser;
+  String? manageSupers;
+  String? permissions;
+  DateTime? lastLogin;
+  dynamic stripeId;
+  dynamic pmType;
+  dynamic pmLastFour;
+  dynamic trialEndsAt;
+  dynamic companyId;
+  dynamic addressId;
+  String? roleId;
+  dynamic deactivateMessage;
+  dynamic cityId;
+  dynamic mobileVerificationCode;
+  String? referralCode;
+  String? referrerId;
+  String? referalScore;
+
+  ReferredUser({
     this.id,
     this.email,
     this.emailVerifiedAt,
@@ -68,42 +140,10 @@ class Datum {
     this.mobileVerificationCode,
     this.referralCode,
     this.referrerId,
-    this.avatar,
+    this.referalScore,
   });
 
-  int? id;
-  String? email;
-  dynamic emailVerifiedAt;
-  String? mobileNo;
-  String? profileImage;
-  dynamic dob;
-  String? activeStatus;
-  dynamic deletedAt;
-  String? createdAt;
-  String? updatedAt;
-  String? firstName;
-  String? lastName;
-  String? username;
-  String? avatarId;
-  String? superUser;
-  String? manageSupers;
-  dynamic permissions;
-  String? lastLogin;
-  dynamic stripeId;
-  dynamic pmType;
-  dynamic pmLastFour;
-  dynamic trialEndsAt;
-  String? companyId;
-  String? addressId;
-  String? roleId;
-  String? deactivateMessage;
-  String? cityId;
-  dynamic mobileVerificationCode;
-  String? referralCode;
-  String? referrerId;
-  dynamic avatar;
-
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory ReferredUser.fromJson(Map<String, dynamic> json) => ReferredUser(
         id: json["id"],
         email: json["email"],
         emailVerifiedAt: json["email_verified_at"],
@@ -112,8 +152,12 @@ class Datum {
         dob: json["dob"],
         activeStatus: json["active_status"],
         deletedAt: json["deleted_at"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
         firstName: json["first_name"],
         lastName: json["last_name"],
         username: json["username"],
@@ -121,7 +165,9 @@ class Datum {
         superUser: json["super_user"],
         manageSupers: json["manage_supers"],
         permissions: json["permissions"],
-        lastLogin: json["last_login"],
+        lastLogin: json["last_login"] == null
+            ? null
+            : DateTime.parse(json["last_login"]),
         stripeId: json["stripe_id"],
         pmType: json["pm_type"],
         pmLastFour: json["pm_last_four"],
@@ -134,7 +180,7 @@ class Datum {
         mobileVerificationCode: json["mobile_verification_code"],
         referralCode: json["referral_code"],
         referrerId: json["referrer_id"],
-        avatar: json["avatar"],
+        referalScore: json["referal_score"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -146,8 +192,8 @@ class Datum {
         "dob": dob,
         "active_status": activeStatus,
         "deleted_at": deletedAt,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
         "first_name": firstName,
         "last_name": lastName,
         "username": username,
@@ -155,7 +201,7 @@ class Datum {
         "super_user": superUser,
         "manage_supers": manageSupers,
         "permissions": permissions,
-        "last_login": lastLogin,
+        "last_login": lastLogin?.toIso8601String(),
         "stripe_id": stripeId,
         "pm_type": pmType,
         "pm_last_four": pmLastFour,
@@ -168,146 +214,6 @@ class Datum {
         "mobile_verification_code": mobileVerificationCode,
         "referral_code": referralCode,
         "referrer_id": referrerId,
-        "avatar": avatar,
-      };
-}
-
-class AvatarClass {
-  AvatarClass({
-    this.id,
-    this.userId,
-    this.name,
-    this.folderId,
-    this.mimeType,
-    this.size,
-    this.url,
-    this.options,
-    this.createdAt,
-    this.updatedAt,
-    this.deletedAt,
-  });
-
-  int? id;
-  String? userId;
-  String? name;
-  String? folderId;
-  String? mimeType;
-  String? size;
-  String? url;
-  List<dynamic>? options;
-  String? createdAt;
-  String? updatedAt;
-  dynamic deletedAt;
-
-  factory AvatarClass.fromJson(Map<String, dynamic> json) => AvatarClass(
-        id: json["id"],
-        userId: json["user_id"],
-        name: json["name"],
-        folderId: json["folder_id"],
-        mimeType: json["mime_type"],
-        size: json["size"],
-        url: json["url"],
-        options: json["options"] == null
-            ? []
-            : List<dynamic>.from(json["options"]!.map((x) => x)),
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-        deletedAt: json["deleted_at"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "user_id": userId,
-        "name": name,
-        "folder_id": folderId,
-        "mime_type": mimeType,
-        "size": size,
-        "url": url,
-        "options":
-            options == null ? [] : List<dynamic>.from(options!.map((x) => x)),
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-        "deleted_at": deletedAt,
-      };
-}
-
-class PermissionsClass {
-  PermissionsClass({
-    this.consultIndex,
-    this.consultCreate,
-    this.consultEdit,
-    this.consultsIndex,
-    this.consultsEdit,
-    this.mediaIndex,
-    this.filesIndex,
-    this.filesCreate,
-    this.propertyIndex,
-    this.propertyCreate,
-    this.propertyEdit,
-    this.propertyDestroy,
-    this.propertyFeatureIndex,
-    this.propertyFeatureCreate,
-    this.propertyFeatureEdit,
-    this.superuser,
-    this.manageSupers,
-  });
-
-  bool? consultIndex;
-  bool? consultCreate;
-  bool? consultEdit;
-  bool? consultsIndex;
-  bool? consultsEdit;
-  bool? mediaIndex;
-  bool? filesIndex;
-  bool? filesCreate;
-  bool? propertyIndex;
-  bool? propertyCreate;
-  bool? propertyEdit;
-  bool? propertyDestroy;
-  bool? propertyFeatureIndex;
-  bool? propertyFeatureCreate;
-  bool? propertyFeatureEdit;
-  String? superuser;
-  String? manageSupers;
-
-  factory PermissionsClass.fromJson(Map<String, dynamic> json) =>
-      PermissionsClass(
-        consultIndex: json["consult.index"],
-        consultCreate: json["consult.create"],
-        consultEdit: json["consult.edit"],
-        consultsIndex: json["consults.index"],
-        consultsEdit: json["consults.edit"],
-        mediaIndex: json["media.index"],
-        filesIndex: json["files.index"],
-        filesCreate: json["files.create"],
-        propertyIndex: json["property.index"],
-        propertyCreate: json["property.create"],
-        propertyEdit: json["property.edit"],
-        propertyDestroy: json["property.destroy"],
-        propertyFeatureIndex: json["property_feature.index"],
-        propertyFeatureCreate: json["property_feature.create"],
-        propertyFeatureEdit: json["property_feature.edit"],
-        superuser: json["superuser"],
-        manageSupers: json["manage_supers"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "consult.index": consultIndex,
-        "consult.create": consultCreate,
-        "consult.edit": consultEdit,
-        "consults.index": consultsIndex,
-        "consults.edit": consultsEdit,
-        "media.index": mediaIndex,
-        "files.index": filesIndex,
-        "files.create": filesCreate,
-        "property.index": propertyIndex,
-        "property.create": propertyCreate,
-        "property.edit": propertyEdit,
-        "property.destroy": propertyDestroy,
-        "property_feature.index": propertyFeatureIndex,
-        "property_feature.create": propertyFeatureCreate,
-        "property_feature.edit": propertyFeatureEdit,
-        "superuser": superuser,
-        "manage_supers": manageSupers,
+        "referal_score": referalScore,
       };
 }

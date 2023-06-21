@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:prologic_29/data/Services/agent_shared_inventories_service.dart';
+import 'package:prologic_29/data/Services/Agent%20Shared%20InventoryService/agent_shared_inventories_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Models/agent_shared_inventory_model.dart';
