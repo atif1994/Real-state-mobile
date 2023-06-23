@@ -4,6 +4,7 @@ import 'package:prologic_29/utils/constants/base_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Models/addproperty_model/category_model.dart';
 import '../../Models/addproperty_model/getfacilities_model.dart';
 import '../../Models/addproperty_model/propertytype_model.dart';
 import '../../Models/propertyfeature_model.dart';
@@ -115,6 +116,22 @@ class AddPropertyServices {
       var res = await BaseClientClass.get(url, '');
       if (res is http.Response) {
         return propertyTypesResponseFromJson(res.body);
+      } else {
+        return res;
+      }
+    } catch (e) {
+      return e;
+    }
+  }
+
+  //-------PropertyCategory
+  static Future<dynamic> propertycategories() async {
+    var url = "${AppUrls.baseUrl}${AppUrls.category}";
+
+    try {
+      var res = await BaseClientClass.get(url, '');
+      if (res is http.Response) {
+        return categoryResponseFromJson(res.body);
       } else {
         return res;
       }

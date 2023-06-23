@@ -240,27 +240,24 @@ class _HomeState extends State<Home> {
                         icon: const Icon(Icons.dashboard)),
                     actions: [
                       Padding(
-                        padding: EdgeInsets.only(left: 34.w),
+                        padding: EdgeInsets.only(left: 32.w),
                         child: Container(
                           decoration: BoxDecoration(
                               color: AppColors.logobgcolor,
                               borderRadius: BorderRadius.circular(25)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5, right: 8.0),
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  'assets/relogo.png',
-                                  scale: 19,
-                                ),
-                                Text(
-                                  "Prologix",
-                                  style: AppTextStyles.heading1.copyWith(
-                                      fontSize: 13.sp,
-                                      color: AppColors.themecolor),
-                                ),
-                              ],
-                            ),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'assets/relogo.png',
+                                scale: 16.sp,
+                              ),
+                              Text(
+                                "Prologic",
+                                style: AppTextStyles.heading1.copyWith(
+                                    fontSize: 16.sp,
+                                    color: AppColors.themecolor),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -278,15 +275,17 @@ class _HomeState extends State<Home> {
                             child: loginBaseImage != null
                                 ? CircleAvatar(
                                     backgroundImage: CachedNetworkImageProvider(
-                                    "$loginBaseImage",
-                                  ))
+                                      "$loginBaseImage",
+                                    ),
+                                    radius: 20.sp,
+                                  )
                                 : CircleAvatar(
                                     backgroundImage: AssetImage(
                                     "assets/user.png",
                                   ))),
                       ),
                     ],
-                    expandedHeight: 20.0.h,
+                    expandedHeight: 22.0.h,
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle: true,
                       title: Text(
@@ -303,7 +302,7 @@ class _HomeState extends State<Home> {
                             },
                             child: Container(
                               margin: EdgeInsets.only(
-                                  top: 12.0.h, left: 3.0.w, right: 3.0.w),
+                                  top: 14.0.h, left: 3.0.w, right: 3.0.w),
                               height: 5.0.h,
                               width: 100.0.w,
                               decoration: CustomDecorations.con1,

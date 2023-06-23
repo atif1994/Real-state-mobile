@@ -448,8 +448,10 @@ class _EditPropertyState extends State<EditProperty>
                                             primary: true,
                                             shrinkWrap: false,
                                             scrollDirection: Axis.horizontal,
-                                            itemCount:
-                                                homePropertyTypeList.length,
+                                            itemCount: addpropertycontroller
+                                                .propertycategoriesModel
+                                                .data!
+                                                .length,
                                             itemBuilder: (context, index) {
                                               return Padding(
                                                 padding:
@@ -474,8 +476,11 @@ class _EditPropertyState extends State<EditProperty>
                                                                     .symmetric(
                                                                 horizontal: 5),
                                                         child: Text(
-                                                            homePropertyTypeList[
-                                                                index],
+                                                            addpropertycontroller
+                                                                .propertycategoriesModel
+                                                                .data![index]
+                                                                .name
+                                                                .toString(),
                                                             style: TextStyle(
                                                                 color: selectedPropertyCategory ==
                                                                         index

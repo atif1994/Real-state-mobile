@@ -10,7 +10,7 @@ class ChangePasswordServices {
       int uid, String password, String oldPass) async {
     Map data = {"password": password, "old_password": oldPass};
     var url = "${AppUrls.baseUrl}${AppUrls.changePassword}$uid";
-    var res = await BaseClientClass.post(url, data);
+    var res = await BaseClientClass.put(url, data);
 
     try {
       if (res is http.Response) {

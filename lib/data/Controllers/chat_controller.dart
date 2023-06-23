@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
 import 'package:prologic_29/data/Models/Chat_Model/chat_model.dart';
 import 'package:prologic_29/data/Models/Chat_Model/conversation_model.dart';
@@ -16,8 +17,8 @@ class ConversationController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    loadingChat.value = true;
     loadingConversation.value = true;
-
     getUserId();
     loadChat.value = true;
     loadData();
@@ -30,9 +31,13 @@ class ConversationController extends GetxController {
 
   void loadData() async {
     getUserId();
-    await Future.delayed(const Duration(milliseconds: 200));
-    getConversation(uid);
     getConversationId();
+
+    await Future.delayed(const Duration(milliseconds: 200));
+
+    getConversation(uid);
+    // getChat(conversationId!);
+
     // await Future.delayed(const Duration(milliseconds: 200));
     // getChat(conversationId ?? 0);
     // print("conversational Id =======????$conversationId ");
@@ -69,6 +74,8 @@ class ConversationController extends GetxController {
     }
   }
 
+  final ScrollController scrollController = ScrollController();
+
 //Chat Screen Controller
 
   RxBool loadingChat = false.obs;
@@ -82,8 +89,12 @@ class ConversationController extends GetxController {
       loadChat.value = false;
       loadingChat.value = false;
       chatModel = res;
+      await Future.delayed(const Duration(milliseconds: 1000));
+      scrollController.animateTo(scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
     } else {
       loadingChat.value = false;
+      loadChat.value = false;
       errChatload.value = res.toString();
     }
     update();

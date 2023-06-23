@@ -40,12 +40,12 @@ class _ChatingState extends State<Chating> {
   var chattController = Get.put(ConversationController());
   var myproperties = Get.put(ProfilePropertiseController());
   var chatController = TextEditingController();
-  final ScrollController scrollController = ScrollController();
   String uid = "";
   bool isTextFieldClicked = false;
   late PusherClient pusher;
   var itsMe = true;
   int? conversationId;
+
   @override
   void initState() {
     super.initState();
@@ -62,7 +62,7 @@ class _ChatingState extends State<Chating> {
     // scrollController.jumpTo(scrollController.position.maxScrollExtent);
     // });
 
-    chatscroll();
+    // chatscroll();
   }
 
   void getUserId() async {
@@ -93,7 +93,7 @@ class _ChatingState extends State<Chating> {
                 margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w, top: 2.0.h),
                 height: 78.0.h,
                 width: 100.0.w,
-                child: Obx(() => chattController.loadChat.value
+                child: Obx(() => chattController.loadingChat.value
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
@@ -109,7 +109,8 @@ class _ChatingState extends State<Chating> {
                                 builder: (context, snapshot) {
                                   if (!snapshot.hasData) {
                                     return ListView.builder(
-                                      controller: scrollController,
+                                      controller:
+                                          chattController.scrollController,
                                       // padding: const EdgeInsets.only(bottom: 15),
                                       shrinkWrap: true,
                                       itemCount:
@@ -334,14 +335,10 @@ class _ChatingState extends State<Chating> {
                             int.parse(widget.agentId.toString()),
                             chatController.text,
                             int.parse(widget.conId.toString()));
-                        scrollController.animateTo(
-                            scrollController.position.maxScrollExtent,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeOut);
+                        chattController
+                            .getChat(int.parse(widget.conId.toString()));
+                        chatController.clear();
                       }
-                      chatController.clear();
-                      chattController
-                          .getChat(int.parse(widget.conId.toString()));
                     },
                     icon: const Icon(
                       Icons.send,
@@ -545,9 +542,11 @@ class _ChatingState extends State<Chating> {
   }
 
   void chatscroll() async {
-    await Future.delayed(const Duration(seconds: 2));
-    scrollController.animateTo(scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+    await Future.delayed(const Duration(milliseconds: 2000));
+    chattController.scrollController.animateTo(
+        chattController.scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut);
   }
 }
 

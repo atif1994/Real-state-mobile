@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
+import 'package:prologic_29/Services/constants.dart';
 import 'package:prologic_29/data/Models/addproperty_model/addproperty_model.dart';
 import 'package:prologic_29/data/Services/property_services/addproperty_services.dart';
 
+import '../Models/addproperty_model/category_model.dart';
 import '../Models/addproperty_model/getfacilities_model.dart';
 import '../Models/addproperty_model/propertytype_model.dart';
 import '../Models/propertyfeature_model.dart';
@@ -16,6 +18,7 @@ class AddProperrtyController extends GetxController {
     getFacilities();
     propertytypes();
     getFeatures();
+    propertycategories();
   }
 
   //Cities Api properties
@@ -68,6 +71,7 @@ class AddProperrtyController extends GetxController {
     if (res is AddPropertyModel) {
       addPropertyModel = res;
       loadingAddProperty.value = false;
+      apptoastshow(res.message);
     } else {
       loadingAddProperty.value = false;
       errorLoadingAddProperty.value = res.toString();
@@ -144,5 +148,24 @@ class AddProperrtyController extends GetxController {
     }
   }
 
+  //---------Property Category
+
+  RxBool loadingPropertyCategory = false.obs;
+  var propertycategoriesModel = CategoryResponse();
+  RxString errorLoadingPropertyCategory = ''.obs;
+
+  void propertycategories() async {
+    errorLoadingPropertyCategory.value = "";
+    loadingPropertyCategory.value = true;
+    //  dynamic response = PropertytypesModel.data!['data'];
+    var res = await AddPropertyServices.propertycategories();
+    if (res is CategoryResponse) {
+      propertycategoriesModel = res;
+      loadingPropertyCategory.value = false;
+    } else {
+      loadingPropertyCategory.value = false;
+      errorLoadingPropertyCategory.value = res.toString();
+    }
+  }
   //city List
 }

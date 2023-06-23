@@ -23,6 +23,7 @@ class AppUrls {
   static const String editproperty = "v1/update-property/";
   static const String facilities = "v1/facilites";
   static const String features = "v1/features";
+  static const String category = "v1/categories";
   static const String newsfeed = "v1/Properties";
   static const String forgetpass = "v1/password/forgot";
   static const String contacusend = "v1/contact";

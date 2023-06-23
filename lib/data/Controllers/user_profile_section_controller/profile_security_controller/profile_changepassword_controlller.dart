@@ -1,5 +1,5 @@
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/Services/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Models/user_profile_section_model/security_related_models/change_password_model.dart';
@@ -33,7 +33,7 @@ class ChangePasswordController extends GetxController {
     if (res is ChangePasswordResponse) {
       print(uid);
       profilechangepassword = res;
-      Fluttertoast.showToast(msg: profilechangepassword.message.toString());
+      apptoastshow(profilechangepassword.message.toString());
     } else {
       errorloadingchangepassword.value = res.toString();
       loadingchangepassword.value = false;
