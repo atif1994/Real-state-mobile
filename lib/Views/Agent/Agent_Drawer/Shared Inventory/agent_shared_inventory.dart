@@ -132,8 +132,12 @@ class AgentSharedInventory extends StatelessWidget {
                                               padding:
                                                   const EdgeInsets.all(5.0),
                                               child: Text(
-                                                // '${sharedinventorycontroller.ShareInventoryData.data![index].firstName} ${sharedinventorycontroller.ShareInventoryData.data![index].lastName}',
-                                                'For Sale',
+                                                agentsharedinventorycontroller
+                                                    .ShareInventoryData
+                                                    .data![index]
+                                                    .typeName
+                                                    .toString(),
+                                                // 'For Sale',
                                                 style: AppTextStyles.heading1
                                                     .copyWith(
                                                         color: AppColors

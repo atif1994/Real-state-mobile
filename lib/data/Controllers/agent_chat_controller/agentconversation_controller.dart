@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,6 +16,7 @@ class AgentChatController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
+
     super.onInit();
     loadingConversation.value = true;
     loadChat.value = true;
@@ -23,9 +25,11 @@ class AgentChatController extends GetxController {
 
   loaddata() async {
     getUserId();
+    getConversationId();
+
     await Future.delayed(const Duration(milliseconds: 200));
     getConversation(uid!);
-    getConversationId();
+    getChat(conversationId!);
   }
 
   getUserId() async {
@@ -59,21 +63,27 @@ class AgentChatController extends GetxController {
     }
   }
 
+  final ScrollController scrollController = ScrollController();
+
 //Chat Screen Controller
 
   RxBool loadingChat = false.obs;
   var chatModel = ChatModel();
   RxString errChatload = ''.obs;
   getChat(int conversationId) async {
-    // loadChat.value = true;
-    loadingChat.value = true;
+    loadChat.value = true;
+    // loadingChat.value = true;
     var res = await ConversationServices.getChatServiceAPI(conversationId);
     if (res is ChatModel) {
       loadChat.value = false;
-      loadingChat.value = false;
+      // loadingChat.value = false;
       chatModel = res;
+      await Future.delayed(const Duration(milliseconds: 1000));
+      scrollController.animateTo(scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
     } else {
-      loadingChat.value = false;
+      loadChat.value = false;
+      // loadingChat.value = false;
       errChatload.value = res.toString();
     }
     update();

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
-import 'package:prologic_29/data/Controllers/user_profile_section_controller/profile_propertise_controller/profile_all_propertise_controller.dart';
 import 'package:prologic_29/data/Models/Chat_Model/chat_model.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/session_controller.dart';
@@ -35,10 +34,9 @@ class AgentChating extends StatefulWidget {
 }
 
 class _AgentChatingState extends State<AgentChating> {
+  // var chattController = Get.find<AgentChattingController>();
   var chattController = Get.put(AgentChatController());
-  var myproperties = Get.put(ProfilePropertiseController());
   var chatController = TextEditingController();
-  final ScrollController scrollController = ScrollController();
   String uid = "";
   bool isTextFieldClicked = false;
   late PusherClient pusher;
@@ -52,7 +50,7 @@ class _AgentChatingState extends State<AgentChating> {
     _initiatePusherSocketForMessaging();
     conversationId = int.parse(widget.agentId.toString());
 
-    print("con id in chatting screen____ ${widget.conId!}");
+    // print("con id in chatting screen____ ${widget.conId!}");
     chattController.getChat(int.parse(widget.conId!));
 
     // WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -60,7 +58,7 @@ class _AgentChatingState extends State<AgentChating> {
     // scrollController.jumpTo(scrollController.position.maxScrollExtent);
     // });
 
-    chatscroll();
+    // chatscroll();
   }
 
   void getUserId() async {
@@ -108,7 +106,8 @@ class _AgentChatingState extends State<AgentChating> {
                               builder: (context, snapshot) {
                                 if (!snapshot.hasData) {
                                   return ListView.builder(
-                                    controller: scrollController,
+                                    controller:
+                                        chattController.scrollController,
                                     // padding: const EdgeInsets.only(bottom: 15),
                                     shrinkWrap: true,
                                     itemCount:
@@ -259,10 +258,6 @@ class _AgentChatingState extends State<AgentChating> {
                       chattController
                           .getChat(int.parse(widget.conId.toString()));
                       await Future.delayed(const Duration(seconds: 1));
-                      scrollController.animateTo(
-                          scrollController.position.maxScrollExtent,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeOut);
                     },
                     icon: const Icon(
                       Icons.send,
@@ -316,11 +311,11 @@ class _AgentChatingState extends State<AgentChating> {
     });
   }
 
-  void chatscroll() async {
-    await Future.delayed(const Duration(seconds: 1));
-    scrollController.animateTo(scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
-  }
+  // void chatscroll() async {
+  //   await Future.delayed(const Duration(seconds: 1));
+  //   scrollController.animateTo(scrollController.position.maxScrollExtent,
+  //       duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+  // }
 }
 
 class CustomShape extends CustomPainter {

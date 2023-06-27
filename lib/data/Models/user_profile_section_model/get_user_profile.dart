@@ -83,7 +83,7 @@ class Data {
         addressId: json["address_id"],
         address:
             json["address"] == null ? null : Address.fromJson(json["address"]),
-        credits: json["credits"],
+        // credits: json["credits"],
       );
 
   Map<String, dynamic> toJson() => {

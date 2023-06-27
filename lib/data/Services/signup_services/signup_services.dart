@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import '../../Models/signup_model/signup_model.dart';
 
 class SignupServices {
-  static Future<dynamic> signupServices(
+  static Future<dynamic>signupServices(
     email,
     pass,
     username,
@@ -33,7 +33,7 @@ class SignupServices {
       "role":role
     };
 
-    var url = "${AppUrls.baseUrl}${AppUrls.postLikee}";
+    // var url = "${AppUrls.baseUrl}${AppUrls.postLikee}";
     var res = await BaseClientClass.post(
         "https://realestate.tecrux.solutions/api/v1/register", data);
     try {

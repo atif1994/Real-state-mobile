@@ -40,10 +40,10 @@ class Data {
   String? content;
   String? location;
   List<String>? images;
-  dynamic numberBedroom;
-  dynamic numberBathroom;
-  dynamic numberFloor;
-  dynamic square;
+  String? numberBedroom;
+  String? numberBathroom;
+  String? numberFloor;
+  String? square;
   String? price;
   String? currencyId;
   String? cityId;
@@ -57,18 +57,18 @@ class Data {
   String? moderationStatus;
   DateTime? expireDate;
   String? autoRenew;
-  dynamic neverExpired;
-  dynamic latitude;
-  dynamic longitude;
+  String? neverExpired;
+  String? latitude;
+  String? longitude;
   String? typeId;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic subcategoryId;
-  dynamic plotNumber;
-  dynamic streetNumber;
+  String? plotNumber;
+  String? streetNumber;
   String? sectorAndBlockName;
-  dynamic assignedAgent;
-  dynamic assignerId;
+  String? assignedAgent;
+  String? assignerId;
   String? isDeleted;
   String? isLiked;
   City? city;
@@ -77,8 +77,8 @@ class Data {
   Category? category;
   Type? type;
   Currency? currency;
-  List<dynamic>? features;
-  List<dynamic>? facilities;
+  List<Feature>? features;
+  List<Facility>? facilities;
 
   Data({
     this.id,
@@ -190,10 +190,12 @@ class Data {
             : Currency.fromJson(json["currency"]),
         features: json["features"] == null
             ? []
-            : List<dynamic>.from(json["features"]!.map((x) => x)),
+            : List<Feature>.from(
+                json["features"]!.map((x) => Feature.fromJson(x))),
         facilities: json["facilities"] == null
             ? []
-            : List<dynamic>.from(json["facilities"]!.map((x) => x)),
+            : List<Facility>.from(
+                json["facilities"]!.map((x) => Facility.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -242,11 +244,12 @@ class Data {
         "category": category?.toJson(),
         "type": type?.toJson(),
         "currency": currency?.toJson(),
-        "features":
-            features == null ? [] : List<dynamic>.from(features!.map((x) => x)),
+        "features": features == null
+            ? []
+            : List<dynamic>.from(features!.map((x) => x.toJson())),
         "facilities": facilities == null
             ? []
-            : List<dynamic>.from(facilities!.map((x) => x)),
+            : List<dynamic>.from(facilities!.map((x) => x.toJson())),
       };
 }
 
@@ -419,6 +422,133 @@ class Currency {
         "exchange_rate": exchangeRate,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+      };
+}
+
+class Facility {
+  int? id;
+  String? name;
+  String? icon;
+  String? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  FacilityPivot? pivot;
+
+  Facility({
+    this.id,
+    this.name,
+    this.icon,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+    this.pivot,
+  });
+
+  factory Facility.fromJson(Map<String, dynamic> json) => Facility(
+        id: json["id"],
+        name: json["name"],
+        icon: json["icon"],
+        status: json["status"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        pivot: json["pivot"] == null
+            ? null
+            : FacilityPivot.fromJson(json["pivot"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "icon": icon,
+        "status": status,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "pivot": pivot?.toJson(),
+      };
+}
+
+class FacilityPivot {
+  String? referenceId;
+  String? facilityId;
+  String? referenceType;
+  String? distance;
+
+  FacilityPivot({
+    this.referenceId,
+    this.facilityId,
+    this.referenceType,
+    this.distance,
+  });
+
+  factory FacilityPivot.fromJson(Map<String, dynamic> json) => FacilityPivot(
+        referenceId: json["reference_id"],
+        facilityId: json["facility_id"],
+        referenceType: json["reference_type"],
+        distance: json["distance"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "reference_id": referenceId,
+        "facility_id": facilityId,
+        "reference_type": referenceType,
+        "distance": distance,
+      };
+}
+
+class Feature {
+  int? id;
+  String? name;
+  String? icon;
+  String? status;
+  FeaturePivot? pivot;
+
+  Feature({
+    this.id,
+    this.name,
+    this.icon,
+    this.status,
+    this.pivot,
+  });
+
+  factory Feature.fromJson(Map<String, dynamic> json) => Feature(
+        id: json["id"],
+        name: json["name"],
+        icon: json["icon"],
+        status: json["status"],
+        pivot:
+            json["pivot"] == null ? null : FeaturePivot.fromJson(json["pivot"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "icon": icon,
+        "status": status,
+        "pivot": pivot?.toJson(),
+      };
+}
+
+class FeaturePivot {
+  String? propertyId;
+  String? featureId;
+
+  FeaturePivot({
+    this.propertyId,
+    this.featureId,
+  });
+
+  factory FeaturePivot.fromJson(Map<String, dynamic> json) => FeaturePivot(
+        propertyId: json["property_id"],
+        featureId: json["feature_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "property_id": propertyId,
+        "feature_id": featureId,
       };
 }
 

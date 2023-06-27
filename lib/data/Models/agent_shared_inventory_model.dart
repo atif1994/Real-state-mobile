@@ -46,7 +46,7 @@ class Datum {
   String? description;
   String? content;
   String? location;
-  dynamic images;
+  List<String>? images;
   String? numberBedroom;
   String? numberBathroom;
   String? numberFloor;
@@ -81,6 +81,8 @@ class Datum {
   String? firstName;
   String? lastName;
   String? customerId;
+  String? typeName;
+  Type? type;
 
   Datum({
     this.propertyId,
@@ -124,6 +126,8 @@ class Datum {
     this.firstName,
     this.lastName,
     this.customerId,
+    this.typeName,
+    this.type,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -133,7 +137,9 @@ class Datum {
         description: json["description"],
         content: json["content"],
         location: json["location"],
-        images: json["images"],
+        images: json["images"] == null
+            ? []
+            : List<String>.from(json["images"]!.map((x) => x)),
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         numberFloor: json["number_floor"],
@@ -174,6 +180,8 @@ class Datum {
         firstName: json["first_name"],
         lastName: json["last_name"],
         customerId: json["customer_id"],
+        typeName: json["type_name"],
+        type: json["type"] == null ? null : Type.fromJson(json["type"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -183,7 +191,8 @@ class Datum {
         "description": description,
         "content": content,
         "location": location,
-        "images": images,
+        "images":
+            images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
         "number_bedroom": numberBedroom,
         "number_bathroom": numberBathroom,
         "number_floor": numberFloor,
@@ -218,5 +227,39 @@ class Datum {
         "first_name": firstName,
         "last_name": lastName,
         "customer_id": customerId,
+        "type_name": typeName,
+        "type": type?.toJson(),
+      };
+}
+
+class Type {
+  int? id;
+  String? name;
+  String? slug;
+  String? order;
+  String? code;
+
+  Type({
+    this.id,
+    this.name,
+    this.slug,
+    this.order,
+    this.code,
+  });
+
+  factory Type.fromJson(Map<String, dynamic> json) => Type(
+        id: json["id"],
+        name: json["name"],
+        slug: json["slug"],
+        order: json["order"],
+        code: json["code"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "slug": slug,
+        "order": order,
+        "code": code,
       };
 }

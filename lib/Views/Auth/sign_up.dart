@@ -179,111 +179,144 @@ class _SignUpState extends State<SignUp> {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  CSCPicker(
-                                    layout: Layout.vertical,
-                                    dropdownDialogRadius: 30,
-                                    searchBarRadius: 30,
+                                  Obx(() => controller.allCitiseLoading.value
+                                      ? loader
+                                      : DecoratedBox(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border:
+                                                Border.all(color: Colors.white),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8.0),
+                                            child: DropdownButton(
+                                              value: controller.dropdown.value,
+                                              items: controller.allCitise.data!
+                                                  .map((e) {
+                                                return DropdownMenuItem(
+                                                  value: e.name,
+                                                  child:
+                                                      Text(e.name.toString()),
+                                                );
+                                              }).toList(),
+                                              onChanged: (v) {
+                                                controller.dropdown.value =
+                                                    v as String;
+                                                print(
+                                                    controller.dropdown.value);
+                                              },
+                                              underline: SizedBox(),
+                                              isExpanded: true,
+                                            ),
+                                          ))),
 
-                                    ///Enable disable state dropdown [OPTIONAL PARAMETER]
-                                    showStates: true,
+                                  // CSCPicker(
+                                  //   layout: Layout.vertical,
+                                  //   dropdownDialogRadius: 30,
+                                  //   searchBarRadius: 30,
 
-                                    /// Enable disable city drop down [OPTIONAL PARAMETER]
-                                    showCities: true,
+                                  //   ///Enable disable state dropdown [OPTIONAL PARAMETER]
+                                  //   showStates: true,
 
-                                    ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
-                                    flagState: CountryFlag.DISABLE,
+                                  //   /// Enable disable city drop down [OPTIONAL PARAMETER]
+                                  //   showCities: true,
 
-                                    ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
-                                    dropdownDecoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                        color: Colors.white,
-                                        border: Border.all(
-                                            color: Colors.grey.shade300,
-                                            width: 1)),
+                                  //   ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
+                                  //   flagState: CountryFlag.DISABLE,
 
-                                    ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
-                                    disabledDropdownDecoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                        color: Colors.grey.shade300,
-                                        border: Border.all(
-                                            color: Colors.grey.shade300,
-                                            width: 1)),
+                                  //   ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
+                                  //   dropdownDecoration: BoxDecoration(
+                                  //       borderRadius: BorderRadius.all(
+                                  //           Radius.circular(10)),
+                                  //       color: Colors.white,
+                                  //       border: Border.all(
+                                  //           color: Colors.grey.shade300,
+                                  //           width: 1)),
 
-                                    ///placeholders for dropdown search field
-                                    countrySearchPlaceholder: "Country",
-                                    stateSearchPlaceholder: "State",
-                                    citySearchPlaceholder: "City",
+                                  //   ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
+                                  //   disabledDropdownDecoration: BoxDecoration(
+                                  //       borderRadius: BorderRadius.all(
+                                  //           Radius.circular(10)),
+                                  //       color: Colors.grey.shade300,
+                                  //       border: Border.all(
+                                  //           color: Colors.grey.shade300,
+                                  //           width: 1)),
+                                  //   ///placeholders for dropdown search field
+                                  //   countrySearchPlaceholder: "Country",
+                                  //   stateSearchPlaceholder: "State",
+                                  //   citySearchPlaceholder: "City",
+                                  //   ///labels for dropdown
+                                  //   countryDropdownLabel: "*Country",
+                                  //   stateDropdownLabel: "*State",
+                                  //   cityDropdownLabel: "*City",
 
-                                    ///labels for dropdown
-                                    countryDropdownLabel: "*Country",
-                                    stateDropdownLabel: "*State",
-                                    cityDropdownLabel: "*City",
+                                  //   ///Default Country
+                                  //   //defaultCountry: DefaultCountry.India,
 
-                                    ///Default Country
-                                    //defaultCountry: DefaultCountry.India,
+                                  //   ///Disable country dropdown (Note: use it with default country)
+                                  //   //disableCountry: true,
 
-                                    ///Disable country dropdown (Note: use it with default country)
-                                    //disableCountry: true,
+                                  //   ///selected item style [OPTIONAL PARAMETER]
+                                  //   // ignore: prefer_const_constructors
+                                  //   selectedItemStyle: TextStyle(
+                                  //     color: Colors.black,
+                                  //     fontSize: 14,
+                                  //   ),
 
-                                    ///selected item style [OPTIONAL PARAMETER]
-                                    // ignore: prefer_const_constructors
-                                    selectedItemStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    ),
+                                  //   ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                                  //   // ignore: prefer_const_constructors
+                                  //   dropdownHeadingStyle: TextStyle(
+                                  //       color: Colors.black,
+                                  //       fontSize: 17,
+                                  //       fontWeight: FontWeight.bold),
 
-                                    ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                                    // ignore: prefer_const_constructors
-                                    dropdownHeadingStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold),
+                                  //   ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                                  //   dropdownItemStyle: TextStyle(
+                                  //     color: Colors.black,
+                                  //     fontSize: 14,
+                                  //   ),
 
-                                    ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                                    dropdownItemStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    ),
+                                  //   ///Dialog box radius [OPTIONAL PARAMETER]
+                                  //   // dropdownDialogRadius: 10.0,
 
-                                    ///Dialog box radius [OPTIONAL PARAMETER]
-                                    // dropdownDialogRadius: 10.0,
+                                  //   ///Search bar radius [OPTIONAL PARAMETER]
+                                  //   // searchBarRadius: 10.0,
 
-                                    ///Search bar radius [OPTIONAL PARAMETER]
-                                    // searchBarRadius: 10.0,
+                                  //   ///triggers once country selected in dropdown
+                                  //   onCountryChanged: (value) {
+                                  //     controller.CountryController.text = value;
 
-                                    ///triggers once country selected in dropdown
-                                    onCountryChanged: (value) {
-                                      controller.CountryController.text = value;
+                                  //     // setState(() {
+                                  //     //   ///store value in country variable
+                                  //     //   countryValue = value;
+                                  //     // });
+                                  //   },
 
-                                      // setState(() {
-                                      //   ///store value in country variable
-                                      //   countryValue = value;
-                                      // });
-                                    },
+                                  //   ///triggers once state selected in dropdown
+                                  //   onStateChanged: (value) {
+                                  //     controller.SateController.text =
+                                  //         value.toString();
+                                  //     // setState(() {
+                                  //     //   ///store value in state variable
+                                  //     //   stateValue = value.toString();
+                                  //     // });
+                                  //   },
 
-                                    ///triggers once state selected in dropdown
-                                    onStateChanged: (value) {
-                                      controller.SateController.text =
-                                          value.toString();
-                                      // setState(() {
-                                      //   ///store value in state variable
-                                      //   stateValue = value.toString();
-                                      // });
-                                    },
+                                  //   ///triggers once city selected in dropdown
+                                  //   onCityChanged: (value) {
+                                  //     controller.CityController.text =
+                                  //         value.toString();
+                                  //     //controller=controller.CityController,
+                                  //     // setState(() {
+                                  //     //   ///store value in city variable
+                                  //     //  // cityValue = value.toString();
+                                  //     // });
+                                  //   },
+                                  // ),
 
-                                    ///triggers once city selected in dropdown
-                                    onCityChanged: (value) {
-                                      controller.CityController.text =
-                                          value.toString();
-                                      //controller=controller.CityController,
-                                      // setState(() {
-                                      //   ///store value in city variable
-                                      //  // cityValue = value.toString();
-                                      // });
-                                    },
-                                  ),
                                   SizedBox(
                                     height: 10,
                                   ),

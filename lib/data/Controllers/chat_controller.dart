@@ -36,7 +36,7 @@ class ConversationController extends GetxController {
     await Future.delayed(const Duration(milliseconds: 200));
 
     getConversation(uid);
-    // getChat(conversationId!);
+    getChat(conversationId!);
 
     // await Future.delayed(const Duration(milliseconds: 200));
     // getChat(conversationId ?? 0);

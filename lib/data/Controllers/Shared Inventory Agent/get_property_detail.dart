@@ -35,7 +35,7 @@ class PropertyDetailController extends GetxController {
   int selectedBedroom = 0;
   int selectedBathroom = 0;
   int selectedFloor = 0;
-  List<ListFacility> listfac = [];
+  RxList<ListFacility> listfac = <ListFacility>[].obs;
   RxString selectedValueCity = 'Select City'.obs;
   RxInt selectedValueCityId = 0.obs;
 
@@ -45,7 +45,6 @@ class PropertyDetailController extends GetxController {
     loadingPropertyByID.value = true;
     errorLoadingPropertyByID.value = '';
     var res = await PropertyByIDService.getPropertyById(pid);
-    loadingPropertyByID.value = false;
     if (res is PropertyById) {
       propertybyIDmodel = res;
       titleController.text = res.data!.name.toString();
@@ -60,14 +59,21 @@ class PropertyDetailController extends GetxController {
       selectedValueCity.value = propertybyIDmodel.data!.city?.name ?? '';
       networkimglst = res.data!.images!;
       selectedValueCityId.value = int.parse(res.data!.cityId!);
-      for (var e in res.data!.facilities!) {
-        ListFacility facility =
-            ListFacility(id: e.id, distance: e.pivot!.distance, name: e.name);
-        listfac.add(facility);
-      }
+      if (res.data!.facilities!.isNotEmpty) {
+        loadingPropertyByID.value = false;
 
-      for (var e in res.data!.features!) {
-        sindex.add(e.id);
+        for (var e in res.data!.facilities!) {
+          ListFacility facility =
+              ListFacility(id: e.id, distance: e.pivot!.distance, name: e.name);
+          listfac.add(facility);
+        }
+      }
+      if (res.data!.features!.isNotEmpty) {
+        print('Featureeeee');
+        print(res.data!.features);
+        for (var e in res.data!.features!) {
+          sindex.add(e.id);
+        }
       }
 
       if (int.parse(res.data!.numberBedroom!) > 10) {

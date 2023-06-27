@@ -72,10 +72,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
         profileController.userProfileData.data!.email.toString();
     phoneController.text =
         profileController.userProfileData.data!.phone.toString();
-    String timestamp = profileController.userProfileData.data!.dob!;
-    final DateTime dateTime = DateTime.parse(timestamp);
-    final DateFormat dateFormat = DateFormat('dd-MM-yyyy');
-    formattedDate = dateFormat.format(dateTime);
+    String timestamp = profileController.userProfileData.data!.dob ?? '';
+    if (timestamp != '') {
+      final DateTime dateTime = DateTime.parse(timestamp);
+      final DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+      formattedDate = dateFormat.format(dateTime);
+    } else {
+      final DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+      formattedDate = dateFormat.format(DateTime.now());
+    }
     // dob = DateFormat("dd-MM-yyyy");
     //  (profileController.userProfileData.data!.dob!);
 

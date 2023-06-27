@@ -214,7 +214,7 @@ class Datum {
         description: json["description"],
         content: json["content"],
         location: json["location"],
-        images: json["images"] == null ? null : Images.fromJson(json["images"]),
+        // images: json["images"] == null ? null : Images.fromJson(json["images"]),
         numberBedroom: json["number_bedroom"],
         numberBathroom: json["number_bathroom"],
         numberFloor: json["number_floor"],

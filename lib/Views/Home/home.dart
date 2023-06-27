@@ -229,15 +229,17 @@ class _HomeState extends State<Home> {
                     iconTheme: IconThemeData(color: AppColors.themecolor),
                     backgroundColor: AppColors.logobgcolor,
                     leading: IconButton(
-                        onPressed: () {
-                          // if (ZoomDrawer.of(context)!.isOpen()) {
-                          //   ZoomDrawer.of(context)!.close();
-                          // } else {
-                          //   ZoomDrawer.of(context)!.open();
-                          // }
-                          Scaffold.of(context).openDrawer();
-                        },
-                        icon: const Icon(Icons.dashboard)),
+                      onPressed: () {
+                        // if (ZoomDrawer.of(context)!.isOpen()) {
+                        //   ZoomDrawer.of(context)!.close();
+                        // } else {
+                        //   ZoomDrawer.of(context)!.open();
+                        // }
+                        Scaffold.of(context).openDrawer();
+                      },
+                      icon: const Icon(Icons.dashboard),
+                      iconSize: 25.sp,
+                    ),
                     actions: [
                       Padding(
                         padding: EdgeInsets.only(left: 32.w),
@@ -249,12 +251,12 @@ class _HomeState extends State<Home> {
                             children: [
                               Image.asset(
                                 'assets/relogo.png',
-                                scale: 16.sp,
+                                scale: 14.sp,
                               ),
                               Text(
                                 "Prologic",
                                 style: AppTextStyles.heading1.copyWith(
-                                    fontSize: 16.sp,
+                                    fontSize: 17.sp,
                                     color: AppColors.themecolor),
                               ),
                             ],

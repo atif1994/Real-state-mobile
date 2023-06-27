@@ -4,9 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Home/home.dart';
 import 'package:prologic_29/data/Services/signup_services/signup_services.dart';
+import '../Models/get_all_citiese/get_all_citise_response.dart';
 import '../Models/signup_model/signup_model.dart';
+import '../Services/get_all_citise_services/get_all_citise_service.dart';
 
 class SignUpController extends GetxController {
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    allCitiseLoading.value = true;
+    getAllCitise();
+  }
+
   final _formkey = GlobalKey<FormState>();
 
   final TextEditingController firstNameController = TextEditingController();
@@ -17,15 +27,37 @@ class SignUpController extends GetxController {
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController CountryController = TextEditingController();
   final TextEditingController SateController = TextEditingController();
-  final TextEditingController CityController = TextEditingController();
   RxBool isLoading = false.obs;
   var signupModel = SignupModel();
   RxString errSignup = ''.obs;
   RxBool isHidden = true.obs;
 
+  // ignore_for_file: must_call_super
+
+  RxString errorLoadingAllCitise = ''.obs;
+  RxBool allCitiseLoading = false.obs;
+  RxString dropdown = 'Rawalpindi'.obs;
+  var allCitise = GetAllCitiseResponse();
+
+  getAllCitise() async {
+    errorLoadingAllCitise.value = '';
+    allCitiseLoading.value = true;
+    var res = await GetAllCitiseServices.getAllCitise();
+    allCitiseLoading.value = false;
+
+    if (res is GetAllCitiseResponse) {
+      allCitiseLoading.value = false;
+      dropdown.value = res.data![0].name!;
+      print(dropdown);
+      allCitise = res;
+    } else {
+      allCitiseLoading.value = false;
+      errorLoadingAllCitise.value = res.toString();
+    }
+  }
+
   signUp() async {
     print(CountryController.text);
-    print(CityController.text);
     print(SateController.text);
     print(UserController.text);
     isLoading.value = true;
@@ -35,9 +67,9 @@ class SignUpController extends GetxController {
         UserController.text,
         firstNameController.text,
         lastNameController.text,
-        CountryController.text,
+        'Pakistan',
         SateController.text,
-        CityController.text,
+        dropdown.value,
         phoneNumberController.text,
         'customer');
     if (res is SignupModel) {

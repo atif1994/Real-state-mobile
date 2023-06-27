@@ -42,9 +42,10 @@ class _PropertyState extends State<Property>
     'USD',
   ];
   String? selectedValue;
+  TextEditingController kilometercontroller = TextEditingController();
 
   int iWantTo = 1;
-
+  String? facilityname;
   late TabController tabController;
   List<String> homePropertyTypeList = [
     'House',
@@ -972,41 +973,44 @@ class _PropertyState extends State<Property>
               SizedBox(
                 height: 15.h,
                 width: 120.w,
-                child: facilitiesList.isEmpty
+                child: addPropertyController.listfac.isEmpty
                     ? const Center(
                         child: Text("Add Some Facilities"),
                       )
                     : ListView.builder(
+                        shrinkWrap: true,
+                        physics: const PageScrollPhysics(),
                         scrollDirection: Axis.vertical,
-                        itemCount: facilitiesList.length,
+                        itemCount: addPropertyController.listfac.length,
                         itemBuilder: (context, index) {
-                          // for (var e in addPropertyController
-                          //     .getFacilitiesModel.data!) {
-                          //   print(facilitiesList[index]);
-                          // if (e.id == facilitiesList[index]) {
-                          //   fname = e.name!;
-                          // }
-                          // }
                           return Card(
+                            color: primaryColor.shade300,
                             child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 5),
                                 child: ListTile(
-                                  title: Row(
-                                    children: [
-                                      Text(facilitiesList[index]),
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                      Text("KM: ${kmList[index]}"),
-                                    ],
+                                  title: Padding(
+                                    padding: EdgeInsets.only(right: 8.0.w),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(addPropertyController
+                                            .listfac[index].name
+                                            .toString()),
+                                        Text(
+                                            "KM: ${addPropertyController.listfac[index].distance}"),
+                                      ],
+                                    ),
                                   ),
                                   trailing: GestureDetector(
-                                    child: const Icon(Icons.delete),
+                                    child: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
                                     onTap: () {
-                                      kmList.removeAt(index);
-                                      facilitiesList.removeAt(index);
-                                      addedFacilityList.removeAt(index);
+                                      addPropertyController.listfac
+                                          .removeAt(index);
                                       setState(() {});
                                     },
                                   ),
@@ -1046,14 +1050,21 @@ class _PropertyState extends State<Property>
                                 );
                               }).toList(),
                               onChanged: (value) {
+                                for (var v in addPropertyController
+                                    .getFacilitiesModel.data!) {
+                                  if (value == v.id.toString()) {
+                                    facilityname = v.name;
+                                  }
+                                }
                                 print(value);
                                 addPropertyController.dropdownvalue22.value =
                                     value.toString();
+
                                 facilityid = int.parse(value!);
                               },
                               underline: const SizedBox(),
                               isExpanded: true,
-                              // hint: const Text('--Select--'),
+                              hint: const Text('Select'),
                             ),
                           ),
                         )),
@@ -1064,7 +1075,7 @@ class _PropertyState extends State<Property>
                     key: _formKey,
                     child: TextFormField(
                       keyboardType: TextInputType.number,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: kilometercontroller,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter Km';
@@ -1088,41 +1099,29 @@ class _PropertyState extends State<Property>
                 padding: const EdgeInsets.only(top: 12),
                 child: MyButton(
                     onTap: () {
+                      int indexwhere = addPropertyController.listfac
+                          .indexWhere((facility) => facility.id == facilityid);
                       if (_formKey.currentState!.validate()) {
-                        if (addPropertyController.dropdownvalue22.value ==
-                            'Select Facility') {
+                        if (indexwhere != -1) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  duration: Duration(seconds: 2),
-                                  behavior: SnackBarBehavior.floating,
-                                  backgroundColor:
-                                      Color.fromARGB(255, 38, 80, 153),
-                                  content: Text('Please Select facility')));
+                            const SnackBar(
+                              duration: Duration(seconds: 2),
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.red,
+                              content: Text('Facility already added'),
+                            ),
+                          );
                         } else {
                           setState(() {
-                            facilitiesList.add(
-                                addPropertyController.dropdownvalue22.value);
-                            kmList.add(km);
-                            // if (addpropertycontroller
-                            //         .dropdownvalue22 ==
-                            //     "Mosque Nearby") {
-                            //   facilityid = 0;
-                            // } else if (addpropertycontroller
-                            //         .dropdownvalue22 ==
-                            //     "Play Ground") {
-                            //   facilityid = 1;
-                            // } else if (addpropertycontroller
-                            //         .dropdownvalue22 ==
-                            //     "Park") {
-                            //   facilityid = 2;
-                            // }
-                            addedFacilityList
-                                .add({"id": facilityid, "distance": km});
+                            facilityname ??= addPropertyController
+                                .getFacilitiesModel.data![0].name;
 
-                            // facilitiesList.clear();
-                            // kmList.clear();
-                            // addedFacilityList.clear();
-                            print("faclity list added_____$addedFacilityList");
+                            ListFacility facility = ListFacility(
+                                id: facilityid,
+                                distance: km,
+                                name: facilityname);
+                            addPropertyController.listfac.add(facility);
+                            kilometercontroller.clear();
                           });
                         }
                       }
@@ -1769,4 +1768,15 @@ class _PropertyState extends State<Property>
       ),
     );
   }
+}
+
+class ListFacility {
+  int? id;
+  String? name;
+  String? distance;
+  ListFacility({
+    this.id,
+    this.name,
+    this.distance,
+  });
 }

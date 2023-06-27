@@ -153,15 +153,15 @@ class _EditPropertyState extends State<EditProperty>
     'Play Ground',
     'Park',
   ];
-  List addedFeaturesList = [];
-  List<dynamic> featuresList = [
-    'Balcony',
-    'Security Staff',
-    'Parking Area',
-    'Electricity',
-    'Accessible by Road',
-    'Sui Gas'
-  ];
+  // List addedFeaturesList = [];
+  // List<dynamic> featuresList = [
+  //   'Balcony',
+  //   'Security Staff',
+  //   'Parking Area',
+  //   'Electricity',
+  //   'Accessible by Road',
+  //   'Sui Gas'
+  // ];
 
   TextEditingController kilometercontroller = TextEditingController();
   int? facilityid;
@@ -444,55 +444,62 @@ class _EditPropertyState extends State<EditProperty>
                                     child: TabBarView(
                                         controller: tabController,
                                         children: [
-                                          ListView.builder(
-                                            primary: true,
-                                            shrinkWrap: false,
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: addpropertycontroller
-                                                .propertycategoriesModel
-                                                .data!
-                                                .length,
-                                            itemBuilder: (context, index) {
-                                              return Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5),
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      selectedPropertyCategory =
-                                                          index;
-                                                    });
+                                          Obx(() => addPropertyController
+                                                  .loadingPropertyCategory.value
+                                              ? loader
+                                              : ListView.builder(
+                                                  primary: true,
+                                                  shrinkWrap: false,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount: addpropertycontroller
+                                                      .propertycategoriesModel
+                                                      .data!
+                                                      .length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 5),
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            selectedPropertyCategory =
+                                                                index;
+                                                          });
+                                                        },
+                                                        child: Chip(
+                                                          backgroundColor:
+                                                              selectedPropertyCategory ==
+                                                                      index
+                                                                  ? primaryColor
+                                                                  : Colors.grey[
+                                                                      200],
+                                                          label: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                  addpropertycontroller
+                                                                      .propertycategoriesModel
+                                                                      .data![
+                                                                          index]
+                                                                      .name
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      color: selectedPropertyCategory ==
+                                                                              index
+                                                                          ? Colors
+                                                                              .white
+                                                                          : Colors
+                                                                              .black))),
+                                                        ),
+                                                      ),
+                                                    );
                                                   },
-                                                  child: Chip(
-                                                    backgroundColor:
-                                                        selectedPropertyCategory ==
-                                                                index
-                                                            ? primaryColor
-                                                            : Colors.grey[200],
-                                                    label: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal: 5),
-                                                        child: Text(
-                                                            addpropertycontroller
-                                                                .propertycategoriesModel
-                                                                .data![index]
-                                                                .name
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                color: selectedPropertyCategory ==
-                                                                        index
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black))),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
+                                                )),
                                           ListView.builder(
                                             primary: true,
                                             shrinkWrap: true,
@@ -964,7 +971,7 @@ class _EditPropertyState extends State<EditProperty>
                         SizedBox(
                           // height: 15.h,
                           width: 120.w,
-                          child: getpropertydetail.listfac.isEmpty
+                          child: Obx(() => getpropertydetail.listfac.isEmpty
                               ? const Center(
                                   child: Text("Add Some Facilities"),
                                 )
@@ -1014,7 +1021,7 @@ class _EditPropertyState extends State<EditProperty>
                                           )),
                                     );
                                   },
-                                ),
+                                )),
                         ),
                         const SizedBox(
                           height: 10,
@@ -1332,12 +1339,12 @@ class _EditPropertyState extends State<EditProperty>
                           children: [
                             Row(
                               children: const [
-                                Icon(Icons.sell_outlined),
+                                Icon(Icons.image),
                                 Expanded(
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: horizontalPadding),
-                                    child: Text('Upload images of property',
+                                    child: Text('Customer Images',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                   ),
@@ -1345,6 +1352,7 @@ class _EditPropertyState extends State<EditProperty>
                               ],
                             ),
                             Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10),
                               height: Get.height * .3,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
@@ -1356,11 +1364,28 @@ class _EditPropertyState extends State<EditProperty>
                                   itemCount:
                                       getpropertydetail.networkimglst.length,
                                   itemBuilder: (context, index) {
-                                    return Image.network(
-                                      "${AppUrls.baseUrl2}${getpropertydetail.networkimglst[index]}",
-                                      fit: BoxFit.cover,
+                                    return SizedBox(
+                                      width: 80.w,
+                                      child: Image.network(
+                                        "${AppUrls.baseUrl2}${getpropertydetail.networkimglst[index]}",
+                                        fit: BoxFit.cover,
+                                      ),
                                     );
                                   }),
+                            ),
+                            Row(
+                              children: const [
+                                Icon(Icons.sell_outlined),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: horizontalPadding),
+                                    child: Text('Add new images of property',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                )
+                              ],
                             ),
                             GestureDetector(
                               onTap: () {

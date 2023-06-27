@@ -3,6 +3,7 @@ import 'package:prologic_29/Services/constants.dart';
 import 'package:prologic_29/data/Models/addproperty_model/addproperty_model.dart';
 import 'package:prologic_29/data/Services/property_services/addproperty_services.dart';
 
+import '../../Views/AddProperty/add_property.dart';
 import '../Models/addproperty_model/category_model.dart';
 import '../Models/addproperty_model/getfacilities_model.dart';
 import '../Models/addproperty_model/propertytype_model.dart';
@@ -20,6 +21,8 @@ class AddProperrtyController extends GetxController {
     getFeatures();
     propertycategories();
   }
+
+  List<ListFacility> listfac = [];
 
   //Cities Api properties
   //Cities Api properties
