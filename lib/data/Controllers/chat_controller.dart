@@ -89,15 +89,16 @@ class ConversationController extends GetxController {
       loadChat.value = false;
       loadingChat.value = false;
       chatModel = res;
-      await Future.delayed(const Duration(milliseconds: 1000));
-      scrollController.animateTo(scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
+      // await Future.delayed(const Duration(milliseconds: 200));
+      // scrollController.animateTo(scrollController.position.maxScrollExtent,
+      //     duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
     } else {
       loadingChat.value = false;
       loadChat.value = false;
       errChatload.value = res.toString();
     }
     update();
+    return res;
   }
 
 //get convesationId from sharedPref had store from chat room

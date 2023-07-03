@@ -78,15 +78,16 @@ class AgentChatController extends GetxController {
       loadChat.value = false;
       // loadingChat.value = false;
       chatModel = res;
-      await Future.delayed(const Duration(milliseconds: 1000));
-      scrollController.animateTo(scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
+      // await Future.delayed(const Duration(milliseconds: 1000));
+      // scrollController.animateTo(scrollController.position.maxScrollExtent,
+      //     duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
     } else {
       loadChat.value = false;
       // loadingChat.value = false;
       errChatload.value = res.toString();
     }
     update();
+    return res;
   }
 
   void getConversationId() async {

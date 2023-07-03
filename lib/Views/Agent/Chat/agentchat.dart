@@ -86,144 +86,125 @@ class _AgentChatingState extends State<AgentChating> {
         child: Column(
           children: [
             Container(
-              // color: Colors.amber,
-              margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w, top: 1.0.h),
-              height: 79.0.h,
-              width: 100.0.w,
-              child: Obx(() => chattController.loadChat.value
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : chattController.chatModel.data!.isEmpty
-                      ? const Center(child: Text("Say Hi"))
-                      : GetBuilder<AgentChatController>(
-                          init: AgentChatController(),
-                          initState: (_) {},
-                          builder: (controller) {
-                            return FutureBuilder(
-                              future: controller
-                                  .getChat(int.parse(widget.conId.toString())),
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasData) {
-                                  return ListView.builder(
-                                    controller:
-                                        chattController.scrollController,
-                                    // padding: const EdgeInsets.only(bottom: 15),
-                                    shrinkWrap: true,
-                                    itemCount:
-                                        controller.chatModel.data?.length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 4, horizontal: 8.0),
-                                        child: Row(
-                                          mainAxisAlignment: uid ==
+                // color: Colors.amber,
+                margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w, top: 1.0.h),
+                height: 79.0.h,
+                width: 100.0.w,
+                child:
+                    //  Obx(() => chattController.loadChat.value
+                    //     ? const Center(
+                    //         child: CircularProgressIndicator(),
+                    //       )
+                    //     : chattController.chatModel.data!.isEmpty
+                    //         ? const Center(child: Text("Say Hi"))
+                    //         :
+                    GetBuilder<AgentChatController>(
+                  init: AgentChatController(),
+                  initState: (_) {},
+                  builder: (controller) {
+                    return FutureBuilder(
+                      future: controller
+                          .getChat(int.parse(widget.conId.toString())),
+                      builder: (context, snapshot) {
+                        if (snapshot.data != null) {
+                          return ListView.builder(
+                            controller: chattController.scrollController,
+                            // padding: const EdgeInsets.only(bottom: 15),
+                            shrinkWrap: true,
+                            itemCount: controller.chatModel.data?.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 8.0),
+                                child: Row(
+                                  mainAxisAlignment: uid ==
+                                          controller
+                                              .chatModel.data![index].senderId
+                                      ? MainAxisAlignment.end
+                                      : MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    uid ==
+                                            controller
+                                                .chatModel.data![index].senderId
+                                        ? const SizedBox()
+                                        : Transform(
+                                            alignment: Alignment.center,
+                                            transform:
+                                                Matrix4.rotationY(math.pi),
+                                            child: CustomPaint(
+                                              painter: CustomShape(
+                                                  bgColor:
+                                                      AppColors.themecolor),
+                                            ),
+                                          ),
+                                    Flexible(
+                                      child: Container(
+                                        padding: const EdgeInsets.all(14),
+                                        decoration: BoxDecoration(
+                                          color: uid ==
                                                   controller.chatModel
                                                       .data![index].senderId
-                                              ? MainAxisAlignment.end
-                                              : MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            uid ==
+                                              ? const Color.fromARGB(
+                                                  255, 110, 132, 151)
+                                              : AppColors.themecolor,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: uid ==
                                                     controller.chatModel
                                                         .data![index].senderId
-                                                ? const SizedBox()
-                                                : Transform(
-                                                    alignment: Alignment.center,
-                                                    transform:
-                                                        Matrix4.rotationY(
-                                                            math.pi),
-                                                    child: CustomPaint(
-                                                      painter: CustomShape(
-                                                          bgColor: AppColors
-                                                              .themecolor),
-                                                    ),
-                                                  ),
-                                            Flexible(
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(14),
-                                                decoration: BoxDecoration(
-                                                  color: uid ==
-                                                          controller
-                                                              .chatModel
-                                                              .data![index]
-                                                              .senderId
-                                                      ? const Color.fromARGB(
-                                                          255, 110, 132, 151)
-                                                      : AppColors.themecolor,
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft: uid ==
-                                                            controller
-                                                                .chatModel
-                                                                .data![index]
-                                                                .senderId
-                                                        ? const Radius.circular(
-                                                            15)
-                                                        : const Radius.circular(
-                                                            0),
-                                                    topRight: uid ==
-                                                            controller
-                                                                .chatModel
-                                                                .data![index]
-                                                                .senderId
-                                                        ? const Radius.circular(
-                                                            0)
-                                                        : const Radius.circular(
-                                                            15),
-                                                    bottomLeft:
-                                                        const Radius.circular(
-                                                            15),
-                                                    bottomRight:
-                                                        const Radius.circular(
-                                                            15),
-                                                  ),
-                                                ),
-                                                child: Text(
-                                                  controller
-                                                          .chatModel
-                                                          .data?[index]
-                                                          .message ??
-                                                      "",
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14),
-                                                ),
-                                              ),
-                                            ),
-                                            uid ==
+                                                ? const Radius.circular(15)
+                                                : const Radius.circular(0),
+                                            topRight: uid ==
                                                     controller.chatModel
                                                         .data![index].senderId
-                                                ? Transform(
-                                                    alignment: Alignment.center,
-                                                    transform:
-                                                        Matrix4.rotationY(
-                                                            math.pi),
-                                                    child: CustomPaint(
-                                                      painter: CustomShape(
-                                                          bgColor: const Color
-                                                                  .fromARGB(255,
-                                                              110, 132, 151)),
-                                                    ),
-                                                  )
-                                                : const SizedBox()
-                                          ],
+                                                ? const Radius.circular(0)
+                                                : const Radius.circular(15),
+                                            bottomLeft:
+                                                const Radius.circular(15),
+                                            bottomRight:
+                                                const Radius.circular(15),
+                                          ),
                                         ),
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
-                              },
-                            );
-                          },
-                        )),
-            ),
+                                        child: Text(
+                                          controller.chatModel.data?[index]
+                                                  .message ??
+                                              "",
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14),
+                                        ),
+                                      ),
+                                    ),
+                                    uid ==
+                                            controller
+                                                .chatModel.data![index].senderId
+                                        ? Transform(
+                                            alignment: Alignment.center,
+                                            transform:
+                                                Matrix4.rotationY(math.pi),
+                                            child: CustomPaint(
+                                              painter: CustomShape(
+                                                  bgColor: const Color.fromARGB(
+                                                      255, 110, 132, 151)),
+                                            ),
+                                          )
+                                        : const SizedBox()
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    );
+                  },
+                )
+                // ),
+                ),
 
             ////////////////
 

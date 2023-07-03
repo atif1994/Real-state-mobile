@@ -8,6 +8,7 @@ import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/data/Controllers/chat_controller.dart';
 import 'package:prologic_29/data/Controllers/user_profile_section_controller/profile_propertise_controller/profile_all_propertise_controller.dart';
 import 'package:prologic_29/data/Models/Chat_Model/chat_model.dart';
+import 'package:prologic_29/data/Services/constants.dart';
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/session_controller.dart';
@@ -62,7 +63,7 @@ class _ChatingState extends State<Chating> {
     // scrollController.jumpTo(scrollController.position.maxScrollExtent);
     // });
 
-    // chatscroll();
+    chatscroll();
   }
 
   void getUserId() async {
@@ -86,268 +87,262 @@ class _ChatingState extends State<Chating> {
           style: AppTextStyles.heading1,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-                margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w, top: 2.0.h),
-                height: 78.0.h,
-                width: 100.0.w,
-                child: Obx(() => chattController.loadingChat.value
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : chattController.chatModel.data!.isEmpty
-                        ? const Center(child: Text("Say Hi"))
-                        : GetBuilder<ConversationController>(
-                            init: ConversationController(),
-                            initState: (_) {},
-                            builder: (controller) {
-                              return FutureBuilder(
-                                future: controller.getChat(
-                                    int.parse(widget.conId.toString())),
-                                builder: (context, snapshot) {
-                                  if (!snapshot.hasData) {
-                                    return ListView.builder(
-                                      controller:
-                                          chattController.scrollController,
-                                      // padding: const EdgeInsets.only(bottom: 15),
-                                      shrinkWrap: true,
-                                      itemCount:
-                                          controller.chatModel.data?.length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 4, horizontal: 8.0),
-                                          child: Row(
-                                            mainAxisAlignment: uid ==
-                                                    controller.chatModel
-                                                        .data![index].senderId
-                                                ? MainAxisAlignment.end
-                                                : MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              uid ==
-                                                      controller.chatModel
-                                                          .data![index].senderId
-                                                  ? const SizedBox()
-                                                  : Transform(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      transform:
-                                                          Matrix4.rotationY(
-                                                              math.pi),
-                                                      child: CustomPaint(
-                                                        painter: CustomShape(
-                                                            bgColor: AppColors
-                                                                .themecolor),
-                                                      ),
-                                                    ),
-                                              Flexible(
-                                                child: Container(
-                                                  padding:
-                                                      const EdgeInsets.all(14),
-                                                  decoration: BoxDecoration(
-                                                    color: uid ==
-                                                            controller
-                                                                .chatModel
-                                                                .data![index]
-                                                                .senderId
-                                                        ? const Color.fromARGB(
-                                                            255, 110, 132, 151)
-                                                        : AppColors.themecolor,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft: uid ==
-                                                              controller
-                                                                  .chatModel
-                                                                  .data![index]
-                                                                  .senderId
-                                                          ? const Radius
-                                                              .circular(15)
-                                                          : const Radius
-                                                              .circular(0),
-                                                      topRight: uid ==
-                                                              controller
-                                                                  .chatModel
-                                                                  .data![index]
-                                                                  .senderId
-                                                          ? const Radius
-                                                              .circular(0)
-                                                          : const Radius
-                                                              .circular(15),
-                                                      bottomLeft:
-                                                          const Radius.circular(
-                                                              15),
-                                                      bottomRight:
-                                                          const Radius.circular(
-                                                              15),
-                                                    ),
-                                                  ),
-                                                  child: Text(
-                                                    controller
-                                                            .chatModel
-                                                            .data?[index]
-                                                            .message ??
-                                                        "",
-                                                    style: const TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 14),
-                                                  ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+                child: Column(
+              children: [
+                Container(
+                    margin:
+                        EdgeInsets.only(left: 2.0.w, right: 2.0.w, top: 2.0.h),
+                    // height: 78.0.h,
+                    width: 100.0.w,
+                    child:
+                        // Obx(() => chattController.loadingChat.value
+                        //     ? Center(
+                        //         child:
+                        //             Text('load ${chattController.loadingChat.value}'),
+                        //       )
+                        //     :
+                        // chattController.chatModel.data!.isEmpty
+                        //     ? const Center(child: Text("Say Hi"))
+                        //     :
+
+                        GetBuilder<ConversationController>(
+                      init: ConversationController(),
+                      initState: (_) {},
+                      builder: (controller) {
+                        return FutureBuilder(
+                          future: controller
+                              .getChat(int.parse(widget.conId.toString())),
+                          builder: (context, snapshot) {
+                            if (snapshot.data != null) {
+                              return ListView.builder(
+                                // controller: chattController.scrollController,
+                                // padding: const EdgeInsets.only(bottom: 15),
+                                shrinkWrap: true,
+                                itemCount: controller.chatModel.data?.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 4, horizontal: 8.0),
+                                    child: Row(
+                                      mainAxisAlignment: uid ==
+                                              controller.chatModel.data![index]
+                                                  .senderId
+                                          ? MainAxisAlignment.end
+                                          : MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        uid ==
+                                                controller.chatModel
+                                                    .data![index].senderId
+                                            ? const SizedBox()
+                                            : Transform(
+                                                alignment: Alignment.center,
+                                                transform:
+                                                    Matrix4.rotationY(math.pi),
+                                                child: CustomPaint(
+                                                  painter: CustomShape(
+                                                      bgColor:
+                                                          AppColors.themecolor),
                                                 ),
                                               ),
-                                              uid ==
+                                        Flexible(
+                                          child: Container(
+                                            padding: const EdgeInsets.all(14),
+                                            decoration: BoxDecoration(
+                                              color: uid ==
                                                       controller.chatModel
                                                           .data![index].senderId
-                                                  ? Transform(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      transform:
-                                                          Matrix4.rotationY(
-                                                              math.pi),
-                                                      child: CustomPaint(
-                                                        painter: CustomShape(
-                                                            bgColor: const Color
-                                                                    .fromARGB(
-                                                                255,
-                                                                110,
-                                                                132,
-                                                                151)),
-                                                      ),
-                                                    )
-                                                  : const SizedBox()
-                                            ],
+                                                  ? const Color.fromARGB(
+                                                      255, 110, 132, 151)
+                                                  : AppColors.themecolor,
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: uid ==
+                                                        controller
+                                                            .chatModel
+                                                            .data![index]
+                                                            .senderId
+                                                    ? const Radius.circular(15)
+                                                    : const Radius.circular(0),
+                                                topRight: uid ==
+                                                        controller
+                                                            .chatModel
+                                                            .data![index]
+                                                            .senderId
+                                                    ? const Radius.circular(0)
+                                                    : const Radius.circular(15),
+                                                bottomLeft:
+                                                    const Radius.circular(15),
+                                                bottomRight:
+                                                    const Radius.circular(15),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              controller.chatModel.data?[index]
+                                                      .message ??
+                                                  "",
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14),
+                                            ),
                                           ),
-                                          //     SizedBox(
-                                          //   width: 50.0.w,
-                                          //   child: Container(
-                                          //     margin: EdgeInsets.only(
-                                          //       top: 1.0.h,
-                                          //       bottom: .5.h,
-                                          //     ),
-                                          //     decoration: BoxDecoration(
-                                          // color: uid ==
-                                          //         controller.chatModel
-                                          //             .data![index].senderId
-                                          // ? const Color.fromARGB(
-                                          //     255, 110, 132, 151)
-                                          //             : AppColors.themecolor,
-                                          //         borderRadius: const BorderRadius.only(
-                                          //             topRight: Radius.circular(10),
-                                          //             bottomLeft: Radius.circular(10))),
-                                          //     child: Padding(
-                                          //       padding: EdgeInsets.only(
-                                          //           left: 2.0.w,
-                                          //           top: 1.0.h,
-                                          //           bottom: 2.0.h),
-                                          //       child: Column(
-                                          //         crossAxisAlignment:
-                                          //             CrossAxisAlignment.start,
-                                          //         children: [
-                                          //           Text(
-                                          // uid ==
-                                          //         controller.chatModel
-                                          //             .data![index].senderId
-                                          //     ? "You"
-                                          //     : controller
-                                          //             .chatModel
-                                          //             .data?[index]
-                                          //             .user!
-                                          //             .username ??
-                                          //         "",
-                                          //             style: AppTextStyles.appbar
-                                          //                 .copyWith(
-                                          //                     fontWeight:
-                                          //                         FontWeight.bold),
-                                          //           ),
-                                          //           SizedBox(
-                                          //             height: 1.0.h,
-                                          //           ),
-                                          //           Container(
-                                          //             margin: const EdgeInsets.only(
-                                          //               left: 10,
-                                          //             ),
-                                          //             // color: Colors.red,
-                                          //             width: 65.0.w,
-                                          //             child: Text(
-                                          // controller.chatModel
-                                          //         .data?[index].message ??
-                                          //     "",
-                                          //               style: AppTextStyles.labelSmall
-                                          //                   .copyWith(
-                                          //                       color: AppColors
-                                          //                           .colorWhite),
-                                          //             ),
-                                          //           ),
-                                          //         ],
-                                          //       ),
-                                          //     ),
-                                          //   ),
-                                          // ),
-                                        );
-                                      },
-                                    );
-                                  } else {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  }
+                                        ),
+                                        uid ==
+                                                controller.chatModel
+                                                    .data![index].senderId
+                                            ? Transform(
+                                                alignment: Alignment.center,
+                                                transform:
+                                                    Matrix4.rotationY(math.pi),
+                                                child: CustomPaint(
+                                                  painter: CustomShape(
+                                                      bgColor:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              110,
+                                                              132,
+                                                              151)),
+                                                ),
+                                              )
+                                            : const SizedBox()
+                                      ],
+                                    ),
+                                    //     SizedBox(
+                                    //   width: 50.0.w,
+                                    //   child: Container(
+                                    //     margin: EdgeInsets.only(
+                                    //       top: 1.0.h,
+                                    //       bottom: .5.h,
+                                    //     ),
+                                    //     decoration: BoxDecoration(
+                                    // color: uid ==
+                                    //         controller.chatModel
+                                    //             .data![index].senderId
+                                    // ? const Color.fromARGB(
+                                    //     255, 110, 132, 151)
+                                    //             : AppColors.themecolor,
+                                    //         borderRadius: const BorderRadius.only(
+                                    //             topRight: Radius.circular(10),
+                                    //             bottomLeft: Radius.circular(10))),
+                                    //     child: Padding(
+                                    //       padding: EdgeInsets.only(
+                                    //           left: 2.0.w,
+                                    //           top: 1.0.h,
+                                    //           bottom: 2.0.h),
+                                    //       child: Column(
+                                    //         crossAxisAlignment:
+                                    //             CrossAxisAlignment.start,
+                                    //         children: [
+                                    //           Text(
+                                    // uid ==
+                                    //         controller.chatModel
+                                    //             .data![index].senderId
+                                    //     ? "You"
+                                    //     : controller
+                                    //             .chatModel
+                                    //             .data?[index]
+                                    //             .user!
+                                    //             .username ??
+                                    //         "",
+                                    //             style: AppTextStyles.appbar
+                                    //                 .copyWith(
+                                    //                     fontWeight:
+                                    //                         FontWeight.bold),
+                                    //           ),
+                                    //           SizedBox(
+                                    //             height: 1.0.h,
+                                    //           ),
+                                    //           Container(
+                                    //             margin: const EdgeInsets.only(
+                                    //               left: 10,
+                                    //             ),
+                                    //             // color: Colors.red,
+                                    //             width: 65.0.w,
+                                    //             child: Text(
+                                    // controller.chatModel
+                                    //         .data?[index].message ??
+                                    //     "",
+                                    //               style: AppTextStyles.labelSmall
+                                    //                   .copyWith(
+                                    //                       color: AppColors
+                                    //                           .colorWhite),
+                                    //             ),
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                  );
                                 },
                               );
-                            },
-                          ))),
+                            } else {
+                              return Center(
+                                child: loader,
+                              );
+                            }
+                          },
+                        );
+                      },
+                    )
+                    // )
+                    ),
 
-            ////////////////
-
-            Row(
-              children: [
-                OutlinedButton(
-                    style:
-                        OutlinedButton.styleFrom(shape: const CircleBorder()),
-                    onPressed: () {
-                      showinventorybottomsheet(context);
-                    },
-                    child: const Icon(
-                      Icons.add,
-                      color: Color.fromARGB(255, 22, 82, 131),
-                    )),
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomTextField(
-                    editingController: chatController,
-                    hintText: "Message",
-                    onChanged: (val) {},
-                  ),
-                )),
-                IconButton(
-                    onPressed: () {
-                      print(
-                          "message send........ data before send  chat Api Call in coId= + ${int.parse(widget.conId.toString())} + agent= ${int.parse(widget.agentId.toString())} + customer =${int.parse(widget.customerId.toString())}");
-                      if (chatController.text.isEmpty) {
-                        Fluttertoast.showToast(
-                            msg: 'Write message first',
-                            gravity: ToastGravity.TOP);
-                      } else {
-                        chattController.sendMsgMethod(
-                            int.parse(widget.customerId.toString()),
-                            int.parse(widget.agentId.toString()),
-                            chatController.text,
-                            int.parse(widget.conId.toString()));
-                        chattController
-                            .getChat(int.parse(widget.conId.toString()));
-                        chatController.clear();
-                      }
-                    },
-                    icon: const Icon(
-                      Icons.send,
-                      color: AppColors.appthem,
-                    ))
+                ////////////////
               ],
-            )
-          ],
-        ),
+            )),
+          ),
+          Row(
+            children: [
+              OutlinedButton(
+                  style: OutlinedButton.styleFrom(shape: const CircleBorder()),
+                  onPressed: () {
+                    showinventorybottomsheet(context);
+                  },
+                  child: const Icon(
+                    Icons.add,
+                    color: Color.fromARGB(255, 22, 82, 131),
+                  )),
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomTextField(
+                  editingController: chatController,
+                  hintText: "Message",
+                  onChanged: (val) {},
+                ),
+              )),
+              IconButton(
+                  onPressed: () {
+                    print(
+                        "message send........ data before send  chat Api Call in coId= + ${int.parse(widget.conId.toString())} + agent= ${int.parse(widget.agentId.toString())} + customer =${int.parse(widget.customerId.toString())}");
+                    if (chatController.text.isEmpty) {
+                      Fluttertoast.showToast(
+                          msg: 'Write message first',
+                          gravity: ToastGravity.TOP);
+                    } else {
+                      chattController.sendMsgMethod(
+                          int.parse(widget.customerId.toString()),
+                          int.parse(widget.agentId.toString()),
+                          chatController.text,
+                          int.parse(widget.conId.toString()));
+                      // chattController
+                      //     .getChat(int.parse(widget.conId.toString()));
+                      sendmessagescroll();
+                      chatController.clear();
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.send,
+                    color: AppColors.appthem,
+                  ))
+            ],
+          )
+        ],
       ),
     );
   }
@@ -541,11 +536,22 @@ class _ChatingState extends State<Chating> {
     });
   }
 
-  void chatscroll() async {
-    await Future.delayed(const Duration(milliseconds: 2000));
+  void sendmessagescroll() async {
+    await Future.delayed(const Duration(milliseconds: 6000));
+    print('**scroll call');
+
     chattController.scrollController.animateTo(
         chattController.scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.easeOut);
+  }
+
+  void chatscroll() async {
+    await Future.delayed(const Duration(milliseconds: 4000));
+
+    chattController.scrollController.animateTo(
+        chattController.scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 100),
         curve: Curves.easeOut);
   }
 }
