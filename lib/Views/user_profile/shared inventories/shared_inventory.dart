@@ -64,6 +64,7 @@ class sharedinventories extends StatelessWidget {
                                   '${AppUrls.baseUrl2}${sharedinventorycontroller.ShareInventoryData.data![index].images![0]}',
                                   // 'https://realestate.tecrux.solutions/storage/properties/broB1qXL__63f61d60725d5-150x150.jpeg',
                                   width: 30.w,
+                                  height: 100,
                                 ),
                                 SizedBox(
                                   width: 3.w,

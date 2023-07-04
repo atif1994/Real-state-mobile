@@ -16,7 +16,7 @@ emailvalidator(val) {
 }
 
 apptoastshow(msg) {
-  Fluttertoast.showToast(msg: msg);
+  Fluttertoast.showToast(msg: msg.toString());
 }
 
 showShimmer() {
@@ -29,6 +29,27 @@ showShimmer() {
         decoration: BoxDecoration(
             color: Colors.amber, borderRadius: BorderRadius.circular(8)),
       ));
+}
+
+showchipshimmer() {
+  return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: 6,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          child: Shimmer.fromColors(
+              baseColor: Colors.grey.shade300,
+              highlightColor: Colors.grey.shade100,
+              child: Container(
+                width: 25.w,
+                // height: 10,
+                decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(30)),
+              )),
+        );
+      });
 }
 
 RegExp uppercase = RegExp("(?=.*?[A-Z])");

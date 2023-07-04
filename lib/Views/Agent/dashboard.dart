@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:prologic_29/custom_widgets/drawer_widget.dart';
+import 'package:prologic_29/data/Services/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../../My Widgets/tag_widget.dart';
@@ -145,476 +146,495 @@ class _AgentDashboardState extends State<AgentDashboard> {
                             ),
                           ),
                         )
-                      : GetBuilder<NewsFeedController>(
-                          init: NewsFeedController(),
-                          initState: (_) {},
-                          builder: (controller) {
-                            return ListView.builder(
-                              primary: false,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                String dateTimeString = propertypostController
-                                    .propertypostmodel
-                                    .data!
-                                    .data![index]
-                                    .createdAt
-                                    .toString();
-                                DateTime dateTime =
-                                    DateTime.parse(dateTimeString);
-                                String formattedDate =
-                                    DateFormat('dd-MM-yyyy').format(dateTime);
-                                List<String> tags = propertypostController
-                                    .propertypostmodel.data!.data![index].tags
-                                    .toString()
-                                    .split(',')
-                                    .map((tag) => tag.trim())
-                                    .toList();
+                      : propertypostController
+                              .propertypostmodel.data!.data!.isEmpty
+                          ? nopostexist
+                          : GetBuilder<NewsFeedController>(
+                              init: NewsFeedController(),
+                              initState: (_) {},
+                              builder: (controller) {
+                                return ListView.builder(
+                                  primary: false,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    String dateTimeString =
+                                        propertypostController.propertypostmodel
+                                            .data!.data![index].createdAt
+                                            .toString();
+                                    DateTime dateTime =
+                                        DateTime.parse(dateTimeString);
+                                    String formattedDate =
+                                        DateFormat('dd-MM-yyyy')
+                                            .format(dateTime);
+                                    List<String> tags = propertypostController
+                                        .propertypostmodel
+                                        .data!
+                                        .data![index]
+                                        .tags
+                                        .toString()
+                                        .split(',')
+                                        .map((tag) => tag.trim())
+                                        .toList();
 
-                                // List<String> tags = propertypostController
-                                //     .propertypostmodel.data![index].tags;
-                                _controllers.add(TextEditingController());
+                                    // List<String> tags = propertypostController
+                                    //     .propertypostmodel.data![index].tags;
+                                    _controllers.add(TextEditingController());
 
-                                return Column(
-                                  children: [
-                                    Container(
-                                        decoration: const BoxDecoration(
-                                            color: AppColors.colorWhite),
-                                        margin: EdgeInsets.only(
-                                            top: index == 0 ? 1.0.h : 2.0.h),
-                                        //  height: 45.0.h,
-                                        width: 100.0.w,
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              //--------Agent image and name, message button
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8, right: 8),
-                                                child: Row(
-                                                  children: [
-                                                    CircleAvatar(
-                                                      backgroundImage: NetworkImage(
-                                                          '${AppUrls.assetuserbaseUrl}${propertypostController.propertypostmodel.data!.data![index].user!.profileImage}'),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 6,
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                    return Column(
+                                      children: [
+                                        Container(
+                                            decoration: const BoxDecoration(
+                                                color: AppColors.colorWhite),
+                                            margin: EdgeInsets.only(
+                                                top:
+                                                    index == 0 ? 1.0.h : 2.0.h),
+                                            //  height: 45.0.h,
+                                            width: 100.0.w,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  //--------Agent image and name, message button
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 8, right: 8),
+                                                    child: Row(
                                                       children: [
+                                                        CircleAvatar(
+                                                          backgroundImage:
+                                                              NetworkImage(
+                                                                  '${AppUrls.assetuserbaseUrl}${propertypostController.propertypostmodel.data!.data![index].user!.profileImage}'),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 6,
+                                                        ),
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 50.w,
+                                                              child: Text(
+                                                                '${propertypostController.propertypostmodel.data!.data![index].user!.firstName} ${propertypostController.propertypostmodel.data!.data![index].user!.lastName}',
+                                                                maxLines: 2,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              formattedDate,
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          13),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        const Spacer(),
+                                                      ],
+                                                    ),
+                                                  ),
+
+                                                  //-------------------Title
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 9.0, top: 4),
+                                                    child: Text(
+                                                      '${propertypostController.propertypostmodel.data!.data![index].adTitle}',
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 2,
+                                                      style: const TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                  ),
+                                                  //--------------------Tags
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Wrap(
+                                                      spacing: 5,
+                                                      runSpacing: 2,
+                                                      children: tags
+                                                          .map((tag) =>
+                                                              Tag(label: tag))
+                                                          .toList(),
+                                                    ),
+                                                  ),
+                                                  //---------------------Image
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                        color: const Color
+                                                                .fromARGB(
+                                                            255, 237, 237, 237),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                            color:
+                                                                Colors.black)),
+                                                    height: 32.h,
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            top: 9, bottom: 9),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              9),
+                                                      child: Center(
+                                                        child: Image.network(
+                                                          '${AppUrls.assetbaseUrl}${propertypostController.propertypostmodel.data!.data![index].imagePath}',
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  //----------------------Description
+
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 10),
+                                                    child: Text(
+                                                      '${propertypostController.propertypostmodel.data!.data![index].description}',
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 3,
+                                                      style: const TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                  //---------------------Location
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Row(
+                                                      children: [
+                                                        const Icon(
+                                                          Icons.location_on,
+                                                          size: 22,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 6,
+                                                        ),
                                                         SizedBox(
-                                                          width: 50.w,
+                                                          width: 84.w,
                                                           child: Text(
-                                                            '${propertypostController.propertypostmodel.data!.data![index].user!.firstName} ${propertypostController.propertypostmodel.data!.data![index].user!.lastName}',
+                                                            '${propertypostController.propertypostmodel.data!.data![index].location} ',
                                                             maxLines: 2,
                                                             overflow:
                                                                 TextOverflow
                                                                     .ellipsis,
                                                             style: const TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                                fontFamily:
+                                                                    AppFonts
+                                                                        .nexaBold),
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          formattedDate,
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 13),
                                                         )
                                                       ],
                                                     ),
-                                                    const Spacer(),
-                                                  ],
-                                                ),
-                                              ),
-
-                                              //-------------------Title
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 9.0, top: 4),
-                                                child: Text(
-                                                  '${propertypostController.propertypostmodel.data!.data![index].adTitle}',
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 2,
-                                                  style: const TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
-                                              ),
-                                              //--------------------Tags
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Wrap(
-                                                  spacing: 5,
-                                                  runSpacing: 2,
-                                                  children: tags
-                                                      .map((tag) =>
-                                                          Tag(label: tag))
-                                                      .toList(),
-                                                ),
-                                              ),
-                                              //---------------------Image
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    color: const Color.fromARGB(
-                                                        255, 237, 237, 237),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    border: Border.all(
-                                                        color: Colors.black)),
-                                                height: 32.h,
-                                                margin: const EdgeInsets.only(
-                                                    top: 9, bottom: 9),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(9),
-                                                  child: Center(
-                                                    child: Image.network(
-                                                      '${AppUrls.assetbaseUrl}${propertypostController.propertypostmodel.data!.data![index].imagePath}',
-                                                      fit: BoxFit.cover,
-                                                    ),
                                                   ),
-                                                ),
+                                                  //  Padding(
+                                                  //         padding: EdgeInsets.only(
+                                                  //             left: 15.sp),
+                                                  //         child: const Text('234'),
+                                                  //       ),
+                                                  //--------------------- Like,Comment,Share
+                                                  // Padding(
+                                                  //   padding: EdgeInsets.symmetric(
+                                                  //       horizontal: 15.sp),
+                                                  //   child: const Divider(
+                                                  //     thickness: 0.5,
+                                                  //     color: Colors.black,
+                                                  //   ),
+                                                  // ),
+                                                  // Padding(
+                                                  //   padding: const EdgeInsets.only(
+                                                  //       bottom: 8),
+                                                  //   child: Row(
+                                                  //       mainAxisAlignment:
+                                                  //           MainAxisAlignment
+                                                  //               .spaceEvenly,
+                                                  //       children: [
+                                                  //         Obx(
+                                                  //           () => likeController
+                                                  //                   .likeIdsList2
+                                                  //                   .contains(propertypostController
+                                                  //                       .propertypostmodel
+                                                  //                       .data!
+                                                  //                       .data![
+                                                  //                           index]
+                                                  //                       .id)
+                                                  //               ? GestureDetector(
+                                                  //                   child: Row(
+                                                  //                     children: [
+                                                  //                       Container(
+                                                  //                         decoration:
+                                                  //                             BoxDecoration(
+                                                  //                                 borderRadius: BorderRadius.circular(6)),
+                                                  //                         child:
+                                                  //                             const Padding(
+                                                  //                           padding:
+                                                  //                               EdgeInsets.all(0.0),
+                                                  //                           child:
+                                                  //                               Icon(
+                                                  //                             Icons
+                                                  //                                 .thumb_up,
+                                                  //                             color:
+                                                  //                                 Colors.blue,
+                                                  //                           ),
+                                                  //                         ),
+                                                  //                       ),
+                                                  //                       SizedBox(
+                                                  //                         width:
+                                                  //                             1.w,
+                                                  //                       ),
+                                                  //                       Text(
+                                                  //                         "Like",
+                                                  //                         style: AppTextStyles.labelSmall.copyWith(
+                                                  //                             fontSize: 13
+                                                  //                                 .sp,
+                                                  //                             color: Colors
+                                                  //                                 .blue,
+                                                  //                             fontWeight:
+                                                  //                                 FontWeight.w400),
+                                                  //                       ),
+                                                  //                     ],
+                                                  //                   ),
+                                                  //                   onTap:
+                                                  //                       () async {
+                                                  //                     likeController.getPostLike(
+                                                  //                         propertypostController
+                                                  //                             .propertypostmodel
+                                                  //                             .data!
+                                                  //                             .data![
+                                                  //                                 index]
+                                                  //                             .id
+                                                  //                             .toString(),
+                                                  //                         uid!);
+                                                  //                     print(propertypostController
+                                                  //                         .propertypostmodel
+                                                  //                         .data!
+                                                  //                         .data![
+                                                  //                             index]
+                                                  //                         .id
+                                                  //                         .toString());
+                                                  //                     print(
+                                                  //                         "Gesture lIKE++++${likeController.likeIdsList2}");
+                                                  //                     setState(
+                                                  //                         () {});
+                                                  //                   },
+                                                  //                 )
+                                                  //               : GestureDetector(
+                                                  //                   child:
+                                                  //                       Container(
+                                                  //                     decoration: BoxDecoration(
+                                                  //                         borderRadius:
+                                                  //                             BorderRadius.circular(
+                                                  //                                 6)),
+                                                  //                     child:
+                                                  //                         Padding(
+                                                  //                       padding:
+                                                  //                           const EdgeInsets.all(
+                                                  //                               0.0),
+                                                  //                       child: Row(
+                                                  //                         children: [
+                                                  //                           const Icon(
+                                                  //                             Icons
+                                                  //                                 .thumb_up_outlined,
+                                                  //                             color:
+                                                  //                                 Colors.black,
+                                                  //                           ),
+                                                  //                           SizedBox(
+                                                  //                             width:
+                                                  //                                 1.w,
+                                                  //                           ),
+                                                  //                           Text(
+                                                  //                             "Like",
+                                                  //                             style: AppTextStyles
+                                                  //                                 .labelSmall
+                                                  //                                 .copyWith(
+                                                  //                               fontSize:
+                                                  //                                   13.sp,
+                                                  //                             ),
+                                                  //                           ),
+                                                  //                         ],
+                                                  //                       ),
+                                                  //                     ),
+                                                  //                   ),
+                                                  //                   onTap:
+                                                  //                       () async {
+                                                  //                     likeController.getPostLike(
+                                                  //                         propertypostController
+                                                  //                             .propertypostmodel
+                                                  //                             .data!
+                                                  //                             .data![
+                                                  //                                 index]
+                                                  //                             .id
+                                                  //                             .toString(),
+                                                  //                         uid!);
+                                                  //                     print(
+                                                  //                         "Gesture UnlIKE++++${likeController.likeIdsList2}");
+
+                                                  //                     setState(
+                                                  //                         () {});
+                                                  //                   },
+                                                  //                 ),
+                                                  //         ),
+                                                  //         InkWell(
+                                                  //           onTap: () async {
+                                                  //             getLatestCommentsController
+                                                  //                 .getLatestCommnets(
+                                                  //                     propertypostController
+                                                  //                         .propertypostmodel
+                                                  //                         .data!
+                                                  //                         .data![
+                                                  //                             index]
+                                                  //                         .id!);
+
+                                                  //             await Future.delayed(
+                                                  //                 const Duration(
+                                                  //                     milliseconds:
+                                                  //                         400));
+                                                  //             _showModelSheet(
+                                                  //                 context,
+                                                  //                 propertypostController
+                                                  //                     .propertypostmodel
+                                                  //                     .data!
+                                                  //                     .data![index]
+                                                  //                     .id!);
+                                                  //           },
+                                                  //           child: Row(
+                                                  //             children: [
+                                                  //               const Icon(Icons
+                                                  //                   .chat_bubble_outline),
+                                                  //               SizedBox(
+                                                  //                 width: 6.sp,
+                                                  //               ),
+                                                  //               Text(
+                                                  //                 "Comment",
+                                                  //                 style: AppTextStyles
+                                                  //                     .labelSmall,
+                                                  //               )
+                                                  //             ],
+                                                  //           ),
+                                                  //         ),
+                                                  //         GestureDetector(
+                                                  //             onTap: () {
+                                                  //               Share.share(
+                                                  //                   'sohaib id'
+                                                  //                   // propertypostController.propertypostmodel
+                                                  //                   //     .data![index]
+                                                  //                   //     .slugable!
+                                                  //                   //     .key!
+                                                  //                   );
+                                                  //             },
+                                                  //             child: Container(
+                                                  //                 child: Row(
+                                                  //                     children: [
+                                                  //                   const Icon(Icons
+                                                  //                       .share),
+                                                  //                   SizedBox(
+                                                  //                     width: 6.sp,
+                                                  //                   ),
+                                                  //                   Text(
+                                                  //                     "Share",
+                                                  //                     style: AppTextStyles
+                                                  //                         .labelSmall,
+                                                  //                   ),
+                                                  //                 ])))
+                                                  //       ]),
+                                                  // )
+                                                ],
                                               ),
-                                              //----------------------Description
+                                            )),
+                                        // Padding(
+                                        //   padding: EdgeInsets.only(
+                                        //       right: 4.0.w,
+                                        //       left: 4.0.w,
+                                        //       top: 2.0.h),
+                                        //   child: Row(
+                                        //     mainAxisAlignment:
+                                        //         MainAxisAlignment.spaceAround,
+                                        //     children: [
+                                        //       Expanded(
+                                        //         child: Container(
+                                        //           decoration: BoxDecoration(
+                                        //               color: const Color.fromARGB(
+                                        //                   255, 222, 222, 222),
+                                        //               borderRadius:
+                                        //                   BorderRadius.circular(8)),
+                                        //           child: CustomTextField(
+                                        //             editingController:
+                                        //                 _controllers[index],
+                                        //             hintText: 'Write Comment....',
+                                        //           ),
+                                        //         ),
+                                        //       ),
+                                        //       SizedBox(
+                                        //         width: 3.0.w,
+                                        //       ),
+                                        //       Container(
+                                        //         height: 12.0.w,
+                                        //         width: 12.0.w,
+                                        //         decoration: BoxDecoration(
+                                        //             color: AppColors.appthem,
+                                        //             borderRadius:
+                                        //                 BorderRadius.circular(300)),
+                                        //         child: Center(
+                                        //           child: IconButton(
+                                        //               color: AppColors.colorWhite,
+                                        //               onPressed: () {
+                                        //                 postCommentsController
+                                        //                     .postComments(
+                                        //                         index,
+                                        //                         propertypostController
+                                        //                             .propertypostmodel
+                                        //                             .data!
+                                        //                             .data![index]
+                                        //                             .id,
+                                        //                         uid,
+                                        //                         _controllers[index]
+                                        //                             .text);
 
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 10),
-                                                child: Text(
-                                                  '${propertypostController.propertypostmodel.data!.data![index].description}',
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 3,
-                                                  style: const TextStyle(
-                                                    fontSize: 15,
-                                                  ),
-                                                ),
-                                              ),
-
-                                              //---------------------Location
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.location_on,
-                                                      size: 22,
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 6,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 84.w,
-                                                      child: Text(
-                                                        '${propertypostController.propertypostmodel.data!.data![index].location} ',
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: const TextStyle(
-                                                            fontFamily: AppFonts
-                                                                .nexaBold),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              //  Padding(
-                                              //         padding: EdgeInsets.only(
-                                              //             left: 15.sp),
-                                              //         child: const Text('234'),
-                                              //       ),
-                                              //--------------------- Like,Comment,Share
-                                              // Padding(
-                                              //   padding: EdgeInsets.symmetric(
-                                              //       horizontal: 15.sp),
-                                              //   child: const Divider(
-                                              //     thickness: 0.5,
-                                              //     color: Colors.black,
-                                              //   ),
-                                              // ),
-                                              // Padding(
-                                              //   padding: const EdgeInsets.only(
-                                              //       bottom: 8),
-                                              //   child: Row(
-                                              //       mainAxisAlignment:
-                                              //           MainAxisAlignment
-                                              //               .spaceEvenly,
-                                              //       children: [
-                                              //         Obx(
-                                              //           () => likeController
-                                              //                   .likeIdsList2
-                                              //                   .contains(propertypostController
-                                              //                       .propertypostmodel
-                                              //                       .data!
-                                              //                       .data![
-                                              //                           index]
-                                              //                       .id)
-                                              //               ? GestureDetector(
-                                              //                   child: Row(
-                                              //                     children: [
-                                              //                       Container(
-                                              //                         decoration:
-                                              //                             BoxDecoration(
-                                              //                                 borderRadius: BorderRadius.circular(6)),
-                                              //                         child:
-                                              //                             const Padding(
-                                              //                           padding:
-                                              //                               EdgeInsets.all(0.0),
-                                              //                           child:
-                                              //                               Icon(
-                                              //                             Icons
-                                              //                                 .thumb_up,
-                                              //                             color:
-                                              //                                 Colors.blue,
-                                              //                           ),
-                                              //                         ),
-                                              //                       ),
-                                              //                       SizedBox(
-                                              //                         width:
-                                              //                             1.w,
-                                              //                       ),
-                                              //                       Text(
-                                              //                         "Like",
-                                              //                         style: AppTextStyles.labelSmall.copyWith(
-                                              //                             fontSize: 13
-                                              //                                 .sp,
-                                              //                             color: Colors
-                                              //                                 .blue,
-                                              //                             fontWeight:
-                                              //                                 FontWeight.w400),
-                                              //                       ),
-                                              //                     ],
-                                              //                   ),
-                                              //                   onTap:
-                                              //                       () async {
-                                              //                     likeController.getPostLike(
-                                              //                         propertypostController
-                                              //                             .propertypostmodel
-                                              //                             .data!
-                                              //                             .data![
-                                              //                                 index]
-                                              //                             .id
-                                              //                             .toString(),
-                                              //                         uid!);
-                                              //                     print(propertypostController
-                                              //                         .propertypostmodel
-                                              //                         .data!
-                                              //                         .data![
-                                              //                             index]
-                                              //                         .id
-                                              //                         .toString());
-                                              //                     print(
-                                              //                         "Gesture lIKE++++${likeController.likeIdsList2}");
-                                              //                     setState(
-                                              //                         () {});
-                                              //                   },
-                                              //                 )
-                                              //               : GestureDetector(
-                                              //                   child:
-                                              //                       Container(
-                                              //                     decoration: BoxDecoration(
-                                              //                         borderRadius:
-                                              //                             BorderRadius.circular(
-                                              //                                 6)),
-                                              //                     child:
-                                              //                         Padding(
-                                              //                       padding:
-                                              //                           const EdgeInsets.all(
-                                              //                               0.0),
-                                              //                       child: Row(
-                                              //                         children: [
-                                              //                           const Icon(
-                                              //                             Icons
-                                              //                                 .thumb_up_outlined,
-                                              //                             color:
-                                              //                                 Colors.black,
-                                              //                           ),
-                                              //                           SizedBox(
-                                              //                             width:
-                                              //                                 1.w,
-                                              //                           ),
-                                              //                           Text(
-                                              //                             "Like",
-                                              //                             style: AppTextStyles
-                                              //                                 .labelSmall
-                                              //                                 .copyWith(
-                                              //                               fontSize:
-                                              //                                   13.sp,
-                                              //                             ),
-                                              //                           ),
-                                              //                         ],
-                                              //                       ),
-                                              //                     ),
-                                              //                   ),
-                                              //                   onTap:
-                                              //                       () async {
-                                              //                     likeController.getPostLike(
-                                              //                         propertypostController
-                                              //                             .propertypostmodel
-                                              //                             .data!
-                                              //                             .data![
-                                              //                                 index]
-                                              //                             .id
-                                              //                             .toString(),
-                                              //                         uid!);
-                                              //                     print(
-                                              //                         "Gesture UnlIKE++++${likeController.likeIdsList2}");
-
-                                              //                     setState(
-                                              //                         () {});
-                                              //                   },
-                                              //                 ),
-                                              //         ),
-                                              //         InkWell(
-                                              //           onTap: () async {
-                                              //             getLatestCommentsController
-                                              //                 .getLatestCommnets(
-                                              //                     propertypostController
-                                              //                         .propertypostmodel
-                                              //                         .data!
-                                              //                         .data![
-                                              //                             index]
-                                              //                         .id!);
-
-                                              //             await Future.delayed(
-                                              //                 const Duration(
-                                              //                     milliseconds:
-                                              //                         400));
-                                              //             _showModelSheet(
-                                              //                 context,
-                                              //                 propertypostController
-                                              //                     .propertypostmodel
-                                              //                     .data!
-                                              //                     .data![index]
-                                              //                     .id!);
-                                              //           },
-                                              //           child: Row(
-                                              //             children: [
-                                              //               const Icon(Icons
-                                              //                   .chat_bubble_outline),
-                                              //               SizedBox(
-                                              //                 width: 6.sp,
-                                              //               ),
-                                              //               Text(
-                                              //                 "Comment",
-                                              //                 style: AppTextStyles
-                                              //                     .labelSmall,
-                                              //               )
-                                              //             ],
-                                              //           ),
-                                              //         ),
-                                              //         GestureDetector(
-                                              //             onTap: () {
-                                              //               Share.share(
-                                              //                   'sohaib id'
-                                              //                   // propertypostController.propertypostmodel
-                                              //                   //     .data![index]
-                                              //                   //     .slugable!
-                                              //                   //     .key!
-                                              //                   );
-                                              //             },
-                                              //             child: Container(
-                                              //                 child: Row(
-                                              //                     children: [
-                                              //                   const Icon(Icons
-                                              //                       .share),
-                                              //                   SizedBox(
-                                              //                     width: 6.sp,
-                                              //                   ),
-                                              //                   Text(
-                                              //                     "Share",
-                                              //                     style: AppTextStyles
-                                              //                         .labelSmall,
-                                              //                   ),
-                                              //                 ])))
-                                              //       ]),
-                                              // )
-                                            ],
-                                          ),
-                                        )),
-                                    // Padding(
-                                    //   padding: EdgeInsets.only(
-                                    //       right: 4.0.w,
-                                    //       left: 4.0.w,
-                                    //       top: 2.0.h),
-                                    //   child: Row(
-                                    //     mainAxisAlignment:
-                                    //         MainAxisAlignment.spaceAround,
-                                    //     children: [
-                                    //       Expanded(
-                                    //         child: Container(
-                                    //           decoration: BoxDecoration(
-                                    //               color: const Color.fromARGB(
-                                    //                   255, 222, 222, 222),
-                                    //               borderRadius:
-                                    //                   BorderRadius.circular(8)),
-                                    //           child: CustomTextField(
-                                    //             editingController:
-                                    //                 _controllers[index],
-                                    //             hintText: 'Write Comment....',
-                                    //           ),
-                                    //         ),
-                                    //       ),
-                                    //       SizedBox(
-                                    //         width: 3.0.w,
-                                    //       ),
-                                    //       Container(
-                                    //         height: 12.0.w,
-                                    //         width: 12.0.w,
-                                    //         decoration: BoxDecoration(
-                                    //             color: AppColors.appthem,
-                                    //             borderRadius:
-                                    //                 BorderRadius.circular(300)),
-                                    //         child: Center(
-                                    //           child: IconButton(
-                                    //               color: AppColors.colorWhite,
-                                    //               onPressed: () {
-                                    //                 postCommentsController
-                                    //                     .postComments(
-                                    //                         index,
-                                    //                         propertypostController
-                                    //                             .propertypostmodel
-                                    //                             .data!
-                                    //                             .data![index]
-                                    //                             .id,
-                                    //                         uid,
-                                    //                         _controllers[index]
-                                    //                             .text);
-
-                                    //                 _controllers[index].clear();
-                                    //               },
-                                    //               icon: const Icon(
-                                    //                 Icons.send,
-                                    //                 size: 20,
-                                    //               )),
-                                    //         ),
-                                    //       )
-                                    //     ],
-                                    //   ),
-                                    // ),
-                                  ],
+                                        //                 _controllers[index].clear();
+                                        //               },
+                                        //               icon: const Icon(
+                                        //                 Icons.send,
+                                        //                 size: 20,
+                                        //               )),
+                                        //         ),
+                                        //       )
+                                        //     ],
+                                        //   ),
+                                        // ),
+                                      ],
+                                    );
+                                  },
+                                  padding: const EdgeInsets.only(bottom: 15),
+                                  itemCount: propertypostController
+                                      .propertypostmodel.data!.data!.length,
                                 );
-                              },
-                              padding: const EdgeInsets.only(bottom: 15),
-                              itemCount: propertypostController
-                                  .propertypostmodel.data!.data!.length,
-                            );
-                          }))
+                              }))
             ],
           )),
         ),

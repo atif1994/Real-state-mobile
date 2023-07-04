@@ -4,13 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/Views/Home/home.dart';
 import 'package:prologic_29/data/Services/signup_services/signup_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/get_all_citiese/get_all_citise_response.dart';
 import '../Models/signup_model/signup_model.dart';
+import '../Models/user_model.dart';
 import '../Services/get_all_citise_services/get_all_citise_service.dart';
+import '../Services/my_shared_preferences.dart';
 
 class SignUpController extends GetxController {
   @override
   void onInit() {
+    print('signupcontroller');
     // TODO: implement onInit
     super.onInit();
     allCitiseLoading.value = true;
@@ -75,16 +79,58 @@ class SignUpController extends GetxController {
     if (res is SignupModel) {
       isLoading(false);
       // Fluttertoast.showToast(msg: "");
-      Get.snackbar(
-        'Successfully Create Account',
-        "",
-      );
+      Get.snackbar(res.message.toString(), '',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blue,
+          colorText: Colors.white);
+
+      MySharedPreferences.storeUserData(
+          userModel: UserModel(
+        userId: res.data!.id!,
+        userName: res.data!.username!,
+        firstname: res.data!.firstName!,
+        lastname: res.data!.lastName!,
+        email: res.data!.email!,
+      ));
+      _saveCountryData(
+          1,
+          '',
+          // res.data!.city!.id!,
+          // res.data!.city!.name!,
+          res.data!.firstName!,
+          res.data!.lastName!,
+          res.data!.email!,
+          res.data!.phone ?? '098888',
+          ''
+          // res.data!.avatar!.url.toString()
+          );
+
       Get.to(() => const Home());
       return res;
     } else {
       isLoading(false);
-      errSignup.value = res;
+      // errSignup.value = res;
+      Get.snackbar('Server Error',
+          'We apologise and are fixing the problem, Please try again later.',
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          backgroundColor: Colors.blue);
       return res;
     }
+  }
+
+  _saveCountryData(int cID, String cName, String fname, String lname,
+      String email, String phone, String imgurl) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    pref.setInt("cityId", cID);
+    pref.setString("cityName", cName);
+    pref.setString("fname", fname);
+    pref.setString("lname", lname);
+    pref.setString("email", email);
+    pref.setString("phone", phone);
+    pref.setString("imgurl", imgurl);
+
+    print("image store in shared pref. from login==========$imgurl");
   }
 }

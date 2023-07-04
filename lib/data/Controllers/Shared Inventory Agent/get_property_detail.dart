@@ -60,8 +60,6 @@ class PropertyDetailController extends GetxController {
       networkimglst = res.data!.images!;
       selectedValueCityId.value = int.parse(res.data!.cityId!);
       if (res.data!.facilities!.isNotEmpty) {
-        loadingPropertyByID.value = false;
-
         for (var e in res.data!.facilities!) {
           ListFacility facility =
               ListFacility(id: e.id, distance: e.pivot!.distance, name: e.name);
@@ -93,6 +91,7 @@ class PropertyDetailController extends GetxController {
       } else {
         selectedFloor = int.parse(res.data!.numberFloor.toString());
       }
+      loadingPropertyByID.value = false;
     } else {
       loadingPropertyByID.value = false;
       errorLoadingPropertyByID.value = res.toString();

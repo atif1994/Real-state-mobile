@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:prologic_29/Agent/data/controller/expired_property_controller.dart';
+import 'package:prologic_29/data/Services/constants.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:sizer/sizer.dart';
@@ -52,19 +53,7 @@ class Expiryppost extends StatelessWidget {
                   ),
                 )
               : expiredpostcontroller.expiredproperties.data!.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/noresultfound.png', scale: 1.9),
-                          Text(
-                            'No Result Found',
-                            style: AppTextStyles.heading1
-                                .copyWith(color: Colors.black, fontSize: 15),
-                          )
-                        ],
-                      ),
-                    )
+                  ? nopostexist
                   : ListView.builder(
                       padding: const EdgeInsets.only(bottom: 10),
                       itemCount:

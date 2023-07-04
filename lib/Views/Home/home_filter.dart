@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prologic_29/data/Controllers/homefilter_controller.dart';
+import 'package:prologic_29/data/Services/constants.dart';
 import 'package:sizer/sizer.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
@@ -52,20 +53,7 @@ class _FilterPropertyScreenState extends State<FilterPropertyScreen> {
                   ))
                 : filterpropertiesController
                         .propertypostmodel.data!.data!.isEmpty
-                    ? Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 30.h),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/noresultfound.png',
-                                scale: 3.4,
-                              ),
-                              const Text('No Result Found')
-                            ],
-                          ),
-                        ),
-                      )
+                    ? nopostexist
                     : GetBuilder<FilterPropertiesController>(
                         init: FilterPropertiesController(),
                         initState: (_) {},

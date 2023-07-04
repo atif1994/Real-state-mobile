@@ -10,17 +10,17 @@ LoginModel loginModelFromJson(String str) =>
 String loginModelToJson(LoginModel data) => json.encode(data.toJson());
 
 class LoginModel {
+  bool? success;
+  String? message;
+  String? role;
+  Data? data;
+
   LoginModel({
     this.success,
     this.message,
     this.role,
     this.data,
   });
-
-  bool? success;
-  String? message;
-  String? role;
-  Data? data;
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
         success: json["success"],
@@ -38,6 +38,33 @@ class LoginModel {
 }
 
 class Data {
+  int? id;
+  String? firstName;
+  String? lastName;
+  String? username;
+  dynamic description;
+  String? gender;
+  String? email;
+  String? avatarId;
+  DateTime? dob;
+  String? phone;
+  String? credits;
+  DateTime? confirmedAt;
+  dynamic emailVerifyToken;
+  String? isFeatured;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  dynamic profileImage;
+  String? addressId;
+  String? roleId;
+  dynamic deletedAt;
+  String? activeStatus;
+  String? isOnline;
+  String? mobileNo;
+  City? city;
+  Address? address;
+  Avatar? avatar;
+
   Data({
     this.id,
     this.firstName,
@@ -60,35 +87,12 @@ class Data {
     this.roleId,
     this.deletedAt,
     this.activeStatus,
+    this.isOnline,
+    this.mobileNo,
     this.city,
     this.address,
     this.avatar,
   });
-
-  int? id;
-  String? firstName;
-  String? lastName;
-  String? username;
-  dynamic description;
-  dynamic gender;
-  String? email;
-  dynamic avatarId;
-  dynamic dob;
-  String? phone;
-  String? credits;
-  dynamic confirmedAt;
-  String? emailVerifyToken;
-  String? isFeatured;
-  String? createdAt;
-  String? updatedAt;
-  dynamic profileImage;
-  String? addressId;
-  dynamic roleId;
-  dynamic deletedAt;
-  String? activeStatus;
-  City? city;
-  Address? address;
-  Avatar? avatar;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -99,19 +103,27 @@ class Data {
         gender: json["gender"],
         email: json["email"],
         avatarId: json["avatar_id"],
-        dob: json["dob"],
+        dob: json["dob"] == null ? null : DateTime.parse(json["dob"]),
         phone: json["phone"],
-        // credits: json["credits"],
-        confirmedAt: json["confirmed_at"],
+        credits: json["credits"],
+        confirmedAt: json["confirmed_at"] == null
+            ? null
+            : DateTime.parse(json["confirmed_at"]),
         emailVerifyToken: json["email_verify_token"],
         isFeatured: json["is_featured"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
         profileImage: json["profile_image"],
         addressId: json["address_id"],
         roleId: json["role_id"],
         deletedAt: json["deleted_at"],
         activeStatus: json["active_status"],
+        isOnline: json["is_online"],
+        mobileNo: json["mobile_no"],
         city: json["city"] == null ? null : City.fromJson(json["city"]),
         address:
             json["address"] == null ? null : Address.fromJson(json["address"]),
@@ -127,19 +139,21 @@ class Data {
         "gender": gender,
         "email": email,
         "avatar_id": avatarId,
-        "dob": dob,
+        "dob": dob?.toIso8601String(),
         "phone": phone,
         "credits": credits,
-        "confirmed_at": confirmedAt,
+        "confirmed_at": confirmedAt?.toIso8601String(),
         "email_verify_token": emailVerifyToken,
         "is_featured": isFeatured,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
         "profile_image": profileImage,
         "address_id": addressId,
         "role_id": roleId,
         "deleted_at": deletedAt,
         "active_status": activeStatus,
+        "is_online": isOnline,
+        "mobile_no": mobileNo,
         "city": city?.toJson(),
         "address": address?.toJson(),
         "avatar": avatar?.toJson(),
@@ -147,6 +161,16 @@ class Data {
 }
 
 class Address {
+  int? id;
+  dynamic userId;
+  String? city;
+  String? state;
+  String? province;
+  String? country;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? accountId;
+
   Address({
     this.id,
     this.userId,
@@ -159,16 +183,6 @@ class Address {
     this.accountId,
   });
 
-  int? id;
-  dynamic userId;
-  String? city;
-  String? state;
-  String? province;
-  String? country;
-  String? createdAt;
-  String? updatedAt;
-  String? accountId;
-
   factory Address.fromJson(Map<String, dynamic> json) => Address(
         id: json["id"],
         userId: json["user_id"],
@@ -176,8 +190,12 @@ class Address {
         state: json["state"],
         province: json["province"],
         country: json["country"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
         accountId: json["account_id"],
       );
 
@@ -188,29 +206,88 @@ class Address {
         "state": state,
         "province": province,
         "country": country,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
         "account_id": accountId,
       };
 }
 
 class Avatar {
+  int? id;
+  String? userId;
+  String? name;
+  String? folderId;
+  String? mimeType;
+  String? size;
+  String? url;
+  List<dynamic>? options;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  dynamic deletedAt;
+
   Avatar({
+    this.id,
+    this.userId,
+    this.name,
+    this.folderId,
+    this.mimeType,
+    this.size,
     this.url,
+    this.options,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
   });
 
-  String? url;
-
   factory Avatar.fromJson(Map<String, dynamic> json) => Avatar(
+        id: json["id"],
+        userId: json["user_id"],
+        name: json["name"],
+        folderId: json["folder_id"],
+        mimeType: json["mime_type"],
+        size: json["size"],
         url: json["url"],
+        options: json["options"] == null
+            ? []
+            : List<dynamic>.from(json["options"]!.map((x) => x)),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        deletedAt: json["deleted_at"],
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
+        "user_id": userId,
+        "name": name,
+        "folder_id": folderId,
+        "mime_type": mimeType,
+        "size": size,
         "url": url,
+        "options":
+            options == null ? [] : List<dynamic>.from(options!.map((x) => x)),
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "deleted_at": deletedAt,
       };
 }
 
 class City {
+  int? id;
+  String? name;
+  String? stateId;
+  String? countryId;
+  dynamic recordId;
+  String? order;
+  String? isFeatured;
+  String? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? slug;
+
   City({
     this.id,
     this.name,
@@ -225,18 +302,6 @@ class City {
     this.slug,
   });
 
-  int? id;
-  String? name;
-  String? stateId;
-  String? countryId;
-  dynamic recordId;
-  String? order;
-  String? isFeatured;
-  String? status;
-  String? createdAt;
-  String? updatedAt;
-  String? slug;
-
   factory City.fromJson(Map<String, dynamic> json) => City(
         id: json["id"],
         name: json["name"],
@@ -246,8 +311,12 @@ class City {
         order: json["order"],
         isFeatured: json["is_featured"],
         status: json["status"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
         slug: json["slug"],
       );
 
@@ -260,8 +329,8 @@ class City {
         "order": order,
         "is_featured": isFeatured,
         "status": status,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
         "slug": slug,
       };
 }

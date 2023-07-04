@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:prologic_29/data/Services/constants.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
@@ -138,20 +139,7 @@ class GetReferral extends StatelessWidget {
                           ),
                         )
                       : getreferral.referral.data!.isEmpty
-                          ? Center(
-                              child: Padding(
-                                padding: EdgeInsets.only(top: 10.h),
-                                child: Column(
-                                  children: [
-                                    Image.asset(
-                                      'assets/noresultfound.png',
-                                      scale: 3.4,
-                                    ),
-                                    const Text('No Result Found')
-                                  ],
-                                ),
-                              ),
-                            )
+                          ? nopostexist
                           : ListView.builder(
                               itemCount: getreferral.referral.data!.length,
                               itemBuilder: (context, index) {

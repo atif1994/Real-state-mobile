@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:prologic_29/data/Services/constants.dart';
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -66,20 +67,7 @@ class _DealerPageUIState extends State<DealerPageUI> {
                       ),
                     )
                   : dealerpostController.dealerPageModel.data!.isEmpty
-                      ? Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 30.h),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/noresultfound.png',
-                                  scale: 3.4,
-                                ),
-                                const Text('No Result Found')
-                              ],
-                            ),
-                          ),
-                        )
+                      ? nopostexist
                       : ListView.builder(
                           primary: false,
                           shrinkWrap: true,

@@ -75,6 +75,11 @@ class SignInController extends GetxController {
 
     http.StreamedResponse response = await request.send();
     var res = await response.stream.bytesToString();
+    Get.snackbar(loginModelFromJson(res).message.toString(), '',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.blue,
+        colorText: Colors.white);
+    print(loginModelFromJson(res).message);
     if (response.statusCode < 201) {
       isLoading.value = false;
       // AppEasyloading.appsuccessmsg('Successfully Login');
@@ -126,7 +131,7 @@ class SignInController extends GetxController {
               : Get.snackbar("Alert", "Invalid Role Selected");
     } else {
       isLoading.value = false;
-      print(response.reasonPhrase);
+
       // AppEasyloading.apperrormsg('Unauthorised');
       // Fluttertoast.showToast(msg: 'Unauthorised');
     }

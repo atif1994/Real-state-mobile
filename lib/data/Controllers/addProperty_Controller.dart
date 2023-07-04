@@ -156,6 +156,7 @@ class AddProperrtyController extends GetxController {
   RxBool loadingPropertyCategory = false.obs;
   var propertycategoriesModel = CategoryResponse();
   RxString errorLoadingPropertyCategory = ''.obs;
+  RxInt selectedPropertyCategory = 0.obs;
 
   void propertycategories() async {
     errorLoadingPropertyCategory.value = "";
@@ -164,11 +165,63 @@ class AddProperrtyController extends GetxController {
     var res = await AddPropertyServices.propertycategories();
     if (res is CategoryResponse) {
       propertycategoriesModel = res;
+      selectedPropertyCategory.value = res.data![0].id!;
+      homedata(res);
+      plotdata(res);
+      commercialdata(res);
       loadingPropertyCategory.value = false;
     } else {
       loadingPropertyCategory.value = false;
       errorLoadingPropertyCategory.value = res.toString();
     }
   }
+
+  List<Home> homelist = [];
+  homedata(res) {
+    for (var cat in res.data!) {
+      if (cat.parentclass == "0") {
+        Home home = Home(id: cat.id, name: cat.name);
+        homelist.add(home);
+      }
+    }
+  }
+
+  List<Plot> plotlist = [];
+  plotdata(res) {
+    for (var cat in res.data!) {
+      if (cat.parentclass == "1") {
+        Plot plot = Plot(id: cat.id, name: cat.name);
+        plotlist.add(plot);
+      }
+    }
+  }
+
+  List<Commercial> commerciallist = [];
+  commercialdata(res) {
+    for (var cat in res.data!) {
+      if (cat.parentclass == "2") {
+        Commercial commercial = Commercial(id: cat.id, name: cat.name);
+        commerciallist.add(commercial);
+      }
+    }
+  }
   //city List
+}
+
+class Home {
+  int? id;
+  String? name;
+  Home({this.id, this.name});
+}
+
+class Plot {
+  int? id;
+  String? name;
+  Plot({this.id, this.name});
+}
+
+class Commercial {
+  int? id;
+  String? name;
+  Commercial({this.id, this.name});
 }
