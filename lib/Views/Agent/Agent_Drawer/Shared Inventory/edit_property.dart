@@ -12,6 +12,7 @@ import 'package:prologic_29/data/Controllers/property_controllers/featured_prope
 import 'package:prologic_29/data/Models/addproperty_model/postDataProperty_model.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../Services/constants.dart';
 import '../../../../data/Controllers/Shared Inventory Agent/edit_property_controller.dart';
 import '../../../../data/Controllers/Shared Inventory Agent/get_property_detail.dart';
 import '../../../../data/Services/constants.dart';
@@ -76,7 +77,7 @@ class _EditPropertyState extends State<EditProperty>
     'Other'
   ];
 
-  int selectedPropertyCategory = 0;
+  // int selectedPropertyCategory = 0;
   int selectedCategory = 0;
 
   double minPriceRange = 0.0;
@@ -444,149 +445,154 @@ class _EditPropertyState extends State<EditProperty>
                                     child: TabBarView(
                                         controller: tabController,
                                         children: [
-                                          Obx(() => addPropertyController
-                                                  .loadingPropertyCategory.value
-                                              ? loader
-                                              : ListView.builder(
-                                                  primary: true,
-                                                  shrinkWrap: false,
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  itemCount: addpropertycontroller
-                                                      .propertycategoriesModel
-                                                      .data!
-                                                      .length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 5),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            selectedPropertyCategory =
-                                                                index;
-                                                          });
-                                                        },
-                                                        child: Chip(
-                                                          backgroundColor:
-                                                              selectedPropertyCategory ==
-                                                                      index
-                                                                  ? primaryColor
-                                                                  : Colors.grey[
-                                                                      200],
-                                                          label: Padding(
-                                                              padding: const EdgeInsets
+                                          Obx(() =>
+                                              addPropertyController
+                                                      .loadingPropertyCategory
+                                                      .value
+                                                  ? showchipshimmer()
+                                                  : ListView.builder(
+                                                      primary: true,
+                                                      shrinkWrap: false,
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      itemCount:
+                                                          addPropertyController
+                                                              .homelist.length,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsets
                                                                       .symmetric(
                                                                   horizontal:
                                                                       5),
-                                                              child: Text(
-                                                                  addpropertycontroller
-                                                                      .propertycategoriesModel
-                                                                      .data![
-                                                                          index]
-                                                                      .name
-                                                                      .toString(),
-                                                                  style: TextStyle(
-                                                                      color: selectedPropertyCategory ==
-                                                                              index
-                                                                          ? Colors
-                                                                              .white
-                                                                          : Colors
-                                                                              .black))),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                )),
-                                          ListView.builder(
-                                            primary: true,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount:
-                                                plotPropertyTypeList.length,
-                                            itemBuilder: (context, index) {
-                                              return Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5),
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      selectedPropertyCategory =
-                                                          index;
-                                                    });
-                                                  },
-                                                  child: Chip(
-                                                    backgroundColor:
-                                                        selectedPropertyCategory ==
-                                                                index
-                                                            ? primaryColor
-                                                            : Colors.grey[200],
-                                                    label: Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 5),
-                                                      child: Text(
-                                                          plotPropertyTypeList[
-                                                              index],
-                                                          style: TextStyle(
-                                                              color: selectedPropertyCategory ==
-                                                                      index
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black)),
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                          ListView.builder(
-                                            primary: true,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount:
-                                                commercialPropertyTypeList
-                                                    .length,
-                                            itemBuilder: (context, index) {
-                                              return Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5),
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      selectedPropertyCategory =
-                                                          index;
-                                                    });
-                                                  },
-                                                  child: Chip(
-                                                    backgroundColor:
-                                                        selectedPropertyCategory ==
-                                                                index
-                                                            ? primaryColor
-                                                            : Colors.grey[200],
-                                                    label: Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 5),
-                                                      child: Text(
-                                                          commercialPropertyTypeList[
-                                                              index],
-                                                          style: TextStyle(
-                                                              color: selectedPropertyCategory ==
-                                                                      index
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black)),
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
+                                                          child:
+                                                              GestureDetector(
+                                                                  onTap: () {
+                                                                    getpropertydetail
+                                                                            .selectedPropertyCategory
+                                                                            .value =
+                                                                        addPropertyController
+                                                                            .homelist[index]
+                                                                            .id!;
+                                                                  },
+                                                                  child: Obx(
+                                                                    () => Chip(
+                                                                      backgroundColor: getpropertydetail.selectedPropertyCategory.value ==
+                                                                              addPropertyController.homelist[index].id!
+                                                                          ? primaryColor
+                                                                          : Colors.grey[200],
+                                                                      label: Padding(
+                                                                          padding: const EdgeInsets.symmetric(
+                                                                              horizontal:
+                                                                                  5),
+                                                                          child: Text(
+                                                                              addPropertyController.homelist[index].name!,
+                                                                              style: TextStyle(color: getpropertydetail.selectedPropertyCategory.value == addPropertyController.homelist[index].id! ? Colors.white : Colors.black))),
+                                                                    ),
+                                                                  )),
+                                                        );
+                                                      },
+                                                    )),
+                                          Obx(() =>
+                                              addPropertyController
+                                                      .loadingPropertyCategory
+                                                      .value
+                                                  ? showchipshimmer()
+                                                  : ListView.builder(
+                                                      primary: true,
+                                                      shrinkWrap: false,
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      itemCount:
+                                                          addPropertyController
+                                                              .plotlist.length,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                          child:
+                                                              GestureDetector(
+                                                                  onTap: () {
+                                                                    addPropertyController
+                                                                            .selectedPropertyCategory
+                                                                            .value =
+                                                                        addPropertyController
+                                                                            .plotlist[index]
+                                                                            .id!;
+                                                                  },
+                                                                  child: Obx(
+                                                                    () => Chip(
+                                                                      backgroundColor: addPropertyController.selectedPropertyCategory.value ==
+                                                                              addPropertyController.plotlist[index].id!
+                                                                          ? primaryColor
+                                                                          : Colors.grey[200],
+                                                                      label: Padding(
+                                                                          padding: const EdgeInsets.symmetric(
+                                                                              horizontal:
+                                                                                  5),
+                                                                          child: Text(
+                                                                              addPropertyController.plotlist[index].name!,
+                                                                              style: TextStyle(color: addPropertyController.selectedPropertyCategory.value == addPropertyController.plotlist[index].id! ? Colors.white : Colors.black))),
+                                                                    ),
+                                                                  )),
+                                                        );
+                                                      },
+                                                    )),
+                                          Obx(() =>
+                                              addPropertyController
+                                                      .loadingPropertyCategory
+                                                      .value
+                                                  ? showchipshimmer()
+                                                  : ListView.builder(
+                                                      primary: true,
+                                                      shrinkWrap: false,
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      itemCount:
+                                                          addPropertyController
+                                                              .commerciallist
+                                                              .length,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                          child:
+                                                              GestureDetector(
+                                                                  onTap: () {
+                                                                    addPropertyController
+                                                                            .selectedPropertyCategory
+                                                                            .value =
+                                                                        addPropertyController
+                                                                            .commerciallist[index]
+                                                                            .id!;
+                                                                  },
+                                                                  child: Obx(
+                                                                    () => Chip(
+                                                                      backgroundColor: addPropertyController.selectedPropertyCategory.value ==
+                                                                              addPropertyController.commerciallist[index].id!
+                                                                          ? primaryColor
+                                                                          : Colors.grey[200],
+                                                                      label: Padding(
+                                                                          padding: const EdgeInsets.symmetric(
+                                                                              horizontal:
+                                                                                  5),
+                                                                          child: Text(
+                                                                              addPropertyController.commerciallist[index].name!,
+                                                                              style: TextStyle(color: addPropertyController.selectedPropertyCategory.value == addPropertyController.commerciallist[index].id! ? Colors.white : Colors.black))),
+                                                                    ),
+                                                                  )),
+                                                        );
+                                                      },
+                                                    )),
                                         ]),
                                   ),
                                 ],
@@ -1522,7 +1528,9 @@ class _EditPropertyState extends State<EditProperty>
                                               getpropertydetail
                                                   .selectedBathroom,
                                               getpropertydetail.selectedBedroom,
-                                              selectedPropertyCategory,
+                                              getpropertydetail
+                                                  .selectedPropertyCategory
+                                                  .value,
                                               getpropertydetail
                                                   .propertybyIDmodel
                                                   .data!
@@ -1584,7 +1592,9 @@ class _EditPropertyState extends State<EditProperty>
                                               getpropertydetail
                                                   .selectedBathroom,
                                               getpropertydetail.selectedBedroom,
-                                              selectedPropertyCategory,
+                                              getpropertydetail
+                                                  .selectedPropertyCategory
+                                                  .value,
                                               getpropertydetail
                                                   .propertybyIDmodel
                                                   .data!

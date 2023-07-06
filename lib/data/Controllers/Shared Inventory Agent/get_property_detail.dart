@@ -38,6 +38,7 @@ class PropertyDetailController extends GetxController {
   RxList<ListFacility> listfac = <ListFacility>[].obs;
   RxString selectedValueCity = 'Select City'.obs;
   RxInt selectedValueCityId = 0.obs;
+  RxInt selectedPropertyCategory = 1.obs;
 
   void getPropertydetail(int pid) async {
     listfac.clear();
@@ -58,6 +59,7 @@ class PropertyDetailController extends GetxController {
       dropdownvalue = res.data!.currency!.title.toString();
       selectedValueCity.value = propertybyIDmodel.data!.city?.name ?? '';
       networkimglst = res.data!.images!;
+      selectedPropertyCategory.value = int.parse(res.data!.categoryId!);
       selectedValueCityId.value = int.parse(res.data!.cityId!);
       if (res.data!.facilities!.isNotEmpty) {
         for (var e in res.data!.facilities!) {

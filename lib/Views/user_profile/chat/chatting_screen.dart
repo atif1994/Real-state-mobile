@@ -62,8 +62,6 @@ class _ChatingState extends State<Chating> {
     // Scroll to the bottom after the frame is built
     // scrollController.jumpTo(scrollController.position.maxScrollExtent);
     // });
-
-    chatscroll();
   }
 
   void getUserId() async {
@@ -504,12 +502,14 @@ class _ChatingState extends State<Chating> {
       print("error: ${error!.message}");
     });
 
-    Channel channel = pusher.subscribe('message_${chattController.uid}');
+    Channel channel =
+        pusher.subscribe('private-message_${chattController.uid}');
+    print('recieve data');
 
     channel.bind('App\\Events\\MessageSent', (PusherEvent? event) {
-      // print('event data: ${event!.data}');
+      print('event data: ${event!.data}');
 
-      final data = json.decode(event!.data.toString());
+      final data = json.decode(event.data.toString());
 
       setState(() {
         chattController.chatModel.data!.add(Datum(
@@ -517,6 +517,8 @@ class _ChatingState extends State<Chating> {
             senderId: widget.customerId,
             id: int.parse(widget.agentId.toString())));
       });
+
+      chatscroll();
     });
   }
 
