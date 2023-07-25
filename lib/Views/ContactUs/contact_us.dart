@@ -164,7 +164,11 @@ class _ContactUsState extends State<ContactUs> {
                                 SizedBox(
                                   width: 5.0.w,
                                 ),
-                                const Text('Bahria Town Phase 7')
+                                const Flexible(
+                                  child: Text(
+                                    'Bahria Town Phase # 7 Jasim Arcade Plaza',
+                                  ),
+                                )
                               ],
                             ),
                           ),
@@ -188,7 +192,7 @@ class _ContactUsState extends State<ContactUs> {
                                 SizedBox(
                                   width: 5.0.w,
                                 ),
-                                const Text('051-5678982')
+                                const Text('555-111-888-999')
                               ],
                             ),
                           )

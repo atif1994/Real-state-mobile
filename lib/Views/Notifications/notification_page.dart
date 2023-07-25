@@ -4,6 +4,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:prologic_29/utils/constants/image_resources.dart';
 import 'package:pusher_client/pusher_client.dart';
 //import 'package:prologic_29/data/Controllers/Notification/Notification_Controller.dart';
 import 'package:sizer/sizer.dart';
@@ -69,6 +71,13 @@ class _AllNotificationsState extends State<AllNotifications> {
                         itemCount: notificationsController
                             .notificationModel.data?.length,
                         itemBuilder: (context, index) {
+                          DateTime inputDateTime = DateTime.parse(
+                              notificationsController
+                                  .notificationModel.data![index]!.createdAt
+                                  .toString());
+                          String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(inputDateTime);
+
                           return Container(
                             margin: EdgeInsets.only(
                                 left: 3.0.w,
@@ -85,50 +94,70 @@ class _AllNotificationsState extends State<AllNotifications> {
                             height: 9.0.h,
                             width: 100.0.w,
                             decoration: CustomDecorations.mainCon,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Row(
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 3.0.w, right: 3.0.w),
-                                  child: Text(
-                                    notificationsController
-                                        .notificationModel.data![index]!.id
-                                        .toString(),
-                                    style: AppTextStyles.appbar.copyWith(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w800),
+                                Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 2.w, vertical: 1.h),
+                                  decoration: BoxDecoration(
+                                      color:
+                                          AppColors.colorGrey.withOpacity(0.3),
+                                      shape: BoxShape.circle),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(7.sp),
+                                    child: Image.asset(
+                                      AppImageResources.notificationbell,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 1.0.h,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 1.0.w, right: 3.0.w),
+                                      child: Text(
+                                        notificationsController
+                                            .notificationModel.data![index]!.id
+                                            .toString(),
+                                        style: AppTextStyles.appbar.copyWith(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                    ),
+                                    // SizedBox(
+                                    //   height: 0.7.h,
+                                    // ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 1.0.w, right: 3.0.w),
+                                      child: Text(
+                                        notificationsController
+                                            .notificationModel
+                                            .data![index]!
+                                            .description
+                                            .toString(),
+                                        style: AppTextStyles.labelSmall,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    // SizedBox(
+                                    //   height: 1.0.h,
+                                    // ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 1.0.w, right: 3.0.w),
+                                      child: Text(
+                                        formattedDate,
+                                        style: AppTextStyles.labelSmall
+                                            .copyWith(fontSize: 9.sp),
+                                        maxLines: 3,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 3.0.w, right: 3.0.w),
-                                  child: Text(
-                                    notificationsController.notificationModel
-                                        .data![index]!.description
-                                        .toString(),
-                                    style: AppTextStyles.labelSmall,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                // SizedBox(
-                                //   height: 1.0.h,
-                                // ),
-                                // Padding(
-                                //   padding:
-                                //       EdgeInsets.only(left: 3.0.w, right: 3.0.w),
-                                //   child: Text(
-                                //     notificationsController
-                                //         .notificationModel.data![index]!.type
-                                //         .toString(),
-                                //     style: AppTextStyles.labelSmall,
-                                //     maxLines: 3,
-                                //   ),
-                                // ),
                               ],
                             ),
                           );

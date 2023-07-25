@@ -40,6 +40,10 @@ class CustomTextField extends StatelessWidget {
                 width: 1, color: Color.fromARGB(255, 132, 160, 216)),
             borderRadius: BorderRadius.circular(10),
           ),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(width: 1, color: Colors.red),
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
         validator: validate,
         onChanged: (val) {

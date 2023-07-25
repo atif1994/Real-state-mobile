@@ -262,20 +262,23 @@ class _PropertyByIDState extends State<PropertyByID> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 0.5.h, left: 4.0.w),
-                            child: Text(
-                              "Description: ${propertybyyidController.propertybyIDmodel.data!.description ?? ""}",
-                              style: AppTextStyles.labelSmall.copyWith(
-                                color: AppColors.colorblack,
-                              ),
-                            ),
-                          ),
-                        ),
 
                         Column(
                           children: [
+                            Row(
+                              children: [
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(top: 0.5.h, left: 4.0.w),
+                                  child: Text(
+                                    "Description: ${propertybyyidController.propertybyIDmodel.data!.description ?? ""}",
+                                    style: AppTextStyles.labelSmall.copyWith(
+                                      color: AppColors.colorblack,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                             Row(children: [
                               Padding(
                                 padding:

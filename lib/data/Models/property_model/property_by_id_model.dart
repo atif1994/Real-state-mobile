@@ -178,7 +178,7 @@ class Data {
         country: json["country"] == null
             ? []
             : List<dynamic>.from(json["country"]!.map((x) => x)),
-        state: json["state"] == null ? null : State.fromJson(json["state"]),
+        // state: json["state"] == null ? null : State.fromJson(json["state"]),
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
