@@ -9,11 +9,13 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:prologic_29/Views/Auth/auth.dart';
+import 'package:prologic_29/Views/user_profile/chat/chatting_screen.dart';
 import 'package:prologic_29/data/Services/app_bindings.dart';
 import 'package:prologic_29/data/Services/local_notifications_service.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:sizer/sizer.dart';
+
+import 'Views/Auth/auth.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
   print(message.data.toString());

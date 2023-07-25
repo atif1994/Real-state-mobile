@@ -88,7 +88,7 @@ class CustomDrawer extends StatelessWidget {
                                 fit: BoxFit.cover,
                               )
                             : Image.asset(
-                                "assets/person.jpg",
+                                "assets/user.jpg",
                                 fit: BoxFit.cover,
                               ),
                       ),

@@ -11,6 +11,7 @@ class AppImageResources {
   static const String commercial = 'assets/icons/skyline.png';
   static const String house = 'assets/house.png';
   static const String property = 'assets/hhh.jpeg';
+  static const String noimage = 'assets/noimagefound.png';
   static const String bath = 'assets/icons/bath.png';
   static const String bed = 'assets/icons/bed.png';
   static const String propertyblog = 'assets/property.jpg';

@@ -114,7 +114,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                                                     CachedNetworkImageProvider(
                                               widget.loginBaseImage != ""
                                                   ? "${widget.loginBaseImage}"
-                                                  : "https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4",
+                                                  : "https://img.freepik.com/free-icon/user_318-159711.jpg",
                                             ))),
                                         SizedBox(
                                           height: 2.0.h,

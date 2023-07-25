@@ -1,14 +1,14 @@
 // ignore_for_file: must_be_immutable
-import 'dart:math' as math;
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'dart:math' as math;
+
 import 'package:prologic_29/custom_widgets/custom_textfield.dart';
 import 'package:prologic_29/data/Controllers/chat_controller.dart';
 import 'package:prologic_29/data/Controllers/user_profile_section_controller/profile_propertise_controller/profile_all_propertise_controller.dart';
 import 'package:prologic_29/data/Models/Chat_Model/chat_model.dart';
-import 'package:prologic_29/data/Services/constants.dart';
 import 'package:prologic_29/utils/constants/app_urls.dart';
 import 'package:prologic_29/utils/constants/appcolors.dart';
 import 'package:prologic_29/utils/constants/session_controller.dart';
@@ -16,6 +16,8 @@ import 'package:prologic_29/utils/styles/app_textstyles.dart';
 import 'package:pusher_client/pusher_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../data/Services/constants.dart';
 
 class Chating extends StatefulWidget {
   String? name;
@@ -57,7 +59,7 @@ class _ChatingState extends State<Chating> {
 
     print("con id in chatting screen____ ${widget.conId!}");
     chattController.getChat(int.parse(widget.conId!));
-
+    chatscroll();
     // WidgetsBinding.instance.addPostFrameCallback((_) {
     // Scroll to the bottom after the frame is built
     // scrollController.jumpTo(scrollController.position.maxScrollExtent);
@@ -85,12 +87,12 @@ class _ChatingState extends State<Chating> {
           style: AppTextStyles.heading1,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
                 margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w, top: 2.0.h),
-                height: 78.0.h,
+                // height: 78.0.h,
                 width: 100.0.w,
                 child:
                     // Obx(() => chattController.loadingChat.value
@@ -113,7 +115,7 @@ class _ChatingState extends State<Chating> {
                       builder: (context, snapshot) {
                         if (snapshot.data != null) {
                           return ListView.builder(
-                            // controller: chattController.scrollController,
+                            controller: chattController.scrollController,
                             // padding: const EdgeInsets.only(bottom: 15),
                             shrinkWrap: true,
                             itemCount: controller.chatModel.data?.length,
@@ -196,72 +198,74 @@ class _ChatingState extends State<Chating> {
                                         : const SizedBox()
                                   ],
                                 ),
-                                //     SizedBox(
-                                //   width: 50.0.w,
-                                //   child: Container(
-                                //     margin: EdgeInsets.only(
-                                //       top: 1.0.h,
-                                //       bottom: .5.h,
-                                //     ),
-                                //     decoration: BoxDecoration(
-                                // color: uid ==
-                                //         controller.chatModel
-                                //             .data![index].senderId
-                                // ? const Color.fromARGB(
-                                //     255, 110, 132, 151)
-                                //             : AppColors.themecolor,
-                                //         borderRadius: const BorderRadius.only(
-                                //             topRight: Radius.circular(10),
-                                //             bottomLeft: Radius.circular(10))),
-                                //     child: Padding(
-                                //       padding: EdgeInsets.only(
-                                //           left: 2.0.w,
-                                //           top: 1.0.h,
-                                //           bottom: 2.0.h),
-                                //       child: Column(
-                                //         crossAxisAlignment:
-                                //             CrossAxisAlignment.start,
-                                //         children: [
-                                //           Text(
-                                // uid ==
-                                //         controller.chatModel
-                                //             .data![index].senderId
-                                //     ? "You"
-                                //     : controller
-                                //             .chatModel
-                                //             .data?[index]
-                                //             .user!
-                                //             .username ??
-                                //         "",
-                                //             style: AppTextStyles.appbar
-                                //                 .copyWith(
-                                //                     fontWeight:
-                                //                         FontWeight.bold),
-                                //           ),
-                                //           SizedBox(
-                                //             height: 1.0.h,
-                                //           ),
-                                //           Container(
-                                //             margin: const EdgeInsets.only(
-                                //               left: 10,
-                                //             ),
-                                //             // color: Colors.red,
-                                //             width: 65.0.w,
-                                //             child: Text(
-                                // controller.chatModel
-                                //         .data?[index].message ??
-                                //     "",
-                                //               style: AppTextStyles.labelSmall
-                                //                   .copyWith(
-                                //                       color: AppColors
-                                //                           .colorWhite),
-                                //             ),
-                                //           ),
-                                //         ],
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
+
+                                //..
+                                //                 //     SizedBox(
+                                //                 //   width: 50.0.w,
+                                //                 //   child: Container(
+                                //                 //     margin: EdgeInsets.only(
+                                //                 //       top: 1.0.h,
+                                //                 //       bottom: .5.h,
+                                //                 //     ),
+                                //                 //     decoration: BoxDecoration(
+                                //                 // color: uid ==
+                                //                 //         controller.chatModel
+                                //                 //             .data![index].senderId
+                                //                 // ? const Color.fromARGB(
+                                //                 //     255, 110, 132, 151)
+                                //                 //             : AppColors.themecolor,
+                                //                 //         borderRadius: const BorderRadius.only(
+                                //                 //             topRight: Radius.circular(10),
+                                //                 //             bottomLeft: Radius.circular(10))),
+                                //                 //     child: Padding(
+                                //                 //       padding: EdgeInsets.only(
+                                //                 //           left: 2.0.w,
+                                //                 //           top: 1.0.h,
+                                //                 //           bottom: 2.0.h),
+                                //                 //       child: Column(
+                                //                 //         crossAxisAlignment:
+                                //                 //             CrossAxisAlignment.start,
+                                //                 //         children: [
+                                //                 //           Text(
+                                //                 // uid ==
+                                //                 //         controller.chatModel
+                                //                 //             .data![index].senderId
+                                //                 //     ? "You"
+                                //                 //     : controller
+                                //                 //             .chatModel
+                                //                 //             .data?[index]
+                                //                 //             .user!
+                                //                 //             .username ??
+                                //                 //         "",
+                                //                 //             style: AppTextStyles.appbar
+                                //                 //                 .copyWith(
+                                //                 //                     fontWeight:
+                                //                 //                         FontWeight.bold),
+                                //                 //           ),
+                                //                 //           SizedBox(
+                                //                 //             height: 1.0.h,
+                                //                 //           ),
+                                //                 //           Container(
+                                //                 //             margin: const EdgeInsets.only(
+                                //                 //               left: 10,
+                                //                 //             ),
+                                //                 //             // color: Colors.red,
+                                //                 //             width: 65.0.w,
+                                //                 //             child: Text(
+                                //                 // controller.chatModel
+                                //                 //         .data?[index].message ??
+                                //                 //     "",
+                                //                 //               style: AppTextStyles.labelSmall
+                                //                 //                   .copyWith(
+                                //                 //                       color: AppColors
+                                //                 //                           .colorWhite),
+                                //                 //             ),
+                                //                 //           ),
+                                //                 //         ],
+                                //                 //       ),
+                                //                 //     ),
+                                //                 //   ),
+                                //                 // ),
                               );
                             },
                           );
@@ -274,9 +278,13 @@ class _ChatingState extends State<Chating> {
                     );
                   },
                 )
+
                 // )
+
                 ),
-            Row(
+          ),
+          Container(
+            child: Row(
               children: [
                 OutlinedButton(
                     style:
@@ -311,8 +319,8 @@ class _ChatingState extends State<Chating> {
                             int.parse(widget.agentId.toString()),
                             chatController.text,
                             int.parse(widget.conId.toString()));
-                        // chattController
-                        //     .getChat(int.parse(widget.conId.toString()));
+                        chattController
+                            .getChat(int.parse(widget.conId.toString()));
                         sendmessagescroll();
                         chatController.clear();
                       }
@@ -322,9 +330,9 @@ class _ChatingState extends State<Chating> {
                       color: AppColors.appthem,
                     ))
               ],
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -517,13 +525,13 @@ class _ChatingState extends State<Chating> {
             senderId: widget.customerId,
             id: int.parse(widget.agentId.toString())));
       });
-
+      print('Listen customer chat');
       chatscroll();
     });
   }
 
   void sendmessagescroll() async {
-    await Future.delayed(const Duration(milliseconds: 6000));
+    await Future.delayed(const Duration(seconds: 8));
 
     chattController.scrollController.animateTo(
         chattController.scrollController.position.maxScrollExtent,
@@ -532,7 +540,7 @@ class _ChatingState extends State<Chating> {
   }
 
   void chatscroll() async {
-    await Future.delayed(const Duration(milliseconds: 4000));
+    await Future.delayed(const Duration(seconds: 9));
 
     chattController.scrollController.animateTo(
         chattController.scrollController.position.maxScrollExtent,

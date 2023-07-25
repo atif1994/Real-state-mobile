@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../../data/Controllers/property_bycity_controller.dart';
+import '../../utils/constants/app_urls.dart';
 import '../../utils/constants/appcolors.dart';
 import '../../utils/constants/image_resources.dart';
 import '../../utils/styles/app_textstyles.dart';
@@ -116,10 +117,18 @@ class _PropertyByCityScreenState extends State<PropertyByCityScreen> {
                                                           Radius.circular(10),
                                                       topRight:
                                                           Radius.circular(10)),
-                                              child: Image.asset(
-                                                AppImageResources.property,
-                                                fit: BoxFit.cover,
-                                              ),
+                                              child: propertybyCityController
+                                                          .propertybyCityModel
+                                                          .data!
+                                                          .data![index]
+                                                          .images[0] ==
+                                                      null
+                                                  ? Image.asset(
+                                                      AppImageResources.noimage)
+                                                  : Image.network(
+                                                      '${AppUrls.baseUrl2}${propertybyCityController.propertybyCityModel.data!.data![index].images[0]}',
+                                                      fit: BoxFit.cover,
+                                                    ),
                                             ),
                                           ),
                                         ]),

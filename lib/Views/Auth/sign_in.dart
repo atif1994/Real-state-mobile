@@ -64,29 +64,30 @@ class _SignInState extends State<SignIn> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     //...........
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            dropdownvalue = 'customer';
-                                            controller.emailController.text =
-                                                'zebi.biit@gmail.com';
-                                            controller.passwordController.text =
-                                                'test12345';
-                                          });
-                                        },
-                                        child: const Text('Customer')),
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            dropdownvalue = 'agent';
-                                            controller.emailController.text =
-                                                'agent@gmail.com';
-                                            controller.passwordController.text =
-                                                'test1234';
-                                          });
-                                        },
-                                        child: const Text('agent')),
+                                    // ElevatedButton(
+                                    //     onPressed: () {
+                                    //       setState(() {
+                                    //         dropdownvalue = 'customer';
+                                    //         controller.emailController.text =
+                                    //             'zebi.biit@gmail.com';
+                                    //         controller.passwordController.text =
+                                    //             'test12345';
+                                    //       });
+                                    //     },
+                                    //     child: const Text('Customer')),
+                                    // ElevatedButton(
+                                    //     onPressed: () {
+                                    //       setState(() {
+                                    //         dropdownvalue = 'agent';
+                                    //         controller.emailController.text =
+                                    //             'agent@gmail.com';
+                                    //         controller.passwordController.text =
+                                    //             'test1234';
+                                    //       });
+                                    //     },
+                                    //     child: const Text('agent')),
                                     //..............
+
                                     const Padding(
                                       padding: EdgeInsets.only(bottom: 25),
                                       child: Text('Sign In',

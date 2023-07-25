@@ -58,7 +58,7 @@ class _AgentChatingState extends State<AgentChating> {
     // scrollController.jumpTo(scrollController.position.maxScrollExtent);
     // });
 
-    // chatscroll();
+    chatscroll();
   }
 
   void getUserId() async {
@@ -81,11 +81,12 @@ class _AgentChatingState extends State<AgentChating> {
           widget.name ?? '',
           style: AppTextStyles.heading1,
         ),
+        leading: const BackButton(),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
                 // color: Colors.amber,
                 margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w, top: 1.0.h),
                 height: 79.0.h,
@@ -106,6 +107,9 @@ class _AgentChatingState extends State<AgentChating> {
                       future: controller
                           .getChat(int.parse(widget.conId.toString())),
                       builder: (context, snapshot) {
+                        print("all dataaa: ${snapshot.data}");
+                        print("statee: ${snapshot.connectionState}");
+                        print("loader:  ${chattController.loadChat.value}");
                         if (snapshot.data != null) {
                           return ListView.builder(
                             controller: chattController.scrollController,
@@ -205,52 +209,69 @@ class _AgentChatingState extends State<AgentChating> {
                 )
                 // ),
                 ),
+          ),
 
-            ////////////////
+          ////////////////
 
-            Row(
-              children: [
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomTextField(
-                    editingController: chatController,
-                    hintText: "Message",
-                    onChanged: (val) {},
-                  ),
-                )),
-                IconButton(
-                    onPressed: () async {
-                      print(
-                          "message send........ data before send  chat Api Call in coId= + ${int.parse(widget.conId.toString())} + agent= ${int.parse(widget.agentId.toString())} + customer =${int.parse(widget.customerId.toString())}");
-                      if (chatController.text.isEmpty) {
-                        Fluttertoast.showToast(
-                            msg: 'Write message first',
-                            gravity: ToastGravity.TOP);
-                      } else {
-                        chattController.sendMsgMethod(
-                          int.parse(widget.customerId.toString()),
-                          int.parse(widget.agentId.toString()),
-                          chatController.text,
-                          int.parse(widget.conId.toString()),
-                        );
-                      }
-                      chatController.clear();
-                      chattController
-                          .getChat(int.parse(widget.conId.toString()));
-                      await Future.delayed(const Duration(seconds: 1));
-                    },
-                    icon: const Icon(
-                      Icons.send,
-                      color: AppColors.appthem,
-                    ))
-              ],
-            ),
-            // )
-          ],
-        ),
+          Row(
+            children: [
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomTextField(
+                  editingController: chatController,
+                  hintText: "Message",
+                  onChanged: (val) {},
+                ),
+              )),
+              IconButton(
+                  onPressed: () async {
+                    print(
+                        "message send........ data before send  chat Api Call in coId= + ${int.parse(widget.conId.toString())} + agent= ${int.parse(widget.agentId.toString())} + customer =${int.parse(widget.customerId.toString())}");
+                    if (chatController.text.isEmpty) {
+                      Fluttertoast.showToast(
+                          msg: 'Write message first',
+                          gravity: ToastGravity.TOP);
+                    } else {
+                      chattController.sendMsgMethod(
+                        int.parse(widget.customerId.toString()),
+                        int.parse(widget.agentId.toString()),
+                        chatController.text,
+                        int.parse(widget.conId.toString()),
+                      );
+                    }
+                    chattController.getChat(int.parse(widget.conId.toString()));
+                    chatController.clear();
+                    sendmessagescroll();
+                  },
+                  icon: const Icon(
+                    Icons.send,
+                    color: AppColors.appthem,
+                  ))
+            ],
+          ),
+          // )
+        ],
       ),
     );
+  }
+
+  void sendmessagescroll() async {
+    await Future.delayed(const Duration(seconds: 8));
+
+    chattController.scrollController.animateTo(
+        chattController.scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.easeOut);
+  }
+
+  void chatscroll() async {
+    await Future.delayed(const Duration(seconds: 5));
+
+    chattController.scrollController.animateTo(
+        chattController.scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.easeOut);
   }
 
   Future<void> _initiatePusherSocketForMessaging() async {
@@ -289,6 +310,7 @@ class _AgentChatingState extends State<AgentChating> {
             senderId: widget.customerId,
             id: int.parse(widget.agentId.toString())));
       });
+      print('Listen agent chat');
     });
   }
 

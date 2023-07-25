@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:prologic_29/Services/constants.dart';
+import 'package:prologic_29/Views/Agent/dashboard.dart';
 import 'package:prologic_29/data/Models/addproperty_model/addproperty_model.dart';
 
 import '../../Services/Agent Shared InventoryService/edit_property_service.dart';
@@ -58,13 +59,17 @@ class EditProperrtyController extends GetxController {
         addedFacilityList: addedFacilityList,
         status: status);
     if (res is AddPropertyModel) {
+      print('navigate');
       addPropertyModel = res;
       loadingEditProperty.value = false;
     } else {
       loadingEditProperty.value = false;
       errorLoadingEditProperty.value = res.toString();
+      print('dont navigate');
     }
-    apptoastshow(addPropertyModel.message);
+    Get.off(() => const AgentDashboard());
+
+    apptoastshow('Property publish');
   }
 
   RxBool loadingEditSaveProperty = false.obs;

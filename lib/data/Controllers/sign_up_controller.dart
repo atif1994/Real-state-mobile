@@ -60,6 +60,13 @@ class SignUpController extends GetxController {
     }
   }
 
+  void saveCredientials(role) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("email", emailController.text);
+    pref.setString("pass", passwordController.text);
+    pref.setString('role', role);
+  }
+
   signUp() async {
     print(CountryController.text);
     print(SateController.text);
@@ -92,6 +99,10 @@ class SignUpController extends GetxController {
         lastname: res.data!.lastName!,
         email: res.data!.email!,
       ));
+      int? userid = res.data!.id;
+      setUserid(userid!);
+      saveCredientials('customer');
+
       _saveCountryData(
           1,
           '',
@@ -132,5 +143,10 @@ class SignUpController extends GetxController {
     pref.setString("imgurl", imgurl);
 
     print("image store in shared pref. from login==========$imgurl");
+  }
+
+  void setUserid(int userid) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt("userid", userid);
   }
 }
