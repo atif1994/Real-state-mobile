@@ -81,12 +81,8 @@ class Moreplaces extends StatelessWidget {
                                                           Radius.circular(10),
                                                       topRight:
                                                           Radius.circular(10)),
-                                              child: moreplacescontroller
-                                                          .moreplaceresponse
-                                                          .data!
-                                                          .data![index]
-                                                          .images ==
-                                                      null
+                                              child:  moreplacescontroller.moreplaceresponse.data?.data?[index].images == null ||
+                                                  moreplacescontroller.moreplaceresponse.data!.data![index].images!.isEmpty
                                                   ? Image.asset(
                                                       AppImageResources
                                                           .property,
@@ -127,7 +123,7 @@ class Moreplaces extends StatelessWidget {
                                                     .moreplaceresponse
                                                     .data!
                                                     .data![index]
-                                                    .type!
+
                                                     .name
                                                     .toString(),
                                                 style: AppTextStyles.labelSmall
