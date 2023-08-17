@@ -1292,54 +1292,7 @@ class _HomeState extends State<Home> {
                                       );
                           })),
 
-                      //post an add
-                      // Container(
-                      //   margin: EdgeInsets.only(
-                      //       left: 3.0.w, right: 3.0.w, top: 2.0.h),
-                      //   height: 20.0.h,
-                      //   width: 100.0.w,
-                      //   decoration: CustomDecorations.mainCon,
-                      //   child: Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //       Row(
-                      //         children: [
-                      //           Image.asset(
-                      //             AppImageResources.house,
-                      //             height: 12.0.h,
-                      //           ),
-                      //           SizedBox(
-                      //             width: 2.0.w,
-                      //           ),
-                      //           SizedBox(
-                      //             width: 40.0.w,
-                      //             child: Text(
-                      //               "Looking to sell or rent out your property",
-                      //               style: AppTextStyles.labelSmall
-                      //                   .copyWith(fontSize: 11.sp),
-                      //             ),
-                      //           )
-                      //         ],
-                      //       ),
-                      //       Container(
-                      //         margin: EdgeInsets.only(
-                      //             left: 3.0.w, right: 3.0.w, top: 1.0.h),
-                      //         height: 4.0.h,
-                      //         width: 100.0.w,
-                      //         decoration: BoxDecoration(
-                      //             color: AppColors.appthem,
-                      //             borderRadius: BorderRadius.circular(10)),
-                      //         child: Center(
-                      //           child: Text(
-                      //             "Post an Ad",
-                      //             style: AppTextStyles.heading1
-                      //                 .copyWith(color: Colors.white),
-                      //           ),
-                      //         ),
-                      //       )
-                      //     ],
-                      //   ),
-                      // ),
+
 
                       ///cites/locations
                       Container(
