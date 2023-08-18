@@ -59,7 +59,7 @@ class AddProperrtyController extends GetxController {
         streetNo: streetNo,
         plotNo: plotNo,
         location: location,
-        cityId: cityId,
+        cityId: cityId.toString(),
         price: price,
         square: square,
         numberFloor: numberFloor,

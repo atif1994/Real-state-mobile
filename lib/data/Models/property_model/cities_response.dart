@@ -33,8 +33,8 @@ class CitiesResponse {
 }
 
 class Datum {
-  int? id;
-  String? name;
+  dynamic id;
+  dynamic name;
   String? slug;
   String? propertiesCount;
   List<Metadatum>? metadata;

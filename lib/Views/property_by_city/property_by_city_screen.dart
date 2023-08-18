@@ -334,6 +334,7 @@ class _PropertyByCityScreenState extends State<PropertyByCityScreen> {
                                   SizedBox(
                                     width: 24.0.w,
                                   ),
+                                  SizedBox(height: 8,)
                                   // Container(
                                   //   margin: EdgeInsets.only(
                                   //       right: 5.0.w,

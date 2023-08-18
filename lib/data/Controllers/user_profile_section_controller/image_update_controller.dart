@@ -24,6 +24,7 @@ class UpdateImageController extends GetxController {
     super.onInit();
     getuserid();
     getCredientials();
+    replaceImageFromLoginToNewUpdate();
   }
 
   void getuserid() async {
@@ -56,7 +57,7 @@ class UpdateImageController extends GetxController {
       _saveImage();
       signIn();
       loadingupdateimage.value = false;
-      Get.to(() => SettingsScreen());
+      Get.off(() => SettingsScreen());
     } else {
       errorloadingupdateimage.value = res;
       loadingupdateimage.value = false;

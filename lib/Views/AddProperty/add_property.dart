@@ -177,7 +177,7 @@ class _PropertyState extends State<Property>
 
   void getCitiese() {
     for (int i = 0; i < cityListController.citiesModel.data!.length; i++) {
-      citiese.add(cityListController.citiesModel.data![i].name ?? "");
+      citiese.add(cityListController.citiesModel.data![i].name.toString() ?? "");
     }
   }
 
@@ -382,45 +382,7 @@ class _PropertyState extends State<Property>
                     ],
                   ),
 
-                  // Row(
-                  //   children: [
-                  //     const Icon(Icons.location_on_outlined),
-                  //     Expanded(
-                  //         child: Padding(
-                  //       padding: const EdgeInsets.symmetric(
-                  //           horizontal: horizontalPadding),
-                  //       child: Column(
-                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         children: [
-                  //           const Text('City',
-                  //               textScaleFactor: 1.25,
-                  //               style: TextStyle(fontWeight: FontWeight.bold)),
-                  //           //   Text('Islamabad',
-                  //           //       style: TextStyle(color: AppColors.appthem)),
-                  //           // Padding(
-                  //           //   padding: const EdgeInsets.all(10),
-                  //           //   child: DropdownButton(
-                  //           //       isExpanded: true,
-                  //           //       value: dropdownvalue,
-                  //           //       items: items.map((String items) {
-                  //           //         return DropdownMenuItem(
-                  //           //           value: items,
-                  //           //           child: Text(items.toString()),
-                  //           //         );
-                  //           //       }).toList(),
-                  //           //       onChanged: (String? newValue) {
-                  //           //         setState(() {
-                  //           //           selectedValueCity = newValue!;
-                  //           //         });
-                  //           //       }),
-                  //           // ),
 
-                  //         ],
-                  //       ),
-                  //     )),
-                  //     const Icon(Icons.arrow_forward_ios),
-                  //   ],
-                  // ),
                   myDivider(),
                   SizedBox(
                     height: 120,
@@ -1278,108 +1240,7 @@ class _PropertyState extends State<Property>
                           )),
               ),
 
-              // Row(children: [
-              //   Checkbox(
-              //       value: checkBoxValue1,
-              //       onChanged: (value) {
-              //         setState(() {
-              //           checkBoxValue1 = value!;
-              //           if (checkBoxValue1 == true) {
-              //             addFeaturesList.add(featuresList[0]);
-              //             addedFeaturesList.add(0);
-              //           } else {
-              //             addFeaturesList.remove("Balcony");
-              //             addedFeaturesList.remove(0);
-              //           }
-              //         });
-              //       }),
-              //   const Text('Balcony')
-              // ]),
-              // Row(children: [
-              //   Checkbox(
-              //       value: checkBoxValue2,
-              //       onChanged: (value) {
-              //         setState(() {
-              //           checkBoxValue2 = value!;
-              //           if (value == true) {
-              //             addFeaturesList.add(featuresList[1]);
-              //             addedFeaturesList.add(1);
-              //           } else {
-              //             addFeaturesList.remove('Security Staff');
-              //             addedFeaturesList.remove(1);
-              //           }
-              //         });
-              //       }),
-              //   const Text('Security Staff')
-              // ]),
-              // Row(children: [
-              //   Checkbox(
-              //       value: checkBoxValue3,
-              //       onChanged: (value) {
-              //         setState(() {
-              //           checkBoxValue3 = value!;
-              //           if (value == true) {
-              //             addFeaturesList.add(featuresList[2]);
-              //             addedFeaturesList.add(2);
-              //           } else {
-              //             addFeaturesList.remove('Parking Area');
-              //             addedFeaturesList.remove(2);
-              //           }
-              //         });
-              //       }),
-              //   const Text('Parking Area')
-              // ]),
-              // Row(children: [
-              //   Checkbox(
-              //       value: checkBoxValue4,
-              //       onChanged: (value) {
-              //         setState(() {
-              //           checkBoxValue4 = value!;
-              //           if (value == true) {
-              //             addFeaturesList.add(featuresList[3]);
-              //             addedFeaturesList.add(3);
-              //           } else {
-              //             addFeaturesList.remove('Electricity');
-              //             addedFeaturesList.remove(3);
-              //           }
-              //         });
-              //       }),
-              //   const Text('Electricity')
-              // ]),
-              // Row(children: [
-              //   Checkbox(
-              //       value: checkBoxValue5,
-              //       onChanged: (value) {
-              //         setState(() {
-              //           checkBoxValue5 = value!;
-              //           if (value == true) {
-              //             addFeaturesList.add(featuresList[4]);
-              //             addedFeaturesList.add(4);
-              //           } else {
-              //             addFeaturesList.remove('Accessible by Road');
-              //             addedFeaturesList.remove(4);
-              //           }
-              //         });
-              //       }),
-              //   const Text('Accessible by Road')
-              // ]),
-              // Row(children: [
-              //   Checkbox(
-              //       value: checkBoxValue6,
-              //       onChanged: (value) {
-              //         setState(() {
-              //           checkBoxValue6 = value!;
-              //           if (value == true) {
-              //             addFeaturesList.add(featuresList[5]);
-              //             addedFeaturesList.add(5);
-              //           } else {
-              //             addFeaturesList.remove('Sui Gas');
-              //             addedFeaturesList.remove(5);
-              //           }
-              //         });
-              //       }),
-              //   const Text('Sui Gas'),
-              // ]),
+
 
               myDivider(),
               Column(
@@ -1468,57 +1329,10 @@ class _PropertyState extends State<Property>
                 ],
               ),
               myDivider(),
-              // Row(
-              //   children: const [
-              //     Text('Category',
-              //         style: TextStyle(fontWeight: FontWeight.bold)),
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 1.5.h,
-              // ),
+
               Column(
                 children: [
-                  // DecoratedBox(
-                  //   // decoration: CustomDecorations.mainCon,
-                  //   decoration: BoxDecoration(
 
-                  //       // borderRadius: BorderRadius.circular(5),
-                  //       borderRadius:
-                  //           const BorderRadius.all(Radius.circular(10)),
-                  //       color: const Color.fromARGB(255, 241, 239, 239),
-                  //       border: Border.all(
-                  //           color: const Color.fromARGB(255, 168, 166, 166),
-                  //           width: 1)),
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(8.0),
-                  //     child: DropdownButton(
-                  //       isExpanded: true,
-                  //       // Initial Value
-                  //       value: dropdownvalue3,
-
-                  //       // Down Arrow Icon
-                  //       icon: const Icon(Icons.keyboard_arrow_down),
-
-                  //       // Array list of items
-                  //       items: newitems.map((String items) {
-                  //         return DropdownMenuItem(
-                  //           value: items,
-                  //           child: Text(items),
-                  //         );
-                  //       }).toList(),
-                  //       // After selecting the desired option,it will
-                  //       // change button value to selected value
-                  //       onChanged: (String? newValue) {
-                  //         setState(() {
-                  //           dropdownvalue3 = newValue!;
-                  //         });
-                  //       },
-                  //     ),
-                  //   ),
-                  // ),
-
-                  //  myDivider(),
                   Padding(
                       padding: EdgeInsets.only(top: 1.h, bottom: 3.h),
                       child: Obx(() => addPropertyController
@@ -1679,12 +1493,13 @@ class _PropertyState extends State<Property>
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         int cityid = 0;
-        String cityname = '';
+        dynamic cityname = '';
         return AlertDialog(
           title: const Text('Select City'),
           content: SizedBox(
               height: Get.height * .3,
               width: 100,
+
               child: ListView.builder(
                 //scrollDirection: Axis.horizontal,
                 itemCount: citiese.length,

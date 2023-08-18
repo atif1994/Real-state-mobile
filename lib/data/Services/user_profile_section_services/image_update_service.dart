@@ -16,11 +16,14 @@ class UpdateImageService {
 
     try {
       if (res is http.Response) {
+        print("image update successfult");
         return updateimageResponseFromJson(res.body);
       } else {
+        print("image not updata successfult");
         return res;
       }
     } catch (e) {
+      print("show the image error");
       return e;
     }
   }

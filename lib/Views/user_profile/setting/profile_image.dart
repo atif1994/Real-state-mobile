@@ -59,6 +59,7 @@ class _profileImageState extends State<profileImage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: AppColors.appthem,
         centerTitle: true,
         title: Text("Image", style: AppTextStyles.heading1),
@@ -136,6 +137,7 @@ class _profileImageState extends State<profileImage> {
                           onPressed: () {
                             imageupdatecontroller
                                 .updateprofileimage(imageTemp!);
+                            print("successfully");
                             Future.delayed(const Duration(milliseconds: 500));
                           },
                           text: 'Upload Image',
