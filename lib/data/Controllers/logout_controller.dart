@@ -11,7 +11,8 @@ class LogoutController extends GetxController {
     await preferences.clear();
     await MySharedPreferences.getUserData().then((value) => value.userId != 0);
 
-    Get.off(SignIn());
+    Get.offAll(SignIn());
+
     print("logout");
   }
 }

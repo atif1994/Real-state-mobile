@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-GetShareInventoryResponse getShareInventoryResponseFromJson(String str) =>
-    GetShareInventoryResponse.fromJson(json.decode(str));
+GetShareInventoryResponse getShareInventoryResponseFromJson(String str) => GetShareInventoryResponse.fromJson(json.decode(str));
 
-String getShareInventoryResponseToJson(GetShareInventoryResponse data) =>
-    json.encode(data.toJson());
+String getShareInventoryResponseToJson(GetShareInventoryResponse data) => json.encode(data.toJson());
 
 class GetShareInventoryResponse {
   bool? error;
@@ -21,22 +19,17 @@ class GetShareInventoryResponse {
     this.message,
   });
 
-  factory GetShareInventoryResponse.fromJson(Map<String, dynamic> json) =>
-      GetShareInventoryResponse(
-        error: json["error"],
-        data: json["data"] == null
-            ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
-        message: json["message"],
-      );
+  factory GetShareInventoryResponse.fromJson(Map<String, dynamic> json) => GetShareInventoryResponse(
+    error: json["error"],
+    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+    message: json["message"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "error": error,
-        "data": data == null
-            ? []
-            : List<dynamic>.from(data!.map((x) => x.toJson())),
-        "message": message,
-      };
+    "error": error,
+    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
+    "message": message,
+  };
 }
 
 class Datum {
@@ -46,7 +39,7 @@ class Datum {
   String? description;
   String? content;
   String? location;
-  List<String>? images;
+  dynamic images;
   String? numberBedroom;
   String? numberBathroom;
   String? numberFloor;
@@ -127,99 +120,106 @@ class Datum {
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        propertyId: json["property_id"],
-        id: json["id"],
-        name: json["name"],
-        description: json["description"],
-        content: json["content"],
-        location: json["location"],
-        images: json["images"] == null
-            ? []
-            : List<String>.from(json["images"]!.map((x) => x)),
-        numberBedroom: json["number_bedroom"],
-        numberBathroom: json["number_bathroom"],
-        numberFloor: json["number_floor"],
-        square: json["square"],
-        price: json["price"],
-        currencyId: json["currency_id"],
-        cityId: json["city_id"],
-        stateId: json["state_id"],
-        countryId: json["country_id"],
-        period: json["period"],
-        authorId: json["author_id"],
-        authorType: json["author_type"],
-        categoryId: json["category_id"],
-        isFeatured: json["is_featured"],
-        moderationStatus: json["moderation_status"],
-        expireDate: json["expire_date"] == null
-            ? null
-            : DateTime.parse(json["expire_date"]),
-        autoRenew: json["auto_renew"],
-        neverExpired: json["never_expired"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
-        typeId: json["type_id"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        subcategoryId: json["subcategory_id"],
-        plotNumber: json["plot_number"],
-        streetNumber: json["street_number"],
-        sectorAndBlockName: json["sector_and_block_name"],
-        assignedAgent: json["assigned_agent"],
-        assignerId: json["assigner_id"],
-        isDeleted: json["is_deleted"],
-        isLiked: json["is_liked"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        agentId: json["agent_id"],
-      );
+    propertyId: json["property_id"],
+    id: json["id"],
+    name: json["name"],
+    description: json["description"],
+    content: json["content"],
+    location: json["location"],
+    images: json["images"],
+    numberBedroom: json["number_bedroom"],
+    numberBathroom: json["number_bathroom"],
+    numberFloor: json["number_floor"],
+    square: json["square"],
+    price: json["price"],
+    currencyId: json["currency_id"],
+    cityId: json["city_id"],
+    stateId: json["state_id"],
+    countryId: json["country_id"],
+    period: json["period"],
+    authorId: json["author_id"],
+    authorType: json["author_type"],
+    categoryId: json["category_id"],
+    isFeatured: json["is_featured"],
+    moderationStatus: json["moderation_status"],
+    expireDate: json["expire_date"] == null ? null : DateTime.parse(json["expire_date"]),
+    autoRenew: json["auto_renew"],
+    neverExpired: json["never_expired"],
+    latitude: json["latitude"],
+    longitude: json["longitude"],
+    typeId: json["type_id"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    subcategoryId: json["subcategory_id"],
+    plotNumber: json["plot_number"],
+    streetNumber: json["street_number"],
+    sectorAndBlockName: json["sector_and_block_name"],
+    assignedAgent: json["assigned_agent"],
+    assignerId: json["assigner_id"],
+    isDeleted: json["is_deleted"],
+    isLiked: json["is_liked"],
+    firstName: json["first_name"],
+    lastName: json["last_name"],
+    agentId: json["agent_id"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "property_id": propertyId,
-        "id": id,
-        "name": name,
-        "description": description,
-        "content": content,
-        "location": location,
-        "images":
-            images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
-        "number_bedroom": numberBedroom,
-        "number_bathroom": numberBathroom,
-        "number_floor": numberFloor,
-        "square": square,
-        "price": price,
-        "currency_id": currencyId,
-        "city_id": cityId,
-        "state_id": stateId,
-        "country_id": countryId,
-        "period": period,
-        "author_id": authorId,
-        "author_type": authorType,
-        "category_id": categoryId,
-        "is_featured": isFeatured,
-        "moderation_status": moderationStatus,
-        "expire_date": expireDate?.toIso8601String(),
-        "auto_renew": autoRenew,
-        "never_expired": neverExpired,
-        "latitude": latitude,
-        "longitude": longitude,
-        "type_id": typeId,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
-        "subcategory_id": subcategoryId,
-        "plot_number": plotNumber,
-        "street_number": streetNumber,
-        "sector_and_block_name": sectorAndBlockName,
-        "assigned_agent": assignedAgent,
-        "assigner_id": assignerId,
-        "is_deleted": isDeleted,
-        "is_liked": isLiked,
-        "first_name": firstName,
-        "last_name": lastName,
-        "agent_id": agentId,
-      };
+    "property_id": propertyId,
+    "id": id,
+    "name": name,
+    "description": description,
+    "content": content,
+    "location": location,
+    "images": images,
+    "number_bedroom": numberBedroom,
+    "number_bathroom": numberBathroom,
+    "number_floor": numberFloor,
+    "square": square,
+    "price": price,
+    "currency_id": currencyId,
+    "city_id": cityId,
+    "state_id": stateId,
+    "country_id": countryId,
+    "period": period,
+    "author_id": authorId,
+    "author_type": authorType,
+    "category_id": categoryId,
+    "is_featured": isFeatured,
+    "moderation_status": moderationStatus,
+    "expire_date": expireDate?.toIso8601String(),
+    "auto_renew": autoRenew,
+    "never_expired": neverExpired,
+    "latitude": latitude,
+    "longitude": longitude,
+    "type_id": typeId,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "subcategory_id": subcategoryId,
+    "plot_number": plotNumber,
+    "street_number": streetNumber,
+    "sector_and_block_name": sectorAndBlockName,
+    "assigned_agent": assignedAgent,
+    "assigner_id": assignerId,
+    "is_deleted": isDeleted,
+    "is_liked": isLiked,
+    "first_name": firstName,
+    "last_name": lastName,
+    "agent_id": agentId,
+  };
+}
+
+class ImagesClass {
+  String? the1;
+
+  ImagesClass({
+    this.the1,
+  });
+
+  factory ImagesClass.fromJson(Map<String, dynamic> json) => ImagesClass(
+    the1: json["1"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "1": the1,
+  };
 }

@@ -1398,9 +1398,7 @@ class _PropertyState extends State<Property>
                                         streetNoController.text,
                                         plotNoController.text,
                                         locatController.text,
-                                        addPropertyController
-                                            .selectedValueCityId.value
-                                            .toString(),
+                                        addPropertyController.selectedValueCityId.toString(),
                                         priceController.text,
                                         squareController.text,
                                         selectedFloor.toString(),

@@ -895,6 +895,7 @@ class _AgentDashboardState extends State<AgentDashboard> {
                 ElevatedButton(
                     onPressed: () {
                       logoutController.logout();
+
                     },
                     child: const Text('Confirm')),
                 ElevatedButton(

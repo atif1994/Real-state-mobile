@@ -9,6 +9,7 @@ class ShareInventoryServices {
   static Future<dynamic> getShareInventory(int uid) async {
     var url = "${AppUrls.baseUrl}${AppUrls.getsharedinventory}$uid";
     var res = await BaseClientClass.get(url, '');
+    print(uid.toString());
 
     try {
       if (res is http.Response) {

@@ -18,7 +18,7 @@ class AddPropertyServices {
       String? streetNo,
       String? plotNo,
       String? location,
-      String? cityId,
+      String ?cityId,
       String? stateId,
       String? price,
       String? currency,

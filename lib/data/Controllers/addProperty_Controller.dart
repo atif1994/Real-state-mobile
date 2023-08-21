@@ -59,7 +59,7 @@ class AddProperrtyController extends GetxController {
         streetNo: streetNo,
         plotNo: plotNo,
         location: location,
-        cityId: cityId.toString(),
+        cityId: cityId,
         price: price,
         square: square,
         numberFloor: numberFloor,
@@ -86,7 +86,7 @@ class AddProperrtyController extends GetxController {
   RxString selectedValueCity = 'Select City'.obs;
   List dropdownValues = [];
 
-  void selectCityFun(newValue) {
+  void selectCityFun( newValue) {
     selectedValueCityId.value = newValue;
   }
 // Features List
