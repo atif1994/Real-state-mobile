@@ -269,31 +269,32 @@ class CustomDrawer extends StatelessWidget {
                   SizedBox(
                     height: 2.0.h,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
-                    height: 6.0.h,
-                    width: 100.0.w,
-                    color: const Color.fromARGB(255, 53, 56, 61),
-                    child: ListTile(
-                      onTap: () {
-                        Get.to(() => const Property());
-                      },
-                      leading: Image.asset(
-                        AppImageResources.addproperty,
-                        color: AppColors.colorWhite,
-                        height: 2.0.h,
-                      ),
-                      title: Text(
-                        "Add Property",
-                        style: AppTextStyles.heading1
-                            .copyWith(color: AppColors.colorWhite),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                  //   height: 6.0.h,
+                  //   width: 100.0.w,
+                  //   color: const Color.fromARGB(255, 53, 56, 61),
+                  //   child: ListTile(
+                  //     onTap: () {
+                  //       Get.to(() => const Property());
+                  //     },
+                  //     leading: Image.asset(
+                  //       AppImageResources.addproperty,
+                  //       color: AppColors.colorWhite,
+                  //       height: 2.0.h,
+                  //     ),
+                  //     title: Text(
+                  //       "Add Property",
+                  //       style: AppTextStyles.heading1
+                  //           .copyWith(color: AppColors.colorWhite),
+                  //     ),
+                  //   ),
+                  // ),
                   //prologic blog
-                  SizedBox(
-                    height: 2.0.h,
-                  ),
+                  
+                  // SizedBox(
+                  //   height: 2.0.h,
+                  // ),
                   Container(
                     margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
                     height: 6.0.h,

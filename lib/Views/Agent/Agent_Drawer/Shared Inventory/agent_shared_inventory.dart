@@ -82,19 +82,21 @@ class AgentSharedInventory extends StatelessWidget {
                                 agentsharedinventorycontroller
                                         .ShareInventoryData
                                         .data![index]
-                                        .images!
-                                        .isEmpty
-                                    ? Image.asset(
-                                        "assets/noimage.jpeg",
-                                        height: 15.h,
-                                        width: 30.w,
-                                      )
-                                    : Image.network(
-                                        '${AppUrls.baseUrl2}${agentsharedinventorycontroller.ShareInventoryData.data![index].images![0]}',
-                                        // 'https://realestate.tecrux.solutions/storage/properties/broB1qXL__63f61d60725d5-150x150.jpeg',
-                                        width: 30.w,
-                                        height: 15.h,
-                                      ),
+                                        .images!=null
+                                    ?Image.network(
+                                  '${AppUrls.baseUrl2}${agentsharedinventorycontroller.ShareInventoryData.data![index].images![0]}',
+                                  // 'https://realestate.tecrux.solutions/storage/properties/broB1qXL__63f61d60725d5-150x150.jpeg',
+                                  width: 30.w,
+                                  height: 15.h,
+                                )
+
+
+
+                                    :  Image.asset(
+                          "assets/noimage.jpeg",
+                          height: 15.h,
+                          width: 30.w,
+                          ),
                                 SizedBox(
                                   width: 6.w,
                                 ),

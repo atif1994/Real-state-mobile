@@ -190,6 +190,7 @@ class _EditPropertyState extends State<EditProperty>
   List<String> base64List = [];
   @override
   Widget build(BuildContext context) {
+    print(widget.pid.toString()+"details id ");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.appthem,
