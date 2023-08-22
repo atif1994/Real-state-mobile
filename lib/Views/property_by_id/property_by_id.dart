@@ -420,7 +420,7 @@ class _PropertyByIDState extends State<PropertyByID> {
                             child: Text(
                               DateFormat("dd-MM-yyyy").format(DateTime.parse(
                                   propertybyyidController.propertybyIDmodel
-                                      .data!.category!.createdAt
+                                      .data!.category!
                                       .toString())),
                               style: AppTextStyles.labelSmall.copyWith(
                                 color: AppColors.colorblack,

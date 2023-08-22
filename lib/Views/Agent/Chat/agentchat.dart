@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../data/Controllers/agent_chat_controller/agentconversation_controller.dart';
+import '../../localNotification/local_notification.dart';
 
 class AgentChating extends StatefulWidget {
   String? name;
@@ -44,6 +45,7 @@ class _AgentChatingState extends State<AgentChating> {
   int? conversationId;
   @override
   void initState() {
+
     super.initState();
     itsMe = SessionController().userId == widget.customerId;
     getUserId();
@@ -240,9 +242,12 @@ class _AgentChatingState extends State<AgentChating> {
                         int.parse(widget.conId.toString()),
                       );
                     }
+
+
                     chattController.getChat(int.parse(widget.conId.toString()));
                     chatController.clear();
                     sendmessagescroll();
+
                   },
                   icon: const Icon(
                     Icons.send,
