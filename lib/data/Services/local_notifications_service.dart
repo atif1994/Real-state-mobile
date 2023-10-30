@@ -43,7 +43,7 @@ class LocalNotificationsApi {
     // initializationSettings  for Android
     const InitializationSettings initializationSettings =
         InitializationSettings(
-      android: AndroidInitializationSettings("@drawable/applogo"),
+      android: AndroidInitializationSettings("@drawable/ic_launcher"),
     );
 
     _notificationsPlugin.initialize(

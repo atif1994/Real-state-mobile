@@ -48,6 +48,21 @@ class SendChatController extends GetxController {
     } else {
       loadingSendChat.value = false;
       errSendChat.value = res.toString();
-    }
+    }+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 }
